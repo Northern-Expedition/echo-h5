@@ -35,11 +35,11 @@ const envList = {
     VITE_APP_PLEATFORM_THEME: 'light',
   
     // API
-    VITE_APP_BASE_API: 'https://api.cdex.top',
+    VITE_APP_BASE_API: 'https://api-22.huashuo168.net',
     // STATIC API
     VITE_APP_STATIC_API: 'https://cdexstatic.oss-cn-hongkong.aliyuncs.com',
     // WSS
-    VITE_APP_BASE_WSS: 'wss://api.cdex.top',
+    VITE_APP_BASE_WSS: 'wss://api-22.huashuo168.net',
   
     // 完整标题
     VITE_APP_META_TITLE: 'CDEX META',
