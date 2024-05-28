@@ -3,7 +3,7 @@ const envList = {
     // 当前平台
     VITE_APP_ENV: 'dev',
     // 默认主题 light dark
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     // API
     VITE_APP_BASE_API: 'https://api2.ok6.cc',
@@ -32,7 +32,7 @@ const envList = {
     // 当前平台
     VITE_APP_ENV: 'dev',
     // 默认主题 light dark
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
   
     // API
     VITE_APP_BASE_API: 'https://api-22.huashuo168.net',
@@ -72,7 +72,7 @@ const envList = {
   },
   asus: {
     VITE_APP_ENV: 'asus',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_BASE_API: 'https://api2.ok6.cc',
     VITE_APP_BASE_WSS: 'wss://api2.ok6.cc',
@@ -85,7 +85,7 @@ const envList = {
   },
   etfinex: {
     VITE_APP_ENV: 'etfinex',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'EtFinex',
     VITE_APP_EXCHANGE_NAME: 'EtFinex',
@@ -97,7 +97,7 @@ const envList = {
 
   kabit: {
     VITE_APP_ENV: 'kabit',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'Cvcdoin',
     VITE_APP_EXCHANGE_NAME: 'Cvcdoin',
@@ -109,7 +109,7 @@ const envList = {
 
   tokencan: {
     VITE_APP_ENV: 'tokencan',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'Tokencan',
     VITE_APP_EXCHANGE_NAME: 'Tokencan',
@@ -119,7 +119,7 @@ const envList = {
   },
   dentcoin: {
     VITE_APP_ENV: 'dentcoin',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'Dentcoin',
     VITE_APP_EXCHANGE_NAME: 'Dentcoin',
@@ -129,7 +129,7 @@ const envList = {
   },
   paxpay: {
     VITE_APP_ENV: 'paxpay',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'Paxpay',
     VITE_APP_EXCHANGE_NAME: 'Paxpay',
@@ -159,7 +159,7 @@ const envList = {
   },
   gmdoin: {
     VITE_APP_ENV: 'gmdoin',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'GMDoin',
     VITE_APP_EXCHANGE_NAME: 'GMDoin',
@@ -170,7 +170,7 @@ const envList = {
   },
   gemini2: {
     VITE_APP_ENV: 'gemini2',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'Robinhood',
     VITE_APP_EXCHANGE_NAME: 'Robinhood',
@@ -180,7 +180,7 @@ const envList = {
   },
   coinmarketcap: {
     VITE_APP_ENV: 'coinmarketcap',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'CoinMarketCap',
     VITE_APP_EXCHANGE_NAME: 'CoinMarketCap',
@@ -200,7 +200,7 @@ const envList = {
   },
   gmmoin: {
     VITE_APP_ENV: 'gmmoin',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'CMDoin',
     VITE_APP_EXCHANGE_NAME: 'CMDoin',
@@ -211,7 +211,7 @@ const envList = {
   },
   gmtoin: {
     VITE_APP_ENV: 'gmtoin',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'MTGqsb',
     VITE_APP_EXCHANGE_NAME: 'MTGqsb',
@@ -222,7 +222,7 @@ const envList = {
   },
   coinang: {
     VITE_APP_ENV: 'coinang',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'Coincmw',
     VITE_APP_EXCHANGE_NAME: 'Coincmw',
@@ -233,7 +233,7 @@ const envList = {
   },
   gmtoin2: {
     VITE_APP_ENV: 'gmtoin2',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'MIChskt',
     VITE_APP_EXCHANGE_NAME: 'MIChskt',
@@ -244,7 +244,7 @@ const envList = {
   },
   bitfly: {
     VITE_APP_ENV: 'bitfly',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'BitFly',
     VITE_APP_EXCHANGE_NAME: 'BitFly',
@@ -254,7 +254,7 @@ const envList = {
   },
   bityc: {
     VITE_APP_ENV: 'bityc',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'BITYC',
     VITE_APP_EXCHANGE_NAME: 'BITYC',
@@ -276,7 +276,7 @@ const envList = {
   },
   hfm: {
     VITE_APP_ENV: 'hfm',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'HFM',
     VITE_APP_EXCHANGE_NAME: 'HFM',
@@ -286,7 +286,7 @@ const envList = {
   },
   latcoin: {
     VITE_APP_ENV: 'latcoin',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'LatCoin',
     VITE_APP_EXCHANGE_NAME: 'LatCoin',
@@ -296,7 +296,7 @@ const envList = {
   },
   cmwoin: {
     VITE_APP_ENV: 'cmwoin',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'Bxmcio',
     VITE_APP_EXCHANGE_NAME: 'Bxmcio',
@@ -308,7 +308,7 @@ const envList = {
   },
   idsst: {
     VITE_APP_ENV: 'idsst',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'IDSST',
     VITE_APP_EXCHANGE_NAME: 'IDSST',
@@ -318,7 +318,7 @@ const envList = {
   },
   trustwallet: {
     VITE_APP_ENV: 'trustwallet',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'TrustWallet',
     VITE_APP_EXCHANGE_NAME: 'TrustWallet',
@@ -328,7 +328,7 @@ const envList = {
   },
   das: {
     VITE_APP_ENV: 'das',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'DAS',
     VITE_APP_EXCHANGE_NAME: 'DAS',
@@ -358,7 +358,7 @@ const envList = {
   },
   aams: {
     VITE_APP_ENV: 'aams',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'AAMS',
     VITE_APP_EXCHANGE_NAME: 'AAMS',
@@ -378,7 +378,7 @@ const envList = {
   },
   bitbyex: {
     VITE_APP_ENV: 'bitbyex',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'Bitbyex',
     VITE_APP_EXCHANGE_NAME: 'Bitbyex',
@@ -389,7 +389,7 @@ const envList = {
   },
   bkfcoin: {
     VITE_APP_ENV: 'bkfcoin',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'BKFcoin',
     VITE_APP_EXCHANGE_NAME: 'BKFcoin',
@@ -420,7 +420,7 @@ const envList = {
   },
   gatedefi: {
     VITE_APP_ENV: 'gatedefi',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'Gate-defi',
     VITE_APP_EXCHANGE_NAME: 'Gate-defi',
@@ -453,7 +453,7 @@ const envList = {
   },
   asus_light: {
     VITE_APP_ENV: 'asus_light',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_BASE_API: 'https://api2.ok6.cc',
     VITE_APP_BASE_WSS: 'wss://api2.ok6.cc',
@@ -466,7 +466,7 @@ const envList = {
   },
   robinhood2: {
     VITE_APP_ENV: 'robinhood2',
-    VITE_APP_PLEATFORM_THEME: 'light',
+    VITE_APP_PLEATFORM_THEME: 'dark',
 
     VITE_APP_META_TITLE: 'robinhood',
     VITE_APP_EXCHANGE_NAME: 'robinhood',
