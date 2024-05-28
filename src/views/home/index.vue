@@ -9,7 +9,6 @@ import { useMainStore } from '@/store/index.js'
 const mainStore = useMainStore()
 onMounted(() => {
   mainStore.getSettingConfig()
-  mainStore.setLanguage('en')
 })
 </script>
 

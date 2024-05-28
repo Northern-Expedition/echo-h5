@@ -4,13 +4,13 @@
     <!-- 搜索 -->
     <div class="search">
       <div class="searchBtn">
-        <svg-load name="lujing3047" class="searchLeft"></svg-load>
         <input
           type="text"
           v-model.trim="searchName"
           :placeholder="_t18(`search_currency`)"
           class="searchInput"
         />
+        <svg-load name="lujing3047" class="searchLeft"></svg-load>
       </div>
     </div>
     <!-- tabs -->

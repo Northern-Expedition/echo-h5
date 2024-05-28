@@ -13,11 +13,11 @@ const envList = {
     VITE_APP_BASE_WSS: 'wss://api2.ok6.cc',
 
     // 完整标题
-    VITE_APP_META_TITLE: 'DEV_TITLE',
+    VITE_APP_META_TITLE: 'ZHILIAN_Dark',
     // 交易所名称
     VITE_APP_EXCHANGE_NAME: 'DEV',
     // 缩写标题
-    VITE_APP_META_TITLE_SUB: 'DEV_TITLE_SUB',
+    VITE_APP_META_TITLE_SUB: 'ZHILIAN_Dark',
     // 关键字
     VITE_APP_META_KEYWORDS: 'DEV_KEYWORDS',
     // 描述
