@@ -49,7 +49,7 @@ const props = defineProps({
 </script>
 <style lang="scss" scoped>
 .currencyItem {
-  padding: 8px 15px;
+  padding: 8px 0;
   display: flex;
   justify-content: space-between;
   .left {

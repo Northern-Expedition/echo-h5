@@ -1,19 +1,33 @@
 <!-- 行情页面：自选，秒合约，币币交易，U本位 -->
 <template>
-  <div>
+  <div class="quote">
     <!-- 搜索 -->
-    <div class="search">
-      <div class="searchBtn">
-        <input
-          type="text"
-          v-model.trim="searchName"
-          :placeholder="_t18(`search_currency`)"
-          class="searchInput"
-        />
-        <svg-load name="lujing3047" class="searchLeft"></svg-load>
-      </div>
-    </div>
+    <van-field
+      type="text"
+      v-model.trim="searchName"
+      :placeholder="_t18(`search_currency`)"
+      class="searchInput"
+    >
+      <template #button>
+        <van-icon
+          name="search"
+          style="color: var(--ex-default-font-color); font-size: 20px"
+        ></van-icon>
+      </template>
+    </van-field>
     <!-- tabs -->
+
+    <div class="simulate">
+      <div class="left_tips">
+        <div class="tips_assets text-ellipsis2">交易账户暂无资产</div>
+        <div class="tips_sel">您可以尝试模拟交易</div>
+      </div>
+      <div class="right_btn">
+        模拟交易
+        <img src="@/assets/quote/quan.png" class="img right_btn-bg" />
+      </div>
+      <img src="@/assets/quote/simulate.png" class="img simulate-bg" />
+    </div>
 
     <div class="headerChoose">
       <van-tabs
@@ -84,17 +98,15 @@ watch(
 <style lang="scss" scoped>
 // 搜索
 .search {
-  padding: 20px 15px 10px;
-
   .searchBtn {
     height: 34px;
     background: var(--ex-div-bgColor22);
-    border-radius: 20px 20px 20px;
-    padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-
+    border-radius: 0.213333rem;
+    border: 0.026667rem solid var(--ex-border-color2);
+    padding: var(--van-cell-vertical-padding) var(--van-cell-horizontal-padding);
     .searchLeft {
       width: 12px;
       height: 12px;
@@ -141,6 +153,104 @@ watch(
   :deep(.van-tab--active) {
     font-weight: normal;
     color: var(--ex-home-list-ftcolor3) !important;
+  }
+}
+</style>
+
+<style lang="scss">
+.quote {
+  padding: 0.533333rem 0.426667rem 2.133333rem;
+
+  .searchInput {
+    border-radius: 0.213333rem;
+    border: 0.026667rem solid var(--ex-border-color2);
+
+    &:hover {
+      border: 0.026667rem solid var(--ex-input-focus-color);
+      outline: none;
+    }
+  }
+
+  .van-cell:after {
+    border: none;
+  }
+
+  .simulate {
+    margin: 0.266667rem 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.266667rem 0.346667rem;
+    position: relative;
+
+    .left_tips {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      .tips_assets {
+        font-size: 0.453333rem;
+        color: var(--ex-default-font-color-deep2);
+        font-weight: 600;
+      }
+
+      .text-ellipsis2 {
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        word-break: break-all;
+        -webkit-box-orient: vertical;
+      }
+
+      .tips_sel {
+        padding: 0.106667rem 0.266667rem;
+        background-color: var(--ex-two-level-theme-color);
+        font-size: 0.32rem;
+        color: var(--ex-default-reverse-font-color);
+        border-radius: 0.293333rem;
+        width: -moz-fit-content;
+        width: fit-content;
+        margin-top: 0.266667rem;
+      }
+    }
+
+    .right_btn {
+      width: 1.546667rem;
+      height: 1.546667rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.32rem;
+      word-wrap: break-word;
+      color: var(--ex-default-reverse-font-color);
+      flex-shrink: 0;
+      position: relative;
+
+      .right_btn-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+    }
+
+    .simulate-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      -o-object-fit: fill;
+      object-fit: fill;
+    }
   }
 }
 </style>

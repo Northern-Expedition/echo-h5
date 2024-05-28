@@ -56,7 +56,7 @@
   /* 顶部底边框颜色*/
   --ex-home-top-border-color: #34393e;
   /* 输入框背景颜色 字体*/
-  --ex-input-background-color: #34393e;
+  --ex-input-background-color: #161a33;
   --ex-input-label-ftcolor: #a0a5af;
   --ex-input-font-color: #505358;
 
@@ -69,7 +69,7 @@
 
   /* 高级认证 实名认证*/
   /* 输入框背景颜色 字体 边框*/
-  --ex-input-background-color2: #34393e;
+  --ex-input-background-color2: #161a33;
   --ex-input-border-color: #34393e;
   --ex-input-label-color: #a0a5af;
   --ex-input-font-color2: #505358;
@@ -171,15 +171,15 @@
   --ex-font-color28: #3bac72;
 
   /* 背景色 #1c1c1c */
-  --ex-div-bgColor: #34393e;
+  --ex-div-bgColor: #252a4d;
   --ex-div-bgColor1: #17ac74;
   --ex-div-bgColor2: #f5f5f5;
   --ex-div-bgColor3: #d9d9d9;
   --ex-div-bgColor4: #515151;
-  --ex-div-bgColor5: #464851;
+  --ex-div-bgColor5: #252a4d;
   --ex-div-bgColor6: #e7f1ed;
   --ex-div-bgColor7: #df163d;
-  --ex-div-bgColor8: #34393e;
+  --ex-div-bgColor8: #0e1327;
   --ex-div-bgColor9: #d50f3a;
   --ex-div-bgColor10: #131722;
   --ex-div-bgColor11: #34393e;
@@ -229,4 +229,8 @@
   --ex-border-color6: #eee;
   --ex-border-color8: #777777;
   --ex-border-color9: #777777;
+
+  --van-cell-background: var(--ex-input-background-color);
+  --ex-input-focus-color: #8885fb;
+  --ex-two-level-theme-color: #00e291;
 }
