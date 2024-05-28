@@ -7,62 +7,17 @@
       <h1 :class="showTab===1?'active title':'title'" @click="handelShowTab(1)">外汇币种<i></i></h1>
     </div> -->
     <div class="headerChoose">
-      <van-tabs
-        v-model:active="showTab"
-        line-width="20"
-        line-height="2"
-        title-active-color="#17AC74"
-        color="#17ac74"
-        title-inactive-color="#5d626d"
-        @click-tab="handelShowTab(showTab)"
-        shrink
-      >
+      <van-tabs v-model:active="showTab" swipeable @click-tab="handelShowTab(showTab)">
         <van-tab v-for="(item, index) in headerList" :key="index">
           <template #title>
-            <div v-if="item.show">{{ item.name }}</div>
+            <div v-if="item.show" class="tab-item" :class="showTab === index ? 'atv' : ''">
+              {{ item.name }}
+            </div>
           </template>
         </van-tab>
       </van-tabs>
     </div>
     <div class="main">
-      <!-- 名称 最新价 涨跌幅 -->
-      <div class="header-list">
-        <div class="item" @click="toDealSort">
-          <div>{{ _t18(`home_currencyName`, ['latcoin']) }}</div>
-          <div class="arrows" v-if="['latcoin'].includes(_getConfig('_APP_ENV'))">
-            <svg-load v-if="arrowList.firstIcon === 0" name="moren" class="itemImg"></svg-load>
-            <svg-load v-if="arrowList.firstIcon === 1" name="gao" class="itemImg"></svg-load>
-            <svg-load v-if="arrowList.firstIcon === 2" name="di" class="itemImg"></svg-load>
-          </div>
-        </div>
-        <div class="item" @click="toUpSort">
-          <div>{{ _t18(`home_newPrice`, ['latcoin']) }}</div>
-          <div class="arrows" v-if="['latcoin'].includes(_getConfig('_APP_ENV'))">
-            <svg-load v-if="arrowList.secondIcon === 0" name="moren" class="itemImg"></svg-load>
-            <svg-load v-if="arrowList.secondIcon === 1" name="gao" class="itemImg"></svg-load>
-            <svg-load v-if="arrowList.secondIcon === 2" name="di" class="itemImg"></svg-load>
-          </div>
-        </div>
-        <div class="item" @click="toRafSort">
-          <div>{{ _t18(`home_upDown`, ['latcoin', 'aams']) }}</div>
-          <div class="arrows" v-if="['latcoin'].includes(_getConfig('_APP_ENV'))">
-            <svg-load v-if="arrowList.thirdIcon === 0" name="moren" class="itemImg"></svg-load>
-            <svg-load v-if="arrowList.thirdIcon === 1" name="gao" class="itemImg"></svg-load>
-            <svg-load v-if="arrowList.thirdIcon === 2" name="di" class="itemImg"></svg-load>
-          </div>
-        </div>
-      </div>
-
-      <!-- <div v-if="tradeStore.secondContractCoinList.length">
-          <CurrencyItem
-            v-for="(item, index) in tradeStore.secondContractCoinList"
-            :key="index"
-            :currencyItem="item"
-            @click="linkTo(item)"
-          ></CurrencyItem>
-      </div>
-      <Nodata v-else></Nodata> -->
-
       <div v-if="showTab === 0 && headerList[0].show">
         <div v-if="currentCoinList0.length">
           <CurrencyItem
@@ -100,13 +55,6 @@
   </div>
 </template>
 <script setup>
-import {
-  letterSmallToLarge,
-  letterLargeToSmall,
-  LatestpriceLargeToSmall,
-  LatestpriceSmallToLarge,
-  filterKeyWord
-} from '@/utils/filters'
 import CurrencyItem from '@/components/CurrencyList/currencyItem.vue'
 import { useTradeStore } from '@/store/trade/index'
 import { useMainStore } from '@/store/index.js'
@@ -161,143 +109,7 @@ let arrowList = ref({
   secondIcon: 0,
   thirdIcon: 0
 })
-// 切换名称
-const toDealSort = () => {
-  arrowList.value.secondIcon = 0
-  arrowList.value.thirdIcon = 0
-  console.log(arrowList.value)
-  if (arrowList.value.firstIcon == 0) {
-    arrowList.value.firstIcon = 1
-    currentCoinList0.value = letterSmallToLarge(currentCoinList0.value, 'coin')
-    currentCoinList1.value = letterSmallToLarge(currentCoinList1.value, 'coin')
-    currentCoinList2.value = letterSmallToLarge(currentCoinList2.value, 'coin')
-  } else if (arrowList.value.firstIcon == 1) {
-    arrowList.value.firstIcon = 2
-    currentCoinList0.value = letterLargeToSmall(currentCoinList0.value, 'coin')
-    currentCoinList1.value = letterLargeToSmall(currentCoinList1.value, 'coin')
-    currentCoinList2.value = letterLargeToSmall(currentCoinList2.value, 'coin')
-  } else if (arrowList.value.firstIcon == 2) {
-    arrowList.value.firstIcon = 0
-    currentCoinList0.value = tradeStore.secondContractCoinList.filter((it, inx) => {
-      return it.coinType == 2
-    })
-    currentCoinList1.value = tradeStore.secondContractCoinList.filter((it, inx) => {
-      return it.coinType == 1
-    })
-    currentCoinList2.value = tradeStore.secondContractCoinList.filter((it, inx) => {
-      return it.coinType == 3
-    })
-  }
-}
-// 切换最新价
-const toUpSort = () => {
-  arrowList.value.firstIcon = 0
-  arrowList.value.thirdIcon = 0
-  console.log(arrowList.value)
-  if (arrowList.value.secondIcon == 0) {
-    arrowList.value.secondIcon = 1
-    currentCoinList0.value = LatestpriceLargeToSmall(
-      currentCoinList0.value,
-      tradeStore.allCoinPriceInfo,
-      'close'
-    )
-    currentCoinList1.value = LatestpriceLargeToSmall(
-      currentCoinList1.value,
-      tradeStore.allCoinPriceInfo,
-      'close'
-    )
-    currentCoinList2.value = LatestpriceLargeToSmall(
-      currentCoinList2.value,
-      tradeStore.allCoinPriceInfo,
-      'close'
-    )
-  } else if (arrowList.value.secondIcon == 1) {
-    arrowList.value.secondIcon = 2
-    currentCoinList0.value = LatestpriceSmallToLarge(
-      currentCoinList0.value,
-      tradeStore.allCoinPriceInfo,
-      'close'
-    )
-    currentCoinList1.value = LatestpriceSmallToLarge(
-      currentCoinList1.value,
-      tradeStore.allCoinPriceInfo,
-      'close'
-    )
-    currentCoinList2.value = LatestpriceSmallToLarge(
-      currentCoinList2.value,
-      tradeStore.allCoinPriceInfo,
-      'close'
-    )
-  } else if (arrowList.value.secondIcon == 2) {
-    arrowList.value.secondIcon = 0
-    currentCoinList0.value = tradeStore.secondContractCoinList.filter((it, inx) => {
-      return it.coinType == 2
-    })
-    currentCoinList1.value = tradeStore.secondContractCoinList.filter((it, inx) => {
-      return it.coinType == 1
-    })
-    currentCoinList2.value = tradeStore.secondContractCoinList.filter((it, inx) => {
-      return it.coinType == 3
-    })
-  }
-}
-// 切换涨跌
-const toRafSort = () => {
-  arrowList.value.firstIcon = 0
-  arrowList.value.secondIcon = 0
-  if (arrowList.value.thirdIcon === 0) {
-    arrowList.value.thirdIcon = 1
-    currentCoinList0.value = LatestpriceLargeToSmall(
-      currentCoinList0.value,
-      tradeStore.allCoinPriceInfo,
-      'change',
-      1
-    )
-    currentCoinList1.value = LatestpriceLargeToSmall(
-      currentCoinList1.value,
-      tradeStore.allCoinPriceInfo,
-      'change',
-      1
-    )
-    currentCoinList2.value = LatestpriceLargeToSmall(
-      currentCoinList2.value,
-      tradeStore.allCoinPriceInfo,
-      'change',
-      1
-    )
-  } else if (arrowList.value.thirdIcon === 1) {
-    arrowList.value.thirdIcon = 2
-    currentCoinList0.value = LatestpriceSmallToLarge(
-      currentCoinList0.value,
-      tradeStore.allCoinPriceInfo,
-      'change',
-      1
-    )
-    currentCoinList1.value = LatestpriceSmallToLarge(
-      currentCoinList1.value,
-      tradeStore.allCoinPriceInfo,
-      'change',
-      1
-    )
-    currentCoinList2.value = LatestpriceSmallToLarge(
-      currentCoinList2.value,
-      tradeStore.allCoinPriceInfo,
-      'change',
-      1
-    )
-  } else if (arrowList.value.thirdIcon === 2) {
-    arrowList.value.thirdIcon = 0
-    currentCoinList0.value = tradeStore.secondContractCoinList.filter((it, inx) => {
-      return it.coinType == 2
-    })
-    currentCoinList1.value = tradeStore.secondContractCoinList.filter((it, inx) => {
-      return it.coinType == 1
-    })
-    currentCoinList2.value = tradeStore.secondContractCoinList.filter((it, inx) => {
-      return it.coinType == 3
-    })
-  }
-}
+
 const showTab = ref(['ebc'].includes(__config._APP_ENV) ? 1 : 0)
 const handelShowTab = (item) => {
   showTab.value = item
@@ -306,17 +118,6 @@ const handelShowTab = (item) => {
 <style lang="scss" scoped>
 .footer {
   padding-bottom: 120px;
-  // .tab_title {
-  //   display: flex;
-  //   background-color: #fbfbfb;
-  // }
-  // .title {
-  //   padding: 20px 15px 20px;
-  //   font-size: 16px;
-  //   color: #838b9c;
-
-  //   font-weight: bold;
-  // }
   h1.active {
     color: var(--ex-default-font-color);
     position: relative;
@@ -377,30 +178,33 @@ const handelShowTab = (item) => {
 }
 
 .headerChoose {
-  display: flex;
-  padding: 5px 10px;
-  background: var(--ex-home-list-bgcolor);
-
-  :deep(.van-tab) {
-    flex: none;
-    font-size: 16px;
-    margin-right: 20px;
-    padding: 0;
-    color: var(--ex-home-list-ftcolor) !important;
-  }
-  :deep(.van-tabs__nav) {
-    background: var(--ex-home-list-bgcolor) !important ;
-  }
-
-  // :deep(.van-tab__text) {
-  //   font-size: 16px;
-  //   color: var(--ex-home-list-ftcolor);
-  //   // color: var(--ex-home-list-ftcolor);
-  // }
-
-  :deep(.van-tab--active) {
-    font-weight: normal;
-    color: var(--ex-home-list-ftcolor3) !important;
+  :deep(.van-tabs) {
+    overflow: hidden;
+    .van-tabs__nav {
+      border-radius: 0.266667rem;
+      padding: 0;
+      background: var(--ex-home-tabs-bg-color);
+    }
+    .van-tab--active {
+      background: var(--ex-home-tabs-bg-atv-color);
+      color: var(--ex-home-tabs-text-atv-color);
+      border-radius: 0.266667rem;
+    }
+    .tab-item {
+      padding: 0.266667rem 0;
+      width: 100%;
+      font-size: 0.373333rem;
+      color: var(--ex-home-tabs-text-color);
+    }
+    .atv {
+      color: var(--ex-home-tabs-text-atv-color);
+    }
+    .van-tabs__line {
+      width: 0px;
+    }
+    .van-tabs__content--animated {
+      overflow: hidden;
+    }
   }
 }
 </style>

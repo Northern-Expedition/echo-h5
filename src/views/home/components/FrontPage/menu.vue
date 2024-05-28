@@ -1,59 +1,41 @@
 <template>
-  <div :class="DIFF_HOME_BANNER.includes(_getConfig('_APP_ENV')) ? 'main mainEbc' : 'main'">
-    <div
-      class="item"
-      v-for="item in menuList"
-      :key="item.img"
-      @click="routeLink(item.linkUrl, item.flag)"
-    >
-      <image-load :filePath="item.imgUrl" :name="item.img" class="itemImg" />
-      <div class="itemName text-ellipsis2">
-        {{ _t18(`${item.key}`, ['robinhood2']) }}
-      </div>
-    </div>
-  </div>
+  <div :class="DIFF_HOME_BANNER.includes(_getConfig('_APP_ENV')) ? 'main mainEbc' : 'main'"></div>
   <div class="notice">
     <div class="itemNo">
       <svg-load name="mengbanzu12" class="noticeImg"></svg-load>
       <van-notice-bar class="currentNotice" :text="currentNotice" />
     </div>
   </div>
-  <div class="linkList">
-    <div class="linkLeft">
-      <!-- 快捷充币 -->
-      <div class="item" @click="toRecharge">
-        <svg-load name="mengbanzu13" class="leftImg"></svg-load>
-        <div class="right">
-          <div class="top">{{ _t18(`home_recharge`, ['latcoin', 'aams', 'robinhood2']) }}</div>
-          <!-- <div>{{ _t18(`clickto_recharge`) }}</div> -->
-        </div>
-      </div>
-      <!-- 快速提币 -->
-      <div class="item rightItem" @click="$router.push('/withdraw')">
-        <svg-load name="zu29" class="leftImg"></svg-load>
-        <div class="right">
-          <div class="top">{{ _t18(`quick_withdrawal`, ['latcoin', 'aams', 'robinhood2']) }}</div>
-          <!-- <div>{{ _t18(`Click_withdraw_coins`) }}</div> -->
-        </div>
-      </div>
-    </div>
-    <!-- 在线客服 -->
-    <div class="linkRight" @click="dispatchCustomEvent('event_serviceChange')">
-      <svg-load name="zu447" class="itemImg"></svg-load>
-      <div style="scale: 0.8; text-align: center">{{ _t18(`home_service`) }}</div>
-    </div>
-    <InfoPopup :show="showInfoPopup" :data="infoData" @closeBtn="closeBtn"></InfoPopup>
-    <!-- 直播弹窗 -->
-    <van-popup v-model:show="showNotice" round closeable>
-      <div class="showNoticeContent">
-        <p class="showNoticeContent_title fw-bold">
-          {{ showNoticeContent?.noticeTitle || '' }}
+  <div class="grid">
+    <van-grid :border="false" :column-num="4">
+      <van-grid-item
+        v-for="(item, index) in menuList"
+        :key="index"
+        class="grid-item"
+        @click="routeLink(item.linkUrl, item.flag)"
+      >
+        <image-load :filePath="item.imgUrl" :name="item.img" class="grid-item-img" />
+        <p class="grid-text">
+          {{ _t18(`${item.key}`, ['robinhood2']) }}
         </p>
-        <div class="showNoticeContent_content">
-          <image-load :filePath="showNoticeContent?.imgUrl" v-if="showNoticeContent?.imgUrl" />
-        </div>
-      </div>
-    </van-popup>
+      </van-grid-item>
+    </van-grid>
+  </div>
+  <div class="quick-trade">
+    <div class="quick-trade-item" @click="toRecharge">
+      <svg-load name="mengbanzu13" class="img quick-trade-item-img"></svg-load>
+
+      <span class="quick-trade-item-span">{{
+        _t18(`home_recharge`, ['latcoin', 'aams', 'robinhood2'])
+      }}</span>
+    </div>
+    <div class="quick-trade-item" @click="$router.push('/withdraw')">
+      <svg-load name="zu29" class="img quick-trade-item-img"></svg-load>
+
+      <span class="quick-trade-item-span">{{
+        _t18(`quick_withdrawal`, ['latcoin', 'aams', 'robinhood2'])
+      }}</span>
+    </div>
   </div>
 </template>
 <script setup>
@@ -173,28 +155,6 @@ const toRecharge = () => {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-
-  .item {
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-
-    .itemImg {
-      width: 21px;
-      height: 21px;
-    }
-
-    .itemName {
-      margin-top: 5px;
-      font-size: 12px;
-      color: var(--ex-default-font-color);
-      text-align: center;
-      width: 60px;
-      word-break: break-word;
-    }
-  }
 }
 
 .mainEbc {
@@ -202,17 +162,14 @@ const toRecharge = () => {
 }
 
 .notice {
-  padding: 0 15px;
-
   .itemNo {
     display: flex;
-    height: 35px;
+    padding: 0.053333rem 0.426667rem;
     align-items: center;
     background: var(--ex-home-notice-bgcolor);
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 0.32rem;
 
     .noticeImg {
-      margin-left: 15px;
       width: 20px;
       height: 20px;
     }
@@ -231,73 +188,73 @@ const toRecharge = () => {
     }
   }
 }
-
-.linkList {
-  padding: 20px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  .linkLeft {
-    min-height: 55px;
-    flex: 1;
-    display: flex;
-
-    .item {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      border-radius: 5px 5px 5px 5px;
-      padding: 10px 12px;
-      background: var(--ex-home-box-background-color2);
-
-      .leftImg {
-        width: 24px;
-        height: 24px;
-        margin-right: 10px;
-      }
-
-      .right {
-        font-size: 12px;
-        color: #888888;
-
-        .top {
-          // margin-bottom: 5px;
-          font-size: 14px;
-          color: var(--ex-home-font-color);
-        }
-      }
+.grid {
+  margin-top: 0.5rem;
+  &-item {
+    :deep(.van-grid-item__content) {
+      padding-bottom: 0.426667rem;
+      padding-top: 0;
+      justify-content: flex-start;
     }
-
-    .rightItem {
-      margin-left: 14px;
-      background-color: var(--ex-home-box-background-color);
-      border: 1px solid var(--ex-home-box-border-color);
-
-      .right {
-        .top {
-          color: var(--ex-default-font-color);
-        }
-      }
+    &-img {
+      width: 1.44rem;
+      height: 1.44rem;
+      margin-bottom: 0.266667rem;
     }
-  }
-
-  .linkRight {
-    max-width: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 12px;
-    color: var(--ex-default-font-color);
-    margin-left: 10px;
-
-    .itemImg {
-      width: 22px;
-      height: 22px;
-      margin-bottom: 5px;
+    .grid-text {
+      text-align: center;
+      font-size: 0.373333rem;
+      word-break: break-word;
+      color: var(--ex--home-grid-text-color);
     }
   }
 }
+.quick-trade {
+  margin-top: 0.213333rem;
+  margin-bottom: 0.513333rem;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  &-item {
+    position: relative;
+    width: 4.453333rem;
+    background: var(--ex--home-grid-bg);
+    border-radius: 0.266667rem;
+    display: flex;
+    align-items: center;
+    padding: 0.373333rem;
+    &-img {
+      width: 1.28rem;
+      height: 1.333333rem;
+      margin-right: 0.266667rem;
+    }
+    img {
+      object-fit: contain;
+    }
+    &-span {
+      translate: none;
+      rotate: none;
+      scale: none;
+      opacity: 1;
+      transform: translate(0px, 0px);
+      color: var(--ex--home-grid-text-color);
+      font-size: 0.4rem;
+    }
+    &-img2 {
+      translate: none;
+      rotate: none;
+      scale: none;
+      opacity: 1;
+      transform: translate(0px, 0px);
+      width: 0.586667rem;
+      height: 0.586667rem;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}
+
 .showNoticeContent {
   min-width: 300px;
   text-align: center;
