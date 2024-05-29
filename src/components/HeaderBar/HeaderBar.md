@@ -7,7 +7,7 @@
     backwardNum：Number;    //后退层数，默认 -1
     currentName：String;    //左侧文案， 非必填
     cuttentRight：Object{   //右侧文案， 非必填
-      name: '112',  //string 文案 默认字体14px  颜色#17AC74
+      name: '112',  //string 文案 默认字体14px  颜色#613af1
       icon: new URL('@/assets/home/zhiya.svg', import.meta.url).href   //默认图片尺寸 24*24
     },
     bgColor: String  //默认底层色白色  #fff

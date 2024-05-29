@@ -34,7 +34,7 @@
       :custom-style="{ background: 'rgba(0, 0, 0, .6)' }"
     >
       <div style="position: fixed; top: 30%; left: 50%; transform: translate(-50%, -50%)">
-        <van-loading vertical color="#17AC74">{{ _t18('loading') }}...</van-loading>
+        <van-loading vertical color="#613af1">{{ _t18('loading') }}...</van-loading>
       </div>
     </van-overlay>
 </template>

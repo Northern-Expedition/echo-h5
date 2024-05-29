@@ -4,7 +4,7 @@
     <van-tabs
       shrink
       color="transparent"
-      title-active-color="#17AC74"
+      title-active-color="#613af1"
       title-inactive-color="#5d626d"
       @click-tab="clickTab"
     >

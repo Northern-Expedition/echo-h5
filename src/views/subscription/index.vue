@@ -7,7 +7,7 @@
       :border_bottom="true"
     ></HeaderBar>
     <div class="content">
-      <van-tabs v-model:active="active" type="card" color="#17ac74" @click-tab="clickTab" background="var(--ex-home-list-bgcolor)">
+      <van-tabs v-model:active="active" type="card" color="#613af1" @click-tab="clickTab" background="var(--ex-home-list-bgcolor)">
         <van-tab :title="item.title" v-for="(item, index) in tabList" :key="index">
           <van-pull-refresh v-model="loading" @refresh="onRefresh">
             <div class="tabContent" v-if="dataList.length">

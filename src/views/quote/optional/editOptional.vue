@@ -29,7 +29,7 @@
       <div class="left" @click="delList">
         <svg-load :name="showDel ? 'sanchu16x18-x' : 'sanchu16x18-w'" class="chooseImg"></svg-load>
         <!-- 删除 -->
-        <div :style="{ color: showDel ? '#17ac74' : '#bcbcbc', marginLeft: '10px' }">{{ _t18('quote_del') }}</div>
+        <div :style="{ color: showDel ? '#613af1' : '#bcbcbc', marginLeft: '10px' }">{{ _t18('quote_del') }}</div>
       </div>
       <div class="right">
         <svg-load

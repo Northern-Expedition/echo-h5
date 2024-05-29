@@ -8,7 +8,7 @@
         <!-- 从   到 -->
         <div class="left_top">
           <span>{{ _t18('transfer_from') }}</span>
-          <van-dropdown-menu active-color="#17ac74">
+          <van-dropdown-menu active-color="#613af1">
             <van-dropdown-item
               v-model="params.transferOutAccount"
               :options="transferOutAccountList"
@@ -17,7 +17,7 @@
         </div>
         <div class="left_bottom">
           <span>{{ _t18('transfer_to', ['aams']) }}</span>
-          <van-dropdown-menu active-color="#17ac74">
+          <van-dropdown-menu active-color="#613af1">
             <van-dropdown-item
               v-model="params.transferInAccount"
               :options="transferInAccountList"

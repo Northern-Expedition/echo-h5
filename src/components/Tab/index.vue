@@ -4,8 +4,8 @@
     :active="props.active"
     @clickTab="change"
     title-inactive-color="#333"
-    title-active-color="#17AC74"
-    color="#17AC74"
+    title-active-color="#613af1"
+    color="#613af1"
     :line-width="lineWidth"
     :class="flexBetween ? 'betweenClass' : ''"
   >

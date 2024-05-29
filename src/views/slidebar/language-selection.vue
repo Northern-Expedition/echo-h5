@@ -18,7 +18,7 @@
           v-for="(item, index) in languageList"
           :key="index"
           label-position="left"
-          :checked-color="'#17AC74'"
+          :checked-color="'#613af1'"
           @click="setLanguage(item)"
         >
           <image-load :filePath="item.imgUrl" alt="" width="20" class="nation" v-if="item.imgUrl" />

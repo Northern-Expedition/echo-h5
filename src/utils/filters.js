@@ -51,7 +51,7 @@ export const investmentStatus = (type) => {
     case 2:
       // 已赎回
       return {
-        color: '#17AC74',
+        color: '#613af1',
         name: _t18(`host_redeemed`)
       }
 

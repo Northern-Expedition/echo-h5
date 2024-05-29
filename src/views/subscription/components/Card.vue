@@ -23,7 +23,7 @@
       <div class="center">
         <van-progress
           :percentage="percentage"
-          color="linear-gradient(to right, #7ad6b4, #17ac74)"
+          color="linear-gradient(to right, #7ad6b4, #613af1)"
         />
       </div>
       <div class="bottom">
@@ -42,7 +42,7 @@
         round
         class="button-subscribe-button"
         @click="btn_subscription(data)"
-        color="#17ac74"
+        color="#613af1"
         :disabled="disableBtn == 1"
       >
         {{ disableBtn == 1 ? _t18('subscribed') : _t18('subscription') }}
@@ -153,8 +153,8 @@ const toBuy = () => {
     }
 
     .right.btn {
-      border: 1px solid #17ac74;
-      color: #17ac74;
+      border: 1px solid #613af1;
+      color: #613af1;
     }
   }
 
