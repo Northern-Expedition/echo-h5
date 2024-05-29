@@ -15,8 +15,8 @@
             v-model:active="currentIndex"
             line-width="20"
             line-height="2"
-            color="#17ac74"
-            title-active-color="#17AC74"
+            color="#613af1"
+            title-active-color="#613af1"
             title-inactive-color="#5d626d"
           >
             <van-tab v-for="(item, index) in headerList" :key="index" :title="item.title">

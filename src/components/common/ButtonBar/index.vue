@@ -17,7 +17,7 @@ const props = defineProps({
   },
   btnColor: {
     type: String,
-    default: '#17ac74'
+    default: '#613af1'
   }
 })
 </script>

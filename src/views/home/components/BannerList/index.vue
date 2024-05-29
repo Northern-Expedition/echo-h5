@@ -38,6 +38,7 @@ const onChange = (index) => {
   .van-swipe {
     height: 200px;
     width: 100%;
+    padding: 0 0.426667rem;
     background-color: var(--ex-default-background-color);
     .img {
       background-color: var(--ex-default-background-color);

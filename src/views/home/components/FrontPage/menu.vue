@@ -151,7 +151,9 @@ const toRecharge = () => {
 </script>
 <style lang="scss" scoped>
 .main {
-  padding: 180px 0px 0;
+  // padding: 180px 0px 0;
+  margin-top: .426667rem;
+  padding-top: 13.243px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

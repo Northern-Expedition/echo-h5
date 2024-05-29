@@ -37,8 +37,8 @@
         v-model:active="currentIndex"
         line-width="20"
         line-height="2"
-        color="#17ac74"
-        title-active-color="#17AC74"
+        color="#613af1"
+        title-active-color="#613af1"
         title-inactive-color="#5d626d"
         background="var(--ex-div-bgColor8)"
       >
@@ -139,8 +139,12 @@ watch(
   }
 }
 .headerChoose {
+  margin-top: 0.533333rem;
+
   :deep(.van-tabs__nav) {
     background: var(--ex-div-bgColor8) !important;
+    height: 40px;
+    line-height: 40px;
   }
   :deep(.van-tab) {
     flex: none;
@@ -164,10 +168,15 @@ watch(
   .searchInput {
     border-radius: 0.213333rem;
     border: 0.026667rem solid var(--ex-border-color2);
+    height: 47px;
 
     &:hover {
       border: 0.026667rem solid var(--ex-input-focus-color);
       outline: none;
+    }
+
+    .van-cell__value {
+      height: 25px;
     }
   }
 

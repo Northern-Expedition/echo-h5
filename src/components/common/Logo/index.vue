@@ -22,7 +22,7 @@ const path = computed(() => {
 </template>
 <style lang="scss" scoped>
 .logo {
-  width: 40px;
-  height: 40px;
+  width: 0.533333rem;
+  height: 0.533333rem;
 }
 </style>

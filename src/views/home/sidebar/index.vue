@@ -29,7 +29,7 @@
       v-model:value="showDialog"
       :title="``"
       :content="_t18('layout_require')"
-      confirm-button-color="#17ac74"
+      confirm-button-color="#613af1"
       @cancelBtn="cancelBtn"
       @confirmBtn="confirmBtn"
       :confirmButtonText="_t18('btnConfirm', ['bitmake'])"

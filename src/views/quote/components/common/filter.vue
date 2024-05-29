@@ -91,10 +91,10 @@ const toUpSort = () => {
   arrowList.thirdIcon = 0
   if (arrowList.secondIcon === 0) {
     arrowList.secondIcon = 1
-    listResult.value = LatestpriceLargeToSmall(props.list,tradeStore.allCoinPriceInfo, 'close')
+    listResult.value = LatestpriceLargeToSmall(props.list, tradeStore.allCoinPriceInfo, 'close')
   } else if (arrowList.secondIcon === 1) {
     arrowList.secondIcon = 2
-    listResult.value = LatestpriceSmallToLarge(props.list,tradeStore.allCoinPriceInfo, 'close')
+    listResult.value = LatestpriceSmallToLarge(props.list, tradeStore.allCoinPriceInfo, 'close')
   } else if (arrowList.secondIcon === 2) {
     arrowList.secondIcon = 0
     listResult.value = props.list
@@ -107,10 +107,10 @@ const toRafSort = () => {
   arrowList.secondIcon = 0
   if (arrowList.thirdIcon === 0) {
     arrowList.thirdIcon = 1
-    listResult.value = LatestpriceLargeToSmall(props.list,tradeStore.allCoinPriceInfo, 'change',1)
+    listResult.value = LatestpriceLargeToSmall(props.list, tradeStore.allCoinPriceInfo, 'change', 1)
   } else if (arrowList.thirdIcon === 1) {
     arrowList.thirdIcon = 2
-    listResult.value = LatestpriceSmallToLarge(props.list,tradeStore.allCoinPriceInfo, 'change',1)
+    listResult.value = LatestpriceSmallToLarge(props.list, tradeStore.allCoinPriceInfo, 'change', 1)
   } else if (arrowList.thirdIcon === 2) {
     arrowList.thirdIcon = 0
     listResult.value = props.list
@@ -146,20 +146,6 @@ const toRafSort = () => {
           height: 8px;
         }
       }
-    }
-
-    .mainItem:nth-child(2) {
-      flex: 1;
-      text-align: right;
-      justify-content: right;
-    }
-
-    .mainItem:nth-child(3) {
-      margin-left: 20px;
-      max-width: 80px;
-      min-width: 80px;
-      text-align: right;
-      justify-content: flex-end;
     }
   }
 
@@ -197,20 +183,6 @@ const toRafSort = () => {
           }
         }
       }
-    }
-
-    .mainItem:nth-child(2) {
-      flex: 1;
-      text-align: right;
-      justify-content: right;
-    }
-
-    .mainItem:nth-child(3) {
-      margin-left: 20px;
-      max-width: 80px;
-      min-width: 80px;
-      text-align: right;
-      justify-content: flex-end;
     }
   }
 }

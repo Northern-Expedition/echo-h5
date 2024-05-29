@@ -7,19 +7,21 @@
     <div class="carousel">
       <div class="top">
         <div>
-          <Logo></Logo>
+          <Logo @click="openSideBar"></Logo>
         </div>
-        <div>
-          <svg-load name="user" class="rightImg" @click="openSideBar"></svg-load>
+        <div class="rightImg">
+          <svg-load name="news" class="rightImg" @click="openSideBar"></svg-load>
         </div>
       </div>
-      <van-swipe :autoplay="3000" lazy-render :loop="true" :show-indicators="false">
-        <van-swipe-item v-for="(item, index) in carouselList" :key="index">
-          <image-load :filePath="item.imgUrl" alt="" class="carouselItem" @click="linkto(item)" />
-        </van-swipe-item>
-      </van-swipe>
+      <div class="swiper">
+        <van-swipe :autoplay="3000" lazy-render :loop="true" :show-indicators="false">
+          <van-swipe-item v-for="(item, index) in carouselList" :key="index">
+            <image-load :filePath="item.imgUrl" alt="" class="carouselItem" @click="linkto(item)" />
+          </van-swipe-item>
+        </van-swipe>
+      </div>
     </div>
-    <div class="currentList">
+    <!-- <div class="currentList">
       <div
         class="item centerItem"
         v-for="(item, index) in dataList.filter((it, idx) => {
@@ -52,7 +54,7 @@
           {{ tradeStore.allCoinPriceInfo[item.coin]?.close }}
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script setup>
@@ -132,24 +134,24 @@ onMounted(async () => {
 }
 
 .carousel {
-  height: 200px;
+  // height: 200px;
 
   .carouselItem {
-    height: 200px;
+    height: 100%;
     width: 100%;
-    object-fit: cover;
+    object-fit: fill;
   }
 
   .top {
     height: 52px;
-    background: var(--ex-home-box-background-color3);
+    // background: var(--ex-home-box-background-color3);
     border-radius: 5px;
-    padding: 15px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: calc(100vw - 30px);
-    margin-left: 15px;
+    // width: calc(100vw - 30px);
+    padding: 0.426667rem;
+    // margin-left: 15px;
 
     /* 减去两侧的间距 */
     .leftImg {
@@ -164,8 +166,21 @@ onMounted(async () => {
     }
 
     .rightImg {
-      width: 24px;
-      height: 24px;
+      width: 0.533333rem;
+      height: 0.533333rem;
+      position: relative;
+
+      &::before {
+        display: block;
+        content: '';
+        position: absolute;
+        top: -0.026667rem;
+        right: -0.026667rem;
+        width: 0.16rem;
+        height: 0.16rem;
+        border-radius: 50%;
+        background: #ff6058;
+      }
     }
   }
 }
@@ -220,5 +235,11 @@ onMounted(async () => {
     justify-content: center;
     align-items: center;
   }
+}
+</style>
+
+<style>
+.swiper {
+  padding: 0 0.426667rem;
 }
 </style>

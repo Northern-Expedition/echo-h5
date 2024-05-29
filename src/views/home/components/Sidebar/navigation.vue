@@ -188,9 +188,9 @@ const toView = (item) => {
   span {
     // padding:3px 5px;
     margin-right: 10px;
-    // border: 1px solid #17ac74;
+    // border: 1px solid #613af1;
     font-size: 12px;
-    color: #17ac74;
+    color: #613af1;
   }
 }
 </style>

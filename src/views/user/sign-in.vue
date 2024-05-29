@@ -6,7 +6,7 @@
       v-model:active="active"
       shrink
       color="transparent"
-      title-active-color="#17AC74"
+      title-active-color="#613af1"
       title-inactive-color="#333"
     >
       <van-tab v-for="(item, index) in tabList" :key="index" :title="item.title">

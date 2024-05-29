@@ -223,7 +223,7 @@ onUnmounted(() => {
     :title="_t18('notify')"
     :message="_t18('account_frozen')"
     theme="round-button"
-    confirmButtonColor="#17ac74"
+    confirmButtonColor="#613af1"
     :confirmButtonText="_t18('btnConfirm')"
     @confirm="confirmFreezeDialog"
   >

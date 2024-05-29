@@ -4,8 +4,8 @@
       shrink
       v-model:active="tabActive"
       title-inactive-color="#333"
-      title-active-color="#17AC74"
-      color="#17AC74"
+      title-active-color="#613af1"
+      color="#613af1"
       line-width="16"
       @click-tab="clickTab"
     >
