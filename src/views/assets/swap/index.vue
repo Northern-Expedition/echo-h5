@@ -2,113 +2,132 @@
 <template>
   <!-- 闪兑 -->
   <HeaderBar :currentName="_t18('swap')"></HeaderBar>
-  <Amount :amount="availableAmount || 0" :coin="list1Current?.coin?.toLocaleUpperCase()"></Amount>
-  <div class="content">
-    <div class="from">
-      <input type="number" v-model="fromNum" :placeholder="_t18('swap_input')" class="ff-num" />
-      <div>
-        <!-- 全部 -->
-        <div class="left" @click="fromNum = list1Current?.amount || '0'">
-          {{ _t18('swap_all') }}
-        </div>
-        <span>|</span>
-        <!-- MIChskt 展示btc -->
-        <!-- <div
-          v-if="['gmtoin2'].includes(_getConfig('_APP_ENV'))"
-          class="right"
-          @click="showAction('from')"
-        >
-          BTC
-          <div class="svgImg">
-            <img
-              :src="list1Current?.icon"
-              alt=""
-              class="iconImg"
-              v-if="list1Current?.icon?.length > 10"
-            />
-            <svg-load :name="list1Current?.icon" class="icon" v-else></svg-load>
-          </div>
-        </div> -->
-        <!-- <div v-else class="right" @click="showAction('from')"> -->
-        <div class="right" @click="showAction('from')">
-          {{ list1Current?.coin?.toLocaleUpperCase() }}
+  <div class="swap-page">
+    <div class="content">
+      <div class="from">
+        <div class="left-img" @click="showAction('from')">
           <div class="svgImg">
             <image-load
               :filePath="list1Current?.icon"
-              alt=""
-              class="iconImg"
+              class="img"
               v-if="list1Current?.icon?.length > 10"
             />
-            <svg-load :name="list1Current?.icon" class="icon" v-else></svg-load>
+            <svg-load :name="list1Current?.icon" class="img" v-else></svg-load>
           </div>
+          <div class="coin-name">
+            {{ list1Current?.coin?.toLocaleUpperCase() }}
+          </div>
+          <image-load filePath="down.png" class="img downImg" />
+        </div>
+        <div class="input-item">
+          <input
+            type="number"
+            disabled
+            class="ff-num"
+            v-model="fromNum"
+            :placeholder="_t18('exchange.input')"
+          />
+          <div class="all">{{ _t18('swap_all') }}</div>
         </div>
       </div>
-    </div>
-    <!-- 交换按钮 -->
-    <div class="exchange_btn">
-      <svg-load name="duihuan40x40" class="dui" @click="jiaohuan()"></svg-load>
-      <!-- <svg-load name="duihuan40x40" class="dui"></svg-load> -->
-    </div>
-    <div class="to">
-      <!-- 兑换数量 -->
-      <input
-        type="number"
-        disabled
-        class="ff-num"
-        v-model="toNum"
-        :placeholder="_t18('swap_number')"
-      />
-      <div>
-        <div class="right" @click="showAction('to')">
-          {{ list2Current?.coin?.toLocaleUpperCase() }}
+      <!-- 交换按钮 -->
+      <div class="exchange_btn">
+        <svg-load name="duihuan40x40" class="dui" @click="jiaohuan()"></svg-load>
+        <!-- <svg-load name="duihuan40x40" class="dui"></svg-load> -->
+      </div>
+      <div class="to">
+        <div class="left-img" @click="showAction('to')">
           <div class="svgImg">
             <image-load
               :filePath="list2Current?.icon"
-              class="iconImg"
+              class="img"
               v-if="list2Current?.icon?.length > 10"
             />
-            <svg-load :name="list2Current?.icon" class="icon" v-else></svg-load>
+            <svg-load :name="list2Current?.icon" class="img" v-else></svg-load>
+          </div>
+          <div class="coin-name">
+            {{ list2Current?.coin?.toLocaleUpperCase() }}
+          </div>
+          <image-load filePath="down.png" class="img downImg" />
+        </div>
+        <div class="change-input">
+          <input
+            type="number"
+            disabled
+            class="ff-num"
+            v-model="toNum"
+            :placeholder="_t18('swap_number')"
+          />
+        </div>
+        <!-- 兑换数量 -->
+        <!-- <input
+          type="number"
+          disabled
+          class="ff-num"
+          v-model="toNum"
+          :placeholder="_t18('swap_number')"
+        />
+        <div>
+          <div class="right" @click="showAction('to')">
+            {{ list2Current?.coin?.toLocaleUpperCase() }}
+            <div class="svgImg">
+              <image-load
+                :filePath="list2Current?.icon"
+                class="iconImg"
+                v-if="list2Current?.icon?.length > 10"
+              />
+              <svg-load :name="list2Current?.icon" class="icon" v-else></svg-load>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <div class="rate">
+        <!-- 今日汇率 -->
+        <image-load filePath="rate.png" name="defi" class="img rateImg"></image-load>
+        1
+        <span>{{ list1Current.coin?.toLocaleUpperCase() }}</span
+        >&nbsp;≈&nbsp;<span>{{ curRate }}</span
+        ><span>{{ list2Current.coin?.toLocaleUpperCase() }}</span>
+      </div>
+    </div>
+    <div class="available-amount">
+      <div>{{ _t18('swap_available') }}({{ list1Current?.coin?.toLocaleUpperCase() }})</div>
+      <div>{{ priceFormat(availableAmount) }}</div>
+    </div>
+    <!-- 确定 -->
+    <div class="btn">
+      <p @click="submit">{{ _t18('btnConfirm', ['bitmake']) }}</p>
+    </div>
+    <!-- sheet币种面板 -->
+    <van-action-sheet
+      v-model:show="showSheet"
+      title=""
+      id="sheetPopup"
+      style="max-width: var(--ex-max-width); left: 50%; translate: -50%"
+    >
+      <div class="coinList">
+        <div
+          v-for="(item, index) in action"
+          :key="item.id"
+          class="coinItem"
+          @click="selectCoin(item, index)"
+        >
+          <div class="svgImg">
+            <image-load
+              :filePath="item.icon"
+              alt=""
+              class="iconImg"
+              v-if="item?.icon?.length > 10"
+            />
+            <svg-load :name="item.icon" class="icon" v-else></svg-load>
+          </div>
+          <div>
+            <p>{{ item.coin?.toLocaleUpperCase() }}</p>
           </div>
         </div>
       </div>
-    </div>
-    <div class="rate ff-num">
-      <!-- 今日汇率 -->
-      <p>{{ _t18('swap_rateDay') }}：</p>
-      1
-      <span>{{ list1Current.coin?.toLocaleUpperCase() }}</span
-      >&nbsp;≈&nbsp;<span>{{ curRate }}</span
-      ><span>{{ list2Current.coin?.toLocaleUpperCase() }}</span>
-    </div>
+    </van-action-sheet>
   </div>
-  <!-- 确定 -->
-  <div class="btn">
-    <p @click="submit">{{ _t18('btnConfirm', ['bitmake']) }}</p>
-  </div>
-  <!-- sheet币种面板 -->
-  <van-action-sheet
-    v-model:show="showSheet"
-    title=""
-    id="sheetPopup"
-    style="max-width: var(--ex-max-width); left: 50%; translate: -50%"
-  >
-    <div class="coinList">
-      <div
-        v-for="(item, index) in action"
-        :key="item.id"
-        class="coinItem"
-        @click="selectCoin(item, index)"
-      >
-        <div class="svgImg">
-          <image-load :filePath="item.icon" alt="" class="iconImg" v-if="item?.icon?.length > 10" />
-          <svg-load :name="item.icon" class="icon" v-else></svg-load>
-        </div>
-        <div>
-          <p>{{ item.coin?.toLocaleUpperCase() }}</p>
-        </div>
-      </div>
-    </div>
-  </van-action-sheet>
 </template>
 
 <script setup>
@@ -122,7 +141,6 @@ const { _toast } = useToast()
 import { rate, toExchange } from '@/api/account'
 import { debounce } from 'lodash'
 import { priceFormat } from '@/utils/decimal.js'
-import Amount from './../components/applyAmount.vue'
 import { ref, computed, onMounted } from 'vue'
 import { useAccountStore } from '@/store/account/index'
 import { useUserStore } from '@/store/user/index'
@@ -408,117 +426,152 @@ const submit = () => {
   font-size: 14px;
   color: var(--ex-default-font-color);
 }
-.content {
-  padding: 30px 15px;
-  .from,
-  .to {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 10px;
-    border: 1px solid var(--ex-border-color1);
-    border-radius: 3px;
-    & > div {
+.swap-page {
+  padding: 0 0.4rem;
+  .content {
+    padding: 0.8rem 0.4rem;
+    background: var(--ex-financial-card-bg-color);
+    margin-top: 0.533333rem;
+    border-radius: 0.133333rem;
+    .to,
+    .from {
       display: flex;
-      justify-content: space-around;
-      align-items: center;
-      .left {
-        color: var(--ex-font-color9);
-      }
-      span {
-        margin: 0 15px;
-        font-size: 12px;
-        color: var(--ex-passive-font-color);
-      }
-      .right {
+      justify-content: space-between;
+      .left-img {
         display: flex;
         align-items: center;
         .svgImg {
-          margin-left: 10px;
-          width: 20px;
-          height: 20px;
-          .icon {
-            font-size: 20px;
+          width: 0.533333rem;
+          height: 0.533333rem;
+          border-radius: 50%;
+          .img {
+            width: 0.533333rem;
+            height: 0.533333rem;
+            border-radius: 50%;
           }
-          .iconImg {
-            width: 100%;
+        }
+        .coin-name {
+          margin: 0 0.213333rem;
+        }
+        .downImg {
+          width: 0.24rem;
+          height: 0.133333rem;
+        }
+      }
+      .change-input {
+        input {
+          text-align: right;
+          background-color: transparent;
+        }
+
+        .all {
+          color: var(--ex-copy-font-color);
+        }
+      }
+      .input-item {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding-bottom: 0.346667rem;
+        border-bottom: 0.026667rem solid var(--ex-font-color24);
+        input {
+          background-color: transparent;
+          &::placeholder {
+            color: #7a7a71;
           }
+        }
+        .all {
+          color: var(--ex-copy-font-color);
         }
       }
     }
-    input {
-      flex: 1;
-      color: var(--ex-font-color20);
-      background: var(--ex-default-background-color);
+    .exchange_btn {
+      margin-left: 2.506667rem;
+
+      .dui {
+        font-size: 40px;
+      }
     }
-    input::placeholder {
-      color: var(--ex-font-color20);
+    .rate {
+      display: flex;
+      align-items: center;
+      margin-top: 0.533333rem;
+      padding: 0.4rem;
+      border-radius: 0.133333rem;
+      background: var(--ex-card-deep-bg-color);
+      .rateImg {
+        width: 0.586667rem;
+        height: 0.586667rem;
+        margin-right: 0.266667rem;
+      }
     }
   }
-  .exchange_btn {
-    padding: 40px 0;
-    text-align: center;
-    .dui {
-      font-size: 40px;
-    }
-  }
-  .rate {
+  .available-amount {
     display: flex;
-    margin-top: 20px;
-    p {
+    justify-content: space-between;
+    background: var(--ex-card-deep-bg-color);
+    margin-top: 0.533333rem;
+    border-radius: 0.133333rem;
+    padding: 0.4rem;
+    &:first-child {
+      font-size: 0.346667rem;
       color: var(--ex-passive-font-color);
     }
+    &:last-child {
+      font-size: 0.373333rem;
+    }
   }
-}
-.btn {
-  padding: 20px 15px 50px;
-  p {
-    padding: 14px 0;
-    font-size: 16px;
-    color: var(--ex-font-color);
-    background-color: var(--ex-div-bgColor1);
-    border-radius: 3px;
-    text-align: center;
+  .btn {
+    padding: 1.76rem 0 1.333333rem;
+    p {
+      padding: 0.373333rem 0;
+      font-size: 0.426667rem;
+      background: var(--ex-btn-background-color) !important;
+      color: var(--ex-btn-font-color) !important;
+      border-radius: 0.213333rem;
+      text-align: center;
+    }
   }
-}
-.coinList {
-  max-height: 250px;
-}
-.coinItem {
-  display: flex;
-  align-items: center;
-  padding: 15px 0;
-  flex: 1;
-  background: var(--ex-default-background-color);
-
-  div {
+  .coinList {
+    max-height: 250px;
+  }
+  .coinItem {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
     flex: 1;
-  }
-  .svgImg {
-    text-align: right;
-    // width: 30px;
-    // height: 30px;
-    .icon {
+    background: var(--ex-default-background-color);
+
+    div {
+      flex: 1;
+    }
+    .svgImg {
       text-align: right;
-      font-size: 30px;
+      // width: 30px;
+      // height: 30px;
+      .icon {
+        text-align: right;
+        font-size: 30px;
+      }
+      .iconImg {
+        width: 30px;
+      }
     }
-    .iconImg {
-      width: 30px;
+    p {
+      font-size: 16px;
+      color: var(--ex-passive-font-color);
+    }
+    & > div:first-child {
+      text-align: end;
+      margin-right: 5px;
+    }
+    & > div:last-child {
+      text-align: start;
+      margin-left: 5px;
     }
   }
-  p {
-    font-size: 16px;
-    color: var(--ex-passive-font-color);
+  input:disabled {
+    background-color: var(--ex-default-background-color);
   }
-  & > div:first-child {
-    text-align: end;
-    margin-right: 5px;
-  }
-  & > div:last-child {
-    text-align: start;
-    margin-left: 5px;
-  }
-}
-input:disabled {
-  background-color: var(--ex-default-background-color);
 }
 </style>

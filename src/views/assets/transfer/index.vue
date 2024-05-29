@@ -3,7 +3,6 @@
   <HeaderBar :currentName="_t18('transfer')"></HeaderBar>
 
   <div class="content_box">
-    <p class="title fw-bold">{{ _t18('transfer') }}</p>
     <div class="cardOne">
       <div class="left">
         <!-- 从   到 -->
@@ -48,9 +47,8 @@
     </div>
     <!-- 可用余额 -->
     <div class="keyong">
-      {{ _t18('transfer_available') }}：<span class="fw-num"
-        >{{ availableAmount }} {{ params.coin?.toUpperCase() }}</span
-      >
+      <div>{{ _t18('transfer_available') }}{{ params.coin?.toUpperCase() }}</div>
+      <div class="fw-num">{{ availableAmount }}</div>
     </div>
     <div class="btnBox" @click="submit">
       <!-- 确认划转 -->
@@ -166,7 +164,7 @@ const amountAll = () => {
 
 //交换
 const jiaohuanbtn2 = () => {
-  [params.value.transferOutAccount, params.value.transferInAccount] = [
+  ;[params.value.transferOutAccount, params.value.transferInAccount] = [
     params.value.transferInAccount,
     params.value.transferOutAccount
   ]
@@ -185,18 +183,12 @@ onMounted(() => {
 
 .content_box {
   padding: 0 15px;
-
-  .title {
-    font-size: 30px;
-    margin: 30px 0;
-  }
-
   .cardOne,
   .cardTwo {
-    padding: 0 20px;
-    background-color: var(--ex-div-bgColor26);
-    margin-top: 20px;
-    border-radius: 5px;
+    padding: 0 0.533333rem;
+    background: var(--ex-financial-card-bg-color);
+    margin-top: 0.533333rem;
+    border-radius: 0.133333rem;
   }
 
   .cardOne {
@@ -224,7 +216,7 @@ onMounted(() => {
       }
 
       .left_top {
-        border-bottom: 1px dashed var(--ex-border-color9);
+        border-bottom: 0.026667rem dashed var(--ex-copy-font-color);
         display: flex;
         align-items: center;
       }
@@ -252,7 +244,9 @@ onMounted(() => {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid var(--ex-border-color8);
+      border: 0.026667rem solid var(--ex-border-line);
+      padding: 0.266667rem 0.106667rem;
+      border-radius: 0.16rem;
 
       i {
         padding: 0 10px;
@@ -264,10 +258,11 @@ onMounted(() => {
 
       input {
         flex: 1;
-        margin-right: 20px;
-        padding-bottom: 12px;
-
+        margin-right: 0.533333rem;
         background-color: transparent;
+        &::placeholder {
+          color: #7a7a71;
+        }
       }
 
       input::placeholder {
@@ -277,9 +272,21 @@ onMounted(() => {
   }
 
   .keyong {
-    margin-top: 15px;
-    color: var(--ex-font-color13);
-    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    background: var(--ex-financial-card-bg-color);
+    margin-top: 0.533333rem;
+    border-radius: 0.133333rem;
+    padding: 0.4rem;
+    div {
+      &:first-child {
+        font-size: 0.346667rem;
+        color: var(--ex-passive-font-color);
+      }
+      &:last-child {
+        font-size: 0.373333rem;
+      }
+    }
   }
 
   .btnBox {
@@ -290,6 +297,8 @@ onMounted(() => {
 .van-dropdown-menu {
   flex: 1;
   display: flex;
+  align-items: center;
+  justify-content: center;
 
   :deep(.van-popup--top) {
     max-width: var(--ex-max-width);

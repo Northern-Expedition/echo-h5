@@ -41,74 +41,72 @@
     ></HeaderBar>
     <!-- 团队信息 -->
     <div class="banner">
-      <div :class="__theme == 'dark' ? 'plugbg' : 'plug_bg'">
-        <div class="shareContent">
-          <!-- 邀请好友一起赚币 -->
-          <p class="shareContent_title fw-bold">{{ _t18('plug_invite', ['aams']) }}</p>
-          <!-- 邀请好友，充值即刻获取佣金 -->
-          <p class="shareContent_info">{{ _t18('plug_toInvite') }}</p>
-          <div class="sharkCode">
-            <Copy :data="sharkCode" :contentFix="'start'" :fontSize="'12px'">
-              <template #copyMsg>
-                <!-- 邀请码 -->
-                <p class="ff-num">{{ _t18('plug_shareCode') }}：{{ sharkCode }}</p>
-              </template>
-            </Copy>
-          </div>
-          <div class="shareLink" :contentFix="'start'">
-            <Copy :data="`${shareLink}${sharkCode}`" :fontSize="'12px'">
-              <template #copyMsg>
-                <!-- 推广链接 -->
-                <p class="ff-num">{{ _t18('plug_shareLink') }}：{{ shareLink }}{{ sharkCode }}</p>
-              </template>
-            </Copy>
-          </div>
+      <div class="plug-header">
+        <div class="row-header">
+          <image-load filePath="icon-janH6C-6.png" class="itemImg" />
+          <div>{{ _t18('aams_plug_myShare') }}</div>
+        </div>
+        <div class="row-body">
+          <div>{{ _t18('plug_amount', ['aams']) }}</div>
+          <div>{{ teamInfo.sumAmount || 0 }}</div>
         </div>
       </div>
       <div v-if="!['das'].includes(_getConfig('_APP_ENV'))">
-        <div class="teamInfo">
-          <!-- 一代人数 -->
-          <div>
-            <p>{{ _t18('plug_oneNum', ['aams']) }}</p>
-            <span class="ff-num">{{ teamInfo.oneCount || 0 }}</span>
+        <div class="plug-conter">
+          <div class="row-item">
+            <div class="row-item-left">
+              <div class="line"></div>
+              <div class="num">{{ teamInfo.oneCount || 0 }}</div>
+              <div>{{ _t18('plug_oneNum', ['aams']) }}</div>
+            </div>
+            <div class="row-item-right">
+              <image-load filePath="team1-fCbGTtzM.png" class="itemImg" />
+            </div>
           </div>
-          <!-- 二代人数 -->
-          <div>
-            <p>{{ _t18('plug_twoNum', ['aams']) }}</p>
-            <span class="ff-num">{{ teamInfo.twoCount || 0 }}</span>
+          <div class="row-item">
+            <div class="row-item-left">
+              <div class="line"></div>
+              <div class="num">{{ teamInfo.twoCount || 0 }}</div>
+              <div>{{ _t18('plug_twoNum', ['aams']) }}</div>
+            </div>
+            <div class="row-item-right">
+              <image-load filePath="team2-7amC4BUM.png" class="itemImg" />
+            </div>
           </div>
-          <!-- 三代人数 -->
-          <div>
-            <p>{{ _t18('plug_threeNum', ['aams']) }}</p>
-            <span class="ff-num">{{ teamInfo.threeCount || 0 }}</span>
+          <div class="row-item">
+            <div class="row-item-left">
+              <div class="line"></div>
+              <div class="num">{{ teamInfo.threeCount || 0 }}</div>
+              <div>{{ _t18('plug_threeNum', ['aams']) }}</div>
+            </div>
+            <div class="row-item-right">
+              <image-load filePath="team3-5UtVm90W.png" class="itemImg" />
+            </div>
           </div>
-          <!-- 推广总人数 -->
-          <div>
-            <p>{{ _t18('plug_sum', ['aams']) }}</p>
-            <span class="fw-num">{{ teamInfo.sumCount || 0 }}</span>
+          <div class="row-item">
+            <div class="row-item-left">
+              <div class="line"></div>
+              <div class="num">{{ teamInfo.sumCount || 0 }}</div>
+              <div>{{ _t18('plug_sum', ['aams']) }}</div>
+            </div>
+            <div class="row-item-right">
+              <image-load filePath="team4-zdEiH06I.png" class="itemImg" />
+            </div>
           </div>
-          <!-- 佣金金额 -->
-          <div>
-            <p>{{ _t18('plug_amount', ['aams']) }}</p>
-            <span class="ff-num">{{ teamInfo.sumAmount || 0 }}</span>
-          </div>
-          <div></div>
         </div>
+        <div class="plug-invite" @click="showInvite = true">{{ _t18('plug_invite') }}</div>
       </div>
     </div>
     <div v-if="!['das'].includes(_getConfig('_APP_ENV'))">
       <!-- 我的推广 -->
       <div class="promotion_my" v-if="!['bitfly'].includes(_getConfig('_APP_ENV'))">
         <div class="title fw-bold">{{ _t18('plug_myShare', ['aams']) }}</div>
-        <Tab
-          :tabList="tabList"
-          :active="curIndex"
-          @change="changeIndex"
-          :lineWidth="0"
-          :flexBetween="true"
-        >
+        <van-tabs v-model:active="curIndex" @change="changeIndex" shrink>
           <!-- 加载中动画 -->
-          <template #tabContent>
+          <van-tab v-for="(item, index) in tabList">
+            <template #title>
+              <div class="tab-item" :class="index === curIndex ? 'atv' : ''">{{ item }}</div>
+            </template>
             <div class="header">
               <!--用户ID  返佣金额  注册时间 -->
               <p>{{ _t18('plug_userId') }}</p>
@@ -132,8 +130,33 @@
                 </p>
               </div>
             </div>
-          </template>
-        </Tab>
+          </van-tab>
+          <!-- <template #tabContent>
+            <div class="header">
+              用户ID  返佣金额  注册时间
+              <p>{{ _t18('plug_userId') }}</p>
+              <p>{{ _t18('plug_back') }}</p>
+              <p>{{ _t18('plug_registerTime') }}</p>
+            </div>
+
+            <van-loading v-if="showLoading" />
+            <Nodata v-if="teamList.length <= 0 && !showLoading"></Nodata>
+            <div v-else class="contentBox">
+              <div class="content" v-for="(item, index) in teamList" :key="index">
+                <p class="ff-num">{{ item.fromId || '' }}</p>
+                <p class="ff-num">{{ item.sumAmount || 0 }}</p>
+                 <p>{{ item.createTime?_timeFormat(item.createTime, 'HH:mm MM/DD', true):'' }}</p> 
+                <p class="ff-num">
+                  {{
+                    item.createTime
+                      ? _timeFormat(item.params?.createTime, 'YY/MM/DD HH:mm', true)
+                      : ''
+                  }}
+                </p>
+              </div>
+            </div>
+          </template> -->
+        </van-tabs>
       </div>
     </div>
 
@@ -146,6 +169,31 @@
       :direction="direction"
     >
     </Popup>
+    <van-popup v-model:show="showInvite" round>
+      <div class="popup-invite">
+        <div class="invite-header">
+          <div class="title">{{ _t18('aams_plug_invite') }}</div>
+        </div>
+        <div class="contents">
+          <div class="sharkCode">
+            <Copy :data="sharkCode" :fontSize="'15px'">
+              <template #copyMsg>
+                <!-- 邀请码 -->
+                {{ sharkCode }}
+              </template>
+            </Copy>
+          </div>
+          <div class="shareLink">
+            <Copy :data="`${shareLink}${sharkCode}`" :fontSize="'15px'">
+              <template #copyMsg>
+                <!-- 推广链接 -->
+                {{ shareLink }}{{ sharkCode }}
+              </template>
+            </Copy>
+          </div>
+        </div>
+      </div>
+    </van-popup>
   </div>
 </template>
 
@@ -162,7 +210,9 @@ import { getAgentInfo, getAgentList } from '@/api/plug.js'
 import { onMounted } from 'vue'
 import { rulesList } from '@/api/common/index'
 
-const cuttentRight = { iconRight: [{ iconName: 'guize', clickTo: '' }] }
+const cuttentRight = reactive({
+  iconRight: [{ iconName: 'right-rule', clickTo: '', text: _t18('plug_rule') }]
+})
 const useStore = useUserStore()
 const userInfo = useStore.userInfo
 const sharkCode = userInfo?.user?.activeCode
@@ -179,6 +229,7 @@ const getTeamInfo = async () => {
     teamInfo.value = res.data
   }
 }
+const showInvite = ref(false)
 const getTeamList = async () => {
   showLoading.value = true
   const res = await getAgentList({ params: { leve: curIndex.value + 1 } })
@@ -285,10 +336,99 @@ const changeIndex = (v) => {
 
 <style lang="scss" scoped>
 * {
-  color: var(--ex-default-font-color);
   font-size: 14px;
 }
-
+:deep(.content1 p span) {
+  color: #fff !important;
+}
+:deep(.copy) {
+  .img {
+    margin-left: 20px;
+  }
+}
+:deep(.van-tabs) {
+  .van-tabs__wrap {
+    padding: 0 0.426667rem;
+  }
+  .van-tabs__nav {
+    padding: 0 0.426667rem;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 0.266667rem;
+    padding: 0;
+    background: var(--ex-home-tabs-bg-color);
+  }
+  .van-tab--shrink {
+    flex: none;
+    padding: 0 var(--van-padding-xs);
+  }
+  .van-tab--active {
+    background: var(--ex-home-tabs-bg-atv-color);
+    color: var(--ex-home-tabs-text-atv-color) !important;
+    border-radius: 0.266667rem;
+  }
+  .tab-item {
+    padding: 0.24rem 0.533333rem;
+    width: 100%;
+    font-size: 0.373333rem;
+    color: var(--ex-home-tabs-text-color);
+  }
+  .atv {
+    font-size: 0.4rem;
+    color: var(--ex-home-tabs-text-atv-color);
+  }
+  .van-tabs__line {
+    display: none;
+  }
+  .header {
+    padding: 0.4rem 0.4rem 0.266667rem;
+    display: flex;
+    & > p {
+      font-size: 0.32rem;
+      flex: 1;
+      color: var(--ex-passive-font-color);
+      text-align: center;
+      &:first-child {
+        text-align: left;
+      }
+      &:last-child {
+        text-align: right;
+      }
+    }
+  }
+}
+.popup-invite {
+  padding: 0.773333rem 0.373333rem;
+  background: #0e1327;
+  width: 9.146667rem;
+  .invite-header {
+    .title {
+      text-align: center;
+      font-size: 0.48rem;
+      font-weight: 600;
+      color: var(--ex-input-focus-color);
+      margin-bottom: 0.533333rem;
+    }
+  }
+  .contents {
+    .sharkCode {
+      background: var(--ex-backup--background-color);
+      border-radius: 0.213333rem;
+      padding: 0.4rem 0.426667rem;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.533333rem;
+    }
+    .shareLink {
+      background: var(--ex-backup--background-color);
+      border-radius: 0.213333rem;
+      padding: 0.4rem 0.426667rem;
+      line-height: 1.2;
+      font-size: 0.32rem;
+      word-break: break-all;
+    }
+  }
+}
 .content {
   font-size: 0;
   min-height: 100vh;
@@ -353,6 +493,87 @@ const changeIndex = (v) => {
 }
 
 .banner {
+  padding: 0.426667rem;
+  .plug-header {
+    background: var(--ex-default-font-color);
+    border-radius: 0.213333rem;
+    .row-header {
+      display: flex;
+      align-items: center;
+      background: var(--ex-primary-color);
+      padding: 0.4rem 0.373333rem;
+      border-radius: 0.213333rem 0.213333rem 0 0;
+      .itemImg {
+        width: 0.453333rem;
+        height: 0.426667rem;
+      }
+      div {
+        margin-left: 0.106667rem;
+        font-size: 0.426667rem;
+        font-weight: 500;
+      }
+    }
+    .row-body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.373333rem;
+      div {
+        font-size: 0.32rem;
+        font-weight: 500;
+        color: var(--ex-default-background-color);
+      }
+    }
+  }
+  .plug-conter {
+    display: grid;
+    grid-template-columns: 4.426667rem 4.426667rem;
+    grid-column-gap: 0.293333rem;
+    grid-row-gap: 0.293333rem;
+    margin: 0.373333rem 0 0.8rem;
+    .row-item {
+      display: flex;
+      justify-content: space-between;
+      border-radius: 0.266667rem;
+      border: 0.026667rem solid var(--ex-border-line);
+      padding: 0.48rem 0.373333rem;
+      &-left {
+        width: 2.293333rem;
+        .line {
+          width: 0.48rem;
+          height: 0.053333rem;
+          background: var(--ex-text-color);
+        }
+        .num {
+          font-size: 0.426667rem;
+          font-weight: 600;
+          margin: 0.56rem 0 0.08rem;
+          word-break: break-all;
+        }
+        div {
+          &:last-child {
+            font-size: 0.32rem;
+            font-weight: 500;
+            color: var(--ex--home-grid-text-color);
+          }
+        }
+      }
+      &-right {
+        .itemImg {
+          width: 1.173333rem;
+          height: 1.173333rem;
+        }
+      }
+    }
+  }
+  .plug-invite {
+    width: 9.146667rem;
+    height: 1.44rem;
+    line-height: 1.44rem;
+    text-align: center;
+    background: var(--ex-copy-font-color);
+    border-radius: 0.213333rem;
+  }
   .plug_bg {
     background: url('../../../public/resource/images/dark/plugbg.png') no-repeat center;
     background-size: cover;
@@ -422,35 +643,11 @@ const changeIndex = (v) => {
     width: 100%;
     height: auto;
   }
-
-  .teamInfo {
-    padding: 15px 0 0;
-    display: flex;
-    flex-wrap: wrap;
-
-    & > div {
-      width: 33.33%;
-      padding: 15px 5px;
-      text-align: center;
-      // flex: 1;
-      p {
-        height: 30px;
-        color: var(--ex-passive-font-color);
-        margin-bottom: 15px;
-        word-wrap: break-word;
-      }
-
-      span {
-        font-size: 16px;
-        font-weight: 500;
-      }
-    }
-  }
 }
 
 .promotion_my {
   .title {
-    padding: 25px 15px 20px;
+    padding: 0 0.4rem 0.533333rem;
     color: var(--ex-font-color6);
     font-weight: bold;
     font-size: 16px;

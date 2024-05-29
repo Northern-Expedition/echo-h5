@@ -4,7 +4,9 @@
       <div class="left">
         <div>
           <image-load filePath="deposit.png" name="deposit" class="img"></image-load>
-          <span style="margin-left: 10px">{{ _t18('asset_recharge') }}</span>
+          <span style="margin-left: 10px">{{
+            $route.fullPath.includes('withdraw') ? _t18('asset_withdraw') : _t18('asset_recharge')
+          }}</span>
         </div>
 
         <div>

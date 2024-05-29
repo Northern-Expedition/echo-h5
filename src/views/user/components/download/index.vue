@@ -1,6 +1,39 @@
+<template>
+  <div class="download">
+    <div class="laod-header">
+      <HeaderBar :currentName="_t18('robinhood2_download_center')"></HeaderBar>
+      <div class="placeholder"></div>
+      <div class="sub-title">ZHILIAN_DARK {{ _t18('digitalTradingPlatform') }}</div>
+      <div class="btn-list">
+        <image-load
+          v-for="item in downLoadList"
+          :key="item.path"
+          :filePath="item.icon"
+          class="img btn-img"
+          @click="tohref(item.path)"
+        ></image-load>
+      </div>
+    </div>
+    <div class="load-section">
+      <div class="title">
+        {{ _t18('The world s first blockchain ecological aggregation product') }}
+      </div>
+      <div class="item-body">
+        <div class="row-item" v-for="(item, index) in sectionData" :key="index">
+          <image-load :filePath="item.icon" class="img"></image-load>
+          <div>{{ item.title }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="subtitle">{{ _t18('trusted_partners') }}</div>
+    <image-load filePath="footer-2GI7uaLH.png" class="footerImg"></image-load>
+  </div>
+</template>
 <script setup>
 import { useMainStore } from '@/store'
 import { useRoute } from 'vue-router'
+import { _t18 } from '@/utils/public'
+
 const mainStore = useMainStore()
 /**
  * 下载列表
@@ -21,54 +54,84 @@ const showFlag = ref(route.query.flag)
 const tohref = (url) => {
   window.open(url)
 }
+const sectionData = [
+  { icon: 'd1-Tw_bkQui.png', title: _t18('decentralizedOperation') },
+  { icon: 'd2-I5xZRFsV.png', title: _t18('data_trustworthy') },
+  { icon: 'd3-m7O5VQpX.png', title: _t18('regulatory_protection') },
+  { icon: 'd4-yiMkgLaO.png', title: _t18('diversified_empowerment') }
+]
 </script>
-<template>
-  <div class="content">
-    <image-load filePath="xiazaiimg.png" class="img-bg"></image-load>
-    <div class="toBack" v-if="showFlag" @click="$router.push('/')">
-      <svg-load name="back" class="back"></svg-load>
-    </div>
-    <div class="btn-list" v-if="downLoadList.length">
-      <image-load
-        v-for="item in downLoadList"
-        :key="item.path"
-        :filePath="item.icon"
-        class="btn-img"
-        @click="tohref(item.path)"
-      ></image-load>
-    </div>
-  </div>
-</template>
+<style scoped lang="scss">
+:deep(.border_bottom) {
+  background-color: transparent !important;
+}
+.download {
+  .sub-title {
+    color: var(--ex-home-tabs-text-atv-color);
+    text-align: center;
+    font-size: 40px;
+    margin: 80px 0 0;
+  }
+  .laod-header {
+    background-image: url('./banner-SKW8CNTK.png');
+    padding-bottom: 30px;
+    background-size: cover;
+    color: var(--ex-home-tabs-text-atv-color);
 
-<style lang="scss" scoped>
-.content {
-  font-size: 0;
-  min-height: 100vh;
-  .img-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
+    .btn-list {
+      padding: 0 20px;
+      margin-top: 126px;
+      display: flex;
+      justify-content: space-between;
+      .btn-img {
+        width: 142px;
+        height: 50px;
+      }
+    }
+  }
+  .load-section {
+    padding: 0 15px 30px;
+    .title {
+      text-align: center;
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 28px;
+    }
+    .item-body {
+      display: grid;
+      grid-template-columns: 48% 48%;
+      grid-column-gap: 4%;
+      grid-row-gap: 4%;
+      .row-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 18px 0;
+        background: #161a33;
+        border-radius: 10px;
+        .img {
+          width: 40px;
+          height: 40px;
+        }
+        div {
+          text-align: center;
+          margin-top: 6px;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+  .subtitle {
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    margin: 50px 0 30px;
+    text-align: center;
+  }
+  .footerImg {
+    height: 77px;
+    object-fit: contain;
     width: 100%;
-    object-fit: cover;
-  }
-  .toBack {
-    position: absolute;
-    margin-top: 30px;
-    margin-left: 20px;
-    .back {
-      font-size: 18px;
-    }
-  }
-  .btn-list {
-    position: absolute;
-    margin-top: 70%;
-    margin-left: 200px;
-    .btn-img {
-      margin-bottom: 15px;
-      width: 150px;
-      height: 100%;
-    }
   }
 }
 </style>
