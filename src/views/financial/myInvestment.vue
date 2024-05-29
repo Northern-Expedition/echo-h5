@@ -2,30 +2,39 @@
 <template>
   <div class="columnFlex">
     <HeaderBar :currentName="_t18(`my_invest`)" />
+    <div class="subtitle">
+      <div></div>
+      <div>交易统计</div>
+      <div></div>
+    </div>
     <div class="invest">
       <!-- 总投入价值 -->
       <div class="item">
-        <div>{{ _t18(`sum_bet_value`) }}</div>
-        <div class="itemRight fw-num">{{ headerObj.sumAmount }} USDT</div>
+        <div>{{ _t18(`sum_bet_value`) }}(USDT)</div>
+        <div class="item-value">{{ headerObj.sumAmount }}</div>
       </div>
       <!-- 当日赚取奖励 -->
       <div class="item">
-        <div>{{ _t18(`earn_rewards`) }}</div>
-        <div class="itemRight fw-num">{{ headerObj.commission }} USDT</div>
+        <div>{{ _t18(`earn_rewards`) }}(USDT)</div>
+        <div class="item-value">{{ headerObj.commission }}</div>
       </div>
       <!-- 累计收益 -->
       <div class="item">
-        <div>{{ _t18(`Cumulative_income`) }}</div>
-        <div class="itemRight blueColor fw-num">{{ headerObj.sumEarn }} USDT</div>
+        <div>{{ _t18(`Cumulative_income`) }}(USDT)</div>
+        <div class="item-value">{{ headerObj.sumEarn }}</div>
       </div>
       <!-- 持仓数量 -->
       <div class="item">
         <div>{{ _t18(`number_of_positions`) }}</div>
-        <div class="itemRight fw-num">{{ headerObj.position }}</div>
+        <div class="item-value">{{ headerObj.position }}</div>
       </div>
     </div>
     <!-- 交易记录 -->
-    <div class="record">{{ _t18(`transaction_record`) }}</div>
+    <div class="subtitle">
+      <div></div>
+      <div>{{ _t18(`transaction_record`) }}</div>
+      <div></div>
+    </div>
     <div class="recordList">
       <!-- 没有更多数据了 no_more_data 加载中  loading-->
       <van-list
@@ -99,29 +108,48 @@ onMounted(() => {
 .columnFlex {
   height: 100vh;
 }
-.invest {
-  padding: 10px 15px;
-  .item {
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-    color: var(--ex-passive-font-color);
-    .itemRight {
-      font-size: 12px;
-      color: var(--ex-default-font-color);
+.subtitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.426667rem 0;
+  div {
+    &:not(:nth-child(2)) {
+      width: 1.84rem;
+      height: 0.026667rem;
+      background: var(--ex-financial-line-bg-color);
     }
-    .blueColor {
-      color: var(--ex-font-color9);
+    &:nth-child(2) {
+      font-size: 0.4rem;
+      font-weight: 400;
+      margin: 0 0.133333rem;
     }
   }
 }
-.record {
-  font-size: 16px;
-  color: var(--ex-default-font-color);
-  padding: 20px 15px 0;
-  border-top: 1px solid var(--ex-border-color);
+.invest {
+  padding: 0.266667rem 0.4rem;
+  display: grid;
+  grid-template-columns: 4.373333rem 4.373333rem;
+  grid-column-gap: 0.293333rem;
+  grid-row-gap: 0.293333rem;
+  .item {
+    padding: 0.373333rem;
+    border-radius: 0.133333rem;
+    background: var(--ex-financial-card-bg-color);
+    color: var(--ex-passive-font-color);
+    display: flex;
+    flex-direction: column-reverse;
+    font-size: 0.32rem;
+
+    &-value {
+      margin-bottom: 0.08rem;
+      font-size: 0.426667rem;
+      color: var(--ex-default-font-color) !important;
+    }
+    div {
+      color: var(--ex-passive-font-color);
+    }
+  }
 }
 .recordList {
   flex: 1;

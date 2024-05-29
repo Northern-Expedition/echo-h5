@@ -30,6 +30,6 @@ onMounted(() => {
 </script>
 <style lang="scss" scoped>
 .funList {
-  padding: 20px 15px 66px;
+  padding: 0.533333rem 0.4rem 1.76rem;
 }
 </style>

@@ -1,53 +1,72 @@
 <template>
   <div class="columnFlex">
-    <!-- 购买基金 -->
-    <HeaderBar :currentName="_t18('buy_funds')" :backwardNum="backwardNum" />
     <div v-if="!isSuccess">
-      <DetailHeader :headerObj="headerObj"></DetailHeader>
-      <div class="introduction">
-        <!-- 买入额度 -->
-        <div class="title fw-bold">{{ _t18('buy_limit') }}</div>
-        <!-- 请输入 -->
-        <input v-model="limit" type="text" :placeholder="_t18('exchange.input')" class="quota" />
-      </div>
-      <ProductDetail :proDetail="proDetail"></ProductDetail>
-      <div class="buyNow">
-        <!-- 支付 -->
-        <div class="buyBtn" @click="payNow">{{ _t18('to pay') }}</div>
-        <div class="protocol">
-          <svg-load v-if="!isCheck" name="gou" class="protocolImg" @click="toSwitch"></svg-load>
-          <svg-load v-if="isCheck" name="gouH" class="protocolImg" @click="toSwitch"></svg-load>
-          <!-- 我已阅读并同意 -->
-          <div>{{ _t18('read_and_confirm') }}</div>
-          <!-- 理财协议 -->
-          <div class="hightName" @click="$router.push('/financialAgreement')">
-            {{ _t18('financial agreement') }}
+      <div class="popup-box">
+        <div class="head">
+          <div class="head-left">
+            <img class="itemImg" src="@/assets/financial/coin-JyvGAUty.png" alt="" />
+            <div class="fw-bold">{{ headerObj.title }}</div>
+          </div>
+          <div class="head-right">
+            <van-icon name="close" size="16" @click="handleShowCenter" />
           </div>
         </div>
+        <div class="buy-conter">
+          <input
+            v-model="limit"
+            type="number"
+            :placeholder="_t18('exchange.input')"
+            class="quota"
+          />
+
+          <div class="proDetail">
+            <div class="detail">
+              <div class="item">
+                <div>{{ _t18(`product-details`) }}</div>
+                <div class="itemName">{{ proDetail.title }}</div>
+              </div>
+              <div class="item">
+                <div>{{ _t18(`project_progress`) }}</div>
+                <div class="itemName ff-num">{{ proDetail.process }}%</div>
+              </div>
+              <div class="item">
+                <div>{{ _t18(`total_project`) }}</div>
+                <div class="itemName">{{ proDetail.totalInvestAmount }} {{ proDetail.coin }}</div>
+              </div>
+              <div class="item">
+                <div>{{ _t18(`balance`) }}</div>
+                <div class="itemName">{{ proDetail.remainAmount }} {{ proDetail.coin }}</div>
+              </div>
+              <div class="item">
+                <div>{{ _t18(`limit_number`) }}</div>
+                <div class="itemName fw-num">{{ Number(proDetail.timeLimit) }}</div>
+              </div>
+              <div class="item">
+                <div>{{ _t18(`average_daily_income`) }}</div>
+                <div class="itemName ff-num hightColor">{{ proDetail.avgRate }}%</div>
+              </div>
+            </div>
+          </div>
+          <div class="buyBtn" @click="payNow">支付</div>
+        </div>
       </div>
-    </div>
-    <div v-if="isSuccess" class="success">
-      <svg-load name="icon8" class="successImg"></svg-load>
-      <!-- 支付成功 -->
-      <div>{{ _t18('payment_successful') }}</div>
     </div>
   </div>
 </template>
 <script setup>
+import { _t18 } from '@/utils/public'
 import { DIFF_ISFREEZE } from '@/config/index'
 import { useFreeze } from '@/hook/useFreeze'
 const { _isFreeze } = useFreeze()
 import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { showToast } from 'vant'
 import { useToast } from '@/hook/useToast'
-const { _toast, _showName } = useToast()
-import HeaderBar from '@/components/HeaderBar/index.vue'
-import DetailHeader from './components/detailHeader.vue' //头
-import ProductDetail from './components/productDetail.vue' // 详情
+const { _toast } = useToast()
 import { financialDetail, financialSubmit } from '@/api/financial/index'
-import { _t18 } from '@/utils/public'
+const emit = defineEmits(['handleShowCenter'])
 const Route = useRoute()
+const { push } = useRouter()
 // 起投金额 限投金额 锁仓天数
 const headerObj = ref({
   leftName: _t18(`starting-amount`),
@@ -58,24 +77,31 @@ const limit = ref('') // 额度
 const dayNum = ref('') // 额度
 const coninName = ref('')
 const proDetail = ref({}) // 产品详情
-const isCheck = ref(false) // 选择服务协议
 const isSuccess = ref(false) // 判断成功
 const backwardNum = ref(-1) //
 const minNum = ref(0) // 最小输入
 const maxNum = ref(0) // 最大输入
 const payNowForm = () => {
   // 请先同意理财协议
-  if (!isCheck.value) return _toast('please_agree_financial')
-  if (Number(limit.value) < minNum.value)
+  if (Number(limit.value) < minNum.value) {
     // 最少可购买
-    return showToast(_t18(`Can_buy_down_to`) + ` ${minNum.value} ${coninName.value}`)
-  if (Number(limit.value) > maxNum.value)
+    return _toast('Can_buy_down_to')
+  }
+
+  if (Number(limit.value) > maxNum.value) {
     // 最多可购买
-    return showToast(_showName(`Can_buy_up_to`) + ` ${maxNum.value} ${coninName.value}`)
+    return _toast('Can_buy_up_to')
+  }
+
   let regNum = /^\d+(\.\d{1,4})?$/
   // 最多输入小数点后4位
-  if (!regNum.test(limit.value)) return _toast('entet4_point')
+  if (!regNum.test(limit.value)) {
+    return _toast('entet4_point')
+  }
   submit()
+}
+const handleShowCenter = () => {
+  emit('handleShowCenter')
 }
 // 支付
 const payNow = () => {
@@ -91,15 +117,11 @@ const payNow = () => {
 const submit = async () => {
   const res = await financialSubmit(Route.params.id, limit.value, dayNum.value)
   if (res.code === 200) {
-    isSuccess.value = true
-    backwardNum.value = -2
+    push('/myInvestment')
   } else {
+    push('/myInvestment')
     showToast(res.msg)
   }
-}
-// 勾选协议
-const toSwitch = () => {
-  isCheck.value = !isCheck.value
 }
 /** 获取详情 */
 const getDetail = async () => {
@@ -138,79 +160,74 @@ onMounted(() => {
 })
 </script>
 <style lang="scss" scoped>
-.introduction {
-  padding: 20px 17px;
-  border-top: 1px solid var(--ex-border-color);
-  border-bottom: 1px solid var(--ex-border-color);
-  color: var(--ex-passive-font-color);
-  font-size: 12px;
-  .title {
-    font-size: 16px;
-    color: var(--ex-default-font-color);
-    margin-bottom: 10px;
-  }
-  .quota {
-    width: 100%;
-    height: 50px;
-    background: var(--ex-default-background-color);
-    border-radius: 3px 3px 3px 3px;
-    border: 1px solid var(--ex-border-color2);
-    padding: 0 10px;
-    font-size: 14px;
-    color: var(--ex-default-font-color);
-  }
-  input::-webkit-input-placeholder {
-    color: var(--ex-font-color1);
-  }
-  input::-moz-input-placeholder {
-    color: var(--ex-font-color1);
-  }
-  input::-ms-input-placeholder {
-    color: var(--ex-font-color1);
-  }
-}
-.buyNow {
-  padding: 40px 15px;
-  border-top: 1px solid var(--ex-border-color);
-  .buyBtn {
-    height: 50px;
-    background: var(--ex-div-bgColor1);
-    border-radius: 3px 3px 3px 3px;
-    font-size: 16px;
-    color: var(--ex-font-color);
+.popup-box {
+  width: 9.146667rem;
+  padding: 0.56rem 0.453333rem;
+  background: var(--ex-financial-card-bg-color);
+  .head {
     display: flex;
     align-items: center;
-    justify-content: center;
-  }
-  .protocol {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    padding: 30px 0 0;
-    font-size: 14px;
-    text-align: center;
-    .protocolImg {
-      width: 18px;
-      height: 18px;
-      margin-right: 5px;
-    }
-    .hightName {
-      color: var(--ex-font-color2);
-      text-decoration: underline;
+    justify-content: space-between;
+    margin-bottom: 0.64rem;
+    &-left {
+      font-size: 0.4rem;
+      color: var(--ex-default-font-color);
+      display: flex;
+      .itemImg {
+        width: 0.693333rem;
+        height: 0.506667rem;
+        object-fit: cover;
+        margin-right: 0.266667rem;
+      }
     }
   }
-}
-.success {
-  flex: 1;
-  margin: 150px auto;
-  font-size: 14px;
-  color: var(--ex-passive-font-color);
-  text-align: center;
-  .successImg {
-    width: 114px;
-    height: 112px;
-    margin-bottom: 30px;
+  .buy-conter {
+    .quota {
+      width: 100%;
+      margin-top: 0.266667rem;
+      padding: 0.373333rem;
+      border-radius: 0.213333rem;
+      border: 0.026667rem solid rgba(0, 0, 0, 0);
+      font-size: 14px;
+      background-color: rgba(0, 0, 0, 0);
+      border: 1px solid rgb(208 218 213 / 10%);
+      .van-field__control {
+        font-size: 14px;
+      }
+      &:hover {
+        border: 0.026667rem solid var(--ex-input-focus-color);
+        outline: none;
+      }
+    }
+    .proDetail {
+      .detail {
+        padding: 0.533333rem 0.026667rem 0;
+        .item {
+          padding-bottom: 0.533333rem;
+          color: var(--ex-passive-font-color);
+          font-size: 0.32rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .itemName {
+            color: var(--ex-default-font-color);
+          }
+          .heightColor {
+            color: var(--ex-font-color3);
+          }
+        }
+      }
+    }
+    .buyBtn {
+      height: 1.173333rem;
+      background: var(--ex-primary-color);
+      border-radius: 0.213333rem;
+      font-size: 0.4rem;
+      color: var(--ex-font-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }
 </style>

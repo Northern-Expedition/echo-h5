@@ -117,6 +117,7 @@ const handelShowTab = (item) => {
 </script>
 <style lang="scss" scoped>
 .footer {
+  padding: 0 0.426667rem;
   padding-bottom: 120px;
   h1.active {
     color: var(--ex-default-font-color);

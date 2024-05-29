@@ -1,16 +1,27 @@
 <template>
-  <div @click="toDetail(dataValue)">
+  <div @click="toDetail(dataValue)" class="item">
     <div class="title">
       <div class="left">
-        <svg-load name="card" class="usdt" v-if="dataValue.type == 'BANK'"></svg-load>
-        <svg-load :name="filterCoin2(dataValue.coin)" class="usdt" v-else></svg-load>
-        <div class="txt">
-          {{ dataValue.type }}
+        <div>
+          <image-load filePath="deposit.png" name="deposit" class="img"></image-load>
+          <span style="margin-left: 10px">{{ _t18('asset_recharge') }}</span>
+        </div>
+
+        <div>
+          <!-- 状态 审核中 成功 失败 -->
+          <p class="right status0" v-if="dataValue.status == 0">{{ _t18('recharge_waiting') }}</p>
+          <p class="right status1" v-if="dataValue.status == 1">
+            {{ _t18('recharge_tab_success') }}
+          </p>
+          <p class="right status2" v-if="dataValue.status == 2">{{ _t18('recharge_tab_error') }}</p>
         </div>
       </div>
-      <div class="right"><svg-load name="jiantou" class="jiantou"></svg-load></div>
     </div>
     <div class="message">
+      <div>
+        <p class="left">{{ _t18('recharge_coin') }}</p>
+        <p style="color: #8885fb">{{ dataValue.type }}</p>
+      </div>
       <div>
         <!-- 金额 -->
         <p class="left">
@@ -32,14 +43,6 @@
         <!-- 手续费 -->
         <p class="left">{{ _t18('Deduction_fee') }}</p>
         <p class="right ff-num">{{ dataValue.fee }}</p>
-      </div>
-
-      <div>
-        <!-- 状态 审核中 成功 失败 -->
-        <p class="left">{{ _t18('recharge_status') }}</p>
-        <p class="right status0" v-if="dataValue.status == 0">{{ _t18('recharge_waiting') }}</p>
-        <p class="right status1" v-if="dataValue.status == 1">{{ _t18('recharge_tab_success') }}</p>
-        <p class="right status2" v-if="dataValue.status == 2">{{ _t18('recharge_tab_error') }}</p>
       </div>
 
       <div>
@@ -99,34 +102,42 @@ const toDetail = (data) => {
   font-size: 14px;
   color: var(--ex-default-font-color);
 }
-div {
-  background: var(--ex-default-background-color) !important;
+.item {
+  background: #161a33 !important;
+  border-radius: 0.266667rem;
+  padding: 0.373333rem 0.373333rem 0.426667rem;
   .title {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-bottom: 0.4rem;
     margin-bottom: 15px;
+    border-bottom: 1px solid #34393e;
     .left {
+      width: 100%;
+      justify-content: space-between;
       display: flex;
       align-items: center;
       font-size: 16px;
       font-weight: 500;
-      .usdt {
-        font-size: 24px;
-        margin-right: 10px;
+      .img {
+        width: 0.746667rem;
+        height: 0.746667rem;
       }
-    }
-
-    p {
-      color: var(--ex-font-color9);
-    }
-    .jiantou {
-      font-size: 10px;
+      .status0 {
+        color: #fd8700;
+      }
+      .status1 {
+        color: #10f4b1;
+      }
+      .status2 {
+        color: #ff6058;
+      }
     }
   }
   .message {
     & > div {
-      padding: 15px 0;
+      padding: 7px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -134,17 +145,7 @@ div {
         color: var(--ex-passive-font-color);
       }
       .fontBold {
-        font-weight: bold;
         color: var(--ex-font-color10);
-      }
-      .status0 {
-        color: var(--ex-font-color23);
-      }
-      .status1 {
-        color: var(--ex-font-color9);
-      }
-      .status2 {
-        color: var(--ex-font-color3);
       }
     }
   }

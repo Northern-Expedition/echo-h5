@@ -1,6 +1,6 @@
 <!-- 充值申请 -->
 <template>
-  <HeaderBar :currentName="currentName" :cuttentRight="cuttentRight"></HeaderBar>
+  <HeaderBar :currentName="currentName"></HeaderBar>
   <!-- 二维码 -->
   <div class="erweima">
     <QRCode :address="address"></QRCode>
@@ -11,12 +11,13 @@
       <!-- 充值地址 -->
       <p class="top">{{ _t18('recharge_address', ['bitmake']) }}({{ route.query.type }})</p>
       <div class="bottom">
-        <Copy :data="address" :fontSize="'16px'">
+        <Copy :data="address" :fontSize="'16px'" ref="copyRef">
           <template #copyMsg>
             <span class="fw-num">{{ address }}</span>
           </template>
         </Copy>
       </div>
+      <div class="btns" @click="handleCopy">{{ _t18('copy') }}</div>
     </div>
     <template
       v-if="
@@ -95,7 +96,6 @@ const route = useRoute()
 const router = useRouter()
 // 充值
 const currentName = `${_t18('recharge', ['latcoin'])} ${route.query.type}`
-const cuttentRight = { iconRight: [{ iconName: 'jilu', clickTo: '/recharge-order' }] }
 /**
  * 充值说明
  */
@@ -180,10 +180,13 @@ const mainStore = useMainStore()
  * 充值地址
  */
 const address = computed(() => {
-
   let rechargeObj = mainStore.getRechargeList.find((elem) => elem.coinName == route.query.type)
   return rechargeObj.coinAddress
 })
+const copyRef = ref(null)
+const handleCopy = () => {
+  copyRef.value.toCopy()
+}
 </script>
 
 <style lang="scss" scoped>
@@ -194,6 +197,11 @@ const address = computed(() => {
 .erweima {
   padding: 50px 0;
 }
+
+:deep(.icon) {
+  display: none;
+}
+
 .applyMes {
   border-top: 1px solid var(--ex-border-color);
   padding: 30px 15px;
@@ -207,16 +215,36 @@ const address = computed(() => {
   }
   .address {
     .bottom {
+      border: 1px solid rgb(208 218 213 / 10%);
+      padding: 0.213333rem 0.32rem;
+      border-radius: 0.213333rem;
       word-break: break-all;
+      margin-bottom: 10px;
+      background-color: #161a33;
+    }
+    .btns {
+      width: 3.013333rem;
+      height: 0.933333rem;
+      line-height: 0.933333rem;
+      margin: 0 auto;
+      text-align: center;
+      background: var(--ex-copy-font-bg-color);
+      border-radius: 0.106667rem;
+      font-size: 0.373333rem;
+      font-weight: 400;
+      color: var(--ex-copy-font-color);
     }
   }
   .num {
     .bottom {
-      border: 1px solid var(--ex-border-color1);
+      border: 1px solid rgb(208 218 213 / 10%);
       padding: 15px 10px;
-      border-radius: 3px;
+      border-radius: 0.213333rem;
+
+      background-color: #161a33;
       input {
         width: 100%;
+        background-color: #161a33;
       }
       input::placeholder {
         color: var(--ex-font-color5);
@@ -232,10 +260,12 @@ const address = computed(() => {
       }
     }
     .bottom {
-      border: 1px solid var(--ex-border-color1);
+      border: 1px solid rgb(208 218 213 / 10%);
       padding: 35px 0;
       text-align: center;
-      border-radius: 3px;
+      border-radius: 0.213333rem;
+      background-color: #161a33;
+
       .img {
         font-size: 36px;
       }
@@ -246,11 +276,11 @@ const address = computed(() => {
   padding: 0 15px 55px;
   p {
     text-align: center;
-    padding: 14px 0;
-    color: var(--ex-font-color);
-    font-size: 16px;
-    background-color: var(--ex-div-bgColor1);
-    border-radius: 3px;
+    padding: 0.373333rem 0;
+    font-size: 0.426667rem;
+    border-radius: 0.213333rem;
+    background: var(--ex-primary-color);
+    color: var(--ex-default-font-color);
   }
 }
 .tip-list {

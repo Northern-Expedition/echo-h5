@@ -11,6 +11,8 @@ import { _t18 } from '@/utils/public'
 import { useToast } from '@/hook/useToast'
 const { _toast } = useToast()
 import Copy from 'vue-clipboard3'
+import { defineExpose } from 'vue'
+
 const props = defineProps({
   data: {
     type: [String, Number],
@@ -24,7 +26,7 @@ const props = defineProps({
     type: String,
     default: '14px'
   },
-  noFlag:{
+  noFlag: {
     type: Boolean,
     default: true
   }
@@ -38,6 +40,9 @@ const toCopy = async () => {
     _toast('copy_error')
   }
 }
+defineExpose({
+  toCopy
+})
 </script>
 
 <style lang="scss" scoped>

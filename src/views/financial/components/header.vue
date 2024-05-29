@@ -58,16 +58,13 @@ onMounted(async () => {
 </script>
 <style lang="scss" scoped>
 .header {
-  border-top: 1px solid var(--ex-border-color);
-  border-bottom: 1px solid var(--ex-border-color);
-  padding: 20px 0;
   .bgImg {
     margin: 0 15px;
-    height: 173px;
     .img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 0.16rem;
     }
   }
   .navigationList {

@@ -64,7 +64,6 @@ watch(
     padding: 0;
     width: 170px;
     height: 170px;
-    border: 1px solid var(--ex-border-color4);
     img {
       width: 100%;
     }

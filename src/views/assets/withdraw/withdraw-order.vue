@@ -22,7 +22,7 @@
             :loading-text="_t18(`loading`)"
             @load="onLoad"
           >
-            <van-cell v-for="(item, index) in tabContentList" :key="index">
+            <van-cell :border="false" v-for="(item, index) in tabContentList" :key="index">
               <OrderList :data="item"></OrderList>
             </van-cell>
           </van-list>
@@ -136,6 +136,7 @@ watch(
 
 <style lang="scss" scoped>
 .content {
+  background: var(--ex-default-background-color) !important;
   border-bottom: 5px solid var(--ex-border-color);
   padding: 20px 15px;
 }
@@ -147,10 +148,7 @@ watch(
   min-height: calc(100vh - 60px - 44px);
 }
 :deep(.van-cell) {
-  background: var(--ex-default-background-color) !important;
-}
-:deep(.van-cell::after) {
-  border-bottom: 1px solid var(--ex-border-color) !important;
+  background-color: transparent !important;
 }
 :deep(.van-tabs) {
   background: var(--ex-home-tabbar-background-color) !important ;
@@ -159,10 +157,14 @@ watch(
   background: var(--ex-home-tabbar-background-color) !important ;
 }
 :deep(.van-tab) {
-  color: var(--ex-home-list-ftcolor) !important;
+  color: #7a7a7a !important;
   background: var(--ex-home-tabbar-background-color) !important ;
 }
 :deep(.van-tab--active) {
-  color: var(--ex-home-list-ftcolor3) !important;
+  color: #ffffff !important;
+}
+:deep(.van-tabs__line) {
+  bottom: 0.16rem !important;
+  background: #fff !important;
 }
 </style>

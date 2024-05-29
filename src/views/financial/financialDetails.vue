@@ -1,19 +1,20 @@
 <template>
-  <!-- 详情 -->
-  <HeaderBar :currentName="_t18(`host.detail`)" />
-  <DetailHeader :headerObj="headerObj"></DetailHeader>
-  <div class="introduction">
-    <!-- 基金介绍 -->
-    <div class="title fw-bold">{{ _t18(`Fund_introduction`) }}</div>
-    <!-- 暂无介绍 -->
-    <div>{{ fundIntroduction ? fundIntroduction : _t18(`No_introductionyet`) }}</div>
+  <div style="padding: 0.426667rem">
+    <!-- 详情 -->
+    <HeaderBar :currentName="_t18(`host.detail`)" />
+    <DetailHeader :headerObj="headerObj"></DetailHeader>
+
+    <ProductDetail :proDetail="proDetail"></ProductDetail>
+    <ProductRules :proRules="proRules" :fundIntroduction="fundIntroduction"></ProductRules>
+    <div class="buyNow">
+      <!-- 立即购买 -->
+      <div class="buyBtn" @click="handleShowCenter">{{ _t18(`buy_it_now`) }}</div>
+    </div>
   </div>
-  <ProductDetail :proDetail="proDetail"></ProductDetail>
-  <ProductRules :proRules="proRules"></ProductRules>
-  <div class="buyNow">
-    <!-- 立即购买 -->
-    <div class="buyBtn" @click="buyNow">{{ _t18(`buy_it_now`) }}</div>
-  </div>
+
+  <van-popup v-model:show="showCenter" round>
+    <buyFunds @handleShowCenter="handleShowCenter" />
+  </van-popup>
 </template>
 <script setup>
 import { DIFF_ISFREEZE_OTHER } from '@/config/index'
@@ -27,6 +28,7 @@ import ProductDetail from './components/productDetail.vue' // 详情
 import ProductRules from './components/productRules.vue' // 规则
 import { financialDetail } from '@/api/financial/index'
 import { _t18 } from '@/utils/public'
+import buyFunds from './buyFunds.vue'
 const $router = useRouter()
 const Route = useRoute()
 // 平均收益 项目周期（天） 起投金额
@@ -39,6 +41,7 @@ const headerObj = ref({
 const fundIntroduction = ref('') // 基金介绍
 const proDetail = ref({}) // 产品详情
 const proRules = ref('') // 产品规则
+const showCenter = ref(false)
 const buyNow = () => {
   if (DIFF_ISFREEZE_OTHER.includes(__config._APP_ENV)) {
     if (_isFreeze(DIFF_ISFREEZE_OTHER)) {
@@ -47,6 +50,9 @@ const buyNow = () => {
   } else {
     $router.push(`/buyFunds/${Route.params.id}`)
   }
+}
+const handleShowCenter = () => {
+  showCenter.value = !showCenter.value
 }
 /** 获取详情 */
 const getDetail = async () => {
@@ -100,10 +106,11 @@ onMounted(() => {
 .buyNow {
   padding: 50px 15px;
   .buyBtn {
-    height: 50px;
-    background: var(--ex-div-bgColor1);
-    border-radius: 3px 3px 3px 3px;
-    font-size: 16px;
+    height: 1.333333rem;
+    background: var(--ex-primary-color);
+    border-radius: 0.08rem;
+    font-size: 0.426667rem;
+    border-radius: 0.213333rem;
     color: var(--ex-font-color);
     display: flex;
     align-items: center;

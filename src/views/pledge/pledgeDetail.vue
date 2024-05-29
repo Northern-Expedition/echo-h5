@@ -108,7 +108,9 @@ const submit = () => {
       <!-- 可购次数 -->
       <div>
         <div class="left">{{ _t18('pledge_Available_times') }}</div>
-        <div class="right ff-num" v-if="['dev'].includes(_getConfig('_APP_ENV'))">{{ `${data.buyPurchase}/${data.timeLimit}` }}</div>
+        <div class="right ff-num" v-if="['dev'].includes(_getConfig('_APP_ENV'))">
+          {{ `${data.buyPurchase}/${data.timeLimit}` }}
+        </div>
         <div class="right ff-num" v-else>{{ `${data.timeLimit}` }}</div>
       </div>
       <!-- <div>
@@ -125,6 +127,9 @@ const submit = () => {
   font-size: 14px;
   color: var(--ex-default-font-color);
 }
+input {
+  background-color: #161a33;
+}
 .content1 {
   border-bottom: 1px solid var(--ex-border-color);
   padding: 20px 15px 30px;
@@ -137,17 +142,18 @@ const submit = () => {
         color: var(--ex-passive-font-color);
       }
       p {
-        color: var(--ex-font-color9);
+        color: #613af1;
       }
     }
     .ipt {
-      border: 1px solid var(--ex-border-color1);
+      border: 1px solid rgb(208 218 213 / 10%);
       border-radius: 3px 3px 3px 3px;
       padding: 15px 10px;
       margin: 10px 0;
+      background-color: #161a33;
       input::placeholder {
         color: var(--ex-font-color5);
-        background: var(--ex-default-background-color);
+        background: #161a33;
       }
     }
   }
@@ -192,12 +198,16 @@ const submit = () => {
     }
   }
   .btn {
-    background-color: var(--ex-div-bgColor1);
-    color: var(--ex-font-color);
+    margin-top: 0.853333rem;
+    min-height: 1.44rem;
+    border-radius: 0.213333rem;
+    width: 100%;
     text-align: center;
-    padding: 14px 0;
-    font-size: 16px;
-    border-radius: 3px;
+    padding: 0.426667rem;
+    font-size: 0.48rem;
+    color: white;
+    background: rgb(97, 58, 241);
+    border-color: rgb(97, 58, 241);
   }
 }
 </style>

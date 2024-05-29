@@ -1,7 +1,6 @@
 <!-- 充值币种列表 -->
 <template>
   <div class="content">
-    <p>{{ _t18('coinList') }}</p>
     <div class="list">
       <div class="listCoin" v-for="(item, index) in props.data" :key="index" @click="toClick(item)">
         <div class="left">
@@ -54,7 +53,7 @@ const toClick = (item) => {
         display: flex;
         align-items: center;
         .coin {
-          font-size: 20px;
+          font-size: 25px;
           margin-right: 15px;
         }
         .jiantou {

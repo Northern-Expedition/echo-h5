@@ -1,10 +1,12 @@
 <!-- 理财 -->
 <template>
-  <HeaderBar v-if="['paxpay'].includes(_getConfig('_APP_ENV'))"
+  <!-- <HeaderBar v-if="['paxpay'].includes(_getConfig('_APP_ENV'))"
       :currentName="_t18('financial',['paxpay'])"
       :border_bottom="false"
-    ></HeaderBar>
-  <LogoHeader v-else></LogoHeader>
+    ></HeaderBar> -->
+  <!-- <LogoHeader v-else></LogoHeader> -->
+  <HeaderBar :currentName="_t18('financial', ['paxpay'])" :border_bottom="false"></HeaderBar>
+
   <Header></Header>
   <FundList></FundList>
 </template>

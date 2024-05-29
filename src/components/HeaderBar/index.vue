@@ -38,14 +38,22 @@
             v-show="cuttentRight.iconRight"
             v-for="(item, index) in cuttentRight.iconRight"
             :key="index"
+            style="display: flex; align-items: center"
           >
             <svg-load
               :name="item.iconName"
               class="rightIcon"
               @click="handelClick(item.clickTo)"
             ></svg-load>
+            <div
+              v-if="item.text"
+              style="color: #8885fb; margin-left: 0.106667rem; font-size: 0.373333rem"
+            >
+              {{ item.text }}
+            </div>
           </div>
         </div>
+
         <slot name="footer"></slot>
       </div>
     </header>
@@ -89,6 +97,7 @@ const props = defineProps({
     default: false
   }
 })
+console.log(props.cuttentRight)
 const emit = defineEmits(['linkTo', 'showPopup', 'del'])
 const linkTo = () => {
   emit('linkTo')
@@ -97,6 +106,7 @@ const showPopup = () => {
   emit('showPopup')
 }
 let handelClick = (item) => {
+  console.log('123', item)
   if (item == 'event_serviceChange') {
     dispatchCustomEvent('event_serviceChange')
   } else if (item == 'del') {
@@ -111,9 +121,6 @@ let handelClick = (item) => {
 <style lang="scss" scoped>
 .placeholder {
   height: 61px;
-}
-header.border_bottom {
-  border-bottom: 1px solid var(--ex-border-color);
 }
 header {
   position: fixed;
@@ -156,7 +163,7 @@ header {
       }
       .rightIcon {
         margin-left: 20px;
-        font-size: 24px;
+        font-size: 18px;
       }
     }
   }

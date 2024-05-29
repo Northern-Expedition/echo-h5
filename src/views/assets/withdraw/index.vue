@@ -2,17 +2,28 @@
 <template>
   <HeaderBar :currentName="_t18('withdraw', ['latcoin'])"></HeaderBar>
   <List :data="coinList"> </List>
+  <div class="record-info">
+    <div class="record-card" @click="push('/withdraw-order')">
+      <image-load filePath="time.png" name="usdt" class="img left-img"></image-load>
+      <div class="record-right">
+        <div>{{ _t18('withdraw_order') }}</div>
+        <image-load filePath="right-arrow.png" name="usdt" class="img right-img"></image-load>
+      </div>
+    </div>
+  </div>
 </template>
 <script setup>
 import { _t18 } from '@/utils/public'
 import List from './withdraw-list.vue'
 import { filterCoin2 } from '@/utils/public'
 import { useMainStore } from '@/store/index.js'
+import { useRouter } from 'vue-router'
 const mainStore = useMainStore()
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '@/store/user/index'
 import { onMounted } from 'vue'
 const userStore = useUserStore()
+const { push } = useRouter()
 // 用户余额信息
 const { asset } = storeToRefs(userStore)
 // 提现方式列表
@@ -55,4 +66,36 @@ const coinList = computed(() => {
 // })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.record-info {
+  padding: 0 0.426667rem;
+  .record-card {
+    display: flex;
+    align-items: center;
+    background: var(--ex-assets--record-card-color);
+    border-radius: 0.16rem;
+    padding: 0.293333rem 0.346667rem;
+    .left-img {
+      width: 0.426667rem;
+      height: 0.426667rem;
+    }
+    .record-right {
+      margin-left: 0.213333rem;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      div {
+        font-size: 0.373333rem;
+        font-family: PingFangSC, PingFang SC;
+        font-weight: 400;
+        color: var(--ex-assets--record-font-color);
+      }
+      .right-img {
+        width: 0.4rem;
+        height: 0.266667rem;
+      }
+    }
+  }
+}
+</style>

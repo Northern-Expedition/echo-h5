@@ -15,16 +15,14 @@ const txt = _t18('defi_speak')
 const popupContent = ref({})
 const direction = ref('bottom')
 let showPopup = () => {
+  console.log('123123123')
   showRule.value = true
 }
 let closePopup = () => {
   showRule.value = false
 }
 const cuttentRight = reactive({
-  iconRight: [
-    { iconName: 'guize', clickTo: '' },
-    { iconName: 'jilu', clickTo: '/pledge/pledgeOrder' }
-  ]
+  iconRight: [{ iconName: 'right-rule', clickTo: '', text: _t18('gameplay_description') }]
 })
 const toView = (data) => {
   router.push({
@@ -60,101 +58,6 @@ onMounted(() => {
   getShowInfo()
   getPopupContent()
 })
-// const projectList = computed(() => {
-//   let list = []
-//   list = [
-//     {
-//       id: 1,
-//       title: '项目一',
-//       kegou: '5',
-//       sum: '50',
-//       xiane: '200-500',
-//       rate: '0%-10%',
-//       period: '15'
-//     },
-//     {
-//       id: 2,
-//       title: '项目二',
-//       kegou: '10',
-//       sum: '50',
-//       xiane: '200-500',
-//       rate: '0%-10%',
-//       period: '20'
-//     },
-//     {
-//       id: 3,
-//       title: '项目三',
-//       kegou: '15',
-//       sum: '50',
-//       xiane: '200-500',
-//       rate: '0%-10%',
-//       period: '25'
-//     }
-//   ]
-//   return list
-// })
-const manual = computed(() => {
-  let list = []
-  list = [
-    {
-      title: '什么是质押挖矿？',
-      content: [
-        {
-          childContent:
-            '质押挖矿是本公司打造的一款帮助用户快捷进行链上质押获取奖励的工具产品。通过将数字资产质押在区块链网络，并获得基于POS（Proof of Stake，即权益证明）机制产生的奖励。在这个机制中，用户将数字资产委托给节点，节点在区块链上行使出块、打包交易等权利并获得奖励。用户根据锁仓数量按比例分享节点获得的奖励。'
-        }
-      ],
-      notes: [
-        ' 注：(非出借)每6小时一个阶段每天发送4次收益详情，您可以通过收益详情查看详细收益情况。 ',
-        ' 注：(本产品属福利项引流产品目前名额有限，后续将对用户增设数字资产评估，只对达标用户开启该产品，所以先到先得)。 '
-      ]
-    },
-    {
-      title: '产品优势',
-      content: [
-        {
-          childTitle: '稳健型',
-          childContent: '质押挖矿可以获得第三方相对稳定的奖励，产品期限多样。'
-        }
-      ]
-    },
-    {
-      title: '投向生息资产说明',
-      content: [
-        {
-          childContent:
-            '质押挖矿是将您的数字资产质押在区块链上，以支持该区块链网络的运营，并获得相应的奖励。'
-        }
-      ]
-    },
-    {
-      title: '收益说明',
-      content: [
-        {
-          childContent: 'T日申购成功后，T+1日00:00开始起息，02:00利息结算。'
-        }
-      ]
-    },
-    {
-      title: '交易说明',
-      content: [
-        {
-          childTitle: '买入规则',
-          childContent: '支持随时申购。'
-        }
-      ]
-    },
-    {
-      title: '风险提示',
-      content: [
-        {
-          childContent: '提前赎回定期产品，系统将扣除该笔订单已经获得的部分收益。'
-        }
-      ]
-    }
-  ]
-  return list
-})
 </script>
 <template>
   <!-- 质押挖矿规则弹窗 -->
@@ -171,51 +74,91 @@ const manual = computed(() => {
     :cuttentRight="cuttentRight"
     @showPopup="showPopup"
   ></HeaderBar>
+  <div class="container">
+    <div class="title">
+      <div class="left">MOONEX</div>
+      <div class="middle">Pledge</div>
+      <div class="right">Mining</div>
+    </div>
+    <div class="sub_title">Ultra high yield One click DeFi</div>
+    <div class="introduce">
+      MOONEX provides comprehensive digital assets A global user ecosystem based on decentralization
+      Smart contract technology
+    </div>
+  </div>
   <!-- 广告图 -->
   <div class="banner">
     <image-load filePath="zhiyabg.png" name="defi"></image-load>
   </div>
+  <!-- 质押记录 -->
+  <div class="pledge_record" @click="router.push('/pledge/pledgeOrder')">
+    <div class="flex">
+      <image-load filePath="time.png" name="usdt" class="img time"></image-load>
+      <span class="text">{{ _t18('pledge_records') }}</span>
+    </div>
+    <image-load filePath="right-arrow.png" name="usdt" class="img right-arrow"></image-load>
+  </div>
   <!-- 收益信息（资金、收益） -->
   <div class="userAccount">
     <div class="title">
-      <image-load filePath="usdt.png" name="usdt" class="usdt"></image-load>
-      <p class="fw-num">USDT</p>
+      <span class="line"></span>
+      <span class="text">{{ _t18('data_preview') }}</span>
+      <span class="line"></span>
     </div>
     <div class="fund">
-      <image-load filePath="zhiyaimg.png" name="zhiyaimg" class="zhiyaimg"></image-load>
-      <div class="top">
-        <div class="left">
+      <van-grid :column-num="2" style="padding-left: 10px" :border="false">
+        <van-grid-item
+          style="flex-basis: 50%; padding-right: 10px"
+          :style="{ marginTop: index >= 2 ? '10px' : '' }"
+        >
+          <image-load class="img icon" filePath="pledge_hosting.png" name="defi"></image-load>
           <p class="fw-num">{{ priceFormat(showInfo.amount) || 0 }}</p>
-          <!-- 正在托管 -->
-          <span>{{ _t18('pledge_hosting') }}</span>
-        </div>
-        <div class="right">
+          <div class="til">{{ _t18('pledge_hosting') }}</div>
+        </van-grid-item>
+        <van-grid-item
+          style="flex-basis: 50%; padding-right: 10px"
+          :style="{ marginTop: index >= 2 ? '10px' : '' }"
+        >
+          <image-load class="img icon" filePath="pledge_hosting.png" name="defi"></image-load>
           <p class="fw-num">{{ showInfo.orderNum || 0 }}</p>
-          <!-- 委托订单 -->
-          <span>{{ _t18('pledge_commissioned_order') }}</span>
-        </div>
-      </div>
-      <div class="bottom">
-        <div class="left">
-          <p class="fw-num">{{ priceFormat(showInfo.todayProfit) || 0 }}</p>
-          <!-- 今日收益 -->
-          <span>{{ _t18('pledge_Today_Earnings') }}</span>
-        </div>
-        <div class="right">
+          <div class="til">{{ _t18('pledge_commissioned_order') }}</div>
+        </van-grid-item>
+        <van-grid-item
+          style="flex-basis: 50%; padding-right: 10px"
+          :style="{ marginTop: index >= 2 ? '10px' : '' }"
+        >
+          <image-load
+            class="img icon"
+            filePath="pledge_Today_Earnings.png"
+            name="defi"
+          ></image-load>
+          <p class="fw-num">{{ showInfo.orderNum || 0 }}</p>
+          <div class="til">{{ _t18('pledge_Today_Earnings') }}</div>
+        </van-grid-item>
+        <van-grid-item
+          style="flex-basis: 50%; padding-right: 10px"
+          :style="{ marginTop: index >= 2 ? '10px' : '' }"
+        >
+          <image-load class="img icon" filePath="Cumulative_income.png" name="defi"></image-load>
           <p class="fw-num">{{ priceFormat(showInfo.profitMoney) || 0 }}</p>
-          <!-- 累计收益 -->
-          <span>{{ _t18('Cumulative_income') }}</span>
-        </div>
-      </div>
+          <div class="til">{{ _t18('Cumulative_income') }}</div>
+        </van-grid-item>
+      </van-grid>
     </div>
   </div>
   <!-- 项目信息 -->
   <div class="project">
+    <div class="title">
+      <div class="line"></div>
+      <div class="text">质押仓位</div>
+      <div class="line"></div>
+    </div>
     <div class="projectList" v-if="projectList?.length > 0">
       <Card
         v-for="(item, index) in projectList"
         @click="toView(item)"
         :key="index"
+        :index="index + 1"
         :cardData="item"
       ></Card>
     </div>
@@ -223,6 +166,43 @@ const manual = computed(() => {
   </div>
 </template>
 <style lang="scss" scoped>
+.container {
+  .title {
+    font-size: 0.826667rem;
+    font-weight: 600;
+    color: var(--ex-font-color);
+    line-height: 1.253333rem;
+    display: flex;
+    justify-content: center;
+    .left {
+    }
+    .middle {
+      margin: 0 0.4rem;
+      color: var(--ex-primary-color);
+    }
+
+    .right {
+    }
+  }
+  .sub_title {
+    font-size: 0.64rem;
+    font-weight: 500;
+    color: var(--ex-font-color);
+    line-height: 0.96rem;
+    display: flex;
+    justify-content: center;
+  }
+  .introduce {
+    font-size: 0.346667rem;
+    font-family: PingFangSC, PingFang SC;
+    font-weight: 500;
+    color: var(--ex--home-grid-text-color);
+    line-height: 0.48rem;
+    padding: 0 0.4rem;
+    text-align: center;
+    margin-top: 0.533333rem;
+  }
+}
 .banner {
   padding: 10px 25px 0;
   img {
@@ -230,81 +210,102 @@ const manual = computed(() => {
     height: auto;
   }
 }
-.userAccount {
-  font-size: 14px;
-  padding: 0 15px;
-  color: var(--ex-default-font-color);
-  .title {
-    padding: 20px 0;
+.pledge_record {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 1.013333rem;
+  padding: 0 0.4rem;
+  background: rgba(16, 244, 177, 0.13);
+  border-radius: 0.16rem;
+  .flex {
     display: flex;
     align-items: center;
-    .usdt {
-      font-size: 34px;
+    .time {
+      width: 0.426667rem;
+      height: 0.426667rem;
     }
-    p {
-      margin-left: 10px;
-      font-size: 24px;
+    .text {
+      font-size: 0.373333rem;
+      font-weight: 400;
+      color: #10f4b1;
+      margin-left: 0.16rem;
+      cursor: pointer;
+    }
+  }
+  .right-arrow {
+    width: 0.4rem;
+    height: 0.266667rem;
+  }
+}
+
+.userAccount {
+  font-size: 0.373333rem;
+  padding: 0 0.4rem;
+  color: var(--ex-default-font-color);
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.666667rem 0 0.426667rem;
+    .line {
+      width: 2.293333rem;
+      height: 0.026667rem;
+      opacity: 0.19;
+      border: 0.026667rem solid #d0dad5;
+    }
+    .text {
+      white-space: nowrap;
+      font-size: 0.48rem;
+      font-weight: 400;
+      margin: 0 0.533333rem;
+      color: var(--ex-default-font-color);
     }
   }
   .fund {
-    border: 1px solid var(--ex-usdt-border-color);
-    border-radius: 10px;
-    position: relative;
-    background: var(--ex-usdt-background-color);
-    .zhiyaimg {
-      position: absolute;
-      font-size: 100px;
-      transform: translate(-50%, -50%);
-      left: 50%;
-      top: 50%;
+    :deep(.van-grid-item__content) {
+      border: 0.026667rem solid rgba(255, 255, 255, 0.05);
+      border-radius: 0.266667rem;
+      align-items: flex-start;
+      padding-left: 0.266667rem;
     }
-    .top,
-    .bottom {
-      display: flex;
-      justify-content: space-between;
-      .left,
-      .right {
-        width: 100%;
-        height: 100%;
-        padding: 25px 15px;
-
-        p,
-        span {
-          max-width: 100%;
-          word-break: break-word;
-        }
-      }
-      .right {
-        border-left: 1px solid var(--ex-usdt-border-color3);
-        text-align: right;
-      }
-      p {
-        font-size: 18px;
-        margin-bottom: 10px;
-      }
-      span {
-        color: var(--ex-passive-font-color);
-      }
+    .icon {
+      width: 0.8rem;
+      height: 0.8rem;
     }
-    .bottom {
-      border-top: 1px solid var(--ex-usdt-border-color2);
-      p {
-        color: var(--ex-font-color9);
-      }
+    .fw-num {
+      font-size: 0.426667rem;
+      word-break: break-all;
+      color: var(--ex-default-font-color);
+      margin: 0.533333rem 0 0.16rem;
     }
-    .title {
-      margin-bottom: 14px;
-      span {
-        color: var(--ex-passive-font-color);
-      }
-    }
-    .amount {
-      font-size: 28px;
+    .til {
+      word-wrap: break-word;
+      color: #9493ac;
     }
   }
 }
+
 .project {
   padding: 0 15px 50px;
-  
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.666667rem 0 0.426667rem;
+    .line {
+      width: 2.293333rem;
+      height: 0.026667rem;
+      opacity: 0.19;
+      border: 0.026667rem solid #d0dad5;
+    }
+    .text {
+      white-space: nowrap;
+      font-size: 0.48rem;
+      font-weight: 400;
+      margin: 0 0.533333rem;
+      color: var(--ex-default-font-color);
+    }
+  }
 }
 </style>

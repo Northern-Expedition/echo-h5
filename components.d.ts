@@ -44,12 +44,13 @@ declare module 'vue' {
     VanGrid: typeof import('vant/es')['Grid']
     VanGridItem: typeof import('vant/es')['GridItem']
     VanIcon: typeof import('vant/es')['Icon']
-    VanImage: typeof import('vant/es')['Image']
     VanList: typeof import('vant/es')['List']
+    VanLoading: typeof import('vant/es')['Loading']
     VanNoticeBar: typeof import('vant/es')['NoticeBar']
     VanOverlay: typeof import('vant/es')['Overlay']
     VanPopover: typeof import('vant/es')['Popover']
     VanPopup: typeof import('vant/es')['Popup']
+    VanPullRefresh: typeof import('vant/es')['PullRefresh']
     VanRadio: typeof import('vant/es')['Radio']
     VanRadioGroup: typeof import('vant/es')['RadioGroup']
     VanSearch: typeof import('vant/es')['Search']
@@ -59,5 +60,6 @@ declare module 'vue' {
     VanSwipeItem: typeof import('vant/es')['SwipeItem']
     VanTab: typeof import('vant/es')['Tab']
     VanTabs: typeof import('vant/es')['Tabs']
+    VanUploader: typeof import('vant/es')['Uploader']
   }
 }

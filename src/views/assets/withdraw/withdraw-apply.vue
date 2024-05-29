@@ -1,25 +1,27 @@
 <!-- 提现申请 -->
 <template>
-  <HeaderBar :currentName="currentName" :cuttentRight="cuttentRight"></HeaderBar>
+  <HeaderBar :currentName="currentName"></HeaderBar>
   <Amount :amount="amount" :coin="$route.query.type?.toUpperCase()"></Amount>
   <van-action-sheet
-      v-model:show="showSheet"
-      @select="onSelect"
-      :closeable="false"
-      style="max-width: var(--ex-max-width); left: 50%; translate: -50%"
+    v-model:show="showSheet"
+    @select="onSelect"
+    :closeable="false"
+    style="max-width: var(--ex-max-width); left: 50%; translate: -50%"
   >
     <div class="sheetBox">
       <!-- 选择银行卡 -->
       <div class="title fw-bold">{{ _t18('withdraw_select_card') }}</div>
       <div
-          v-for="(item, index) in bankList"
-          :key="index"
-          class="sheetContent"
-          @click="selectSheet(item)"
+        v-for="(item, index) in bankList"
+        :key="index"
+        class="sheetContent"
+        @click="selectSheet(item)"
       >
         <svg-load :name="$route.query.icon" class="coin"></svg-load>
         <div>
-          <p class="bankName">{{ item?.bankName }} <span class="scl" v-if="item?.coin">（{{ item?.coin }}）</span></p>
+          <p class="bankName">
+            {{ item?.bankName }} <span class="scl" v-if="item?.coin">（{{ item?.coin }}）</span>
+          </p>
           <p class="cardNumber fw-num">{{ hideBank(item?.cardNumber) }}</p>
         </div>
       </div>
@@ -27,10 +29,13 @@
   </van-action-sheet>
   <div class="content">
     <div class="form">
-      <div class="coin">
-        <!-- 提现币种 -->
-        <div class="top coin-top">{{ _t18('withdraw_coin', ['bitmake']) }}
-          <span class="scl" v-if="$route.query.icon == 'card' && curBank?.coin">（{{ curBank?.coin }}）</span>
+      <!-- <div class="coin">
+          提现币种  
+        <div class="top coin-top">
+          {{ _t18('withdraw_coin', ['bitmake']) }}
+          <span class="scl" v-if="$route.query.icon == 'card' && curBank?.coin"
+            >（{{ curBank?.coin }}）</span
+          >
           <span class="scl" v-else>（{{ $route.query.type }}）</span>
         </div>
         <div class="bottom" v-if="$route.query.icon != 'card'">
@@ -40,7 +45,7 @@
           </div>
         </div>
         <div class="bottom2" v-else @click="showSheet = true">
-          <!-- {{ curBank }} -->
+          {{ curBank }}
           <svg-load :name="$route.query.icon" class="coin"></svg-load>
           <div>
             <p class="bankName">{{ curBank?.bankName }}</p>
@@ -50,16 +55,16 @@
             </p>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="num">
         <!-- 提现数量 -->
         <div class="top">{{ _t18('withdraw_num', ['bitmake']) }}</div>
         <div class="bottom">
           <input
-              type="number"
-              v-model="allAmount"
-              :placeholder="_t18('withdraw_input')"
-              class="ff-num"
+            type="number"
+            v-model="allAmount"
+            :placeholder="_t18('withdraw_input')"
+            class="ff-num"
           />
           <p @click="allNum()">{{ _t18('swap_all') }}</p>
         </div>
@@ -68,7 +73,7 @@
         <!-- 提现地址 -->
         <div class="top">{{ _t18('withdraw_address') }}</div>
         <div class="bottom">
-          <input type="text" v-model="address" :placeholder="_t18('withdraw_input')"/>
+          <input type="text" v-model="address" :placeholder="_t18('withdraw_input')" />
         </div>
       </div>
       <div class="password">
@@ -76,14 +81,14 @@
         <div class="top">{{ _t18('withdraw_pwd', ['rxce']) }}</div>
         <div class="bottom">
           <input
-              :type="showk ? 'text' : 'password'"
-              v-model="password"
-              :placeholder="_t18('withdraw_input')"
+            :type="showk ? 'text' : 'password'"
+            v-model="password"
+            :placeholder="_t18('withdraw_input')"
           />
           <svg-load
-              :name="showk ? 'yanjin-k' : 'yanjin-g'"
-              class="yanjing"
-              @click="showk = !showk"
+            :name="showk ? 'yanjin-k' : 'yanjin-g'"
+            class="yanjing"
+            @click="showk = !showk"
           ></svg-load>
         </div>
       </div>
@@ -96,8 +101,8 @@
       <!-- 手续费 -->
       <div v-if="['coinsexpto'].includes(_getConfig('_APP_ENV'))">
         {{ _t18('withdraw_commission') }}：<span class="ff-num"
-      >{{ $route.query.fee || '' }} {{ $route.query.icon.toLocaleUpperCase() }}</span
-      >
+          >{{ $route.query.fee || '' }} {{ $route.query.icon.toLocaleUpperCase() }}</span
+        >
       </div>
       <div v-else>
         {{ _t18('withdraw_commission') }}：<span class="ff-num">{{ $route.query.ratio }}%</span>
@@ -106,15 +111,15 @@
   </div>
   <div class="btnBox" @click="submit">
     <!-- 确认提现 -->
-    <ButtonBar :btnValue="_t18('withdraw_require')"/>
+    <ButtonBar :btnValue="_t18('withdraw_require')" />
   </div>
 </template>
 
 <script setup>
-import {DIFF_ISFREEZE, DIFF_WITHDRAW} from '@/config/index'
-import {useFreeze} from '@/hook/useFreeze'
+import { DIFF_ISFREEZE, DIFF_WITHDRAW } from '@/config/index'
+import { useFreeze } from '@/hook/useFreeze'
 
-const {_isFreeze} = useFreeze()
+const { _isFreeze } = useFreeze()
 import {
   getBindCardList,
   haveCacheAddress,
@@ -123,32 +128,31 @@ import {
 } from '@/api/account.js'
 import ButtonBar from '@/components/common/ButtonBar/index.vue'
 import Amount from '../components/applyAmount.vue'
-import {withdrawSubmit} from '@/api/account'
-import {_toView} from '@/utils/public'
-import {priceFormat} from '@/utils/decimal.js'
-import {showToast} from 'vant'
-import {useUserStore} from '@/store/user/index'
-import {storeToRefs} from 'pinia'
-import {_t18} from '@/utils/public'
-import {useToast} from '@/hook/useToast'
-import {filterCoin2} from '@/utils/public'
-import {onMounted} from 'vue'
-import {useMainStore} from '@/store/index.js'
+import { withdrawSubmit } from '@/api/account'
+import { _toView } from '@/utils/public'
+import { priceFormat } from '@/utils/decimal.js'
+import { showToast } from 'vant'
+import { useUserStore } from '@/store/user/index'
+import { storeToRefs } from 'pinia'
+import { _t18 } from '@/utils/public'
+import { useToast } from '@/hook/useToast'
+import { filterCoin2 } from '@/utils/public'
+import { onMounted } from 'vue'
+import { useMainStore } from '@/store/index.js'
 
 const mainStore = useMainStore()
-const {_toast} = useToast()
+const { _toast } = useToast()
 const userStore = useUserStore()
 userStore.getUserInfo()
 // 用户信息
-const {userInfo} = storeToRefs(userStore)
+const { userInfo } = storeToRefs(userStore)
 // 用户余额信息
-const {asset} = storeToRefs(userStore)
-import {useRoute, useRouter} from 'vue-router'
+const { asset } = storeToRefs(userStore)
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
 const currentName = _t18('withdraw', ['latcoin'])
-const cuttentRight = {iconRight: [{iconName: 'jilu', clickTo: '/withdraw-order'}]}
 const showk = ref(false)
 
 // 银行卡数据
@@ -162,21 +166,22 @@ const selectSheet = (item) => {
 const amount = computed(() => {
   let data = 0
   //银行卡提现--> 显示对应币种资产 无则默认显示 usdt资产
-  const index = route.query?.icon == 'card' && asset.value.findIndex(item => filterCoin2(item.symbol) == curBank.value.coin?.toLowerCase())
+  const index =
+    route.query?.icon == 'card' &&
+    asset.value.findIndex((item) => filterCoin2(item.symbol) == curBank.value.coin?.toLowerCase())
 
   //查询余额
   for (let i = 0; i < asset.value.length; i++) {
     // 银行卡提现
     if (route.query?.icon == 'card') {
-
       if (
-          asset.value[i].type == 1 &&
-          filterCoin2(asset.value[i].symbol) == (index != -1 ? curBank.value.coin?.toLowerCase() : 'usdt')
+        asset.value[i].type == 1 &&
+        filterCoin2(asset.value[i].symbol) ==
+          (index != -1 ? curBank.value.coin?.toLowerCase() : 'usdt')
       ) {
         data = asset.value[i].availableAmount
-        route.query.type = (index != -1 ? curBank.value.coin : 'USDT')
+        route.query.type = index != -1 ? curBank.value.coin : 'USDT'
       }
-
     } else {
       // 币种提现
       if (asset.value[i].type == 1 && filterCoin2(asset.value[i].symbol) == route.query?.icon) {
@@ -274,13 +279,13 @@ const submitForm = () => {
   let params = ``
   if (route.query?.icon == 'card') {
     params = `amount=${priceFormat(allAmount.value)}&coinType=BANK&pwd=${password.value}&adress=${
-        curBank.value.cardNumber
+      curBank.value.cardNumber
     }&coin=${route.query?.type.toLowerCase()}&bankName=${curBank.value.bankName}&bankUserName=${
-        curBank.value.userName
+      curBank.value.userName
     }&bankBranch=${curBank.value.bankBranch}`
   } else {
     params = `amount=${priceFormat(allAmount.value)}&coinType=${route.query?.type}&pwd=${
-        password.value
+      password.value
     }&adress=${address.value}&coin=${route.query?.icon}`
   }
   if (flag) {
@@ -298,7 +303,7 @@ const submitForm = () => {
   }
 }
 const setAddress = (params) => {
-  let data = {coin: route.query?.type, address: address.value}
+  let data = { coin: route.query?.type, address: address.value }
   saveCacheAddress(data).then((res) => {
     if (res.code == '200') {
       submitApi(params)
@@ -333,7 +338,7 @@ const submit = () => {
  * 查询提现地址
  */
 const getAddress = async () => {
-  let params = {coin: route.query?.type}
+  let params = { coin: route.query?.type }
   const res = await saveCacheAddress(params)
   if (res.code == '200') {
     if (res.msg) {
@@ -358,11 +363,15 @@ onMounted(() => {
   padding: 30px 15px;
 
   .form {
+    background: var(--ex-financial-card-bg-color);
+    border-radius: 0.266667rem;
+    padding: 0.533333rem 0.373333rem 0.133333rem;
     & > div {
       .top {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        color: var(--ex-passive-font-color);
 
         .right {
           font-size: 10px;
@@ -376,10 +385,10 @@ onMounted(() => {
       }
 
       .bottom {
-        margin: 10px 0 20px;
-        padding: 15px 10px;
-        border: 1px solid var(--ex-border-color1);
-        border-radius: 3px;
+        margin: 0.266667rem 0 0.533333rem;
+        padding: 0.4rem 0.266667rem;
+        border: 0.026667rem solid var(--ex-border-line);
+        border-radius: 0.08rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -396,10 +405,11 @@ onMounted(() => {
 
         input::placeholder {
           color: var(--ex-font-color5);
+          background-color: #161a33;
         }
 
         p {
-          color: var(--ex-font-color9);
+          color: var(--ex-copy-font-color);
         }
 
         .yanjing {
@@ -444,10 +454,6 @@ onMounted(() => {
 
     & > div:first-child {
       .bottom {
-        border: 0;
-        background-color: var(--ex-div-bgColor);
-        padding: 13px 10px;
-
         .coin {
           font-size: 20px;
           margin-right: 15px;
@@ -510,7 +516,6 @@ onMounted(() => {
       margin-bottom: 10px;
 
       .scl {
-
       }
     }
 
@@ -518,5 +523,14 @@ onMounted(() => {
       font-size: 18px;
     }
   }
+}
+input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  outline: none;
+  background-color: transparent !important; /* 可根据需要设置背景颜色 */
+  /* 其他样式重置，如边框、内边距、外边距等 */
 }
 </style>

@@ -1,7 +1,6 @@
 <template>
   <div class="content">
     <!-- 币种列表 -->
-    <p>{{ _t18('coinList') }}</p>
     <div class="list">
       <div class="listCoin" v-for="(item, index) in data" :key="index" @click="toClick(item)">
         <div class="left">
@@ -38,16 +37,16 @@ const toClick = (item) => {
     }
     if (flag.value) {
       // fee手续费，ratio手续费率
-      let params=``
-      if(item.fee&&item.fee>0){
-        params=`type=${item.card || item.title}&icon=${item.icon}&ratio=${item.ratio}&fee=${item.fee}`
-      }else{
-        params=`type=${item.card || item.title}&icon=${item.icon}&ratio=${item.ratio}`
+      let params = ``
+      if (item.fee && item.fee > 0) {
+        params = `type=${item.card || item.title}&icon=${item.icon}&ratio=${item.ratio}&fee=${
+          item.fee
+        }`
+      } else {
+        params = `type=${item.card || item.title}&icon=${item.icon}&ratio=${item.ratio}`
       }
       setTimeout(() => {
-        router.push(
-          `/withdraw-apply?${params}`
-        )
+        router.push(`/withdraw-apply?${params}`)
       }, 200)
     }
   } else if (item.type == 2) {
@@ -105,7 +104,7 @@ const needPrimary = (item) => {
         display: flex;
         align-items: center;
         .coin {
-          font-size: 20px;
+          font-size: 25px;
           margin-right: 15px;
         }
         .jiantou {

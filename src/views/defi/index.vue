@@ -227,8 +227,19 @@ onMounted(() => {
     :cuttentRight="cuttentRight"
     :border_bottom="false"
   ></HeaderBar>
-  <div class="banner">
-    <image-load filePath="defibg.png" name="defi"></image-load>
+  <div class="container">
+    <div class="title">
+      <div class="left">MOONEX</div>
+      <div class="right">DeFi</div>
+    </div>
+    <div class="sub_title">Ultra high yield One click DeFi</div>
+    <div class="introduce">
+      MOONEX provides comprehensive digital assets A global user ecosystem based on decentralization
+      Smart contract technology
+    </div>
+    <div class="banner">
+      <image-load filePath="defibg.png" name="defi"></image-load>
+    </div>
   </div>
   <div class="content">
     <!-- 挖矿 -->
@@ -243,7 +254,11 @@ onMounted(() => {
     <div class="profit">
       <div class="tit">
         <div class="left fw-bold">{{ _t18('defi_rule_fzywk_til3_1') }}</div>
-        <div class="rule" @click="showPopup">{{ _t18('defi_speak') }}</div>
+        <div class="rule" @click="showPopup">
+          <van-icon name="info-o" color="#613af1" style="margin-right: 10px" />{{
+            _t18('defi_speak')
+          }}
+        </div>
       </div>
       <div class="profit_content">
         <table>
@@ -320,13 +335,50 @@ onMounted(() => {
   background: var(--ex-default-background-color);
 }
 * {
-  font-size: 14px;
+  font-size: 0.373333rem;
   color: var(--ex-default-font-color);
 }
-.banner {
-  img {
-    width: 100%;
-    height: auto;
+.container {
+  .title {
+    font-size: 0.986667rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.253333rem;
+    display: flex;
+    justify-content: center;
+    .left {
+      font-size: 0.986667rem;
+    }
+    .right {
+      font-size: 0.986667rem;
+      margin-left: 0.4rem;
+      color: #613af1;
+    }
+  }
+  .sub_title {
+    font-size: 0.64rem;
+    font-weight: 500;
+    color: var(--ex-font-color);
+    line-height: 0.96rem;
+    display: flex;
+    justify-content: center;
+  }
+  .introduce {
+    font-size: 0.346667rem;
+    font-family: PingFangSC, PingFang SC;
+    font-weight: 500;
+    color: #b9c1d9;
+    line-height: 0.48rem;
+    padding: 0 0.4rem;
+    text-align: center;
+  }
+  .banner {
+    margin-top: 0.8rem;
+    padding: 0 0.4rem;
+    .img {
+      width: 100%;
+      height: auto;
+    }
   }
 }
 
@@ -335,11 +387,13 @@ onMounted(() => {
   & > div {
     padding: 40px 15px 0;
     .tit {
+      font-size: 0.373333rem;
       display: flex;
       justify-content: space-between;
+      align-items: center;
       .rule {
-        color: var(--ex-font-color9);
-        text-decoration: underline;
+        color: #613af1;
+        /* text-decoration: underline; */
       }
     }
   }

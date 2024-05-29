@@ -162,6 +162,7 @@ const toRecharge = () => {
 }
 
 .notice {
+  padding: 0 0.426667rem;
   .itemNo {
     display: flex;
     padding: 0.053333rem 0.426667rem;
@@ -210,6 +211,7 @@ const toRecharge = () => {
   }
 }
 .quick-trade {
+  padding: 0 0.426667rem;
   margin-top: 0.213333rem;
   margin-bottom: 0.513333rem;
   display: flex;
