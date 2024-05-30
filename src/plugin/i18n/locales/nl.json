@@ -571,6 +571,8 @@
   "loan_repayType": "Terugbetaling",
   "loan_repayTypeOnce": "Eenmalige aflossing van hoofdsom en rente op de vervaldag",
   "loan_repayOrg": "kredietinstelling",
+  "certificate_type": "Type certificaat",
+  "nationality": "nationaliteit",
   "loan_idImg": "ID-foto",
   "loan_idMsg": "Zorg ervoor dat uw identiteitsfoto duidelijk zichtbaar is",
   "loan_front": "Upload de voorkant",
@@ -1008,5 +1010,7 @@
   "robinhood2_quick_recharge": "Snel opladen",
   "robinhood2_recharge_fast": "Snelle storting",
   "math_exchange_bullish": "optimistisch",
-  "math_exchange_bearish": "Bearish"
+  "math_exchange_bearish": "Bearish",
+  "view more": "Bekijk meer",
+  "Market overview": "Marktoverzicht"
 }

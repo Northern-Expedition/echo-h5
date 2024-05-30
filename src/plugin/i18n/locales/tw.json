@@ -571,6 +571,8 @@
   "loan_repayType": "還款方式",
   "loan_repayTypeOnce": "到期一次還本息",
   "loan_repayOrg": "放款機構",
+  "certificate_type": "證件類型",
+  "nationality": "國籍",
   "loan_idImg": "證件照",
   "loan_idMsg": "請確保證件照清晰可見",
   "loan_front": "上傳正面",
@@ -1140,5 +1142,7 @@
   "robinhood2_quick_recharge": "快速儲值",
   "robinhood2_recharge_fast": "快捷充幣",
   "math_exchange_bullish": "看漲",
-  "math_exchange_bearish": "看跌"
+  "math_exchange_bearish": "看跌",
+  "view more": "查看更多",
+  "Market overview": "市場總覽"
 }

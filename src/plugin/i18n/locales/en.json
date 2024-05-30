@@ -571,6 +571,8 @@
   "loan_repayType": "Repayment method",
   "loan_repayTypeOnce": "Repay principal and interest once due",
   "loan_repayOrg": "Lending institutions",
+  "certificate_type": "Certificate type",
+  "nationality": "Nationality",
   "loan_idImg": "ID photo",
   "loan_idMsg": "Please ensure that the ID photo is clearly visible",
   "loan_front": "Upload the front side",
@@ -1140,5 +1142,7 @@
   "robinhood2_quick_recharge": "Quick deposit",
   "robinhood2_recharge_fast": "Quick deposit",
   "math_exchange_bullish": "buy up",
-  "math_exchange_bearish": "buy down"
+  "math_exchange_bearish": "buy down",
+  "view more": "View more",
+  "Market overview": "Market overview",
 }

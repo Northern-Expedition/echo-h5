@@ -66,7 +66,11 @@ const submit = () => {
     <div class="tip">{{ _t18('Old_Password') }}</div>
     <div class="input">
       <svg-load name="mima" class="icon"></svg-load>
-      <input :type="oldPwd ? 'text' : 'password'" v-model="form.oldPwd" :placeholder="_t18('login_please')" />
+      <input
+        :type="oldPwd ? 'text' : 'password'"
+        v-model="form.oldPwd"
+        :placeholder="_t18('login_please')"
+      />
       <svg-load
         :name="oldPwd ? 'openeyes' : 'closeeyse'"
         class="icon"
@@ -76,7 +80,11 @@ const submit = () => {
     <div class="tip">{{ _t18('New_Password') }}</div>
     <div class="input">
       <svg-load name="mima" class="icon"></svg-load>
-      <input :type="newPwd ? 'text' : 'password'" v-model="form.newPwd" :placeholder="_t18('login_please')" />
+      <input
+        :type="newPwd ? 'text' : 'password'"
+        v-model="form.newPwd"
+        :placeholder="_t18('login_please')"
+      />
       <svg-load
         :name="newPwd ? 'openeyes' : 'closeeyse'"
         class="icon"
@@ -98,9 +106,9 @@ const submit = () => {
         @click="setKeyVal('NPwd')"
       ></svg-load>
     </div>
-    <p class="pwdDiff" v-if="showPwdDiff">*{{_t18('register_pwd_diff')}}</p>
+    <p class="pwdDiff" v-if="showPwdDiff">*{{ _t18('register_pwd_diff') }}</p>
     <div class="btnBox" @click="submit">
-      <ButtonBar :btnValue="_t18('btnConfirm',['bitmake'])" />
+      <ButtonBar :btnValue="_t18('btnConfirm', ['bitmake'])" />
     </div>
   </div>
 </template>
@@ -109,7 +117,7 @@ const submit = () => {
   padding: 30px 15px 0 15px;
   .tip {
     font-size: 14px;
-    color: var(--ex-font-color16);
+    color: #a7afb7;
     margin-bottom: 10px;
     text-align: left;
   }
@@ -117,9 +125,8 @@ const submit = () => {
     padding: 0 15px;
     width: 100%;
     height: 50px;
-    background: var(--ex-default-background-color);
-    border-radius: 3px;
-    border: 1px solid var(--ex-border-color1);
+    background: #161a33;
+    border-radius: 0.213333rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -131,6 +138,7 @@ const submit = () => {
       align-items: center;
       padding: 0 10px;
       font-size: 14px;
+      background-color: #161a33;
       color: var(--ex-default-font-color);
     }
   }

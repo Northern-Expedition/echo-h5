@@ -571,6 +571,8 @@
   "loan_repayType": "Reembolso",
   "loan_repayTypeOnce": "Reembolsar o principal e os juros no vencimento",
   "loan_repayOrg": "instituição de crédito",
+  "certificate_type": "Tipo de certificado",
+  "nationality": "nacionalidade",
   "loan_idImg": "Foto de identificação",
   "loan_idMsg": "Certifique-se de que a foto do documento de identificação esteja claramente visível",
   "loan_front": "carregar positivo",
@@ -1140,5 +1142,7 @@
   "robinhood2_quick_recharge": "Recarga rápida",
   "robinhood2_recharge_fast": "Depósito rápido",
   "math_exchange_bullish": "otimista",
-  "math_exchange_bearish": "grosseiro"
+  "math_exchange_bearish": "grosseiro",
+  "view more": "ver mais",
+  "Market overview": "Visão geral do mercado"
 }

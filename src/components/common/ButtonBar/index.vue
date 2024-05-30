@@ -31,9 +31,10 @@ div {
 }
 
 .btn1 {
-  border: 1px solid var(--ex-btn-boder-color) !important;
+  border: 0.026667rem solid var(--ex-btn-boder-color) !important;
   background: var(--ex-btn-background-color) !important;
   color: var(--ex-btn-font-color) !important;
+  border-radius: 0.213333rem;
 }
 
 .btn2 {

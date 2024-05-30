@@ -1,32 +1,36 @@
 <template>
   <div class="userMess" v-if="userId">
-    <!-- vip等级 -->
+    <!-- vip等级
     <div class="messLeft" v-if="showVip">
-      <!-- <image-load filePath="defi/组 249.png" class="userMessImg"></image-load> -->
-      <svg-load name="userImg" class="userMessImg"></svg-load>
-      <!-- <p class="fw-num">v{{ vipClass }}</p> -->
-    </div>
-    <svg-load name="userImg" class="userMessImg" v-else></svg-load>
-    <div class="messRight">
-      <Copy :data="userId">
-        <template #copyMsg>
-          <div class="rightTop fw-bold">UID：{{ userId }}</div>
-        </template>
-      </Copy>
-      <!-- 信用分 -->
-      <div class="rightBot">
-        {{ _t18('credit_score') }}：{{ userStore.userInfo.detail?.credits }}
+      <image-load filePath="defi/组 249.png" class="userMessImg"></image-load>
+      <image-load filePath="defi/logo.png" class="userMessImg" name="defi"></image-load>
+
+      <p class="fw-num">v{{ vipClass }}</p>
+    </div> -->
+    <div class="user">
+      <div class="User-user-inf">
+        <image-load filePath="defi/logo.png" class="logo" name="defi"></image-load>
+        <div class="user-item">
+          <div class="user-item-con">
+            <p class="userName">{{ loginName }}</p>
+          </div>
+          <Copy :data="userId">
+            <template #copyMsg>
+              <div class="rightTop">UID：{{ userId }}</div>
+            </template>
+          </Copy>
+        </div>
       </div>
     </div>
   </div>
   <!-- 钱包地址 -->
-  <div class="copyName" v-if="address">
+  <!-- <div class="copyName" v-if="address">
     <Copy :data="address">
       <template #copyMsg>
         <p>{{ _hideAddress(address) }}</p>
       </template>
     </Copy>
-  </div>
+  </div> -->
 </template>
 <script setup>
 import { _t18 } from '@/utils/public'
@@ -40,6 +44,26 @@ const userStore = useUserStore()
 const mainStore = useMainStore()
 const userId = computed(() => userStore.userInfo.user?.userId)
 const address = computed(() => userStore.userInfo.user?.address)
+const loginName = computed(() => {
+  // Check if loginName exists
+  if (!userStore.userInfo.user?.loginName) return ''
+
+  // Extract the loginName
+  let loginName = userStore.userInfo.user.loginName
+
+  // Find the index of '@'
+  let atIndex = loginName.indexOf('@')
+
+  // Extract the prefix and domain
+  let prefix = loginName.substring(0, atIndex)
+  let domain = loginName.substring(atIndex)
+
+  // Mask the prefix if it is longer than 5 characters
+  let maskedPrefix = prefix.length > 5 ? prefix.substring(0, 5) + '***' : prefix
+
+  // Return the masked loginName
+  return maskedPrefix + domain
+})
 const userAccount = computed(() => {
   let temp = userStore.userInfo.asset?.filter((item) => {
     return item.symbol == 'usdt' && item.type == 1
@@ -67,14 +91,44 @@ const vipClass = computed(() => {
 })
 </script>
 <style lang="scss" scoped>
+:deep(.rightTop) {
+  color: rgba(192, 198, 204, 0.7);
+}
 .userMess {
-  padding: 20px 15px;
+  padding: 0 0.48rem;
+  padding-top: 2.506667rem;
   display: flex;
   align-items: center;
+  .user {
+    display: flex;
+    padding: 0 0.48rem;
+    align-items: center;
+    .User-user-inf {
+      display: flex;
+      .logo {
+        width: 1.493333rem;
+        height: 1.493333rem;
+        margin-right: 0.266667rem;
+      }
+      .user-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        .user-item-con {
+          display: flex;
+          align-items: center;
+          .userName {
+            word-break: break-all;
+            font-size: 0.373333rem;
+          }
+        }
+      }
+    }
+  }
   .userMessImg {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    width: 1.493333rem;
+    height: 1.493333rem;
+    margin-right: 0.266667rem;
   }
   .messRight {
     margin-left: 10px;

@@ -23,19 +23,52 @@
   </div>
   <div class="quick-trade">
     <div class="quick-trade-item" @click="toRecharge">
-      <svg-load name="mengbanzu13" class="img quick-trade-item-img"></svg-load>
-
+      <image-load filePath="recharge.png" alt="" class="img quick-trade-item-img" />
       <span class="quick-trade-item-span">{{
         _t18(`home_recharge`, ['latcoin', 'aams', 'robinhood2'])
       }}</span>
+      <image-load filePath="next.png" alt="" class="next" />
     </div>
     <div class="quick-trade-item" @click="$router.push('/withdraw')">
-      <svg-load name="zu29" class="img quick-trade-item-img"></svg-load>
-
+      <image-load filePath="withdraw.png" alt="" class="img quick-trade-item-img" />
       <span class="quick-trade-item-span">{{
         _t18(`quick_withdrawal`, ['latcoin', 'aams', 'robinhood2'])
       }}</span>
+
+      <image-load filePath="next.png" alt="" class="next" />
     </div>
+  </div>
+  <div class="Preview">
+    <div class="Preview-title">
+      <span>{{ _t18('Market overview') }}</span>
+      <span @click="push('/trade')">{{ _t18('exchange_more') }}></span>
+    </div>
+    <van-tabs v-model:active="active">
+      <van-tab v-for="(item, index) in currentCoinList" :key="item.symbol">
+        <template #title>
+          <div class="van-tab-item">
+            <div class="item-atv" :class="{ active: active == index }"></div>
+            <div class="item-text ff-num">
+              {{ item.showSymbol }}
+            </div>
+            <div class="item-price">{{ item.amount }}</div>
+            <div
+              :class="[
+                Number(item.ratio) > 0
+                  ? 'item-price2 rise  rfd-sign itemMain fw-num'
+                  : 'item-price2 fall  rfd-sign itemMain fw-num'
+              ]"
+            >
+              {{ tradeStore.allCoinPriceInfo[item.coin]?.priceChangePercent }}%
+            </div>
+            <img class="img item-img" :src="item.logo" />
+            <div class="item-but" @click="push(`/trade?symbol=${item.coin}`)">
+              {{ _t18('view more') }}
+            </div>
+          </div>
+        </template>
+      </van-tab>
+    </van-tabs>
   </div>
 </template>
 <script setup>
@@ -50,11 +83,18 @@ import { noticeList } from '@/api/common/index'
 import { _t18, _toView } from '@/utils/public'
 import InfoPopup from '@/views/home/components/InfoPopup.vue'
 import { dispatchCustomEvent } from '@/utils'
-
+import { useTradeStore } from '@/store/trade/index'
+const tradeStore = useTradeStore()
+const currentCoinList = ref(
+  tradeStore.secondContractCoinList.filter((it, inx) => {
+    return it.coinType == 3 || it.coinType == 1
+  })
+)
+const active = ref(0)
 const mainStroe = useMainStore()
 const userStore = useUserStore()
 const tokenStatus = ref(userStore.isSign)
-const $router = useRouter()
+const { push } = useRouter()
 // DeFi挖矿 质押挖矿 助力货 闪兑 下载中心 推广中心 秒合约 理财 申购 直播 福利活动
 const menuList = computed(() => {
   let tempData = mainStroe.getJinGangList.filter((item) => {
@@ -69,11 +109,11 @@ const routeLink = (link) => {
     getOpenPopupContent()
   } else if (link === '/trade') {
     mainStroe.setTradeStatus(Number(0))
-    $router.push(link)
+    push(link)
   } else if (link.includes('http')) {
     location.href = link
   } else {
-    $router.push(link)
+    push(link)
   }
 }
 const showInfoPopup = ref(false)
@@ -152,7 +192,7 @@ const toRecharge = () => {
 <style lang="scss" scoped>
 .main {
   // padding: 180px 0px 0;
-  margin-top: .426667rem;
+  margin-top: 0.426667rem;
   padding-top: 13.243px;
   display: flex;
   flex-direction: row;
@@ -256,9 +296,111 @@ const toRecharge = () => {
       right: 0;
       top: 0;
     }
+    .next {
+      width: 0.586667rem;
+      height: 0.586667rem;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
   }
 }
+.Preview {
+  padding: 0 0.426667rem;
+  margin-top: 0.106667rem;
+  margin-bottom: 20px;
+  &-title {
+    padding: 0.533333rem 0;
+    display: flex;
+    justify-content: space-between;
+    span:nth-child(1) {
+      font-size: 0.48rem;
+    }
+    span:nth-child(2) {
+      font-size: 0.373333rem;
+      color: var(--ex--home-grid-text-color);
+    }
+  }
+  :deep(.van-tabs) {
+    position: relative;
 
+    .van-tabs__nav--complete {
+      padding: 0 0.026667rem;
+    }
+    .van-tab:nth-of-type(1) {
+      margin-left: 0;
+    }
+    .van-tab {
+      flex: 0;
+      padding: 0;
+      margin-left: 0.266667rem;
+    }
+    .van-tab-item {
+      min-width: 3.733333rem;
+      padding: 0.4rem 0.266667rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(86, 93, 140, 0.32);
+      border-radius: 0.266667rem;
+      border: 0.026667rem solid var(--ex-border-line);
+      -webkit-backdrop-filter: blur(0.266667rem);
+      backdrop-filter: blur(0.266667rem);
+      position: relative;
+      .item-atv {
+        width: 0.48rem;
+        height: 0.053333rem;
+        background: var(--ex-default-progress-bgColor);
+      }
+      .active {
+        background: #fdc637;
+      }
+      .item-text {
+        margin-top: 0.426667rem;
+        font-size: 0.346667rem;
+        color: #9493ac;
+      }
+      .ff-num {
+        font-family: DINOT-Regular;
+      }
+      .item-price {
+        margin-top: 0.106667rem;
+        font-size: 0.48rem;
+        color: #fff;
+      }
+      .item-price2 {
+        margin-top: 0.106667rem;
+        font-size: 0.373333rem;
+        color: #fff;
+      }
+      .fall {
+        color: var(--ex-rfd-fall) !important;
+        .rfd-bg {
+          background-color: var(--ex-rfd-fall-bg) !important;
+        }
+      }
+      .item-img {
+        margin-top: 0.32rem;
+        width: 1.333333rem;
+        height: 1.333333rem;
+        border-radius: 0.266667rem;
+      }
+      .item-but {
+        margin-top: 0.32rem;
+        text-align: center;
+        width: 3.2rem;
+        padding: 0.266667rem;
+        background: #613af1;
+        border-radius: 0.24rem;
+        font-size: 0.373333rem;
+        color: #fff;
+      }
+    }
+    .van-tabs__line {
+      width: 0px;
+    }
+  }
+}
 .showNoticeContent {
   min-width: 300px;
   text-align: center;

@@ -571,6 +571,8 @@
   "loan_repayType": "상환방식",
   "loan_repayTypeOnce": "원금과 이자를 만기일에 상환",
   "loan_repayOrg": "대출기관",
+  "certificate_type": "증명서 유형",
+  "nationality": "국적",
   "loan_idImg": "증명사진",
   "loan_idMsg": "증명 사진이 선명하게 보이도록 하십시오",
   "loan_front": "앞면 업로드",
@@ -1140,5 +1142,7 @@
   "robinhood2_quick_recharge": "빠른 재충전",
   "robinhood2_recharge_fast": "간편 충전",
   "math_exchange_bullish": "상승세",
-  "math_exchange_bearish": "하락세"
+  "math_exchange_bearish": "하락세",
+  "view more": "더보기",
+  "Market overview": "시장 개요"
 }

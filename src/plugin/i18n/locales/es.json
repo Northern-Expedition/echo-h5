@@ -570,6 +570,8 @@
   "loan_interest": "Interés",
   "loan_repayType": "Reembolso",
   "loan_repayOrg": "institución de crédito",
+  "certificate_type": "tipo de certificado",
+  "nationality": "nacionalidad",
   "loan_idImg": "foto de identificación",
   "loan_idMsg": "Asegúrese de que la foto del documento de identidad sea claramente visible.",
   "loan_front": "subir positivo",
@@ -1138,5 +1140,7 @@
   "robinhood2_quick_recharge": "Recarga rápida",
   "robinhood2_recharge_fast": "Depósito rápido",
   "math_exchange_bullish": "alcista",
-  "math_exchange_bearish": "osuno"
+  "math_exchange_bearish": "osuno",
+  "view more": "ver más",
+  "Market overview": "Resumen del mercado",
 }

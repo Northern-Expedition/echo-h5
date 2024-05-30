@@ -571,6 +571,8 @@
   "loan_repayType": "Remboursement",
   "loan_repayTypeOnce": "Rembourser le capital et les intérêts une fois dus",
   "loan_repayOrg": "établissement de crédit",
+  "certificate_type": "Type de certificat",
+  "nationality": "nationalité",
   "loan_idImg": "Photo d'identité",
   "loan_idMsg": "Veuillez vous assurer que la photo d'identité est clairement visible",
   "loan_front": "télécharger positif",
@@ -1140,5 +1142,7 @@
   "robinhood2_quick_recharge": "Recharge rapide",
   "robinhood2_recharge_fast": "Dépôt rapide",
   "math_exchange_bullish": "haussier",
-  "math_exchange_bearish": "baissier"
+  "math_exchange_bearish": "baissier",
+  "view more": "voir plus",
+  "Market overview": "Aperçu du marché",
 }

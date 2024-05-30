@@ -571,6 +571,8 @@
   "loan_repayType": "Trả nợ",
   "loan_repayTypeOnce": "Trả gốc và lãi khi đến hạn",
   "loan_repayOrg": "tổ chức cho vay",
+  "certificate_type": "Loại chứng chỉ",
+  "nationality": "quốc tịch",
   "loan_idImg": "ảnh giấy tờ tùy thân",
   "loan_idMsg": "Vui lòng đảm bảo rằng ảnh ID được hiển thị rõ ràng",
   "loan_front": "tải lên tích cực",
@@ -1140,5 +1142,7 @@
   "robinhood2_quick_recharge": "Nạp tiền nhanh",
   "robinhood2_recharge_fast": "Gửi tiền nhanh",
   "math_exchange_bullish": "lạc quan",
-  "math_exchange_bearish": "giảm giá"
+  "math_exchange_bearish": "giảm giá",
+  "view more": "Xem thêm",
+  "Market overview": "Tổng quan thị trường"
 }

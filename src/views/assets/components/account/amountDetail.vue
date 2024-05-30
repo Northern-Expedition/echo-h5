@@ -73,14 +73,13 @@ const amountFormat = (amount, decimal = 0) => {
 
 <style lang="scss" scoped>
 .assetDetails {
-  padding-bottom: 100px;
+  background: var(--ex-financial-card-bg-color);
+  padding: 0.64rem 0.426667rem 2.666667rem;
+  flex-grow: 1;
   & > div {
-    padding: 20px 15px;
-    border-top: 1px solid var(--ex-border-color);
     .title {
       display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
+      justify-content: center;
       .left {
         color: var(--ex-font-color6);
         font-size: 16px;
@@ -90,6 +89,10 @@ const amountFormat = (amount, decimal = 0) => {
       }
     }
     .details {
+      margin-top: 0.426667rem;
+      border-radius: 0.213333rem;
+      border: 0.026667rem solid var(--ex--backup-background-color-2);
+      padding: 0.533333rem 0.48rem;
       .top {
         display: flex;
         align-items: center;

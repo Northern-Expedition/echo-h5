@@ -9,6 +9,8 @@ import { storeToRefs } from 'pinia'
 import { showToast } from 'vant'
 import { _t18 } from '@/utils/public'
 import { useToast } from '@/hook/useToast'
+import { useRouter } from 'vue-router'
+const { push } = useRouter()
 const { _toast } = useToast()
 const userStore = useUserStore()
 userStore.getUserInfo()
@@ -56,17 +58,20 @@ const reSubmit = () => {
   <!-- 导航条 -->
   <HeaderBar :currentName="_t18('sidebar_primary')" :cuttentRight="cuttentRight"></HeaderBar>
   <div class="content" v-if="primaryAuth == '0' || primaryAuth == null">
-    <div class="tip advanced_txt">{{ _t18('advanced_txt', ['aams']) }}</div>
+    <div class="tip advanced_txt">
+      <image-load filePath="tips.png" class="tips" />
+      {{ _t18('advanced_txt', ['aams']) }}
+    </div>
     <div v-if="['coinsexpto'].includes(_getConfig('_APP_ENV'))" class="tip_info">
       {{ _t18('basic_certification_info') }}
     </div>
     <div class="form">
+      <div class="label">{{ _t18('advanced_name') }}：</div>
       <div class="formInput">
-        <div class="label">{{ _t18('advanced_name') }}：</div>
         <input :placeholder="_t18('login_please')" v-model="formData.userName" class="form-input" />
       </div>
+      <div class="label">{{ _t18('advanced_license_number') }}：</div>
       <div class="formInput">
-        <div class="label">{{ _t18('advanced_license_number') }}：</div>
         <input :placeholder="_t18('login_please')" v-model="formData.number" class="form-input" />
       </div>
     </div>
@@ -75,7 +80,18 @@ const reSubmit = () => {
     </div>
   </div>
   <div class="success" v-if="primaryAuth == '3'">
-    <Success :text="_t18('under_review')" :imgUrl="'defi/zhong.png'" :color="'#333'"></Success>
+    <Success
+      :text="_t18('under_review')"
+      :message="_t18('please_wait')"
+      :imgUrl="'defi/zhong.png'"
+      :color="'#333'"
+    >
+      <template #btn>
+        <div class="btnBox" @click="push('/home')">
+          <div class="btn1">{{ _t18('quote_finish') }}</div>
+        </div>
+      </template>
+    </Success>
   </div>
   <div class="success" v-if="primaryAuth == '2'">
     <Success :text="_t18('Audit_failure')" :imgUrl="'defi/failed.png'" :color="'#333'">
@@ -87,15 +103,11 @@ const reSubmit = () => {
     </Success>
   </div>
   <div v-if="primaryAuth == '1'">
+    <Success :text="_t18('advanced_success')" :imgUrl="'defi/success.png'"></Success>
     <div class="fromContent">
       <div>{{ _t18('advanced_name') }}：{{ userInfo.detail?.realName }}</div>
       <div>{{ _t18('advanced_license_number') }}：{{ userInfo.detail?.idCard }}</div>
     </div>
-    <Success
-      :text="_t18('advanced_success')"
-      :imgUrl="'defi/success.png'"
-      :color="'#333'"
-    ></Success>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -104,38 +116,42 @@ const reSubmit = () => {
   color: var(--ex-default-font-color);
   .tip {
     font-size: 12px;
-    color: var(--ex-tip-font-color);
+    color: #8885fb;
   }
   .tip_info {
     font-size: 12px;
     text-align: left;
   }
   .advanced_txt {
-    margin-bottom: 20px;
+    font-size: 0.373333rem;
+    margin-bottom: 0.64rem;
     text-align: left;
+    .tips {
+      width: 0.426667rem;
+      height: 0.426667rem;
+      margin: 0 0.053333rem;
+      vertical-align: top;
+    }
   }
   .form {
-    padding-top: 5px;
+    padding-top: 0.133333rem;
+    font-size: 0.373333rem;
+    .label {
+      color: var(--ex-input-label-color2);
+      text-align: left;
+    }
     .formInput {
-      padding: 0 10px;
-      display: flex;
-      justify-content: flex-start;
-      background: var(--ex-input-background-color);
-      border-radius: 3px;
-      border: 1px solid var(--ex-border-color1);
       align-items: center;
-      margin: 20px 0;
-      .label {
-        width: 70px;
-        font-size: 14px;
-        color: var(--ex-input-label-color);
-        text-align: left;
-      }
+      margin: 0.24rem 0 0.64rem;
+
       input {
+        padding: 0 0.373333rem;
         width: 100%;
-        height: 46px;
-        font-size: 14px;
-        background-color: transparent;
+        height: 1.226667rem;
+        font-size: 0.373333rem;
+        border-radius: 0.213333rem;
+        background: var(--ex-input-background-color);
+        border: 0.026667rem solid rgba(0, 0, 0, 0);
         &::placeholder {
           color: var(--ex-input-font-color);
           font-size: 14px;
@@ -150,17 +166,32 @@ const reSubmit = () => {
 }
 .fromContent {
   color: var(--ex-default-font-color);
-  padding: 30px 15px;
+  padding: 1.866667rem 0.4rem;
   div {
-    margin-bottom: 20px;
-    padding: 16px 13px;
-    background-color: var(--ex-div-bgColor20);
-    border-radius: 3px;
+    border: 0.026667rem solid var(--ex-input-focus-color);
+    margin-bottom: 0.533333rem;
+    padding: 0.426667rem 0.346667rem;
+    border-radius: 0.213333rem;
+    background: var(--ex-input-background-color);
     color: var(--ex-default-font-color);
   }
 }
 .success {
   color: var(--ex-default-font-color);
   margin-top: 100px;
+  .btnBox {
+    width: 100%;
+    margin-top: 1.333333rem;
+    .btn1 {
+      border: 0.026667rem solid var(--ex-btn-boder-color) !important;
+      background: var(--ex-btn-background-color) !important;
+      color: var(--ex-btn-font-color) !important;
+      text-align: center;
+      border-radius: 0.08rem;
+      font-size: 0.426667rem;
+      padding: 0.426667rem 0;
+      border-radius: 0.213333rem;
+    }
+  }
 }
 </style>

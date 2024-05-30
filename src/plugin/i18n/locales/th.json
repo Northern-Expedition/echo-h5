@@ -571,6 +571,8 @@
   "loan_repayType": "วิธีการชำระ",
   "loan_repayTypeOnce": "ชำระคืนเงินต้นและดอกเบี้ยเมื่อถึงกำหนดชำระ",
   "loan_repayOrg": "สถาบันปล่อยสินเชื่อ",
+  "certificate_type": "ประเภทใบรับรอง",
+  "nationality": "สัญชาติ",
   "loan_idImg": "รูปถ่ายบัตรประชาชน",
   "loan_idMsg": "กรุณาตรวจสอบความชัดเจนของรูปถ่ายบัตรประชาชน",
   "loan_front": "อัปโหลดรูปถ่ายด้านหน้า",
@@ -1140,5 +1142,7 @@
   "robinhood2_quick_recharge": "เติมเงินด่วน",
   "robinhood2_recharge_fast": "เติมเงินด่วน",
   "math_exchange_bullish": "ชื้อ",
-  "math_exchange_bearish": "ขาย"
+  "math_exchange_bearish": "ขาย",
+  "view more": "ดูเพิ่มเติม",
+  "Market overview": "ภาพรวมตลาด"
 }

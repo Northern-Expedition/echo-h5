@@ -571,6 +571,8 @@
   "loan_repayType": "返済方法",
   "loan_repayTypeOnce": "期限が来たら元金と利息を返済する",
   "loan_repayOrg": "貸出機関",
+  "certificate_type": "証明書タイプ",
+  "nationality": "国籍",
   "loan_idImg": "証明書写真",
   "loan_idMsg": "証明書写真がはっきり見えることを確認してください",
   "loan_front": "表面をアップロード",
@@ -1140,5 +1142,7 @@
   "robinhood2_quick_recharge": "急速充電",
   "robinhood2_recharge_fast": "高速入金",
   "math_exchange_bullish": "上昇",
-  "math_exchange_bearish": "下落"
+  "math_exchange_bearish": "下落",
+  "view more": "もっと見る",
+  "Market overview": "市場概況"
 }

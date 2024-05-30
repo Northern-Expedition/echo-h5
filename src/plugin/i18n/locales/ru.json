@@ -570,6 +570,8 @@
   "loan_interest": "Интерес",
   "loan_repayType": "Погашение",
   "loan_repayOrg": "кредитное учреждение",
+  "certificate_type": "Тип сертификата",
+  "nationality": "национальность",
   "loan_idImg": "удостоверение личности с фотографией",
   "loan_idMsg": "Убедитесь, что фотография на удостоверении личности хорошо видна.",
   "loan_front": "загрузить позитив",
@@ -1138,5 +1140,7 @@
   "robinhood2_quick_recharge": "Быстрая перезарядка",
   "robinhood2_recharge_fast": "Быстрый депозит",
   "math_exchange_bullish": "бычий",
-  "math_exchange_bearish": "медвежий"
+  "math_exchange_bearish": "медвежий",
+  "view more": "Посмотреть больше",
+  "Market overview": "Обзор рынка"
 }

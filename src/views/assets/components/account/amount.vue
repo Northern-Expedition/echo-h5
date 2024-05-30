@@ -152,15 +152,16 @@ const toRecharge = (url) => {
   color: var(--ex-default-font-color);
 }
 .userAmount {
-  // margin-top: 61px;
-  padding: 30px 15px;
-  // border-bottom: 1px solid var(--ex-border-color);
+  padding: 1.226667rem 0.4rem 0.693333rem;
   display: flex;
   flex-direction: column;
+  text-align: center;
   div {
     display: flex;
     align-items: center;
-    margin-bottom: 25px;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 0.666667rem;
     .yanjin {
       font-size: 14px;
       margin-left: 15px;
@@ -179,9 +180,10 @@ const toRecharge = (url) => {
   }
 }
 .currencyAbout {
-  padding: 0 5px 20px;
+  padding: 0 0.133333rem 0.56rem;
   display: flex;
   text-align: center;
+  justify-content: center;
   & > div {
     width: 25%;
   }

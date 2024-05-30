@@ -15,7 +15,6 @@
       </div>
       <div class="item">
         <div class="text">{{ _t18('verification_code') }}</div>
-
         <div class="input">
           <input type="text" v-model="formData.code" :placeholder="_t18('recharge_input')" />
           <div class="code-box">
@@ -137,37 +136,38 @@ const submit = () => {
       width: 100%;
 
       .text {
-        margin: 20px 0;
-        font-size: 14px;
-        color: var(--ex-default-font-color);
+        margin: 0.533333rem 0;
+        font-size: 0.373333rem;
+        color: var(--ex-input-label-color2);
       }
 
       .input {
         width: 100%;
         height: 50px;
         padding: 0 10px;
-        border: 1px solid var(--ex-border-color1);
-        background: var(--ex-default-background-color);
-        border-radius: 3px 3px 3px 3px;
+        background: #161a33;
+        border-radius: 0.213333rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
 
         input {
           height: 100%;
-          background: none;
+          background: #161a33;
           border: none;
           font-size: 14px;
         }
         .code-box {
-          min-width: 44px;
-          height: 30px;
-          background: var(--ex-div-bgColor1);
-          border-radius: 2px 2px 2px 2px;
+          position: absolute;
+          right: 0.66667rem;
+          min-width: 2.026667rem;
+          height: 0.906667rem;
+          background: linear-gradient(39deg, #cb4ee8 0%, #10f4b1 100%);
+          border-radius: 0.186667rem;
           display: flex;
           justify-content: center;
           align-items: center;
-          color: var(--ex-font-color);
+          color: var(--ex-default-reverse-font-color);
           div {
             font-size: 14px;
             color: var(--ex-font-color);
@@ -216,7 +216,6 @@ const submit = () => {
     }
     .change-email {
       margin: 50px 0 20px 0;
-      margin: 100px 0 20px 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -224,7 +223,7 @@ const submit = () => {
       color: var(--ex-font-color);
       background: var(--ex-div-bgColor1);
       font-size: 14px;
-      border-radius: 3px 3px 3px 3px;
+      border-radius: 0.186667rem;
       opacity: 1;
     }
     .back {
@@ -232,6 +231,7 @@ const submit = () => {
       display: flex;
       justify-content: center;
       align-items: center;
+      border-radius: 0.186667rem;
       height: 50px;
       background: var(--ex-default-background-color);
       border: 1px solid var(--ex-border-color4);

@@ -571,6 +571,8 @@
   "loan_repayType": "גְמוּל",
   "loan_repayTypeOnce": "החזר חד פעמי של קרן וריבית עם הפירעון",
   "loan_repayOrg": "מוסד הלוואות",
+  "certificate_type": "סוג תעודה",
+  "nationality": "אזרחות",
   "loan_idImg": "תמונת תעודת זהות",
   "loan_idMsg": "אנא ודא שתמונת תעודת הזהות שלך נראית בבירור",
   "loan_front": "העלה את החזית",
@@ -1008,5 +1010,7 @@
   "robinhood2_quick_recharge": "טעינה מהירה",
   "robinhood2_recharge_fast": "הפקדה מהירה",
   "math_exchange_bullish": "שורי",
-  "math_exchange_bearish": "דוּבִּי"
+  "math_exchange_bearish": "דוּבִּי",
+  "view more": "הצג עוד",
+  "Market overview": "סקירת שוק",
 }

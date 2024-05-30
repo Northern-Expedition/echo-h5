@@ -571,6 +571,8 @@
   "loan_repayType": "Geri ödeme",
   "loan_repayTypeOnce": "Vade sonunda anapara ve faizin bir defada geri ödenmesi",
   "loan_repayOrg": "borç veren kurum",
+  "certificate_type": "Kimlik türü",
+  "nationality": "Vatandaşlık",
   "loan_idImg": "Kimlik fotoğrafı",
   "loan_idMsg": "Lütfen kimlik fotoğrafınızın açıkça göründüğünden emin olun.",
   "loan_front": "Ön tarafı yükle",
@@ -1008,5 +1010,7 @@
   "robinhood2_quick_recharge": "Hızlı şarj",
   "robinhood2_recharge_fast": "Hızlı para yatırma",
   "math_exchange_bullish": "yükseliş",
-  "math_exchange_bearish": "düşüş eğilimi"
+  "math_exchange_bearish": "düşüş eğilimi",
+  "view more": "Daha fazla görüntüle",
+  "Market overview": "Piyasa genel bakış"
 }

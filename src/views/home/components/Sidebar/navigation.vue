@@ -12,12 +12,6 @@
         <div v-if="item.key == 'language'">{{ _t18(`language_key`) }}</div>
         <div v-else>{{ _t18(`sidebar_${item.key}`, ['bitmake', 'paxpay', 'aams']) }}</div>
         <div class="right_tip">
-          <span v-if="item.key == 'primary' && userInfo.detail?.auditStatusPrimary === '1'">{{
-            _t18('verified_ok')
-          }}</span>
-          <span v-if="item.key == 'advanced' && userInfo.detail?.auditStatusAdvanced === '1'">{{
-            _t18('verified_ok')
-          }}</span>
           <svg-load name="jiantou-y" class="rightImg"></svg-load>
         </div>
       </div>
@@ -157,16 +151,16 @@ const toView = (item) => {
 </script>
 <style lang="scss" scoped>
 .list {
-  padding: 15px 15px;
+  padding-top: 0.8rem;
   .item {
-    padding: 15px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0.32rem 0.533333rem;
     .itemImg {
-      width: 20px;
-      height: 20px;
-      margin-right: 20px;
+      width: 0.586667rem;
+      height: 0.586667rem;
+      margin-right: 0.32rem;
     }
     .itemRight {
       flex: 1;
@@ -185,12 +179,5 @@ const toView = (item) => {
 .right_tip {
   display: flex;
   align-items: center;
-  span {
-    // padding:3px 5px;
-    margin-right: 10px;
-    // border: 1px solid #613af1;
-    font-size: 12px;
-    color: #613af1;
-  }
 }
 </style>

@@ -571,6 +571,8 @@
   "loan_repayType": "Spłata",
   "loan_repayTypeOnce": "Jednorazowa spłata kapitału i odsetek w terminie zapadalności",
   "loan_repayOrg": "instytucja pożyczkowa",
+  "certificate_type": "Typ certyfikatu",
+  "nationality": "Narodowość",
   "loan_idImg": "zdjęcie identyfikacyjne",
   "loan_idMsg": "Upewnij się, że Twoje zdjęcie identyfikacyjne jest dobrze widoczne",
   "loan_front": "Prześlij przód",
@@ -941,5 +943,7 @@
   "robinhood2_quick_recharge": "Szybkie ładowanie",
   "robinhood2_recharge_fast": "Szybki depozyt",
   "math_exchange_bullish": "zwyżkowy",
-  "math_exchange_bearish": "Niedźwiedzi"
+  "math_exchange_bearish": "Niedźwiedzi",
+  "view more": "Zobacz więcej",
+  "Market overview": "Przegląd rynku",
 }

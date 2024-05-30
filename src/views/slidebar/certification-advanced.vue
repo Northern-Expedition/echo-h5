@@ -213,7 +213,9 @@ onMounted(() => {
     :border_bottom="true"
   ></HeaderBar>
   <div class="content" v-if="advancedAuth == '0' || advancedAuth == null">
-    <div class="tip advanced_txt">{{ _t18('advanced_txt', ['aams']) }}</div>
+    <div class="tip advanced_txt">
+      <image-load filePath="tips.png" class="tips" />{{ _t18('advanced_txt', ['aams']) }}
+    </div>
     <div v-if="['coinsexpto'].includes(_getConfig('_APP_ENV'))" class="tip_info">
       {{
         `${_t18('advanced_certification_info_left')}${_getConfig('_APP_META_TITLE')}${_t18(
@@ -224,13 +226,19 @@ onMounted(() => {
     <!-- 姓名 -->
     <!-- 隐藏实名认证姓名输入 -->
     <div class="form" v-if="!REALNAME.includes(_getConfig('_APP_ENV'))">
+      <div class="label text-ellipsis2">{{ _t18('advanced_name') }}：</div>
       <div class="formInput">
-        <div class="label text-ellipsis2">{{ _t18('advanced_name') }}：</div>
         <input :placeholder="_t18('login_please')" v-model="formData.userName" class="form-input" />
       </div>
     </div>
     <!-- 身份证 -->
-    <van-cell style="margin-top: 30px" is-link :title="title" @click="show = true" />
+    <div class="label text-ellipsis2">{{ _t18('certificate_type') }}：</div>
+    <van-cell
+      style="margin-top: 10px; margin-bottom: 15px"
+      is-link
+      :title="title"
+      @click="show = true"
+    />
     <van-action-sheet
       v-model:show="show"
       :actions="actions"
@@ -239,8 +247,8 @@ onMounted(() => {
     >
     </van-action-sheet>
     <div class="form" v-if="!REALNAME.includes(_getConfig('_APP_ENV'))">
+      <div class="label text-ellipsis2">{{ _t18('advanced_license_number') }}：</div>
       <div class="formInput">
-        <div class="label text-ellipsis2">{{ _t18('advanced_license_number') }}：</div>
         <input
           :placeholder="_t18('advanced_please_cardName')"
           v-model="formData.number"
@@ -249,8 +257,9 @@ onMounted(() => {
       </div>
     </div>
     <!-- 国家 -->
+    <div class="label text-ellipsis2">{{ _t18('nationality') }}：</div>
     <van-cell
-      style="margin-top: 30px"
+      style="margin-top: 10px"
       is-link
       :title="_t18(nationName)"
       @click="showNation = true"
@@ -268,7 +277,7 @@ onMounted(() => {
 
     <div class="upload">
       <div class="photo">
-        {{ _t18('advanced_id_photo') }} <span class="hui">({{ _t18('advanced_make_sure') }})</span>
+        <span class="hui"> {{ _t18('advanced_id_photo') }}({{ _t18('advanced_make_sure') }})</span>
       </div>
     </div>
     <div class="upload-box">
@@ -321,10 +330,8 @@ onMounted(() => {
 </template>
 <style lang="scss" scoped>
 .van-cell {
-  background: var(--ex-select-background-color) !important;
   height: 46px;
   border-radius: 3px;
-  border: 1px solid var(--ex-select-boder-color) !important;
   padding: 0 10px;
   font-size: 14px;
   color: var(--ex-select-font-color) !important;
@@ -333,57 +340,59 @@ onMounted(() => {
 }
 
 .van-cell:after {
-  border-bottom: 1px solid var(--ex-select-border-btmcolor) !important;
+  border-bottom: 0px !important;
 }
-
-:deep(.van-action-sheet__item) {
-  border-bottom: 1px solid var(--ex-select-border-btmcolor) !important;
+:deep(.van-action-sheet__item, .van-action-sheet__cancel) {
+  background-color: #0e1327 !important;
 }
-
+.label {
+  color: var(--ex-input-label-color2);
+  text-align: left;
+}
 .content {
   padding: 30px 15px 0 15px;
+  color: var(--ex-default-font-color);
 
   .tip {
     font-size: 12px;
-    color: var(--ex-tip-font-color);
-    margin-bottom: 30px;
+    color: #8885fb;
   }
   .tip_info {
     font-size: 12px;
   }
   .advanced_txt {
-    margin-bottom: 20px;
+    font-size: 0.373333rem;
+    margin-bottom: 0.64rem;
     text-align: left;
+    .tips {
+      width: 0.426667rem;
+      height: 0.426667rem;
+      margin: 0 0.053333rem;
+      vertical-align: top;
+    }
   }
 
   .form {
-    padding-top: 5px;
-
+    padding-top: 0.133333rem;
+    font-size: 0.373333rem;
+    .label {
+      color: var(--ex-input-label-color2);
+      text-align: left;
+    }
     .formInput {
-      padding: 0 10px;
-      display: flex;
-      justify-content: flex-start;
-      background: var(--ex-input-background-color2);
-      border-radius: 3px;
-      border: 1px solid var(--ex-input-border-color);
       align-items: center;
-      margin: 20px 0;
-
-      .label {
-        min-width: 80px;
-        font-size: 14px;
-        color: var(--ex-input-label-color);
-        text-align: left;
-      }
+      margin: 0.24rem 0 0.64rem;
 
       input {
+        padding: 0 0.373333rem;
         width: 100%;
-        height: 46px;
-        font-size: 14px;
-        background-color: var(--ex-input-background-color2);
-
+        height: 1.226667rem;
+        font-size: 0.373333rem;
+        border-radius: 0.213333rem;
+        background: var(--ex-input-background-color);
+        border: 0.026667rem solid rgba(0, 0, 0, 0);
         &::placeholder {
-          color: var(--ex-input-font-color2);
+          color: var(--ex-input-font-color);
           font-size: 14px;
         }
       }
@@ -408,8 +417,8 @@ onMounted(() => {
     .item {
       height: 194px;
       background: var(--ex-default-background-color);
-      border-radius: 3px;
-      border: 1px solid var(--ex-border-color1);
+      border-radius: 0.213333rem;
+      border: 0.026667rem dashed var(--ex-border-color10);
       margin-bottom: 10px;
       display: flex;
       flex-direction: column;

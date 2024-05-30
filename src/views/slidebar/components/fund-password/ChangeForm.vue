@@ -1,7 +1,6 @@
 <script setup>
-
 import ButtonBar from '@/components/common/ButtonBar/index.vue'
-import {updateFundPwd} from '@/api/user'
+import { updateFundPwd } from '@/api/user'
 import { showToast } from 'vant'
 import { ref, reactive } from 'vue'
 import { _t18 } from '@/utils/public'
@@ -13,14 +12,14 @@ const NPwd = ref(false)
 const form = ref({
   newPwd: '',
   oldPwd: '',
-  NPwd:''
+  NPwd: ''
 })
 const setKeyVal = (val) => {
   if (val == 'oldPwd') {
     oldPwd.value = !oldPwd.value
-  } else if(val == 'newPwd') {
+  } else if (val == 'newPwd') {
     newPwd.value = !newPwd.value
-  }else {
+  } else {
     NPwd.value = !NPwd.value
   }
 }
@@ -35,7 +34,6 @@ const pwdDiff = () => {
   showPwdDiff.value = !(form.value.newPwd == form.value.NPwd)
 }
 const changePwd = () => {
-  
   if (form.value.oldPwd == '') {
     // showToast('请输入旧密码')
     _toast('Fund_password_pleaseOld')
@@ -51,7 +49,7 @@ const changePwd = () => {
     _toast('register_pwd_diff')
     return
   }
-  updateFundPwd(form.value.oldPwd,form.value.newPwd,1).then(res => {
+  updateFundPwd(form.value.oldPwd, form.value.newPwd, 1).then((res) => {
     if (res.code == '200') {
       // showToast('资金密码修改成功')
       _toast('Fund_password_update_success')
@@ -67,7 +65,11 @@ const changePwd = () => {
     <div class="tip">{{ _t18('Old_Password') }}</div>
     <div class="input">
       <svg-load name="mima" class="icon"></svg-load>
-      <input :type="oldPwd ? 'text' : 'password'" v-model="form.oldPwd" :placeholder="_t18('login_please')" />
+      <input
+        :type="oldPwd ? 'text' : 'password'"
+        v-model="form.oldPwd"
+        :placeholder="_t18('login_please')"
+      />
       <svg-load
         :name="oldPwd ? 'openeyes' : 'closeeyse'"
         class="icon"
@@ -77,7 +79,11 @@ const changePwd = () => {
     <div class="tip">{{ _t18('New_Password') }}</div>
     <div class="input">
       <svg-load name="mima" class="icon"></svg-load>
-      <input :type="newPwd ? 'text' : 'password'" v-model="form.newPwd" :placeholder="_t18('login_please')"/>
+      <input
+        :type="newPwd ? 'text' : 'password'"
+        v-model="form.newPwd"
+        :placeholder="_t18('login_please')"
+      />
       <svg-load
         :name="newPwd ? 'openeyes' : 'closeeyse'"
         class="icon"
@@ -87,7 +93,12 @@ const changePwd = () => {
     <div class="tip">{{ _t18('Confirm_Password') }}</div>
     <div class="input">
       <svg-load name="mima" class="icon"></svg-load>
-      <input :type="NPwd ? 'text' : 'password'" v-model="form.NPwd" @input="pwdDiff" :placeholder="_t18('login_please')"/>
+      <input
+        :type="NPwd ? 'text' : 'password'"
+        v-model="form.NPwd"
+        @input="pwdDiff"
+        :placeholder="_t18('login_please')"
+      />
       <svg-load
         :name="NPwd ? 'openeyes' : 'closeeyse'"
         class="icon"
@@ -96,7 +107,7 @@ const changePwd = () => {
     </div>
     <p class="pwdDiff" v-if="showPwdDiff">*{{ _t18('register_pwd_diff') }}</p>
     <div class="btnBox" @click="changePwd">
-      <ButtonBar :btnValue="_t18('btnConfirm',['bitmake'])"/>
+      <ButtonBar :btnValue="_t18('btnConfirm', ['bitmake'])" />
     </div>
   </div>
 </template>
@@ -105,7 +116,7 @@ const changePwd = () => {
   padding: 30px 15px 0 15px;
   .tip {
     font-size: 14px;
-    color: var(--ex-font-color16);
+    color: #a7afb7;
     margin-bottom: 10px;
     text-align: left;
   }
@@ -113,21 +124,19 @@ const changePwd = () => {
     padding: 0 15px;
     width: 100%;
     height: 50px;
-    background: var(--ex-default-background-color);
-    border-radius: 3px;
-    border: 1px solid var(--ex-border-color1);
+    background: var(--ex-input-background-color);
+    border-radius: 0.213333rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
     input {
+      border-radius: 0.213333rem;
       width: 100%;
       height: 100%;
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-      font-size: 14px;
-      color: var(--ex-default-font-color);
+      padding: 0 1.013333rem;
+      font-size: 0.373333rem;
+      background: var(--ex-input-background-color);
     }
   }
   .icon {

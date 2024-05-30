@@ -1,8 +1,5 @@
 <template>
   <div class="slidebar">
-    <div class="close">
-      <svg-load name="guanbi" class="closeImg" @click="closeSideBar"></svg-load>
-    </div>
     <UserLogin v-if="isSign"></UserLogin>
     <Navigation></Navigation>
     <!-- 未登录 -->
@@ -18,7 +15,8 @@
     </div>
     <!-- 已登录 -->
     <div v-if="isSign && !userInfo.addressFlag" class="logged" @click="exit">
-      <svg-load name="tuichu" class="loggedImg"></svg-load>
+      <image-load filePath="log-out.png" class="loggedImg"></image-load>
+
       <!-- 退出登录 -->
       <div>{{ _t18('layout', ['aams']) }}</div>
     </div>
@@ -92,14 +90,15 @@ const closeSideBar = () => {
   height: 100vh;
   padding-bottom: 100px;
   overflow: auto;
-}
-.close {
-  padding: 17px 15px 20px;
-  display: flex;
-  justify-content: flex-end;
-  .closeImg {
-    width: 24px;
-    height: 24px;
+  &:after {
+    position: absolute;
+    top: 40%;
+    content: ' ';
+    width: 100%;
+    height: 8.24rem;
+    background: linear-gradient(39deg, #cb4ee8 0%, #10f4b1 100%);
+    opacity: 0.14;
+    filter: blur(0.88rem);
   }
 }
 
@@ -113,21 +112,14 @@ const closeSideBar = () => {
 }
 // 登录
 .logged {
-  border-top: 1px solid var(--ex-input-boder-bgColor);
-
-  margin-top: 50px;
-  padding: 30px 15px;
+  padding: 0.32rem 0.533333rem;
   font-size: 14px;
-  color: var(--ex-font-color9);
   display: flex;
   align-items: center;
   .loggedImg {
     width: 20px;
     height: 20px;
     margin-right: 20px;
-  }
-  div {
-    color: var(--ex-font-color9);
   }
 }
 </style>

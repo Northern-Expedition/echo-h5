@@ -1,7 +1,7 @@
 <!-- 首页 -->
 <template>
   <div>
-    <van-popup v-model:show="show" position="left" class="sidebar" @close="closeSideBar">
+    <van-popup v-model:show="show" position="left" class="sidebar">
       <SideBar @closeSideBar="closeSideBar"></SideBar>
     </van-popup>
     <div class="carousel">
@@ -128,7 +128,6 @@ onMounted(async () => {
 :deep(.sidebar) {
   margin-top: -1px;
   max-width: var(--ex-max-width);
-  width: 100%;
   left: auto;
   height: 100%;
 }
