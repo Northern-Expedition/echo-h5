@@ -162,7 +162,11 @@ const event_serviceChange = () => {
         mainStroe.getCustomerServiceList[0].callback()
       } else {
         let href = mainStroe.getCustomerServiceList[0]?.url
-        if (['gmmoin', 'coinsexpto', 'paxpay', 'dev', 'bitbyex','robinhood2'].includes(__config._APP_ENV)) {
+        if (
+          ['gmmoin', 'coinsexpto', 'paxpay', 'dev', 'bitbyex', 'robinhood2'].includes(
+            __config._APP_ENV
+          )
+        ) {
           location.href = href
         } else if (mainStroe.getCustomerServiceList[0]?.getUrl) {
           href = mainStroe.getCustomerServiceList[0].getUrl()
@@ -199,6 +203,7 @@ onUnmounted(() => {
 <template>
   <div>
     <loading v-if="isLoading" :loading="isLoading"></loading>
+    <SimulationTop v-if="userStore.userInfo.user?.type === '2'" />
     <router-view v-slot="{ Component, route }">
       <transition name="fade">
         <div :key="route.name">

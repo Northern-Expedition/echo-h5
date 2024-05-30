@@ -17,7 +17,7 @@
     </van-field>
     <!-- tabs -->
 
-    <div class="simulate">
+    <div class="simulate" @click="clickMock">
       <div class="left_tips">
         <div class="tips_assets text-ellipsis2">交易账户暂无资产</div>
         <div class="tips_sel">您可以尝试模拟交易</div>
@@ -54,18 +54,19 @@
 <script setup>
 import { _t18 } from '@/utils/public'
 import { useMainStore } from '@/store/index'
+import { switchTypeApi } from '@/api/quote'
 const mainStore = useMainStore()
-import { useTradeStore } from '@/store/trade'
-
-const tradeStore = useTradeStore()
+import { showConfirmDialog, showLoadingToast, showToast } from 'vant'
 import { computed } from 'vue'
 import Optional from './components/quoteOptional.vue'
 import SecondContract from './components/quoteSecondContract.vue'
 import BBTrading from './components/quoteBBTrading.vue'
 import Ustandard from './components/quoteUstandard.vue'
+import { useRouter } from 'vue-router'
+const { push } = useRouter()
+
 // 搜索
 const searchName = ref('')
-const searchBtn = () => {}
 // tabs
 const headerList = computed(() => {
   let tempList = mainStore.getTradeHeaderList
@@ -86,6 +87,19 @@ const currentComponent = computed(() => {
   }
   return temp
 })
+
+function clickMock() {
+  showConfirmDialog({
+    message: '确定开启模拟交易吗？',
+    className: 'mock-dialog'
+  }).then(async () => {
+    showLoadingToast({})
+    await switchTypeApi(2)
+    showToast('已经入模拟交易')
+    push('/home')
+  })
+}
+
 watch(
   currentIndex,
   (n) => {
@@ -261,5 +275,10 @@ watch(
       object-fit: fill;
     }
   }
+}
+
+.mock-dialog {
+  width: 380px;
+  top: 45%;
 }
 </style>

@@ -466,11 +466,19 @@
     --van-active-color: var(--ex-default-background-color);
     --van-text-color: var(--ex-default-font-color);
     --van-cell-background: #34393e;
-    --van-cell-vertical-padding:10px;
-    --van-cell-horizontal-padding: 16px 
+    --van-cell-vertical-padding: 10px;
+    --van-cell-horizontal-padding: 16px;
   }
 
   .van-cell {
     background: #161a33;
+  }
+
+  .van-dialog__header,
+  .van-dialog__content {
+    background: var(--van-dialog-background);
+    .van-dialog__message {
+      color: white;
+    }
   }
 }

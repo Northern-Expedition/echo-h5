@@ -1,22 +1,18 @@
-<!-- 首页 -->
-<script setup>
-import Header from './components/FrontPage/header.vue'
-import HeaderDiff from './components/FrontPage/headerDiff.vue'
-import Menu from './components/FrontPage/menu.vue'
-import Footer from './components/FrontPage/footer.vue'
-import { DIFF_HOME_BANNER } from '@/config/index'
-import { useMainStore } from '@/store/index.js'
-const mainStore = useMainStore()
-const showAd = ref(true)
-onMounted(() => {
-  mainStore.getSettingConfig()
-})
-</script>
-
 <template>
-  <HeaderDiff v-if="DIFF_HOME_BANNER.includes(_getConfig('_APP_ENV'))"></HeaderDiff>
-  <Header v-else></Header>
-  <Menu></Menu>
+  <template v-if="!getIsMock">
+    <HeaderDiff v-if="DIFF_HOME_BANNER.includes(_getConfig('_APP_ENV'))"></HeaderDiff>
+    <Header v-else></Header>
+    <Menu></Menu>
+  </template>
+
+  <div class="summary">
+    <div class="unit_name">
+      <div class="name">{{ _t18('mock_price') }}</div>
+      <div class="unit">USDT</div>
+    </div>
+    <div class="numerical">{{ amountSum }}</div>
+  </div>
+
   <Footer></Footer>
   <van-dialog
     closeOnClickOverlay
@@ -26,20 +22,20 @@ onMounted(() => {
   >
     <div class="popup-box">
       <div class="head">
-        <div class="title">在线客服</div>
+        <div class="title">{{ _t18('online_service') }}</div>
         <div class="close">
-          <img src="resource/svg/dark/guanbi.svg" class="icon closeSvg" @click="showAd = false" />
+          <img src="/resource/svg/dark/guanbi.svg" class="icon closeSvg" @click="showAd = false" />
         </div>
       </div>
       <div class="conn">
         <div>
-          请认准Telegram智联科技官方客服，核对Telegram用户名，其他人员请找官方客服人员确认，谨防上当受骗
+          {{ _t18('ad_1') }}
         </div>
-        <div>如需搭建，联系智联科技官方客服：</div>
+        <div>  {{ _t18('ad_2') }}</div>
         <div class="heng">
           <div>
             <span class="customer">@zhilian1919</span>
-            -智联科技💰王羲之（包网🔥定制🔥搭建）
+            {{ _t18('ad_3') }}
           </div>
         </div>
       </div>
@@ -47,7 +43,82 @@ onMounted(() => {
   </van-dialog>
 </template>
 
+<!-- 首页 -->
+<script setup>
+import Header from './components/FrontPage/header.vue'
+import HeaderDiff from './components/FrontPage/headerDiff.vue'
+import Menu from './components/FrontPage/menu.vue'
+import Footer from './components/FrontPage/footer.vue'
+import { DIFF_HOME_BANNER } from '@/config/index'
+import { useMainStore } from '@/store/index.js'
+import { useUserStore } from '@/store/user/index'
+import { storeToRefs } from 'pinia'
+import { priceFormat } from '@/utils/decimal.js'
+import { DIFF_FREEZE_ASSETS } from '@/config/index'
+import { _t18, _toView } from '@/utils/public'
+
+const userStore = useUserStore()
+
+const mainStore = useMainStore()
+const showAd = ref(true)
+const getIsMock = computed(() => userStore.userInfo.user?.type === '2')
+onMounted(() => {
+  mainStore.getSettingConfig()
+})
+const { asset } = storeToRefs(userStore)
+const assetDetails = computed(() => {
+  let list = []
+  //[{icon: 'usdt', title: 'USDT', keyong: 100, zhanyong: 100, zhehe: 100}]
+  asset.value.forEach((item, index) => {
+    // 之前两块多平台判断逻辑是一样的 -> 精简合并
+
+    let obj = {}
+    obj['keyong'] = priceFormat(item.availableAmount)
+    // rxce冻结金额=占用+冻结
+    if (DIFF_FREEZE_ASSETS.includes(__config._APP_ENV)) {
+      let temp = 0
+      if (freezeList.value) {
+        freezeList.value.forEach((itm, inx) => {
+          if (itm.coin == item.symbol && item.type == 1) {
+            temp = itm.price
+          }
+        })
+      }
+      obj['zhanyong'] = priceFormat(_add(item.occupiedAmount, temp))
+    } else {
+      obj['zhanyong'] = priceFormat(item.occupiedAmount)
+    }
+    obj['zhehe'] = priceFormat(item.exchageAmount)
+    if (item.symbol == 'usdt') {
+      obj['icon'] = 'usdt'
+      obj['loge'] = item.loge
+      obj['title'] = 'USDT'
+      list.unshift(obj)
+    } else {
+      obj['loge'] = item.loge
+      obj['title'] = item.symbol?.replace('usdt', '').trim().toLocaleUpperCase()
+      obj['icon'] = item.symbol?.replace('usdt', '').trim()
+      list.push(obj)
+    }
+  })
+  return list
+})
+
+// 计算账户余额
+const amountSum = computed(() => {
+  let sum = 0
+  for (let i = 0; i < assetDetails.value.length; i++) {
+    sum += Number(assetDetails.value[i].zhehe)
+  }
+  return priceFormat(sum)
+})
+</script>
+
 <style lang="scss">
+.dialog-ad {
+  width: 8.266667rem;
+}
+
 .popup-box {
   width: 8.266667rem;
   padding-bottom: 0.4rem;
@@ -98,6 +169,37 @@ onMounted(() => {
     .customer {
       color: #0052ff;
     }
+  }
+}
+
+.summary {
+  height: 2.453333rem;
+  margin: 0.16rem 0.4rem 0.4rem;
+  background-color: var(--ex--backup-background-color-2);
+  border-radius: 0.133333rem;
+  padding: 0.266667rem;
+
+  .unit_name {
+    line-height: 1.066667rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .name {
+      font-size: 0.373333rem;
+      color: var(--ex-default-font-color-light);
+    }
+    .unit[data-v-ccd5ad20] {
+      font-size: 0.426667rem;
+      color: var(--ex-default-font-color-light);
+    }
+  }
+
+  .numerical {
+    font-size: 0.586667rem;
+    font-weight: 700;
+    color: var(--ex-default-font-color-light);
+    font-family: DINOT-Medium;
   }
 }
 </style>

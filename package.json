@@ -44,6 +44,7 @@
     "autoprefixer": "^10.4.14",
     "compressing": "^1.9.0",
     "dotenv": "^16.3.1",
+    "less": "^4.2.0",
     "lib-flexible": "^0.3.2",
     "node-xlsx": "^0.23.0",
     "postcss-pxtorem": "^6.0.0",
