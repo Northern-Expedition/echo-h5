@@ -1012,5 +1012,16 @@
   "math_exchange_bullish": "yükseliş",
   "math_exchange_bearish": "düşüş eğilimi",
   "view more": "Daha fazla görüntüle",
-  "Market overview": "Piyasa genel bakış"
+  "Market overview": "Piyasa genel bakış",
+  "fill_in_the_application_form": "Başvuru formunu doldurun",
+  "Upload_data": "Veri yükle",
+  "application_result": "Başvuru sonucu",
+  "Debit_and_credit_record": "Borç ve kredi kaydı",
+  "next_step":"Bir sonraki adım",
+  "Congratulations_on_your_successful_application":"Başvurunuz başarılıdır",
+  "Your_loan_application_has_been_successful_andthe_platform_will_review_the_successful_loan":"Kredi başvurunuz başarılı oldu ve platform başarılı krediyi inceleyecek",
+  "Loan_statement":"Kredi beyanı",
+  "borrow_money": "Borç almak",
+  "sidebar_regulatoryCertificate": "Düzenleyici sertifika",
+  "Exchange_introduction": "Borsa tanıtımı"
 }

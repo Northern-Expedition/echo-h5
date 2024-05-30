@@ -1010,5 +1010,16 @@
   "math_exchange_bullish": "صاعد",
   "math_exchange_bearish": "سبحة",
   "view more": "عرض المزيد",
-  "Market overview": "نظرة عامة على السوق"
+  "Market overview": "نظرة عامة على السوق",
+  "fill_in_the_application_form": "ملء استمارة الطلب",
+  "Upload_data": "تحميل البيانات",
+  "application_result": "نتيجة الطلب",
+  "Debit_and_credit_record": "سجل الخصم والائتمان",
+  "next_step": "الخطوة التالية",
+  "Congratulations_on_your_successful_application": "تهانينا على نجاح طلبك",
+  "Your_loan_application_has_been_successful_andthe_platform_will_review_the_successful_loan": "تم قبول طلب القرض الخاص بك، وسيقوم المنصة بمراجعة القرض الناجح",
+  "Loan_statement": "بيان القرض",
+  "borrow_money": "اقترض المال",
+  "sidebar_regulatoryCertificate": "شهادة التنظيم",
+  "Exchange_introduction": "مقدمة التبادل"
 }

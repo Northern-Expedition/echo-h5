@@ -1012,5 +1012,16 @@
   "math_exchange_bullish": "optimistisch",
   "math_exchange_bearish": "Bearish",
   "view more": "Bekijk meer",
-  "Market overview": "Marktoverzicht"
+  "Market overview": "Marktoverzicht",
+  "fill_in_the_application_form": "Vul het aanvraagformulier in",
+  "Upload_data": "Gegevens uploaden",
+  "application_result": "Aanvraagresultaat",
+  "Debit_and_credit_record": "Debet- en creditrecord",
+  "next_step": "Volgende stap",
+  "Congratulations_on_your_successful_application": "Gefeliciteerd met uw succesvolle aanvraag",
+  "Your_loan_application_has_been_successful_andthe_platform_will_review_the_successful_loan": "Uw leningsaanvraag is succesvol en het platform zal de succesvolle lening beoordelen",
+  "Loan_statement": "Leningverklaring",
+  "borrow_money": "Geld lenen",
+  "sidebar_regulatoryCertificate": "Regelgevingscertificaat",
+  "Exchange_introduction": "Uitwisselingsintroductie"
 }

@@ -12,3 +12,4 @@ export const getLoan = (params) => post('/api/load/order/submit', params)
 //查询借贷订单
 
 export const getLoanOrderList = (params) => post(`/api/load/order/orderList?${params}`)
+export const getOptionRulesApi= ()=>post('/api/option/rules/list?key=EXCHANGE_INTRODUCTION')

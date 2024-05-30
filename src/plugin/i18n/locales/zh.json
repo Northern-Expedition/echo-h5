@@ -1144,5 +1144,16 @@
   "math_exchange_bullish": "看涨",
   "math_exchange_bearish": "看跌",
   "view more": "查看更多",
-  "Market overview": "市场总览"
+  "Market overview": "市场总览",
+  "fill_in_the_application_form": "填写申请",
+  "Upload_data": "上传资料",
+  "application_result": "申请结果",
+  "Debit_and_credit_record": "借贷记录",
+  "next_step": "下一步",
+  "Congratulations_on_your_successful_application": "恭喜您申请成功",
+  "Your_loan_application_has_been_successful_andthe_platform_will_review_the_successful_loan": "您的借款申请已成功，平台将审核成功后放款",
+  "Loan_statement": "借款说明",
+  "borrow_money": "借款",
+  "sidebar_regulatoryCertificate": "监管证书",
+  "Exchange_introduction": "交易所介绍"
 }

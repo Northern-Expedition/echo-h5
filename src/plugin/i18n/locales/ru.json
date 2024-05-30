@@ -1142,5 +1142,16 @@
   "math_exchange_bullish": "бычий",
   "math_exchange_bearish": "медвежий",
   "view more": "Посмотреть больше",
-  "Market overview": "Обзор рынка"
+  "Market overview": "Обзор рынка",
+  "fill_in_the_application_form": "Заполните заявку",
+  "Upload_data":"Загрузить данные",
+  "application_result":"Результат заявки",
+  "Debit_and_credit_record": "Запись о дебете и кредите",
+  "next_step":"Следующий шаг",
+  "Congratulations_on_your_successful_application":"Поздравляем с успешной заявкой",
+  "Your_loan_application_has_been_successful_andthe_platform_will_review_the_successful_loan":"Ваша заявка на кредит была успешной, и платформа пройдет успешный кредит",
+  "Loan_statement":"Заявление о кредите",
+  "borrow_money": "Заимствовать деньги",
+  "sidebar_regulatoryCertificate": "Регуляторный сертификат",
+  "Exchange_introduction": "Введение в обмен"
 }

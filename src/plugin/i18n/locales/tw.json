@@ -1144,5 +1144,16 @@
   "math_exchange_bullish": "看漲",
   "math_exchange_bearish": "看跌",
   "view more": "查看更多",
-  "Market overview": "市場總覽"
+  "Market overview": "市場總覽",
+  "fill_in_the_application_form":"填寫申請表",
+  "Upload_data":"上傳數據",
+  "application_result":"申請結果",
+  "Debit_and_credit_record": "借貸記錄",
+  "next_step":"下一步",
+  "Congratulations_on_your_successful_application":"恭喜您申請成功",
+  "Your_loan_application_has_been_successful_andthe_platform_will_review_the_successful_loan":"您的借款申請已成功，平台將審核成功的借款",
+  "Loan_statement":"借款明細",
+  "borrow_money": "借款",
+  "sidebar_regulatoryCertificate": "監管證書",
+  "Exchange_introduction": "交易所介紹"
 }

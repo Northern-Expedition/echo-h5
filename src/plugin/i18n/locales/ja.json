@@ -1144,5 +1144,16 @@
   "math_exchange_bullish": "上昇",
   "math_exchange_bearish": "下落",
   "view more": "もっと見る",
-  "Market overview": "市場概況"
+  "Market overview": "市場概況",
+  "fill_in_the_application_form": "申請書に記入する",
+  "Upload_data": "データをアップロードする",
+  "application_result": "申請結果",
+  "Debit_and_credit_record": "借入れと返済記録",
+  "next_step": "次のステップ",
+  "Congratulations_on_your_successful_application": "申請が成功しました",
+  "Your_loan_application_has_been_successful_andthe_platform_will_review_the_successful_loan": "貸付申請が成功しました。プラットフォームは貸付を審査します",
+  "Loan_statement": "借入明細",
+  "borrow_money": "借入金額",
+  "sidebar_regulatoryCertificate": "規制証明書",
+  "Exchange_introduction": "取引所紹介"
 }

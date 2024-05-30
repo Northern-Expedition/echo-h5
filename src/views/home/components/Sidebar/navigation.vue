@@ -120,6 +120,7 @@ const getWhitePaper = async () => {
   }
 }
 const toView = (item) => {
+  console.log(item)
   if (item.jumpType == 'link' && (item.key == 'paper' || item.key == 'aboutUS')) {
     window.open(paperUrl.value)
   } else if (item.jumpType == 'path') {

@@ -1144,5 +1144,16 @@
   "math_exchange_bullish": "상승세",
   "math_exchange_bearish": "하락세",
   "view more": "더보기",
-  "Market overview": "시장 개요"
+  "Market overview": "시장 개요",
+  "fill_in_the_application_form": "신청서 작성",
+  "Upload_data": "데이터 업로드",
+  "application_result": "신청 결과",
+  "Debit_and_credit_record": "대출 및 상환 기록",
+  "next_step": "다음 단계",
+  "Congratulations_on_your_successful_application": "신청이 성공적이라 축하합니다",
+  "Your_loan_application_has_been_successful_andthe_platform_will_review_the_successful_loan": "대출 신청이 성공적이며 플랫폼에서 대출 신청을 검토합니다",
+  "Loan_statement": "대출 성명",
+  "borrow_money": "대출금액",
+  "sidebar_regulatoryCertificate": "규제인증",
+  "Exchange_introduction": "거래소 소개"
 }

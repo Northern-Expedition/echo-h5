@@ -89,10 +89,7 @@ const interest = computed(() => {
   return tempValue
 })
 const cuttentRight = {
-  iconRight: [
-    { iconName: 'guize', clickTo: '/loan-rule' },
-    { iconName: 'jilu', clickTo: '/loan-record' }
-  ]
+  iconRight: [{ iconName: 'right-rule', clickTo: '/loan-rule', text: _t18('Loan_statement') }]
 }
 const showNation = ref(false)
 onMounted(async () => {
@@ -171,9 +168,10 @@ const submit = () => {
   }).then((res) => {
     if (res.code == '200') {
       _toast(`loan_applySuccess`)
-      setTimeout(() => {
-        router.push('/loan-record')
-      }, 500)
+      stepsActive.value++
+      // setTimeout(() => {
+      //   router.push('/loan-record')
+      // }, 500)
     } else {
       showToast(res.msg)
     }
@@ -192,6 +190,7 @@ const blur = () => {
     amount.value = ''
   }
 }
+const stepsActive = ref(0)
 </script>
 <template>
   <!-- 助力贷 -->
@@ -201,80 +200,104 @@ const blur = () => {
     :border_bottom="true"
   ></HeaderBar>
   <div class="content">
-    <div class="top">
-      <!-- 经平台审核，您可向平台申请一笔借款！ -->
-      <strong class="tip">{{ _t18('loan_msg') }}</strong>
-      <!-- 借贷产品 -->
-      <div class="type">{{ _t18('loan_product') }} <span></span></div>
-      <div class="form">
-        <div class="formInput" @click="showNation = true">
-          <!-- <input v-model="productDetail.amount" class="form-input" disabled /> -->
-          <p>{{ productDetail.amountMin }}-{{ productDetail.amountMax }}</p>
+    <div class="header-step">
+      <van-steps
+        :active="stepsActive"
+        active-color="var(--ex-assets--record-font-color)"
+        inactive-color="var(--ex-placeholder-font)"
+      >
+        <van-step>{{ _t18('fill_in_the_application_form') }}</van-step>
+        <van-step>{{ _t18('Upload_data') }}</van-step>
+        <van-step>{{ _t18('application_result') }}</van-step>
+      </van-steps>
+    </div>
+    <div class="loan-apply" v-if="stepsActive === 0">
+      <div class="top">
+        <!-- 经平台审核，您可向平台申请一笔借款！ -->
+        <strong class="tip">{{ _t18('loan_msg') }}</strong>
+        <!-- 借贷产品 -->
+        <div class="type">{{ _t18('loan_product') }} <span></span></div>
+        <div class="form">
+          <div class="formInput" @click="showNation = true">
+            <!-- <input v-model="productDetail.amount" class="form-input" disabled /> -->
+            <p>{{ productDetail.amountMin }}-{{ productDetail.amountMax }}</p>
+          </div>
         </div>
-      </div>
-      <!-- 借款金额 -->
-      <div class="type">{{ _t18('loan_amount') }} <span>(USDT)</span></div>
-      <div class="form">
-        <div class="formInput">
-          <!-- 输入贷款金额 -->
-          <input
-            v-model="amount"
-            class="form-input"
-            :placeholder="_t18('loan_pleaseInput')"
-            @blur="blur"
-          />
-          <!-- <span v-if="showErr">*金额不符合</span> -->
+        <!-- 借款金额 -->
+        <div class="type">{{ _t18('loan_amount') }} <span>(USDT)</span></div>
+        <div class="form">
+          <div class="formInput">
+            <!-- 输入贷款金额 -->
+            <input
+              v-model="amount"
+              class="form-input"
+              :placeholder="_t18('loan_pleaseInput')"
+              @blur="blur"
+            />
+            <!-- <span v-if="showErr">*金额不符合</span> -->
+          </div>
         </div>
-      </div>
 
-      <van-action-sheet
-        v-model:show="showNation"
-        style="max-width: var(--ex-max-width); left: 50%; translate: -50%"
-        ><template #default>
-          <ul class="action">
-            <li v-for="item in repaymentCycle" :key="item.id" @click="selectorAction(item)">
-              <div class="selector">
-                <span>{{ item.amountMin }}-{{ item.amountMax }} USDT</span>
-              </div>
-            </li>
-          </ul>
-        </template>
-      </van-action-sheet>
-      <!-- 还款周期 -->
-      <div class="type">{{ _t18('loan_cycle') }}</div>
-      <div class="form">
-        <div class="formInput">
-          <input v-model="productDetail.cycleType" class="form-input" disabled />
+        <van-action-sheet
+          v-model:show="showNation"
+          style="max-width: var(--ex-max-width); left: 50%; translate: -50%"
+          ><template #default>
+            <ul class="action">
+              <li v-for="item in repaymentCycle" :key="item.id" @click="selectorAction(item)">
+                <div class="selector">
+                  <span>{{ item.amountMin }}-{{ item.amountMax }} USDT</span>
+                </div>
+              </li>
+            </ul>
+          </template>
+        </van-action-sheet>
+        <!-- 还款周期 -->
+        <div class="type">{{ _t18('loan_cycle') }}</div>
+        <div class="form">
+          <div class="formInput">
+            <input v-model="productDetail.cycleType" class="form-input" disabled />
+          </div>
         </div>
+      </div>
+      <!-- 借贷信息 -->
+      <div class="loan-detail">
+        <div class="item">
+          <!-- 日利率 -->
+          <div class="left">{{ _t18('loan_rateDay') }}</div>
+          <div class="right">{{ productDetail.odds }}%</div>
+        </div>
+        <div class="item">
+          <!-- 利息 -->
+          <div class="left">{{ _t18('loan_interest') }}</div>
+          <div class="right">{{ interest }} USDT</div>
+        </div>
+        <div class="item">
+          <!-- 还款方式 -->
+          <div class="left">{{ _t18('loan_repayType') }}</div>
+          <!-- 到期一次还本息 -->
+          <div class="right adorn">{{ currentProduct.repayTypeLabel || '' }}</div>
+        </div>
+        <div class="item">
+          <!-- 放款机构 -->
+          <div class="left">{{ _t18('loan_repayOrg') }}</div>
+          <div class="right">{{ productDetail.repayOrg }}</div>
+        </div>
+      </div>
+      <!-- 借贷记录 -->
+      <div class="record-info" @click="$router.push('/loan-record')">
+        <div class="record-card">
+          <image-load filePath="time.png" class="img left-img"></image-load>
+          <div class="record-right">
+            <div>{{ _t18('Debit_and_credit_record') }}</div>
+            <image-load filePath="right-arrow.png" class="img right-img"></image-load>
+          </div>
+        </div>
+      </div>
+      <div class="step-btn">
+        <p @click="stepsActive++">{{ _t18('next_step') }}</p>
       </div>
     </div>
-
-    <!-- 借贷信息 -->
-    <div class="loan-detail">
-      <div class="item">
-        <!-- 日利率 -->
-        <div class="left">{{ _t18('loan_rateDay') }}</div>
-        <div class="right">{{ productDetail.odds }}%</div>
-      </div>
-      <div class="item">
-        <!-- 利息 -->
-        <div class="left">{{ _t18('loan_interest') }}</div>
-        <div class="right">{{ interest }} USDT</div>
-      </div>
-      <div class="item">
-        <!-- 还款方式 -->
-        <div class="left">{{ _t18('loan_repayType') }}</div>
-        <!-- 到期一次还本息 -->
-        <div class="right">{{ currentProduct.repayTypeLabel || '' }}</div>
-      </div>
-      <div class="item">
-        <!-- 放款机构 -->
-        <div class="left">{{ _t18('loan_repayOrg') }}</div>
-        <div class="right">{{ productDetail.repayOrg }}</div>
-      </div>
-    </div>
-
-    <div class="bottom">
+    <div class="bottom" v-if="stepsActive === 1">
       <div class="upload">
         <!-- 证件照 请确保证件照清晰可见-->
         <div class="photo">
@@ -285,44 +308,48 @@ const blur = () => {
         <div class="item">
           <!-- 上传正面 -->
           <van-uploader :after-read="afterRead1" v-model="fileList1">
-            <img src="@/assets/defi/delete.png" alt="" class="img" />
+            <image-load filePath="defi/delete.png" name="delete" class="img"></image-load>
             <div class="tit">{{ _t18('loan_front') }}</div>
           </van-uploader>
         </div>
         <div class="item">
           <!-- 上传反面 -->
           <van-uploader :after-read="afterRead2" v-model="fileList2">
-            <img src="@/assets/defi/delete.png" alt="" class="img" />
+            <image-load filePath="defi/delete.png" name="delete" class="img"></image-load>
             <div class="tit">{{ _t18('loan_reverse') }}</div>
           </van-uploader>
         </div>
         <div class="item">
           <!-- 上传手持证件照 -->
           <van-uploader :after-read="afterRead3" v-model="fileList3">
-            <img src="@/assets/defi/delete.png" alt="" class="img" />
+            <image-load filePath="defi/delete.png" name="delete" class="img"></image-load>
             <div class="tit">{{ _t18('loan_hand') }}</div>
           </van-uploader>
         </div>
       </div>
       <!-- 确认上传 -->
-      <div class="btn" @click="submit">{{ _t18('loan_require') }}</div>
+      <div class="step-btn" @click="submit">
+        <p>{{ _t18('loan_require') }}</p>
+      </div>
+    </div>
+    <div class="success-info" v-if="stepsActive === 2">
+      <image-load filePath="defi/success.png" class="img success-img"></image-load>
+      <div>{{ _t18('Congratulations_on_your_successful_application') }}</div>
+      <div>
+        {{
+          _t18(
+            'Your_loan_application_has_been_successful_andthe_platform_will_review_the_successful_loan'
+          )
+        }}
+      </div>
     </div>
   </div>
-  <!-- <Success :text="'认证成功'" :imgUrl="'/src/assets/defi/success.png'"></Success> -->
 </template>
 <style lang="scss" scoped>
 :deep(.van-action-sheet__content) {
   background: var(--ex-default-background-color);
 }
-.van-cell {
-  height: 46px;
-  background: var(--ex-div-bgColor20);
-  border-radius: 3px;
-  padding: 0 10px;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-}
+
 
 .action {
   li {
@@ -335,22 +362,30 @@ const blur = () => {
 }
 
 .content {
-  padding-top: 20px;
-
+  .header-step {
+    :deep(.van-steps) {
+      background: transparent;
+      .van-step--horizontal .van-step__circle-container {
+        background: var(--ex-default-background-color);
+        border-radius: 50%;
+      }
+    }
+  }
+  .loan-apply {
+    padding: 0 0.4rem;
+  }
   .top {
-    padding: 0 15px;
-
     .tip {
       display: block;
-      font-size: 12px;
-      color: var(--ex-tip-font-color);
-      margin-bottom: 30px;
+      font-size: 0.32rem;
+      color: var(--ex-copy-font-color);
+      margin-bottom: 0.8rem;
     }
 
     .type {
-      font-size: 14px;
-      color: var(--ex-default-font-color);
-      margin-bottom: 10px;
+      font-size: 0.373333rem;
+      color: var(--ex-passive-font-color);
+      margin-bottom: 0.266667rem;
 
       span {
         font-size: 14px;
@@ -360,23 +395,27 @@ const blur = () => {
 
     .form {
       .formInput {
-        padding: 0 10px;
+        padding: 0 0.266667rem;
         display: flex;
         justify-content: space-between;
-        background: var(--ex-div-bgColor20);
-        border-radius: 3px;
+        background: var(--ex-financial-card-bg-color);
+        border-radius: 0.08rem;
         align-items: center;
-        margin-bottom: 20px;
-        & > span {
-          color: var(--ex-tip-font-color);
+        margin-bottom: 0.533333rem;
+        P {
+          width: 100%;
+          height: 1.226667rem;
+          font-size: 0.373333rem;
+          line-height: 1.226667rem;
+          color: var(--ex-default-font-color);
         }
 
         input {
           flex: 1;
           width: 100%;
-          height: 46px;
-          font-size: 14px;
-          background: var(--ex-div-bgColor20);
+          height: 1.226667rem;
+          font-size: 0.373333rem;
+          background: var(--ex-financial-card-bg-color);
           color: var(--ex-default-font-color);
 
           &::placeholder {
@@ -397,54 +436,99 @@ const blur = () => {
   }
 
   .loan-detail {
-    margin-top: 30px;
-    border-top: 1px solid var(--ex-border-color);
-    border-bottom: 1px solid var(--ex-border-color);
+    margin-top: 0.533333rem;
+    background: var(--ex-financial-card-bg-color);
+    padding: 0.426667rem 0.373333rem 0;
+    border-radius: 0.16rem;
 
     .item {
-      padding: 0 15px;
-      margin: 30px 0;
+      padding: 0 0 0.426667rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
 
       .left {
-        font-size: 14px;
+        font-size: 0.373333rem;
         color: var(--ex-passive-font-color);
       }
 
       .right {
-        font-size: 14px;
+        font-size: 0.373333rem;
         color: var(--ex-default-font-color);
         text-align: right;
       }
+      .adorn {
+        color: var(--ex-copy-font-color) !important;
+      }
     }
   }
-
+  .record-info {
+    margin-top: 0.533333rem;
+    .record-card {
+      display: flex;
+      align-items: center;
+      background: var(--ex-assets--record-card-color);
+      border-radius: 0.16rem;
+      padding: 0.293333rem 0.346667rem;
+      .left-img {
+        width: 0.426667rem;
+        height: 0.426667rem;
+      }
+      .record-right {
+        margin-left: 0.213333rem;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        div {
+          font-size: 0.373333rem;
+          font-family: PingFangSC, PingFang SC;
+          font-weight: 400;
+          color: var(--ex-assets--record-font-color);
+        }
+        .right-img {
+          width: 0.4rem;
+          height: 0.266667rem;
+        }
+      }
+    }
+  }
+  .step-btn {
+    margin-top: 0.533333rem;
+    padding: 0 0 1.466667rem;
+    p {
+      text-align: center;
+      padding: 0.373333rem 0;
+      font-size: 0.426667rem;
+      border-radius: 0.213333rem;
+      background: var(--ex-primary-color);
+      color: var(--ex-default-font-color);
+    }
+  }
   .bottom {
-    padding: 0 15px;
+    padding: 0 0.4rem;
 
     .upload {
-      margin: 30px 0 10px 0;
+      margin: 0.8rem 0 0.266667rem;
 
       .photo {
-        font-size: 14px;
+        font-size: 0.373333rem;
         color: var(--ex-default-font-color);
       }
 
       span {
-        font-size: 14px;
+        font-size: 0.373333rem;
         color: var(--ex-passive-font-color);
       }
     }
 
     .upload-box {
       .item {
-        height: 194px;
+        height: 5.173333rem;
         background: var(--ex-default-background-color);
-        border-radius: 3px;
-        border: 1px solid var(--ex-border-color1);
-        margin-bottom: 10px;
+        border-radius: 0.08rem;
+        border: 0.026667rem solid var(--ex-border-color1);
+        margin-bottom: 0.266667rem;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -523,18 +607,28 @@ const blur = () => {
       margin: 50px 0;
     }
   }
-}
-
-.submit {
-  width: 100%;
-  font-size: 14px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  background: var(--ex-primary-color);
-  border-radius: 3px;
-  color: var(--ex-font-color);
-  margin: 50px 0;
+  .success-info {
+    .success-img {
+      width: 5.36rem;
+      height: 5.146667rem;
+      display: block;
+      margin: 2.48rem auto 0;
+    }
+    div {
+      &:nth-child(2) {
+        font-size: 0.586667rem;
+        font-weight: 600;
+        color: var(--ex-copy-font-color);
+        text-align: center;
+        margin: 1.44rem 0 0.266667rem;
+      }
+      &:last-child {
+        text-align: center;
+        font-size: 0.373333rem;
+        font-weight: 400;
+        color: var(--ex-passive-font-color);
+      }
+    }
+  }
 }
 </style>

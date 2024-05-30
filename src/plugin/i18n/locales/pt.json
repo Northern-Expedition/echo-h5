@@ -1144,5 +1144,16 @@
   "math_exchange_bullish": "otimista",
   "math_exchange_bearish": "grosseiro",
   "view more": "ver mais",
-  "Market overview": "Visão geral do mercado"
+  "Market overview": "Visão geral do mercado",
+  "fill_in_the_application_form": "Preencha o formulário de inscrição",
+  "Upload_data": "Carregar dados",
+  "application_result": "Resultado da inscrição",
+  "Debit_and_credit_record": "Registro de débito e crédito",
+  "next_step": "Próximo passo",
+  "Congratulations_on_your_successful_application": "Parabéns pela inscrição bem-sucedida",
+  "Your_loan_application_has_been_successful_andthe_platform_will_review_the_successful_loan": "Sua inscrição de empréstimo foi bem-sucedida e a plataforma revisará o empréstimo bem-sucedido",
+  "Loan_statement": "Declaração de empréstimo",
+  "borrow_money": "Pedir dinheiro emprestado",
+  "sidebar_regulatoryCertificate": "Certificado regulatório",
+  "Exchange_introduction": "Introdução à troca"
 }

@@ -1144,5 +1144,17 @@
   "math_exchange_bullish": "lạc quan",
   "math_exchange_bearish": "giảm giá",
   "view more": "Xem thêm",
-  "Market overview": "Tổng quan thị trường"
+  "Market overview": "Tổng quan thị trường",
+  "fill_in_the_application_form": "Điền vào biểu mẫu đăng ký",
+  "Upload_data": "Tải lên dữ liệu",
+  "application_result":"Kết quả ứng dụng",
+  "Debit_and_credit_record": "Ghi nợ và ghi có",
+  "next_step":"Bước tiếp theo",
+  "Congratulations_on_your_successful_application":"Chúc mừng bạn đã đăng ký thành công",
+  "Your_loan_application_has_been_successful_andthe_platform_will_review_the_successful_loan":"Đơn vay của bạn đã được chấp nhận và nền tảng sẽ xem xét vay thành công",
+  "Loan_statement":"Tuyên bố vay",
+  "borrow_money": "Vay tiền",
+  "sidebar_regulatoryCertificate": "Chứng nhận quản lý",
+  "Exchange_introduction": "Giới thiệu sàn giao dịch"
+
 }
