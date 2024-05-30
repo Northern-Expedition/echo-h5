@@ -26,6 +26,10 @@
 import { dispatchCustomEvent } from '@/utils'
 import { _t18, _toView } from '@/utils/public'
 import { DIFF_RECHARGE_COSTORM } from '@/config/index'
+import { useUserStore } from '@/store/user/index'
+
+const userStore = useUserStore()
+const getIsMock = computed(() => userStore.userInfo.user?.type === '2')
 const props = defineProps({
   data: {
     type: Object
@@ -55,12 +59,6 @@ const handleShuaxin = () => {
 
 const currencyAbout = computed(() => {
   let list = []
-  // {
-  //         icon: 'asset_ganggan',
-  //         title: _t18('trade_tab5', ['paxpay']),
-  //         url: '/tradeU',
-  //         isShow: true
-  //       }
   if (props.type == '平台资产') {
     if (['paxpay', 'aams'].includes(__config._APP_ENV)) {
       list = [
@@ -76,6 +74,10 @@ const currencyAbout = computed(() => {
         { icon: 'daikuai', title: _t18('asset_loan'), url: '/loan', isShow: false }, //助力贷
         { icon: 'huazhuan', title: _t18('asset_transfer'), url: '/transfer', isShow: true } //划转
       ]
+
+      if (getIsMock.value) {
+        list.splice(2, 1)
+      }
     } else if (['coinmarketcap'].includes(__config._APP_ENV)) {
       list = [
         {
@@ -111,22 +113,17 @@ const currencyAbout = computed(() => {
         { icon: 'daikuai', title: _t18('asset_loan'), url: '/loan', isShow: false }, //助力贷
         { icon: 'huazhuan', title: _t18('asset_transfer'), url: '/transfer', isShow: true } //划转
       ]
+
+      if (getIsMock.value) {
+        list.splice(0, 2)
+      }
     }
   } else {
     if (['paxpay'].includes(__config._APP_ENV)) {
-      list = [
-        { icon: 'huazhuan', title: _t18('asset_transfer'), url: '/transfer', isShow: true }
-        // { icon: 'chongbi', title: '充币', url: '/recharge', isShow: true },
-        // { icon: 'tibi', title: '提币', url: '/withdraw', isShow: true },
-        // { icon: 'dui', title: '闪兑', url: '/swap', isShow: true },
-        // { icon: 'daikuai', title: _t18('asset_loan'), url: '/loan', isShow: true },
-      ]
+      list = [{ icon: 'huazhuan', title: _t18('asset_transfer'), url: '/transfer', isShow: true }]
     } else {
       list = [
         { icon: 'huazhuan', title: _t18('asset_transfer'), url: '/transfer', isShow: true },
-        // { icon: 'chongbi', title: '充币', url: '/recharge', isShow: true },
-        // { icon: 'tibi', title: '提币', url: '/withdraw', isShow: true },
-        // { icon: 'dui', title: '闪兑', url: '/swap', isShow: true },
         { icon: 'daikuai', title: _t18('asset_loan'), url: '/loan', isShow: true }
       ]
     }

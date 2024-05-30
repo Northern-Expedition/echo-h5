@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-tabs shrink v-model:active="tabActive" animated @click-tab="clickTab">
+    <van-tabs v-model:active="tabActive" animated @click-tab="clickTab">
       <van-tab v-for="(item, index) in tabList" :title="item.keyStr" :key="index" :name="item.name">
         <template #title>
           <div class="tab-item" :class="curIndex2 === index ? 'atv' : ''">
@@ -61,22 +61,20 @@ import { DIFF_FREEZE_ASSETS } from '@/config/index'
 const userStore = useUserStore()
 // 平台资产,理财资产,合约资产
 const mainStore = useMainStore()
-
-// tabs数据示例
-// const tabList = [
-//    {name: '平台资产', isOpen: true, sort: 0, keyStr: 'asset_platform'}
-//    {name: '理财资产', isOpen: true, sort: 1, keyStr: 'asset_financ'}
-//    {name: '合约资产', isOpen: true, sort: 2, keyStr: 'asset_contarct'}
-// ]
+const getIsMock = computed(() => userStore.userInfo.user?.type === '2')
 
 const tabList = computed(() => {
-  const list = mainStore.getAssetsTabList.filter((item) => {
+  let list = mainStore.getAssetsTabList.filter((item) => {
     if (!item.isOpen) return false
     item.name == '平台资产' && (item.keyStr = _t18(item.keyStr, ['latcoin']))
     item.name == '理财资产' && (item.keyStr = _t18(item.keyStr, ['paxpay', 'latcoin']))
     item.name == '合约资产' && (item.keyStr = _t18(item.keyStr, ['paxpay', 'latcoin']))
     return true
   })
+  if (getIsMock.value) {
+    list.splice(2, 1)
+  }
+
   return list.sort((a, b) => a.sort - b.sort)
 })
 
@@ -207,6 +205,7 @@ onMounted(() => {
       border-radius: 0.266667rem;
       padding: 0;
       background: var(--ex-home-tabs-bg-color);
+      background: #161a33;
 
       .van-tab--active {
         background: var(--ex-home-tabs-bg-atv-color);

@@ -4,13 +4,23 @@ import { useMainStore } from '@/store/index.js'
 import { _toView } from '../../utils/public'
 import { useRouter } from 'vue-router'
 import { computed } from 'vue'
+import { useUserStore } from '@/store/user/index.js'
+const userStore = useUserStore()
 const router = useRouter()
 
 const mainStore = useMainStore()
 let currentTab = ref({})
 
+const getIsMock = computed(() => userStore.userInfo.user?.type === '2')
+
 const getTabbarList = computed(() => {
-  return mainStore.getTabbarList.filter((elem) => elem.isOpen)
+  let arr = mainStore.getTabbarList.filter((elem) => elem.isOpen)
+  if (getIsMock.value) {
+    arr = arr.filter((item) => item.key !== 'quote')
+    arr = arr.filter((item) => item.key !== 'bydfe_trade_tab5')
+    console.log(arr)
+  }
+  return arr
 })
 
 watch(
