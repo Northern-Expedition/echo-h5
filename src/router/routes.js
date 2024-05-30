@@ -44,6 +44,12 @@ export default [
     name: 'Trade',
     component: () => import('@/views/trade/index.vue')
   },
+  //监管证书
+  {
+    path: '/introduction',
+    name: 'introduction',
+    component: () => import('@/views/introduction/index.vue')
+  },
   // 交易杠杆
   {
     path: '/tradeU',

@@ -43,6 +43,12 @@ const cancelBtn = () => {
 </script>
 
 <style lang="scss">
+.van-dialog__footer {
+  Button {
+    color: #fff !important;
+    background-color: #613af1;
+  }
+}
 .dialog-content {
   min-height: 100px;
   padding: 15px;
@@ -61,6 +67,6 @@ const cancelBtn = () => {
 .van-button--default {
   min-height: 45px;
   background: var(--ex-default-background-color);
-  color: var(--ex-default-font-color);
+  color: #f00;
 }
 </style>

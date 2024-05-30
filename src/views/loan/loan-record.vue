@@ -180,20 +180,17 @@ watch(tabContentList, (newValue) => {
   text-align: center;
   padding: 30px;
 }
-:deep(.van-tabs) {
-  background: var(--ex-home-tabbar-background-color) !important ;
+:deep(.van-tabs .van-tabs__line) {
+  bottom: 0.16rem !important;
+  background-color: #fff !important;
 }
-:deep(.van-tabs__nav) {
-  background: var(--ex-home-tabbar-background-color) !important ;
-}
-:deep(.van-tab) {
-  color: var(--ex-home-list-ftcolor) !important;
-  background: var(--ex-home-tabbar-background-color) !important ;
+:deep(.van-tab--active) {
+  color: #fff !important;
 }
 :deep(.van-cell) {
-  background: var(--ex-default-background-color) !important;
+  background: transparent !important;
 }
-:deep(.van-cell::after) {
-  border-bottom: 1px solid var(--ex-border-color) !important;
+:deep(.van-cell:after) {
+  border: 0px;
 }
 </style>
