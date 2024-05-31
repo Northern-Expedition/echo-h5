@@ -1,6 +1,10 @@
 <!-- 交易页面：秒合约，币币交易，U本位 -->
 <template>
-  <div>
+  <div
+    :style="{
+      background: '#161a33'
+    }"
+  >
     <!-- tabs -->
     <van-sticky>
       <div class="headerList">
@@ -120,6 +124,7 @@ onMounted(() => {
   align-items: center;
   z-index: 9;
   padding-left: 15px;
+  background: #161a33;
 
   .left {
     display: flex;

@@ -155,9 +155,9 @@ const setCollectByCoin = () => {}
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.3333rem 0 0.266667rem;
-    padding: 0 .373333rem;
-    margin-top: .373333rem;
+    padding: .373333rem .373333rem 0;
+    background: #161a33;
+
     .secondLeft {
       font-size: 0.48rem;
       font-weight: bold;

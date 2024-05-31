@@ -13,7 +13,7 @@ export const getOverrides = (theme) => {
     dark: {
       up: '#4BBD83',
       down: '#D62548',
-      bg: '#202329',
+      bg: '#161a33',
       grid: '#35393E',
       cross: '#999',
       border: '#35393E',

@@ -286,12 +286,8 @@ const submit = () => {
   height: 104px;
 }
 
-.hightItem {
-  color: var(--ex-active-font-color) !important;
-}
-
 .line {
-  height: 5px;
+  // height: 5px;
   background: var(--ex-div-bgColor10);
 }
 
@@ -305,11 +301,15 @@ const submit = () => {
 
   .entrustL {
     font-size: 14px;
-    color: var(--ex-default-font-color);
     display: flex;
 
     .entrustItem {
       margin-right: 16px;
+      color: #81818a;
+
+      &.hightItem {
+        color: white;
+      }
     }
   }
 

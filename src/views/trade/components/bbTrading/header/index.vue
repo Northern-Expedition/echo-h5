@@ -104,6 +104,7 @@ const emits = defineEmits(['showSidePopup'])
     justify-content: space-between;
     align-items: center;
     padding: 20px 0 10px;
+
     .secondLeft {
       font-size: 36px;
       font-weight: bold;

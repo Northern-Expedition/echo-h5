@@ -610,6 +610,7 @@ const setStudy = (name) => {
 <style lang="scss" scoped>
 .SecondContract-content {
   padding: 0.266667rem 0.373333rem;
+  background: #161a33;
 }
 
 .candlestick {
@@ -630,10 +631,10 @@ const setStudy = (name) => {
     align-items: center;
     .thirdLeft {
       flex: 1;
-      background-color: var(--ex-default-background-color);
       display: flex;
       font-size: 14px;
       color: var(--ex-default-font-color);
+      background: #161a33;
       .item {
         flex: 1;
         margin-right: 30px;
