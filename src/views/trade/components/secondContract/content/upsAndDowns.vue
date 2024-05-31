@@ -2,13 +2,16 @@
 <template>
   <div>
     <!-- 看跌 看跌 -->
-    <div class="upsAndDowns">
+    <div class="upsAndDowns" v-if="+amountSum">
       <div class="ups item" @click="showBtn(1)">
         {{ _t18(`exchange_bullish`, ['bitmake', 'bityc', 'aams', 'math']) }}
       </div>
       <div class="downs item" @click="showBtn(0)">
         {{ _t18(`exchange_bearish`, ['bitmake', 'bityc', 'aams', 'math']) }}
       </div>
+    </div>
+    <div class="upsAndDowns" v-else>
+      <div class="start_btn">{{ _t18('open_mock') }}</div>
     </div>
   </div>
   <!-- 涨跌 -->
@@ -248,6 +251,8 @@ import { getPeriodList, createSecondContractOrder } from '@/api/trade/index'
 import { useUserStore } from '@/store/user/index'
 import { showToast } from 'vant'
 import { useToast } from '@/hook/useToast'
+import { DIFF_FREEZE_ASSETS } from '@/config/index'
+import { socketDict } from '@/config/dict'
 const { _toast, _showName } = useToast()
 import { useTradeStore } from '@/store/trade/index'
 import {
@@ -267,8 +272,54 @@ const props = defineProps({
   }
 })
 const userStore = useUserStore()
-// 用户余额信息
 const { asset } = storeToRefs(userStore)
+const assetDetails = computed(() => {
+  let list = []
+  //[{icon: 'usdt', title: 'USDT', keyong: 100, zhanyong: 100, zhehe: 100}]
+  asset.value.forEach((item, index) => {
+    // 之前两块多平台判断逻辑是一样的 -> 精简合并
+
+    let obj = {}
+    obj['keyong'] = priceFormat(item.availableAmount)
+    // rxce冻结金额=占用+冻结
+    if (DIFF_FREEZE_ASSETS.includes(__config._APP_ENV)) {
+      let temp = 0
+      if (freezeList.value) {
+        freezeList.value.forEach((itm, inx) => {
+          if (itm.coin == item.symbol && item.type == 1) {
+            temp = itm.price
+          }
+        })
+      }
+      obj['zhanyong'] = priceFormat(_add(item.occupiedAmount, temp))
+    } else {
+      obj['zhanyong'] = priceFormat(item.occupiedAmount)
+    }
+    obj['zhehe'] = priceFormat(item.exchageAmount)
+    if (item.symbol == 'usdt') {
+      obj['icon'] = 'usdt'
+      obj['loge'] = item.loge
+      obj['title'] = 'USDT'
+      list.unshift(obj)
+    } else {
+      obj['loge'] = item.loge
+      obj['title'] = item.symbol?.replace('usdt', '').trim().toLocaleUpperCase()
+      obj['icon'] = item.symbol?.replace('usdt', '').trim()
+      list.push(obj)
+    }
+  })
+  return list
+})
+
+// 计算账户余额
+const amountSum = computed(() => {
+  let sum = 0
+  for (let i = 0; i < assetDetails.value.length; i++) {
+    sum += Number(assetDetails.value[i].zhehe)
+  }
+  return sum.toLocaleString()
+})
+// 用户余额信息
 const showOverlay = ref(false)
 const showCountdown = ref(false)
 document.addEventListener('visibilitychange', function () {
@@ -763,10 +814,9 @@ input::-ms-input-placeholder {
   align-items: center;
   justify-content: space-between;
   bottom: 0;
-  height: 104px;
   background-color: var(--ex-default-background-color);
   z-index: 9;
-  padding: 0 15px;
+  padding: 15px;
   .item {
     min-width: 4.08rem;
     padding: 0.32rem 0.266667rem;
