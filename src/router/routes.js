@@ -11,6 +11,8 @@ import Help from './module/help'
 import Nft from './module/nft'
 import other from './module/other'
 import subscription from './module/subscription'
+import productPlan from './module/productPlan'
+import welfareEvents from './module/welfareEvents'
 export default [
   // 首页
   {
@@ -32,6 +34,8 @@ export default [
   ...Nft, // nft
   ...other, // 其他
   ...subscription, //申购
+  ...productPlan,
+  ...welfareEvents,
   //行情
   {
     path: '/quote',

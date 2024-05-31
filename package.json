@@ -6,7 +6,7 @@
     "dev": "vite",
     "serve": "vite",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "vite build && vite preview",
     "lintlang": "prettier --write  ./src/plugin/i18n/locales/*.json",
     "lang": "node ./bin/i18n/langScript.js && npm run lintlang"
   },

@@ -36,7 +36,6 @@ router.beforeEach(async (to, from, next) => {
   } else {
     // 未登录
     const acountRes = await getAcount()
-    console.log(acountRes)
     if (acountRes == 'no-wallet') {
       // 非钱包
       if (to.path.indexOf('/i&') > -1) {

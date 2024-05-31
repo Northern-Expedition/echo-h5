@@ -59,5 +59,5 @@ export default [
     path: '/transfer',
     name: 'Transfer',
     component: () => import('@/views/assets/transfer/index.vue')
-  },
+  }
 ]
