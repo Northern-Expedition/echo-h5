@@ -12,7 +12,6 @@ import { computed } from 'vue'
 import { useMainStore } from '@/store'
 import { useTradeStore } from '@/store/trade'
 import { debounce, throttle } from 'lodash'
-
 const props = defineProps({
   /**
    * 类型
@@ -545,24 +544,25 @@ const setStudy = (name) => {
 }
 </script>
 <template>
-  <div>
-    <div class="third">
-      <div class="list">
-        <div class="thirdLeft">
-          <div
-            :class="{
-              'hightItem item ff-num': item.interval === currentInterval.interval,
-              'item ff-num': true
-            }"
-            v-for="(item, index) in headIntervalList"
-            :key="index"
-            @click="checkedInterval(item)"
-          >
-            {{ item.value }}
+  <div class="SecondContract-content">
+    <div>
+      <div class="third">
+        <div class="list">
+          <div class="thirdLeft">
+            <div
+              :class="{
+                'hightItem item ff-num': item.interval === currentInterval.interval,
+                'item ff-num': true
+              }"
+              v-for="(item, index) in headIntervalList"
+              :key="index"
+              @click="checkedInterval(item)"
+            >
+              {{ item.value }}
+            </div>
           </div>
-        </div>
-        <!-- 更多 -->
-        <!-- <div
+          <!-- 更多 -->
+          <!-- <div
           class="thirdRight"
           v-show="currentCoinInfo.market != 'mt5'"
           @click="showMenu = !showMenu"
@@ -572,28 +572,29 @@ const setStudy = (name) => {
           <svg-load v-if="!showMenu" name="jiantou-x" class="thirdRightImg"></svg-load>
           <svg-load v-if="showMenu" name="jiantou-s" class="thirdRightImg"></svg-load>
         </div> -->
+        </div>
       </div>
-    </div>
-    <div
-      class="selectTimes"
-      v-if="showMenu"
-      @touchmove.prevent
-      @mousewheel.prevent
-      @click="showMenu = false"
-    >
-      <div class="times">
-        <div
-          v-for="(item, index) in menuIntervalList"
-          :key="index"
-          :class="{ hightItem: item.interval === currentInterval.interval, 'item ff-num': true }"
-          @click="checkedInterval(item, 'menu')"
-        >
-          {{ item.value }}
+      <div
+        class="selectTimes"
+        v-if="showMenu"
+        @touchmove.prevent
+        @mousewheel.prevent
+        @click="showMenu = false"
+      >
+        <div class="times">
+          <div
+            v-for="(item, index) in menuIntervalList"
+            :key="index"
+            :class="{ hightItem: item.interval === currentInterval.interval, 'item ff-num': true }"
+            @click="checkedInterval(item, 'menu')"
+          >
+            {{ item.value }}
+          </div>
         </div>
       </div>
     </div>
+    <div :id="klineId" class="candlestick"></div>
   </div>
-  <div :id="klineId" class="candlestick"></div>
   <div class="studyList">
     <div
       :class="item.name === currentStudy ? 'hightItem studyItem' : 'studyItem'"
@@ -607,9 +608,13 @@ const setStudy = (name) => {
 </template>
 
 <style lang="scss" scoped>
+.SecondContract-content {
+  padding: 0.266667rem 0.373333rem;
+}
+
 .candlestick {
   height: 348px;
-  background-color: var(--ex-candlestick-bg);
+  background-color: #161a33;
 }
 .hightItem {
   color: #17ac74;

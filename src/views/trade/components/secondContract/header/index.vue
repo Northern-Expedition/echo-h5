@@ -12,7 +12,7 @@
           <div class="fw-bold">{{ coinInfo.showSymbol }}</div>
         </div>
         <!-- 秒合约规则，收藏 -->
-        <div class="first">
+        <div class="">
           <svg-load
             name="guize"
             class="senLeftImg"
@@ -119,16 +119,16 @@ const setCollectByCoin = () => {}
   color: var(--ex-active-font-color) !important;
 }
 .top {
-  padding: 20px 15px 0;
   z-index: 9;
   background-color: var(--ex-default-background-color);
   .first {
     display: flex;
     justify-content: space-between;
-    padding: 0.213333rem;
     z-index: 9;
     background: var(--ex--backup-background-color-2);
-    border-radius: 0.213333rem;
+    // border-radius: 0.213333rem;
+    padding: 0.213333rem 0.373333rem;
+
     .firLeft {
       display: flex;
       align-items: center;
@@ -156,6 +156,8 @@ const setCollectByCoin = () => {}
     justify-content: space-between;
     align-items: center;
     padding: 0.3333rem 0 0.266667rem;
+    padding: 0 .373333rem;
+    margin-top: .373333rem;
     .secondLeft {
       font-size: 0.48rem;
       font-weight: bold;
