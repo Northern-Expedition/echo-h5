@@ -39,7 +39,7 @@
     </div>
   </div>
   <!-- 合约历史 -->
-  <div v-if="+amountSum && historyNewList.length > 0">
+  <div v-if="amountSum !== 0 && historyNewList.length > 0">
     <ContractHistory
       :currentEntruset="currentEntruset"
       :itemHistroy="item"
@@ -52,12 +52,12 @@
   </div>
 
   <!-- 暂无数据   -->
-  <div class="tips" v-if="!+amountSum">
+  <div class="tips" v-if="amountSum == 0">
     <div class="fw-bold tips_nozc">{{ _t18(`no_assets_1`) }}</div>
     <div class="tips_smn">{{ _t18(`no_assets_2`) }}</div>
   </div>
 
-  <Nodata v-if="+amountSum && historyNewList.length === 0"></Nodata>
+  <Nodata v-if="amountSum != 0 && historyNewList.length === 0"></Nodata>
   <div class="placeholder"></div>
 
   <!-- 分享收益-->
