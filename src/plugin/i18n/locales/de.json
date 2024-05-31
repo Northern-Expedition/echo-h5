@@ -929,6 +929,8 @@
   "borrow_money": "Geld leihen",
   "sidebar_regulatoryCertificate": "Regulierungszertifikat",
   "Exchange_introduction": "Einführung in den Handel",
+  "no_assets_1": "Im Handelskonto gibt es keine Vermögenswerte",
+  "no_assets_2": "Sie können den simulierten Handel ausprobieren",
   "rxce_position_collateral_assets": "Vermögenswerte positionieren",
   "rxce_Close_position": "Geschlossene Position",
   "rxce_exchange_hisentrust": "Historische Transaktionen",

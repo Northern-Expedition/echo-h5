@@ -930,6 +930,8 @@
   "borrow_money": "Vay tiền",
   "sidebar_regulatoryCertificate": "Chứng chỉ quản lý",
   "Exchange_introduction": "Giới thiệu sàn giao dịch",
+  "no_assets_1": "Không có tài sản trong tài khoản giao dịch",
+  "no_assets_2": "Bạn có thể thử giao dịch mô phỏng",
   "rxce_position_collateral_assets": "Vị thế tài sản",
   "rxce_Close_position": "Đóng vị thế",
   "rxce_exchange_hisentrust": "Giao dịch lịch sử",

@@ -930,6 +930,8 @@
   "borrow_money": "Emprunter de l'argent",
   "sidebar_regulatoryCertificate": "Certificat de régulation",
   "Exchange_introduction": "Introduction à l'échange",
+  "no_assets_1": "Il n'y a aucun actif dans le compte de trading.",
+  "no_assets_2": "Vous pouvez essayer le trading simulé",
   "rxce_position_collateral_assets": "Actifs de position",
   "rxce_Close_position": "Position fermée",
   "rxce_exchange_hisentrust": "Opérations historiques",

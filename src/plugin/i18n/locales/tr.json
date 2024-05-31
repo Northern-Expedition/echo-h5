@@ -930,6 +930,8 @@
   "borrow_money": "Para Borç Alma",
   "sidebar_regulatoryCertificate": "Düzenleyici Sertifika",
   "Exchange_introduction": "Borsa Tanıtımı",
+  "no_assets_1": "Ticaret hesabında varlık yok",
+  "no_assets_2": "Simüle ticareti deneyebilirsiniz.",
   "rxce_position_collateral_assets": "Açık Pozisyonlar",
   "rxce_Close_position": "Erken Kapanış",
   "rxce_exchange_hisentrust": "İşlem Geçmişi",

@@ -930,6 +930,8 @@
   "borrow_money": "Pedir Empréstimo",
   "sidebar_regulatoryCertificate": "Certificado Regulatório",
   "Exchange_introduction": "Introdução à Bolsa de Valores",
+  "no_assets_1": "Não há ativos na conta de negociação",
+  "no_assets_2": "Você pode tentar negociar de forma simulada",
   "rxce_position_collateral_assets": "Posicionar ativos",
   "rxce_Close_position": "Fechar posição",
   "rxce_exchange_hisentrust": "Transações históricas",

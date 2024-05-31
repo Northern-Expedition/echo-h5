@@ -930,6 +930,8 @@
   "borrow_money": "पैसे उधार लें",
   "sidebar_regulatoryCertificate": "नियामक प्रमाणपत्र",
   "Exchange_introduction": "विनिमय संस्था परिचय",
+  "no_assets_1": "ट्रेडिंग खाते में कोई संपत्ति नहीं है।",
+  "no_assets_2": "आप प्रैक्टिस ट्रेडिंग की कोशिश कर सकते हैं।",
   "rxce_position_collateral_assets": "खुली पोजी",
   "rxce_Close_position": "पहले से ही पोजीशन बंद करें",
   "rxce_exchange_hisentrust": "लेन-देन इतिहास",

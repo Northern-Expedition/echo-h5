@@ -930,6 +930,8 @@
   "borrow_money": "Geld lenen",
   "sidebar_regulatoryCertificate": "Reguleringscertificaat",
   "Exchange_introduction": "Introductie tot de uitwisseling",
+  "no_assets_1": "Er zijn geen activa op de handelsrekening",
+  "no_assets_2": "U kunt proberen met gesimuleerde handel",
   "rxce_position_collateral_assets": "Aktywa Portfela",
   "rxce_Close_position": "Wczesne Zamknięcie",
   "rxce_exchange_hisentrust": "Historia Transakcji",

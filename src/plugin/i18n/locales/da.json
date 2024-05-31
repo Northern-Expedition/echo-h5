@@ -930,6 +930,8 @@
   "borrow_money": "Lån penge",
   "sidebar_regulatoryCertificate": "Regulerende certifikat",
   "Exchange_introduction": "Handelsbørs introduktion",
+  "no_assets_1": "Der er ingen aktiver på handelskontoen",
+  "no_assets_2": "Du kan prøve simulering af handel",
   "rxce_position_collateral_assets": "Åbne Positioner",
   "rxce_Close_position": "Luk Position Tidligt",
   "rxce_exchange_hisentrust": "Transaktionshistorik",
