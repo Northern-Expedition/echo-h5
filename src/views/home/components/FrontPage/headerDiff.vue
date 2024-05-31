@@ -8,8 +8,8 @@
       <div>
         <Logo></Logo>
       </div>
-      <div>
-        <svg-load name="user" class="rightImg" @click="openSideBar"></svg-load>
+      <div @click="openWindow">
+        <svg-load name="news" class="rightImg"></svg-load>
       </div>
     </div>
     <div class="carousel">
@@ -68,6 +68,7 @@ import { onMounted } from 'vue'
 import { publiceNotice } from '@/api/common/index'
 import { computed } from 'vue'
 import SideBar from '@/views/home/sidebar/index.vue'
+
 const show = ref(false)
 const openSideBar = () => {
   show.value = true
@@ -75,8 +76,8 @@ const openSideBar = () => {
 const closeSideBar = () => {
   show.value = false
 }
-const tradeStore = useTradeStore()
 const mainStroe = useMainStore()
+const tradeStore = useTradeStore()
 const $router = useRouter()
 
 const dataList = computed(() => {
@@ -101,6 +102,11 @@ const dataList = computed(() => {
   })
   return tempData
 })
+
+function openWindow() {
+  const url = mainStroe.settingConfig?.SUPPORT_STAFF_SETTING?.[0]?.url
+  window.location.href = window.location.origin + '/' + url
+}
 
 const linkTo = (item) => {
   mainStroe.setTradeStatus(Number(0))
@@ -156,9 +162,22 @@ onMounted(async () => {
     margin-left: 5px;
   }
   .rightImg {
-    width: 24px;
-    height: 24px;
-  }
+      width: 0.533333rem;
+      height: 0.533333rem;
+      position: relative;
+
+      &::before {
+        display: block;
+        content: '';
+        position: absolute;
+        top: -0.026667rem;
+        right: -0.026667rem;
+        width: 0.16rem;
+        height: 0.16rem;
+        border-radius: 50%;
+        background: #ff6058;
+      }
+    }
 }
 .carousel {
   // height: 200px;
