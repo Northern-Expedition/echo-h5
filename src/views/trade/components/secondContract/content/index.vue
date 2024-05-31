@@ -39,7 +39,7 @@
     </div>
   </div>
   <!-- 合约历史 -->
-  <div v-if="historyNewList.length > 0">
+  <div v-if="amountSum && historyNewList.length > 0">
     <ContractHistory
       :currentEntruset="currentEntruset"
       :itemHistroy="item"
@@ -52,12 +52,12 @@
   </div>
 
   <!-- 暂无数据   -->
-  123
-  <div class="tips">
-    <div class="fw-bold tips_nozc">交易账户暂无资产</div>
-    <div class="tips_smn">您可以尝试模拟交易</div>
+  <div class="tips" v-if="!amountSum">
+    <div class="fw-bold tips_nozc">{{ _t18(`no_assets_1`) }}</div>
+    <div class="tips_smn">{{ _t18(`no_assets_2`) }}</div>
   </div>
-  <Nodata v-if="historyNewList.length === 0"></Nodata>
+
+  <Nodata v-if="amountSum && historyNewList.length === 0"></Nodata>
   <div class="placeholder"></div>
 
   <!-- 分享收益-->
@@ -76,12 +76,12 @@ import { useRoute } from 'vue-router'
 import Candlestick from '../../common/candlestick.vue'
 import ContractHistory from './contractHistory.vue'
 import ShareCommissionDetail from './../../common/ShareCommissionDetail.vue'
-
 import { secondContractOrderselectOrderList } from '@/api/trade/index'
 import { formatCurrentcurrency, profitAndloss } from '@/utils/filters'
 import { _t18 } from '@/utils/public'
 import { useUserStore } from '@/store/user'
-
+import { priceFormat } from '@/utils/decimal.js'
+import { DIFF_FREEZE_ASSETS } from '@/config/index'
 import { socketDict } from '@/config/dict'
 import PubSub from 'pubsub-js'
 
@@ -91,6 +91,55 @@ const props = defineProps({
     default: () => {}
   }
 })
+const userStore = useUserStore()
+const { asset } = storeToRefs(userStore)
+const assetDetails = computed(() => {
+  let list = []
+  //[{icon: 'usdt', title: 'USDT', keyong: 100, zhanyong: 100, zhehe: 100}]
+  asset.value.forEach((item, index) => {
+    // 之前两块多平台判断逻辑是一样的 -> 精简合并
+
+    let obj = {}
+    obj['keyong'] = priceFormat(item.availableAmount)
+    // rxce冻结金额=占用+冻结
+    if (DIFF_FREEZE_ASSETS.includes(__config._APP_ENV)) {
+      let temp = 0
+      if (freezeList.value) {
+        freezeList.value.forEach((itm, inx) => {
+          if (itm.coin == item.symbol && item.type == 1) {
+            temp = itm.price
+          }
+        })
+      }
+      obj['zhanyong'] = priceFormat(_add(item.occupiedAmount, temp))
+    } else {
+      obj['zhanyong'] = priceFormat(item.occupiedAmount)
+    }
+    obj['zhehe'] = priceFormat(item.exchageAmount)
+    if (item.symbol == 'usdt') {
+      obj['icon'] = 'usdt'
+      obj['loge'] = item.loge
+      obj['title'] = 'USDT'
+      list.unshift(obj)
+    } else {
+      obj['loge'] = item.loge
+      obj['title'] = item.symbol?.replace('usdt', '').trim().toLocaleUpperCase()
+      obj['icon'] = item.symbol?.replace('usdt', '').trim()
+      list.push(obj)
+    }
+  })
+  return list
+})
+
+// 计算账户余额
+const amountSum = computed(() => {
+  let sum = 0
+  for (let i = 0; i < assetDetails.value.length; i++) {
+    sum += Number(assetDetails.value[i].zhehe)
+  }
+  return sum.toLocaleString()
+})
+
 const $route = useRoute()
 const currentEntruset = ref(0) // 委托状态 0 进行中 1 完成
 const currentEye = ref(true) // 当前眼睛
@@ -255,7 +304,6 @@ const shareRevenue = (model) => {
 /**
  * 订单结算，更新订单和用户信息
  */
-const userStore = useUserStore()
 const settlementKey = ref('')
 
 const settlementNotification = () => {
@@ -287,6 +335,21 @@ const submit = () => {
 }
 </script>
 <style lang="scss" scoped>
+.tips {
+  padding: 1.333333rem 0 2.133333rem;
+  text-align: center;
+  .tips_nozc {
+    font-size: 0.426667rem;
+    color: var(--ex-default-font-color-deep2);
+  }
+
+  .tips_smn {
+    margin-top: 0.346667rem;
+    font-size: 0.346667rem;
+    color: var(--ex-default-font-color-light);
+  }
+}
+
 .placeholder {
   height: 104px;
 }

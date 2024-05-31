@@ -5,7 +5,7 @@
     <Menu></Menu>
   </template>
 
-  <div class="summary" v-if="getIsMock == 2">
+  <div class="summary" v-if="getIsMock">
     <div class="unit_name">
       <div class="name">{{ _t18('mock_price') }}</div>
       <div class="unit">USDT</div>
@@ -110,7 +110,7 @@ const amountSum = computed(() => {
   for (let i = 0; i < assetDetails.value.length; i++) {
     sum += Number(assetDetails.value[i].zhehe)
   }
-  return priceFormat(sum)
+  return sum.toLocaleString()
 })
 </script>
 
