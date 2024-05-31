@@ -14,10 +14,11 @@
     <div class="cardInfo">
       <div class="top">
         <div class="left">
-          {{ _t18('Lock-up_period') }}：<span class="ff-num"
-            >{{ _timeFormat(data.params.beginTime) || '' }} ~
-            {{ _timeFormat(data.params.endTime) || '' }}</span
-          >
+          {{ _t18('Lock-up_period') }}：
+          <div class="ff-num value">
+            {{ _timeFormat(data.params.beginTime) || '' }} ~
+            {{ _timeFormat(data.params.endTime) || '' }}
+          </div>
         </div>
       </div>
       <div class="center">
@@ -28,11 +29,13 @@
       </div>
       <div class="bottom">
         <div class="left">
-          <span class="ff-num">{{ data.raisedAmount || 0 }} {{ data.showSymbol }}</span> /
+          <span class="ff-num white">{{ data.raisedAmount || 0 }} {{ data.showSymbol }}</span> /
           {{ data.raisingAmount || 0 }}
           {{ data.showSymbol }}
         </div>
-        <div class="right">{{ _t18('Remaining') }} {{ 100 - percentage }}%</div>
+        <div class="right">
+          {{ _t18('Remaining') }} <span class="white">{{ 100 - percentage }}%</span>
+        </div>
       </div>
     </div>
 
@@ -111,13 +114,16 @@ const toBuy = () => {
   // color: #333;
   color: var(--ex-home-list-ftcolor2);
 }
-
+.center {
+  margin: 0.266667rem 0 0.426667rem;
+}
 .cardBox {
   // box-shadow: 0px 1px 10px 1px rgba(5, 5, 5, .2);
   box-shadow: 0px 1px 10px 1px var(--ex-shadow-back-color);
-  margin: 20px 15px;
-  padding: 0 10px;
   border-radius: 5px;
+  margin: 0.533333rem 0.4rem 0.586667rem;
+  background: var(--ex-financial-card-bg-color);
+  padding: 0.533333rem 0.373333rem;
 
   //订阅按钮
   .subscribe-button {
@@ -139,17 +145,18 @@ const toBuy = () => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--ex-border-color);
 
     .title {
-      font-size: 16px;
-      padding: 15px 0;
+      font-size: 0.426667rem;
+      color: white;
     }
 
     .right {
-      border: 1px solid #e1e1e1;
       padding: 5px 20px;
       border-radius: 15px;
+      background: #30354d;
+      font-size: 0.32rem;
+      color: var(--ex-home-list-ftcolor2);
     }
 
     .right.btn {
@@ -160,7 +167,7 @@ const toBuy = () => {
 
   .cardInfo {
     .top {
-      padding: 15px 0;
+      padding: 0.4rem 0 0.266667rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -169,13 +176,18 @@ const toBuy = () => {
         // color: #a1a1a1;
         color: var(--ex-home-list-ftcolor2);
       }
+
+      .value {
+        margin-top: 0.266667rem;
+        color: var(--ex-primary-color);
+      }
     }
 
     .bottom {
-      padding: 15px 0px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 0.4rem 0px 0;
 
       .left {
         // color: #a1a1a1;
@@ -188,5 +200,9 @@ const toBuy = () => {
       }
     }
   }
+}
+
+.white {
+  color: white;
 }
 </style>

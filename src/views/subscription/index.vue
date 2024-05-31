@@ -7,7 +7,7 @@
       :border_bottom="true"
     ></HeaderBar>
     <div class="content">
-      <van-tabs v-model:active="active" type="card" color="#613af1" @click-tab="clickTab" background="var(--ex-home-list-bgcolor)">
+      <van-tabs v-model:active="active" type="card" @click-tab="clickTab" class="subscription">
         <van-tab :title="item.title" v-for="(item, index) in tabList" :key="index">
           <van-pull-refresh v-model="loading" @refresh="onRefresh">
             <div class="tabContent" v-if="dataList.length">
@@ -42,7 +42,7 @@ const init = async () => {
   }
 }
 const cuttentRight = {
-  iconRight: [{ iconName: 'jilu', clickTo: '/subscription/order' }]
+  iconRight: [{ iconName: 'sub-record', clickTo: '/subscription/order', text: _t18('pledge_order_record') }]
 }
 const tabList = [
   { id: 1, title: _t18('Preparation') },
@@ -81,5 +81,33 @@ onMounted(() => {
 }
 :deep(.van-tabs__nav--card) {
   height: 35px;
+}
+</style>
+<style lang="scss">
+.subscription.van-tabs {
+  .van-tabs__nav--card {
+    height: auto;
+    border: 0 solid transparent;
+    background: #161a33;
+  }
+  .van-tab {
+    padding: 0;
+    height: auto;
+    background: #161a33;
+    color: #7a7a7a;
+    border: none;
+    // flex-grow: 0;
+    padding: 0.24rem 0.533333rem;
+    font-size: 0.373333rem;
+    &:nth-child(2) {
+      flex: 2;
+    }
+  }
+
+  .van-tab--active {
+    background: #252a4d;
+    color: white;
+    border-radius: 0.266667rem;
+  }
 }
 </style>
