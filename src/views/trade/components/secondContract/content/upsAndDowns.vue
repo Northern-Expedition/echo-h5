@@ -2,7 +2,7 @@
 <template>
   <div>
     <!-- 看跌 看跌 -->
-    <div class="upsAndDowns" v-if="+amountSum">
+    <div class="upsAndDowns" v-if="amountSum != 0">
       <div class="ups item" @click="showBtn(1)">
         {{ _t18(`exchange_bullish`, ['bitmake', 'bityc', 'aams', 'math']) }}
       </div>
@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="upsAndDowns" v-else>
-      <div class="start_btn">{{ _t18('open_mock') }}</div>
+      <div class="start_btn" @click="clickMock">{{ _t18('open_mock') }}</div>
     </div>
   </div>
   <!-- 涨跌 -->
@@ -249,10 +249,14 @@ import PublicPopup from '@/components/Popup/public.vue'
 import OverlayPulic from '@/components/Popup/overlayPulic.vue'
 import { getPeriodList, createSecondContractOrder } from '@/api/trade/index'
 import { useUserStore } from '@/store/user/index'
-import { showToast } from 'vant'
 import { useToast } from '@/hook/useToast'
 import { DIFF_FREEZE_ASSETS } from '@/config/index'
 import { socketDict } from '@/config/dict'
+import { priceFormat } from '@/utils/decimal.js'
+import { showConfirmDialog, showLoadingToast, showToast } from 'vant'
+import { switchTypeApi } from '@/api/quote'
+import { useRouter } from 'vue-router'
+const { push } = useRouter()
 const { _toast, _showName } = useToast()
 import { useTradeStore } from '@/store/trade/index'
 import {
@@ -271,6 +275,10 @@ const props = defineProps({
     default: () => {}
   }
 })
+setTimeout(() => {
+  console.log(amountSum.value)
+}, 3000)
+
 const userStore = useUserStore()
 const { asset } = storeToRefs(userStore)
 const assetDetails = computed(() => {
@@ -331,6 +339,19 @@ document.addEventListener('visibilitychange', function () {
   if (pageVisibility == 'visible') {
   }
 })
+
+function clickMock() {
+  showConfirmDialog({
+    message: '确定开启模拟交易吗？',
+    className: 'mock-dialog'
+  }).then(async () => {
+    showLoadingToast({})
+    await switchTypeApi(2)
+    showToast('已经入模拟交易')
+    push('/home')
+  })
+}
+
 const quantity = ref('')
 const availableBalance = ref('') //  可用余额
 const selectAll = ref(false)
@@ -825,6 +846,19 @@ input::-ms-input-placeholder {
     text-align: center;
     color: var(--ex-default-font-color);
   }
+  .start_btn {
+    margin-top: 0.32rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 9.2rem;
+    height: 1.333333rem;
+    font-size: 0.426667rem;
+    color: var(--ex-default-font-color);
+    border-radius: 0.08rem;
+    background: var(--ex-primary-color);
+  }
+
   .ups {
     background: var(--ex-trade-buy-bg-color);
   }
