@@ -3,10 +3,10 @@
     <ul class="bank-content">
       <li v-for="item in props.bankList" :key="item.id" @click="change(item)">
         <div class="top-content">
-          <p class="bank-type">{{ item.bankName }}<span class="scl" v-if="item.coin">（{{ item.coin }}）</span></p>
-          <div class="normal" @click="change(item)">
-            <svg-load name="bianji" class="bianji"></svg-load>
-          </div>
+          <p class="bank-type">
+            {{ item.bankName }}<span class="scl" v-if="item.coin">（{{ item.coin }}）</span>
+          </p>
+          <van-icon name="edit" @click="change(item)" size="20" />
         </div>
         <p class="name">{{ item.userName }}</p>
         <p class="bankNumber">{{ item.cardNumber }}</p>
@@ -17,8 +17,8 @@
   </div>
 </template>
 <script setup>
-import {useRouter} from 'vue-router'
-import {_t18} from "@/utils/public";
+import { useRouter } from 'vue-router'
+import { _t18 } from '@/utils/public'
 
 const router = useRouter()
 
@@ -32,7 +32,7 @@ const props = defineProps({
 const change = (item) => {
   router.push({
     path: '/edit-bank',
-    query: {data: encodeURI(JSON.stringify(item))}
+    query: { data: encodeURI(JSON.stringify(item)) }
   })
 }
 </script>
@@ -43,9 +43,10 @@ const change = (item) => {
   li {
     display: flex;
     flex-direction: column;
-    padding: 0 15px 20px 28px;
-    border-bottom: 1px solid var(--ex-border-color);
-    margin-top: 20px;
+    padding: 0.72rem 0.4rem 0.586667rem;
+    border-radius: 0.533333rem;
+    margin-top: 0.533333rem;
+    background: linear-gradient(40deg, #e567bf 0%, #b09bff 55%, #805eff 100%);
 
     &:nth-child(1) {
       margin-top: 7px;
@@ -55,8 +56,9 @@ const change = (item) => {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      height: 15px;
+      height: 0.4rem;
       align-items: center;
+      color: var(--ex-default-font-color);
 
       .bank-type {
         font-size: 16px;
@@ -69,16 +71,6 @@ const change = (item) => {
           padding-left: 5px;
           font-size: 14px;
         }
-
-        &::before {
-          content: '';
-          width: 3px;
-          height: 100%;
-          position: absolute;
-          left: -10px;
-          background-color: var(--ex-div-bgColor1);
-          top: 0;
-        }
       }
     }
 
@@ -90,7 +82,6 @@ const change = (item) => {
 
     .bankNumber {
       font-size: 20px;
-      font-weight: bold;
       color: var(--ex-default-font-color);
       padding-top: 10px;
     }
@@ -98,7 +89,7 @@ const change = (item) => {
     .bank {
       margin-top: 10px;
       font-size: 14px;
-      color: var(--ex-passive-font-color);
+      color: var(--ex-default-font-color);
     }
   }
 

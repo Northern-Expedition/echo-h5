@@ -3,10 +3,10 @@
   <div class="bind-card">
     <!-- 导航条 -->
     <HeaderBar
-        :currentName="_t18('Bank_edit')"
-        :cuttentRight="cuttentRight"
-        :border_bottom="true"
-        @del="del"
+      :currentName="_t18('Bank_edit')"
+      :cuttentRight="cuttentRight"
+      :border_bottom="true"
+      @del="del"
     ></HeaderBar>
     <!--内容-->
     <div class="content">
@@ -18,30 +18,34 @@
             v-model="formData.userName"
             class="form-input"
           /> -->
-          <input
-              :placeholder="_t18('login_please')"
-              v-model="bindUserName"
-              class="form-input"
-          />
+          <input :placeholder="_t18('login_please')" v-model="bindUserName" class="form-input" />
         </div>
         <div class="formInput">
           <p
-              class="label"
-              v-if="['trustwallet', 'coinmarketcap', 'kabit', 'etfinex', 'ebc'].includes(_getConfig('_APP_ENV'))"
+            class="label"
+            v-if="
+              ['trustwallet', 'coinmarketcap', 'kabit', 'etfinex', 'ebc'].includes(
+                _getConfig('_APP_ENV')
+              )
+            "
           >
             {{ _t18('bank_account') }}
           </p>
           <p class="label" v-else>{{ _t18('Bank_card_number') }}</p>
           <input
-              :placeholder="_t18('login_please')"
-              v-model="formData.cardNumber"
-              class="form-input"
+            :placeholder="_t18('login_please')"
+            v-model="formData.cardNumber"
+            class="form-input"
           />
         </div>
         <div class="formInput">
           <p
-              class="label"
-              v-if="['trustwallet', 'coinmarketcap', 'kabit', 'etfinex', 'ebc'].includes(_getConfig('_APP_ENV'))"
+            class="label"
+            v-if="
+              ['trustwallet', 'coinmarketcap', 'kabit', 'etfinex', 'ebc'].includes(
+                _getConfig('_APP_ENV')
+              )
+            "
           >
             {{ _t18('bank_name') }}
           </p>
@@ -49,44 +53,51 @@
             {{ _t18('Bank_own') }}
           </p>
           <input
-              :placeholder="_t18('login_please')"
-              v-model="formData.bankName"
-              class="form-input"
+            :placeholder="_t18('login_please')"
+            v-model="formData.bankName"
+            class="form-input"
           />
         </div>
         <div class="formInput" v-if="formData.bankBranch">
           <p
-              class="label"
-              v-if="['trustwallet', 'coinmarketcap', 'kabit', 'etfinex', 'ebc'].includes(_getConfig('_APP_ENV'))"
+            class="label"
+            v-if="
+              ['trustwallet', 'coinmarketcap', 'kabit', 'etfinex', 'ebc'].includes(
+                _getConfig('_APP_ENV')
+              )
+            "
           >
             {{ _t18('branch_namee') }}
           </p>
           <p class="label" v-else>{{ _t18('branch_name') }}</p>
           <input
-              :placeholder="_t18('login_please')"
-              v-model="formData.bankBranch"
-              class="form-input"
+            :placeholder="_t18('login_please')"
+            v-model="formData.bankBranch"
+            class="form-input"
           />
         </div>
         <!-- HFM2 币种选择-->
-        <div class="formInput" v-if="['HFM2','dev'].includes(_getConfig('_APP_ENV'))">
+        <div class="formInput" v-if="['HFM2', 'dev'].includes(_getConfig('_APP_ENV'))">
           <p class="label">
             {{ _t18('recharge_coin') }}
           </p>
           <van-field
-              class="form-input"
-              is-link
-              readonly
-              v-model="formData.coin"
-              :placeholder="_t18('recharge_coin')"
-              @click="showCoinPicker = true"
+            class="form-input"
+            is-link
+            readonly
+            v-model="formData.coin"
+            :placeholder="_t18('recharge_coin')"
+            @click="showCoinPicker = true"
           />
-          <van-action-sheet v-model:show="showCoinPicker" :actions="bankCoinList" @select="onBankCoinConfirm"/>
+          <van-action-sheet
+            v-model:show="showCoinPicker"
+            :actions="bankCoinList"
+            @select="onBankCoinConfirm"
+          />
         </div>
-
       </div>
       <div class="btnBox" @click="submit">
-        <ButtonBar :btnValue="_t18('Bank_save')"/>
+        <ButtonBar :btnValue="_t18('Bank_save')" />
       </div>
       <van-dialog v-model:show="show" title="" show-cancel-button></van-dialog>
     </div>
@@ -95,21 +106,22 @@
 <script setup>
 import HeaderBar from '@/components/HeaderBar/index.vue'
 import ButtonBar from '@/components/common/ButtonBar/index.vue'
-import {showConfirmDialog, showToast} from 'vant'
-import {reactive, onMounted} from 'vue'
-import {useRoute, useRouter} from 'vue-router'
-import {delBindCard, updateBindCard} from '@/api/account'
-import {_toView, _t18} from '@/utils/public'
-import {useToast} from '@/hook/useToast'
-import {useUserStore} from '@/store/user/index'
-import {dict} from '@/api/common/index.js'
-import {storeToRefs} from 'pinia'
-
+import { showConfirmDialog, showToast } from 'vant'
+import { reactive, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { delBindCard, updateBindCard } from '@/api/account'
+import { _toView, _t18 } from '@/utils/public'
+import { useToast } from '@/hook/useToast'
+import { useUserStore } from '@/store/user/index'
+import { dict } from '@/api/common/index.js'
+import { storeToRefs } from 'pinia'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const userStore = useUserStore()
 // userStore.getUserInfo()
 // 用户信息
-const {userInfo} = storeToRefs(userStore)
-const {_toast} = useToast()
+const { userInfo } = storeToRefs(userStore)
+const { _toast } = useToast()
 const Route = useRoute()
 const Router = useRouter()
 // const formData = reactive({
@@ -122,28 +134,28 @@ const Router = useRouter()
 // })
 const formData = reactive(JSON.parse(decodeURI(Route.query.data)))
 const bindUserName = ref(formData.userName || userInfo.value.user?.loginName)
-const cuttentRight = {iconRight: [{iconName: 'sanchu24x24', clickTo: 'del'}]}
+const cuttentRight = {
+  iconRight: [{ clickTo: 'del', text: _t18('quote_del') }]
+}
 const del = () => {
   showConfirmDialog({
-    message: _t18('Bank_delete')
+    message: t('Bank_delete')
   })
-      .then(() => {
-        delBindCard(formData.id).then((res) => {
-          if (res.code == '200') {
-            // showToast('删除成功！')
-            _toast('Bank_delete_success')
-            setTimeout(() => {
-              Router.push('/bind-card')
-            }, 500)
-          } else {
-            showToast(msg)
-          }
-        })
+    .then(() => {
+      delBindCard(formData.id).then((res) => {
+        if (res.code == '200') {
+          // showToast('删除成功！')
+          _toast('Bank_delete_success')
+          setTimeout(() => {
+            Router.push('/bind-card')
+          }, 500)
+        } else {
+          showToast(msg)
+        }
       })
-      .catch(() => {
-      })
+    })
+    .catch(() => {})
 }
-
 
 // 币种列表
 const bankCoinList = ref([])
@@ -152,7 +164,7 @@ const getBankCoinList = () => {
   dict('t_bank_coin').then((res) => {
     if (res.code == '200' && res.data.length) {
       bankCoinList.value = res.data.map((item) => {
-        return {...item, name: item.dictValue.toUpperCase(),}
+        return { ...item, name: item.dictValue.toUpperCase() }
       })
     }
   })
@@ -160,7 +172,7 @@ const getBankCoinList = () => {
 //币种选择
 const onBankCoinConfirm = (item) => {
   formData.coin = item.name
-  showCoinPicker.value = false;
+  showCoinPicker.value = false
 }
 
 onMounted(() => {
@@ -212,7 +224,7 @@ const submit = () => {
       margin-top: 20px;
 
       .label {
-        color: var(--ex-default-font-color);
+        color: #a7afb7;
         font-size: 14px;
         margin: 0 0 10px;
 
@@ -230,9 +242,9 @@ const submit = () => {
       input {
         width: 100%;
         height: 46px;
-        background: var(--ex-default-background-color);
+        background: #161a33;
         border-radius: 3px;
-        border: 1px solid var(--ex-border-color1);
+        border: 0.026667rem solid rgba(0, 0, 0, 0);
         padding: 0 15px;
         font-size: 14px;
 

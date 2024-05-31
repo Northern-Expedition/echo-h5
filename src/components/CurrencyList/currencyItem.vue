@@ -53,10 +53,9 @@ const props = defineProps({
   display: flex;
   justify-content: space-between;
   padding: 0.426667rem 0.373333rem;
-  background: var(--ex-home-tabs-bg-color);
+  background: #161a33;
   margin: 0.266667rem 0;
   border-radius: 0.266667rem;
-  padding: 8px 0;
   .left {
     display: flex;
     align-items: center;
