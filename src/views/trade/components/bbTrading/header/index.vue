@@ -11,21 +11,21 @@
           ></svg-load>
           <div class="fw-bold">{{ coinInfo.showSymbol }}</div>
           <div
-          :class="[
-            _isRFD(coinPriceInfo.openPrice, coinPriceInfo.close, 'buy', 'rise'),
-            ' rfd-sign firNum fw-num'
-          ]"
-        >
-          {{ coinPriceInfo?.priceChangePercent }}%
-        </div>
+            :class="[
+              _isRFD(coinPriceInfo.openPrice, coinPriceInfo.close, 'buy', 'rise'),
+              ' rfd-sign firNum fw-num'
+            ]"
+          >
+            {{ coinPriceInfo?.priceChangePercent }}%
+          </div>
         </div>
         <!-- 币币交易规则，收藏 -->
         <div class="first">
           <svg-load
-          name="k-xian"
-          class="senLeftImg"
-          @click="$router.push(`/detail?symbol=${coinInfo.coin}&type=1`)"
-        ></svg-load>
+            name="k-xian"
+            class="senLeftImg"
+            @click="$router.push(`/detail?symbol=${coinInfo.coin}&type=1`)"
+          ></svg-load>
           <svg-load
             name="guize"
             class="senLeftImg"
@@ -70,9 +70,10 @@ const emits = defineEmits(['showSidePopup'])
   color: var(--ex-active-font-color) !important;
 }
 .top {
-  padding: 20px 15px 0;
+  padding: 0.213333rem 0.373333rem;
   z-index: 9;
-  background-color: var(--ex-default-background-color);
+  background: var(--ex--backup-background-color-2);
+  border-radius: 0.213333rem;
   .first {
     display: flex;
     justify-content: space-between;

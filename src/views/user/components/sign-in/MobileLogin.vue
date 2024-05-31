@@ -2,27 +2,25 @@
   <div>
     <!-- 手机号 验证码 发送 -->
     <div class="formData">
-      <p>{{ _t18('login_mobileCode') }}</p>
+      <p style="color: #a0a5af">{{ _t18('login_mobileCode') }}</p>
       <div>
         <input type="text" :placeholder="_t18('login_mobileCode')" v-model="formData3.mobile" />
-        <div class="right">
-          <i>+</i>
-          <p>{{ formData3.areaCode }}</p>
+        <div class="right" style="position: relative">
+          <i class="teshu"></i>
+          <i style="color: #fff">+</i>
+          <p style="color: #fff">{{ formData3.areaCode }}</p>
           <svg-load name="jiantou10x5-x" class="jiantou" @click="showAreaCode"></svg-load>
         </div>
       </div>
     </div>
     <div class="formData">
-      <p>{{ _t18('login_code') }}</p>
+      <p style="color: #a0a5af">{{ _t18('login_code') }}</p>
       <div>
         <input type="text" :placeholder="_t18('login_please')" v-model="formData3.code" />
         <p v-if="!flag" @click="send()">{{ _t18('login_send') }}</p>
         <p v-else><van-count-down :time="time" format="ss" @finish="finish" /></p>
       </div>
     </div>
-    <p class="forgotPwd" @click="$router.push('/forgot-password')">
-      {{ _t18('forget_pwd', ['bitmake']) }}
-    </p>
     <Footer :type="0" :formDataToLogin="formData3" @refersh="refreshCode"></Footer>
     <AreaCode :show="show" @handelClick="close" @handelSelect="select"></AreaCode>
   </div>
@@ -91,4 +89,16 @@ const refreshCode = () => {}
 import './../style.scss'
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.teshu {
+  &::after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: -8px;
+    width: 0.026667rem;
+    height: 0.666667rem;
+    background: #979797;
+  }
+}
+</style>

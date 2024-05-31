@@ -121,10 +121,7 @@ const toRafSort = () => {
 
 <style lang="scss" scoped>
 .mainBgc {
-  background: var(--ex-div-bgColor8);
-
   .main {
-    background-color: var(--ex-default-background-color);
     border-radius: 20px 20px 0px 0;
     padding: 20px 15px 10px;
     font-size: 12px;
@@ -150,7 +147,6 @@ const toRafSort = () => {
   }
 
   .main_collect {
-    background-color: var(--ex-default-background-color);
     padding: 10px 15px 10px;
     font-size: 12px;
     color: var(--ex-passive-font-color);

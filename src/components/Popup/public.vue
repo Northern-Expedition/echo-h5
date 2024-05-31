@@ -68,6 +68,7 @@ const handelClose = () => {
   align-items: center;
   padding: 20px 15px;
   width: 100%;
+  background: #161a33;
   border-bottom: 1px solid var(--ex-border-color);
   .closeSvg {
     width: 24px;
@@ -78,6 +79,7 @@ const handelClose = () => {
 .popupContent {
   padding: 20px 15px;
   box-sizing: border-box;
+  background: #161a33;
 }
 :deep(.van-popup--bottom) {
   max-width: var(--ex-max-width);

@@ -2,14 +2,14 @@
   <div>
     <div class="formData">
       <!-- 账号 -->
-      <p>{{ _t18('account', ['bitmake']) }}</p>
+      <p style="color: #a0a5af">{{ _t18('account', ['bitmake']) }}</p>
       <div>
         <input type="text" :placeholder="_t18('login_please')" v-model="formData1.username" />
       </div>
     </div>
     <div class="formData">
       <!-- 密码 -->
-      <p>{{ _t18('login_pwd') }}</p>
+      <p style="color: #a0a5af">{{ _t18('login_pwd') }}</p>
       <div>
         <input
           :type="showk ? 'text' : 'password'"
@@ -21,7 +21,7 @@
     </div>
     <div class="formData">
       <!-- 确认密码 -->
-      <p>{{ _t18('register_pwd_require') }}</p>
+      <p style="color: #a0a5af">{{ _t18('register_pwd_require') }}</p>
       <div>
         <input
           :type="requireShowk ? 'text' : 'password'"
@@ -37,7 +37,7 @@
     <p class="requirePass" v-if="requirePass">*{{ _t18('register_pwd_diff') }}</p>
     <div class="formData">
       <!-- 邀请码 选填-->
-      <p>
+      <p style="color: #a0a5af">
         {{ _t18('register_invitation') }}
         <!-- <i v-if="REGISTER_REQUIRED_ACTIVECODE.includes(platform_setting)">({{ _t18('required')}})</i> -->
         <i v-if="REGISTER_REQUIRED_ACTIVECODE.includes(_getConfig('_APP_ENV'))"
@@ -55,7 +55,7 @@
     </div>
     <div class="formData" v-if="mainStore.getISCode">
       <!-- 验证码 -->
-      <p>{{ _t18('login_code') }}</p>
+      <p style="color: #a0a5af">{{ _t18('login_code') }}</p>
       <div>
         <input type="text" :placeholder="_t18('login_please')" v-model="formData1.code" /><span
           @click="refreshCode"

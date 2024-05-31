@@ -5,7 +5,7 @@
       v-model:active="curActive"
       shrink
       color="transparent"
-      title-active-color="#613af1"
+      title-active-color="#fff"
       title-inactive-color="#5d626d"
     >
       <van-tab
@@ -339,9 +339,11 @@ defineExpose({
 
 <style lang="scss" scoped>
 .orderBox {
+  background-color: #161a33;
+  padding-top: 20px;
   position: relative;
 }
-:deep(.van-tabs__wrap){
+:deep(.van-tabs__wrap) {
   border-bottom: 1px solid var(--ex-border-color);
 }
 :deep(.van-tabs__nav) {
@@ -350,19 +352,19 @@ defineExpose({
 }
 .tab_right {
   position: absolute;
-  top: 0;
+  top: 0.1rem;
   right: 0;
-  background: var(--bgColor) !important;;
+  background: var(--bgColor) !important;
   padding: 15px 5px;
   .entrustRImg {
     padding: 0 8px;
-    font-size: 12px;
+    font-size: 20px;
   }
 }
 .listBox {
   padding: 0;
 }
-.van-cell{
+.van-cell {
   background: var(--bgColor) !important;
   padding: 0;
   border-bottom: 1px solid var(--ex-border-color);

@@ -48,7 +48,10 @@
             <template #reference>
               <div class="entrustSelect">
                 <div>{{ currentDelegateType.label }}</div>
-                <svg-load  :name="showPopover?'jiantou10x5-s':'jiantou10x5-x'" class="img"></svg-load>
+                <svg-load
+                  :name="showPopover ? 'jiantou10x5-s' : 'jiantou10x5-x'"
+                  class="img"
+                ></svg-load>
               </div>
             </template>
           </van-popover>
@@ -137,10 +140,7 @@
           />
         </div>
         <!-- 数量 (rxce特殊需求：增加展示usdt价格折合成当前币种)-->
-        <div
-          class="rightSix"
-          v-if="['rxce'].includes(_getConfig('_APP_ENV')) && form.type == 0"
-        >
+        <div class="rightSix" v-if="['rxce'].includes(_getConfig('_APP_ENV')) && form.type == 0">
           <div>{{ _t18(`buy_bb_count`) }}</div>
           <div class="number fw-num">
             {{ priceFormat(_div(form.turnover, coinPriceInfo.close)) }}
@@ -165,7 +165,10 @@
           </div>
         </div>
         <!-- 占位 -->
-        <div class="rightSeat" v-if="form.delegateType == 1&&!['rxce'].includes(_getConfig('_APP_ENV'))"></div>
+        <div
+          class="rightSeat"
+          v-if="form.delegateType == 1 && !['rxce'].includes(_getConfig('_APP_ENV'))"
+        ></div>
         <!-- 买入/ 卖出按钮：自定义币种 (coinInfo.customizeFlag == 2),非自定义币种 -->
         <div class="rightSeven" @click="submit" v-if="props.coinInfo.customizeFlag == 2">
           <div class="maybutton" :class="{ hightColorRed: form.type == 1 }">
@@ -510,15 +513,15 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 .hightColor {
   color: var(--ex-font-color) !important;
-  background-color: var(--ex-div-bgColor1) !important;
+  background-color: #00e291 !important;
 }
 .hightColorRed {
   color: var(--ex-font-color) !important;
-  background-color: var(--ex-div-bgColor7) !important;
+  background-color: #ff6058 !important;
 }
 .rightScondList {
   width: 180px;
-  background-color: var(--ex-default-background-color);
+  background-color: #252a4d;
   padding: 5px 0;
   font-size: 12px;
   color: var(--ex-passive-font-color);

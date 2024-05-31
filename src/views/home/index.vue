@@ -5,7 +5,7 @@
     <Menu></Menu>
   </template>
 
-  <div class="summary">
+  <div class="summary" v-if="getIsMock == 2">
     <div class="unit_name">
       <div class="name">{{ _t18('mock_price') }}</div>
       <div class="unit">USDT</div>
@@ -31,7 +31,7 @@
         <div>
           {{ _t18('ad_1') }}
         </div>
-        <div>  {{ _t18('ad_2') }}</div>
+        <div>{{ _t18('ad_2') }}</div>
         <div class="heng">
           <div>
             <span class="customer">@zhilian1919</span>

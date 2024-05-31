@@ -612,7 +612,7 @@ const setStudy = (name) => {
   background-color: var(--ex-candlestick-bg);
 }
 .hightItem {
-  color: var(--ex-font-color9) !important;
+  color: #17ac74;
 }
 .third {
   margin-top: 10px;

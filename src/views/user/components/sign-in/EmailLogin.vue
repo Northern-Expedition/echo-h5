@@ -2,20 +2,19 @@
   <div>
     <!-- 邮箱 验证码 发送 -->
     <div class="formData">
-      <p>{{ _t18('login_emailCode') }}</p>
+      <p style="color: #a0a5af">{{ _t18('login_emailCode') }}</p>
       <div>
         <input type="text" :placeholder="_t18('login_emailCode')" v-model="formData2.email" />
       </div>
     </div>
     <div class="formData">
-      <p>{{ _t18('login_code') }}</p>
+      <p style="color: #a0a5af">{{ _t18('login_code') }}</p>
       <div>
         <input type="text" :placeholder="_t18('login_please')" v-model="formData2.code" />
         <p v-if="!flag" @click="send()">{{ _t18('login_send') }}</p>
         <p v-else><van-count-down :time="time" format="ss" @finish="finish" /></p>
       </div>
     </div>
-    <p class="forgotPwd" @click="$router.push('/forgot-password')">{{ _t18('forget_pwd', ['bitmake']) }}</p>
     <Footer :type="0" :formDataToLogin="formData2"></Footer>
   </div>
 </template>
@@ -40,7 +39,7 @@ const formData2 = ref({
   type: 2, //自定义注册类型：1普通2邮箱3手机
   email: '',
   password: '', //密码
-  code: '', //验证码
+  code: '' //验证码
 })
 /**
  * 倒计时

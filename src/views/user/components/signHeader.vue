@@ -1,12 +1,18 @@
 <template>
   <div class="box">
     <div class="menu">
-      <image-load
-        :filePath="currentLanguage.imgUrl"
-        class="lang img"
-        @click="$router.push('/language-selection')"
-      />
-      <svg-load name="guanbi" class="guanbi" @click="$router.push('/')"></svg-load>
+      <div style="display: flex; text-align: center">
+        <image-load
+          :filePath="currentLanguage.imgUrl"
+          class="lang img"
+          @click="$router.push('/language-selection')"
+        />
+        <p style="font-size: 0.373333rem; color: #999; margin-left: 10px">
+          {{ currentLanguage.remark }}
+        </p>
+      </div>
+
+      <van-icon name="cross" @click="$router.push('/')" size="20" />
     </div>
     <div class="top">
       <!-- <p class="left" v-if="props.type != 2">Hi</p> -->
@@ -15,8 +21,8 @@
     </div>
     <div class="bottom">
       <!-- 欢迎登录 -->
-      <p v-if="props.type == 0">{{ _t18('login_title') }} {{ _getConfig('_APP_META_TITLE') }}</p>
-      <p v-if="props.type == 1">{{ _t18('register_title') }} {{ _getConfig('_APP_META_TITLE') }}</p>
+      <p v-if="props.type == 0">{{ _t18('login') }}</p>
+      <p v-if="props.type == 1">{{ _t18('register') }}</p>
     </div>
   </div>
 </template>
@@ -29,9 +35,10 @@ const mainStore = useMainStore()
 /**
  * 当前语言实例
  */
-const currentLanguage = computed(() =>
-  mainStore.languageList.find((elem) => elem.dictValue == mainStore.language)
-)
+const currentLanguage = computed(() => {
+  console.log('mainStore.languageList', mainStore.languageList)
+  return mainStore.languageList.find((elem) => elem.dictValue == mainStore.language)
+})
 const props = defineProps({
   type: {
     type: Number
@@ -45,7 +52,7 @@ const props = defineProps({
   color: var(--ex-default-font-color);
 }
 .box {
-  padding: 30px 15px 0px;
+  padding: 0.533333rem 15px 0px;
   .menu {
     display: flex;
     justify-content: space-between;

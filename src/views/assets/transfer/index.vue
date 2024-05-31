@@ -38,7 +38,7 @@
           :placeholder="`${_t18('transfer_less', ['aams'])}1${params.coin?.toUpperCase()}`"
           v-model="params.amount"
         />
-        <span @click="amountAll">
+        <span @click="amountAll" style="color: #613af1">
           {{ _t18('swap_all') }}
         </span>
         <i>|</i>
@@ -140,6 +140,7 @@ const submit = () => {
   } else {
     submitForm()
   }
+  params.value.amount = ''
 }
 const submitForm = () => {
   if (params.value.amount == '' || params.value.amount <= 0) {

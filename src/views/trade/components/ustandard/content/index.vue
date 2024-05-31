@@ -107,7 +107,7 @@
               :key="index"
             ></div>
           </div>
-          <van-slider v-model="sliderValue" active-color="#515151" inactive-color="#d9d9d9">
+          <van-slider v-model="sliderValue" active-color="#00e291" inactive-color="#d9d9d9">
             <template #button>
               <div class="init">
                 <div
@@ -218,7 +218,6 @@
         </div>
       </div>
     </div>
-    <div class="line"></div>
     <!-- 订单 -->
     <!-- 订单信息 -->
     <OrderListBox
@@ -226,6 +225,10 @@
       :coinInfo="coinInfo"
       :availableBalance="availableBalance"
     ></OrderListBox>
+  </div>
+  <div class="start_sim" @click="handlejiaoyi" v-if="isShow.availableAmount <= 0">
+    <div class="start_btn">开启模拟交易</div>
+         
   </div>
 </template>
 
@@ -243,6 +246,8 @@ const { _toast } = useToast()
 import { useMainStore } from '@/store/index'
 const mainStore = useMainStore()
 import { matchText, formatCurrentcurrency } from '@/utils/filters'
+import { switchTypeApi } from '@/api/quote'
+import { useRouter } from 'vue-router'
 import {
   submitUcontract,
   contractHistoryList,
@@ -251,7 +256,7 @@ import {
 } from '@/api/trade/index'
 import { useTradeStore } from '@/store/trade'
 const tradeStore = useTradeStore()
-
+const { push } = useRouter()
 import { useUserStore } from '@/store/user/index'
 const userStore = useUserStore()
 const { asset } = storeToRefs(userStore)
@@ -264,6 +269,10 @@ const props = defineProps({
     default: () => {}
   }
 })
+const handlejiaoyi = async () => {
+  await switchTypeApi(2)
+  push('/home')
+}
 const coinPriceInfo = computed(() => {
   return tradeStore.allCoinPriceInfo[props.coinInfo.coin] || {}
 })
@@ -271,6 +280,12 @@ const delegateTotal = ref('') // 数量（市价/限价）
 const delegatePrice = ref('') // 价格（限价）
 const sliderValue = ref(0) //滑动
 //可用余额
+const isShow = computed(() => {
+  const arr = Object.keys(asset.value)
+  const aa = arr[arr.length - 1]
+  return asset.value[aa]
+})
+console.log('isShow', isShow.value)
 const availableBalance = computed(() => {
   var cur = asset.value.filter((item) => {
     return item.type === 3
@@ -317,29 +332,29 @@ const selectNum = (item) => {
 watch(
   () => props.coinInfo.coin,
   (n) => {
-      delegateTotal.value = ''
-      setTradePrice()
-      if (tradeStore.contractCoinList.length) {
-        numList.value = []
-        transactionNum.value = ''
-        let newcoin = {}
-        tradeStore.contractCoinList.forEach((element) => {
-          if (element.coin === n) {
-            contractObj.value = element
-            newcoin = element
-            return
-          }
-        })
-        if (newcoin?.leverage) {
-          newcoin.leverage.split(',').forEach((ele) => {
-            numList.value.push({
-              name: ele + 'X',
-              id: ele
-            })
-          })
+    delegateTotal.value = ''
+    setTradePrice()
+    if (tradeStore.contractCoinList.length) {
+      numList.value = []
+      transactionNum.value = ''
+      let newcoin = {}
+      tradeStore.contractCoinList.forEach((element) => {
+        if (element.coin === n) {
+          contractObj.value = element
+          newcoin = element
+          return
         }
-        transactionNum.value = numList.value[0].name
+      })
+      if (newcoin?.leverage) {
+        newcoin.leverage.split(',').forEach((ele) => {
+          numList.value.push({
+            name: ele + 'X',
+            id: ele
+          })
+        })
       }
+      transactionNum.value = numList.value[0].name
+    }
   }
 )
 // 监听滑块，修改数量（手）
@@ -639,38 +654,71 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
+.start_sim {
+  width: 100%;
+  position: fixed;
+  bottom: 1.706667rem;
+  height: 1.973333rem;
+  background-color: var(--ex-default-background-color);
+  z-index: 9999;
+  padding: 0 0.4rem;
+
+  .start_btn {
+    margin-top: 0.32rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 9.2rem;
+    height: 1.333333rem;
+    font-size: 0.426667rem;
+    color: var(--ex-default-font-color);
+    border-radius: 0.08rem;
+    background: var(--ex-primary-color);
+  }
+}
+
 .hightBlue {
   color: var(--ex-font-color2) !important;
 }
+
 .hightColorRed {
   color: var(--ex-font-color) !important;
-  background-color: var(--ex-div-bgColor7) !important;
+  background-color: var(--ex-trade-Sell-bg-color) !important;
 }
+
 .content {
   display: flex;
   padding: 20px 15px;
+  background: #161a33;
+  margin-bottom: 20px;
 }
+
 .content_right {
   flex: 1;
+
   .rightFirst {
     height: 33px;
     font-size: 12px;
     display: flex;
     justify-content: space-between;
+
     .firstItem {
-      background: var(--ex-div-bgColor);
       border-radius: 2px 2px 2px 2px;
     }
+
     .left {
       width: 104px;
     }
+
     .right {
       width: 66px;
     }
+
     .entrustSelect {
-      // background: var(--ex-default-background-color);
-      padding: 0 10px;
-      height: 33px;
+      height: 0.853333rem;
+      background: var(--ex--backup-background-color-2);
+      padding: 0 0.266667rem;
+      border-radius: 0.16rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -682,26 +730,29 @@ onUnmounted(() => {
         height: 5px;
       }
     }
+
     .entrustSelect2 {
       justify-content: center;
     }
   }
+
   .rightThird {
-    margin-top: 10px;
-    width: 180px;
-    height: 33px;
-    background: var(--ex-div-bgColor5);
-    border-radius: 2px 2px 2px 2px;
-    font-size: 12px;
-    color: var(--ex-font-color1);
+    margin-top: 0.266667rem;
+    height: 0.88rem;
+    background: var(--ex--backup-background-color-2);
+    border-radius: 0.16rem;
+    font-size: 0.32rem;
+    color: var(--ex-passive-font-color);
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
   .rightFourth {
     margin-top: 25px;
     width: 180px;
     position: relative;
+
     .lineBg {
       position: absolute;
       width: 100%;
@@ -709,37 +760,45 @@ onUnmounted(() => {
       justify-content: space-between;
       align-items: center;
       z-index: 0;
+
       .node {
-        width: 11px;
-        height: 11px;
-        background: var(--ex-div-bgColor3);
+        width: 10px;
+        height: 10px;
+        background: #d9d9d9;
+        border-radius: 50%;
         margin-top: -5px;
-        transform: rotate(45deg);
       }
+
       .active {
-        background: var(--ex-div-bgColor4);
+        background: #00e291;
       }
     }
+
     .init {
       .marl {
         margin-left: 11px;
+
         .initNum {
           margin-left: 22px;
         }
       }
+
       .marr {
         margin-right: 11px;
+
         .initNum {
           margin-right: 11px;
         }
       }
+
       .initimg {
-        width: 12px;
-        height: 12px;
-        background: var(--ex-div-bgColor4);
-        transform: scaleY(0.5) rotate(45deg) !important;
+        width: 10px;
+        height: 5px;
+        background: #00e291;
+        border-radius: 50%;
         position: relative;
       }
+
       .initNum {
         transform: scaleY(0.5);
         margin-top: 8px;
@@ -749,38 +808,44 @@ onUnmounted(() => {
         display: flex;
         align-items: center;
         justify-content: center;
-        background: var(--ex-div-bgColor19);
+        background: #00e291;
         border-radius: 1px;
         position: absolute;
-        top: -20px;
+        top: -25px;
         left: -20px;
       }
     }
   }
+
   .rightFifth {
     margin-top: 10px;
+
     .amount {
       width: 180px;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 33px;
-      background: var(--ex-div-bgColor);
-      border-radius: 2px;
+      background: var(--ex--backup-background-color-2);
+      border-radius: 0.16rem;
       font-size: 12px;
       color: var(--ex-default-font-color);
       text-align: center;
     }
+
     input::-webkit-input-placeholder {
       color: var(--ex-font-color1);
     }
+
     input::-moz-input-placeholder {
       color: var(--ex-font-color1);
     }
+
     input::-ms-input-placeholder {
       color: var(--ex-font-color1);
     }
   }
+
   .rightSix {
     margin-top: 25px;
     flex: 1;
@@ -790,23 +855,27 @@ onUnmounted(() => {
     align-items: center;
     font-size: 12px;
     color: var(--ex-passive-font-color);
+
     .number {
       color: var(--ex-default-font-color);
     }
   }
+
   .rightSeven {
     margin-top: 16px;
+
     .maybutton {
-      height: 40px;
-      background: var(--ex-div-bgColor1);
-      border-radius: 3px 3px 3px 3px;
-      font-size: 14px;
+      height: 1.066667rem;
+      background: var(--ex-trade-buy-bg-color);
+      border-radius: 0.16rem;
+      font-size: 0.373333rem;
       color: var(--ex-font-color);
       display: flex;
       justify-content: center;
       align-items: center;
     }
   }
+
   .nineSix {
     margin-top: 15px;
     flex: 1;
@@ -816,12 +885,14 @@ onUnmounted(() => {
     align-items: center;
     font-size: 12px;
     color: var(--ex-passive-font-color);
+
     .number {
       text-align: right;
       color: var(--ex-default-font-color);
     }
   }
 }
+
 // 市价/限价下拉框
 .rightScondList {
   width: 104px;
@@ -830,11 +901,13 @@ onUnmounted(() => {
   padding: 5px 0;
   font-size: 12px;
   color: var(--ex-passive-font-color);
+
   .rightScondListItem {
     padding: 10px 0;
     text-align: center;
   }
 }
+
 .rightScondListNum {
   width: 66px;
   // margin-top: 3px;
@@ -842,35 +915,38 @@ onUnmounted(() => {
   padding: 5px 0;
   font-size: 12px;
   color: var(--ex-passive-font-color);
+
   .rightScondListItem {
     padding: 10px 0;
     text-align: center;
   }
 }
+
 :deep(.van-slider) {
   z-index: 2;
   height: 1px;
   top: -1px;
+
   .van-slider__bar {
     transform: scaleY(2);
   }
 }
-.line {
-  height: 5px;
-  background: var(--ex-div-bgColor10);
-}
+
 .entrust {
   position: relative;
 }
+
 :deep(.van-tabs__nav) {
   padding-right: 80px;
 }
+
 .entrustR {
   position: absolute;
   top: 0;
   right: 0;
   background-color: #fff;
   padding: 15px 5px;
+
   .entrustRImg {
     padding: 0 8px;
     font-size: 12px;

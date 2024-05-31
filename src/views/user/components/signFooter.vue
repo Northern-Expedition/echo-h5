@@ -20,13 +20,6 @@
         _t18('register_toLogin')
       }}</span>
     </div>
-    <div class="info">
-      {{ _t18('register_agree') }} {{ _getConfig('_APP_META_TITLE') }}
-      <span @click="$router.push('/termsOfuse')">{{ _t18('register_howToUse') }}</span
-      >&nbsp;{{ _t18('register_and') }}&nbsp;<span @click="$router.push('/privacyPolicy')">{{
-        _t18('register_private')
-      }}</span>
-    </div>
   </div>
   <!-- 找回密码 -->
   <div class="box" v-if="props.type == 2">
@@ -338,14 +331,13 @@ const forgerPasswordSubmit = (params) => {
   color: var(--ex-default-font-color);
 }
 .box {
-  padding: 0 15px 50px;
   .btnBox {
     margin-top: 50px;
   }
   .account {
-    padding: 50px 0 50px;
-    font-size: 16px;
+    margin-top: 0.533333rem;
     text-align: center;
+    font-size: 0.373333rem;
     span {
       font-size: 16px;
       color: var(--ex-font-color9);

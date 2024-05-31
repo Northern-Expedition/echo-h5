@@ -2,14 +2,11 @@
 <template>
   <Header :type="0"></Header>
   <div class="loginMethod">
-    <van-tabs
-      v-model:active="active"
-      shrink
-      color="transparent"
-      title-active-color="#613af1"
-      title-inactive-color="#333"
-    >
-      <van-tab v-for="(item, index) in tabList" :key="index" :title="item.title">
+    <van-tabs v-model:active="active" animated>
+      <van-tab v-for="(item, index) in tabList" :key="index">
+        <template #title>
+          <div :class="['tab-item', active == index ? 'atv' : '']">{{ item.title }}</div>
+        </template>
         <component :is="currentComponent"></component>
       </van-tab>
     </van-tabs>
@@ -73,31 +70,42 @@ const active = ref(0)
   font-size: 14px;
 }
 .loginMethod {
-  padding: 30px 15px 0;
+  padding: 0.533333rem 0.426667rem;
+  min-height: 100vh;
 
-  :deep(.van-tab__text) {
-    font-size: 16px;
-  }
-  :deep(.van-tabs__nav) {
-    background: var(--ex-login-tab-background-color) !important;
-  }
-  :deep(.van-tabs__line) {
-    display: none;
-  }
-  :deep(.van-tab--active) {
-    font-weight: normal;
-  }
-  :deep(.van-tab) {
-    color: var(--ex-home-list-ftcolor) !important;
-  }
-  :deep(.van-tab--active) {
-    color: var(--ex-home-list-ftcolor3) !important;
-  }
-  :deep(.van-tabs__nav) {
-    padding: 0;
-  }
-  :deep(.van-tab--shrink) {
-    padding: 0 15px 10px 0;
+  :deep(.van-tabs) {
+    margin-top: 0.64rem;
+    overflow: hidden;
+
+    .van-tabs__nav {
+      border-radius: 0.266667rem;
+      padding: 0;
+      background: #161a33;
+
+      .van-tab--active {
+        background: var(--ex-home-tabs-bg-atv-color);
+        color: var(--ex-home-tabs-text-atv-color);
+        border-radius: 0.266667rem;
+      }
+
+      .tab-item.atv {
+        font-size: 0.4rem;
+        color: var(--ex-home-tabs-text-atv-color);
+      }
+
+      .tab-item {
+        padding: 0.32rem 0;
+        width: 100%;
+        font-size: 0.373333rem;
+        color: var(--ex-home-tabs-text-color);
+      }
+    }
+
+    .van-tabs__line {
+      width: 0px;
+      transform: translateX(84px) translateX(-50%);
+      transition-duration: 0.3s;
+    }
   }
   :deep(.van-count-down) {
     font-size: 14px;

@@ -8,28 +8,20 @@
           <svg-load name="jiantou-z" class="leftImg" @click="_back()"></svg-load>
         </div>
         <div class="headerChoose">
-          <van-tabs
-            swipeable
-            shrink
-            :swipe-threshold="2"
-            v-model:active="currentIndex"
-            line-width="20"
-            line-height="2"
-            color="#613af1"
-            title-active-color="#613af1"
-            title-inactive-color="#5d626d"
-          >
-            <van-tab v-for="(item, index) in headerList" :key="index" :title="item.title">
+          <van-tabs swipeable v-model:active="currentIndex">
+            <van-tab v-for="(item, index) in headerList" :key="index">
+              <template #title>
+                <div class="tab-item" :class="currentIndex === index ? 'atv' : ''">
+                  {{ item.title }}
+                </div>
+              </template>
             </van-tab>
           </van-tabs>
         </div>
       </div>
     </van-sticky>
     <!-- tab -->
-    <component
-      :is="currentComponent"
-      :headerList="headerList"
-    ></component>
+    <component :is="currentComponent" :headerList="headerList"></component>
   </div>
 </template>
 
@@ -60,9 +52,9 @@ const currentComponent = computed(() => {
   let temp = ''
   if (headerList.value[currentIndex.value].componentName == 'SecondContract') {
     temp = SecondContract
-  }else if (headerList.value[currentIndex.value].componentName == 'BBTrading') {
+  } else if (headerList.value[currentIndex.value].componentName == 'BBTrading') {
     temp = BBTrading
-  }else if (headerList.value[currentIndex.value].componentName == 'Ustandard') {
+  } else if (headerList.value[currentIndex.value].componentName == 'Ustandard') {
     temp = Ustandard
   }
   return temp
@@ -115,7 +107,7 @@ watch(
   },
   { immediate: true }
 )
-onMounted(()=>{
+onMounted(() => {
   tradeStore.getCoinList()
 })
 </script>
@@ -126,7 +118,6 @@ onMounted(()=>{
   border-bottom: 1px solid var(--ex-border-color);
   display: flex;
   align-items: center;
-  background: var(--ex-home-list-bgcolor);
   z-index: 9;
   padding-left: 15px;
 
@@ -135,39 +126,48 @@ onMounted(()=>{
     font-size: 16px;
     font-weight: normal;
     color: var(--ex-default-font-color);
+    padding: 0.266667rem;
+    border-radius: 0.213333rem;
+    line-height: normal;
+    background: var(--ex--backup-background-color-2);
 
     .leftImg {
       width: 16px;
       height: 12px;
-      margin-right: 15px;
     }
   }
 
   .headerChoose {
-    display: flex;
-    padding: 0 15px 0 0;
-    background: var(--ex-home-list-bgcolor);
-
-    :deep(.van-tabs__wrap) {
-      height: 59px;
-    }
-
-    :deep(.van-tabs__nav) {
-      background: var(--ex-home-list-bgcolor);
-    }
-
-    :deep(.van-tab) {
-      flex: none;
-      font-size: 16px;
-      margin-right: 30px;
-      padding: 0;
-      color: var(--ex-home-list-ftcolor) !important;
-      background: var(--ex-home-list-bgcolor);
-    }
-
-    :deep(.van-tab--active) {
-      font-weight: normal;
-      color: var(--ex-home-list-ftcolor3) !important;
+    width: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+    :deep(.van-tabs) {
+      overflow: hidden;
+      .van-tabs__nav {
+        border-radius: 0.266667rem;
+        padding: 0;
+        background: #161a33;
+      }
+      .van-tab--active {
+        background: var(--ex-home-tabs-bg-atv-color);
+        color: var(--ex-home-tabs-text-atv-color);
+        border-radius: 0.266667rem;
+      }
+      .tab-item {
+        padding: 0.266667rem 0;
+        width: 100%;
+        font-size: 0.373333rem;
+        color: var(--ex-home-tabs-text-color);
+      }
+      .atv {
+        color: var(--ex-home-tabs-text-atv-color);
+      }
+      .van-tabs__line {
+        width: 0px;
+      }
+      .van-tabs__content--animated {
+        overflow: hidden;
+      }
     }
   }
 }

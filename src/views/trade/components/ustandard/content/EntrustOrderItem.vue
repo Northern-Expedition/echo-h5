@@ -1334,7 +1334,6 @@ const sharedImg = (model, yieldHisValue) => {
 .popupSelect {
   height: 36px;
   border-radius: 3px 3px 3px 3px;
-  background: var(--ex-div-bgColor);
   display: flex;
   font-size: 14px;
   color: var(--ex-passive-font-color);
@@ -1344,11 +1343,13 @@ const sharedImg = (model, yieldHisValue) => {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #252a4d;
   }
 
   .selectHight {
     color: var(--ex-font-color);
-    background: var(--ex-div-bgColor1);
+    background: #00e291;
+    margin-right: 10px;
     border-radius: 3px 3px 3px 3px;
   }
 }
@@ -1473,7 +1474,7 @@ const sharedImg = (model, yieldHisValue) => {
 
   .determinebtn {
     height: 50px;
-    background: var(--ex-div-bgColor1);
+    background: #00e291;
     border-radius: 3px 3px 3px 3px;
     font-size: 16px;
     color: var(--ex-font-color);

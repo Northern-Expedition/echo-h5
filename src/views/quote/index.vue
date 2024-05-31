@@ -28,7 +28,6 @@
       </div>
       <img src="@/assets/quote/simulate.png" class="img simulate-bg" />
     </div>
-
     <div class="headerChoose">
       <van-tabs
         swipeable
@@ -37,10 +36,7 @@
         v-model:active="currentIndex"
         line-width="20"
         line-height="2"
-        color="#613af1"
-        title-active-color="#613af1"
-        title-inactive-color="#5d626d"
-        background="var(--ex-div-bgColor8)"
+        color="#fff"
       >
         <van-tab v-for="(item, index) in headerList" :key="index" :title="item.title">
           <component :is="currentComponent" :searchName="searchName"></component>
@@ -165,12 +161,12 @@ watch(
     font-size: 14px;
     margin-right: 30px;
     padding: 0;
-    color: var(--ex-home-list-ftcolor) !important;
+    color: #7a7a7a !important;
     background: var(--ex-div-bgColor8) !important;
   }
   :deep(.van-tab--active) {
     font-weight: normal;
-    color: var(--ex-home-list-ftcolor3) !important;
+    color: #fff !important;
   }
 }
 </style>

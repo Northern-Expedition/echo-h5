@@ -125,6 +125,10 @@ const setCollectByCoin = () => {}
   .first {
     display: flex;
     justify-content: space-between;
+    padding: 0.213333rem;
+    z-index: 9;
+    background: var(--ex--backup-background-color-2);
+    border-radius: 0.213333rem;
     .firLeft {
       display: flex;
       align-items: center;
@@ -151,9 +155,9 @@ const setCollectByCoin = () => {}
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0 10px;
+    padding: 0.3333rem 0 0.266667rem;
     .secondLeft {
-      font-size: 36px;
+      font-size: 0.48rem;
       font-weight: bold;
       color: var(--ex-font-color10);
       > * {

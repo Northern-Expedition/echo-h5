@@ -1,5 +1,4 @@
 * {
-  // color: #333;
   font-size: 14px;
 }
 
@@ -8,14 +7,14 @@
     margin: 20px 0 10px;
   }
   & > div {
-    border: 1px solid var(--ex-login-input-border-color);
+    border: 1px solid #1f2329;
     padding: 8px 10px;
-    border-radius: 3px;
+    border-radius: 0.213333rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     line-height: 1.5;
-    background: var(--ex-login-input-background-color);
+    background: #161a33;
     img {
       height: 100%;
     }
@@ -27,7 +26,7 @@
       }
       p {
         margin: 0 5px;
-        color: var(--ex-active-font-color);
+        color: #a0a5af;
       }
     }
     .jiantou {
@@ -37,7 +36,7 @@
       color: var(--ex-login-input-font-color);
     }
     input {
-      background: var(--ex-login-input-background-color);
+      background: #161a33;
       padding: 3px 0;
       flex: 1;
     }
@@ -47,10 +46,16 @@
       height: 30px;
     }
     & > p {
-      background-color: var(--ex-primary-color);
-      border-radius: 2px;
-      padding: 3px 8px;
-      color: var(--ex-font-color);
+      color: white;
+      background: linear-gradient(39deg, rgb(203, 78, 232) 0%, rgb(16, 244, 177) 100%);
+      border: 0px;
+      height: 0.906667rem;
+      padding: 0 0.266667rem;
+      min-width: 2.026667rem;
+      font-size: 0.32rem;
+      text-align: center;
+      line-height: 0.906667rem;
+      border-radius: 10px;
     }
   }
 }

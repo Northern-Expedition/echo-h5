@@ -1,8 +1,22 @@
 <template>
   <div class="leftSide">
-    <div class="leftSideHeader fw-bold">{{ _t18('quote') }}</div>
     <div class="search">
-      <svg-load name="sousuo-h" class="searchImg"></svg-load>
+      <van-cell>
+        <template #title>
+          <input
+            type="text"
+            v-model.trim="searchName"
+            class="inputSearch"
+            :placeholder="_t18('search_currency')"
+            @input="searchBtn"
+          />
+        </template>
+
+        <template #right-icon>
+          <van-icon name="search" class="search-icon" color="#fff" size="20" />
+        </template>
+      </van-cell>
+      <!-- <svg-load name="sousuo-h" class="searchImg"></svg-load>
       <div class="contain">
         <input
           type="text"
@@ -11,7 +25,7 @@
           :placeholder="_t18('search_currency')"
           @input="searchBtn"
         />
-      </div>
+      </div> -->
     </div>
     <Filter :list="currentCoinList" @toSort="toSort"></Filter>
     <div class="leftList">
@@ -116,23 +130,37 @@ const toSort = (v) => {
 </script>
 
 <style lang="scss" scoped>
+:deep(.currencyItem) {
+  padding: 0.373333rem 0.426667rem;
+  background-color: transparent;
+}
+:deep(.van-cell__title, .van-cell__value) {
+  display: flex;
+  align-items: center;
+}
+input {
+  color: #fff;
+}
+.search-icon {
+  display: flex;
+  align-items: center;
+}
 .leftSide {
-  .leftSideHeader {
-    margin: 20px 15px 0;
-    padding-top: 10px;
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--ex-default-font-color);
-  }
+  display: flex;
+  flex-direction: column;
+  padding: 0.533333rem 0;
+  position: relative;
+  height: 100%;
+  background-color: #161a33;
   .search {
-    margin: 30px 15px 15px;
-    height: 46px;
-    background: var(--ex-div-bgColor8);
-    border-radius: 23px;
-    display: flex;
-    padding: 0 20px;
-    align-items: center;
-    justify-content: space-between;
+    height: 1.333333rem;
+    padding: 0 0.426667rem;
+    :deep(.van-cell) {
+      height: 1.333333rem;
+      border-radius: 0.213333rem;
+      background: var(--ex-default-background-color);
+    }
+
     .searchImg {
       width: 20px;
       height: 20px;

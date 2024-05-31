@@ -2,14 +2,14 @@
   <div>
     <div class="formData">
       <!-- 邮箱 -->
-      <p>{{ _t18('login_emailCode') }}</p>
+      <p style="color: #a0a5af">{{ _t18('login_emailCode') }}</p>
       <div>
         <input type="text" :placeholder="_t18('login_emailCode')" v-model="formData2.email" />
       </div>
     </div>
     <div v-if="['aams'].includes(_getConfig('_APP_ENV'))" class="formData">
       <!-- 手机号 -->
-      <p>{{ _t18('login_mobileCode') }}</p>
+      <p style="color: #a0a5af">{{ _t18('login_mobileCode') }}</p>
       <div>
         <input type="text" :placeholder="_t18('login_mobileCode')" v-model="formData2.mobile" />
         <div class="right" @click="shouAreaCode">
@@ -21,7 +21,7 @@
     </div>
     <div class="formData">
       <!-- 密码 -->
-      <p>{{ _t18('login_pwd') }}</p>
+      <p style="color: #a0a5af">{{ _t18('login_pwd') }}</p>
       <div>
         <input
           :type="showk ? 'text' : 'password'"
@@ -33,7 +33,7 @@
     </div>
     <div class="formData">
       <!-- 确认密码 -->
-      <p>{{ _t18('register_pwd_require') }}</p>
+      <p style="color: #a0a5af">{{ _t18('register_pwd_require') }}</p>
       <div>
         <input
           :type="requireShowk ? 'text' : 'password'"
@@ -49,7 +49,7 @@
     <p class="requirePass" v-if="requirePass">*{{ _t18('register_pwd_diff') }}</p>
     <div class="formData">
       <!-- 邀请码 选填 -->
-      <p>
+      <p style="color: #a0a5af">
         {{ _t18('register_invitation') }}
         <i v-if="REGISTER_REQUIRED_ACTIVECODE.includes(_getConfig('_APP_ENV'))"
           >({{ _t18('required') }})</i
@@ -62,7 +62,7 @@
     </div>
     <div class="formData">
       <!-- 验证码 -->
-      <p>{{ _t18('login_code') }}</p>
+      <p style="color: #a0a5af">{{ _t18('login_code') }}</p>
       <div>
         <input type="text" :placeholder="_t18('login_please')" v-model="formData2.code" />
         <p v-if="!flag" @click="send()">{{ _t18('login_send') }}</p>

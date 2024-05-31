@@ -10,7 +10,6 @@
     <div class="content">
       <!-- 选择语言 -->
       <!-- <div>{{$t('sidebar_language_title')}}</div> -->
-      <div>{{ _t18('sidebar_language') }}</div>
       <van-radio-group v-model="checked">
         <van-radio
           :name="index"
@@ -34,7 +33,7 @@
 </template>
 <script setup>
 import { storageDict } from '@/config/dict'
-import router from '@/router';
+import router from '@/router'
 import { useMainStore } from '@/store/index.js'
 import { computed } from 'vue'
 const mainStore = useMainStore()
@@ -74,7 +73,7 @@ const cuttentRight = { iconRight: [{ iconName: 'kefu', clickTo: 'event_serviceCh
   color: var(--ex-default-font-color);
 }
 .content {
-  padding: 30px 15px;
+  padding: 0.4rem;
   text-align: left;
   & > div {
     font-size: 16px;

@@ -590,15 +590,15 @@ watchEffect(() => {
         id: orderId.value
       }
       try {
-        setTimeout(()=>{
+        setTimeout(() => {
           secondContractOrderselectOrderList(data).then((res) => {
-          if (res.code === 200) {
-            orderObj.value = res.data[0]
-          } else {
-            showToast(res.msg)
-          }
-        })
-        },500)
+            if (res.code === 200) {
+              orderObj.value = res.data[0]
+            } else {
+              showToast(res.msg)
+            }
+          })
+        }, 500)
       } catch (error) {}
     }
     if (overFlag.value && countDown.value <= 0) {
@@ -768,20 +768,18 @@ input::-ms-input-placeholder {
   z-index: 9;
   padding: 0 15px;
   .item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 165px;
-    height: 50px;
-    font-size: 16px;
-    color: var(--ex-font-color);
-    border-radius: 3px 3px 3px 3px;
+    min-width: 4.08rem;
+    padding: 0.32rem 0.266667rem;
+    font-size: 0.4rem;
+    border-radius: 0.213333rem;
+    text-align: center;
+    color: var(--ex-default-font-color);
   }
   .ups {
-    background: var(--ex-div-bgColor1);
+    background: var(--ex-trade-buy-bg-color);
   }
   .downs {
-    background-color: var(--ex-div-bgColor7);
+    background: var(--ex-trade-Sell-bg-color);
   }
 }
 .titleLeft {

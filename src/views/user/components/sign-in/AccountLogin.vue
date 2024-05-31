@@ -21,6 +21,9 @@
         /><svg-load :name="showk ? 'yanjin-k' : 'yanjin-g'" @click="showk = !showk"></svg-load>
       </div>
     </div>
+    <p class="forgotPwd" @click="$router.push('/forgot-password')">
+      {{ _t18('forget_pwd', ['bitmake']) }}?
+    </p>
     <div class="formData" v-if="mainStore.getISCode">
       <p>{{ _t18('login_code') }}</p>
       <div>
@@ -31,10 +34,6 @@
         </span>
       </div>
     </div>
-
-    <p class="forgotPwd" @click="$router.push('/forgot-password')">
-      {{ _t18('forget_pwd', ['bitmake']) }}
-    </p>
     <Footer :type="0" :formDataToLogin="formData1" @refersh="refreshCode"></Footer>
   </div>
 </template>
@@ -68,4 +67,14 @@ const showk = ref(false)
 import './../style.scss'
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.formData {
+  padding-right: 0.5px;
+  margin-top: 0.373333rem;
+  position: relative;
+  p {
+    font-size: 0.373333rem;
+    color: var(--ex-input-label-color);
+  }
+}
+</style>
