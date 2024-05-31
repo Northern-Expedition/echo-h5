@@ -150,7 +150,7 @@ onMounted(() => {
   <div class="project">
     <div class="title">
       <div class="line"></div>
-      <div class="text">质押仓位</div>
+      <div class="text">{{ _t18('pledge_the_position') }}</div>
       <div class="line"></div>
     </div>
     <div class="projectList" v-if="projectList?.length > 0">

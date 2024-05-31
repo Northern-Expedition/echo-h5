@@ -96,3 +96,7 @@ export const getWhitePaperUrl = () => post(`api/common/getWhitePaperSetting`)
  * 获取轮播详情
  */
 export const noticeDetail = (noticeId) => get(`api/notice/${noticeId}`)
+/**
+ * 福利活动
+ */
+export const noticeListApi = () => post(`/api/notice/list?key=REGISTER_WELFARE&modelKey=REGISTER_WELFARE_NOTICE`)
