@@ -930,6 +930,8 @@
   "borrow_money": "借款",
   "sidebar_regulatoryCertificate": "监管证书",
   "Exchange_introduction": "交易所介绍",
+  "no_assets_1": "交易账户暂无资产",
+  "no_assets_2": "您可以尝试模拟交易",
   "rxce_position_collateral_assets": "持仓资产",
   "rxce_Close_position": "提前平仓",
   "rxce_exchange_hisentrust": "历史成交",

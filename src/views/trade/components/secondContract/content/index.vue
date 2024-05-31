@@ -52,6 +52,11 @@
   </div>
 
   <!-- 暂无数据   -->
+  123
+  <div class="tips">
+    <div class="fw-bold tips_nozc">交易账户暂无资产</div>
+    <div class="tips_smn">您可以尝试模拟交易</div>
+  </div>
   <Nodata v-if="historyNewList.length === 0"></Nodata>
   <div class="placeholder"></div>
 
