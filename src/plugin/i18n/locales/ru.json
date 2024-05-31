@@ -929,6 +929,8 @@
   "borrow_money": "Занять деньги",
   "sidebar_regulatoryCertificate": "Сертификат регулирования",
   "Exchange_introduction": "Введение в биржу",
+  "no_assets_1": "На торговом счете нет активов",
+  "no_assets_2": "Вы можете попробовать симулированную торговлю",
   "rxce_position_collateral_assets": "Позиция активов",
   "rxce_Close_position": "Закрыть позицию",
   "rxce_exchange_hisentrust": "Исторические транзакции",

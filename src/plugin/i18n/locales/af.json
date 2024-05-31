@@ -930,6 +930,8 @@
   "borrow_money": "Leen geld",
   "sidebar_regulatoryCertificate": "Regulerende Sertifikaat",
   "Exchange_introduction": "Beurs inleiding",
+  "no_assets_1": "Daar is geen bates in die handelsrekening nie",
+  "no_assets_2": "Jy kan probeer om gesimuleerde handel",
   "rxce_position_collateral_assets": "Oop Posisies",
   "rxce_Close_position": "Vroee Posisie Sluiting",
   "rxce_exchange_hisentrust": "Transaksiegeskiedenis",

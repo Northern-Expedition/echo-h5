@@ -930,6 +930,8 @@
   "borrow_money": "Borrow Money",
   "sidebar_regulatoryCertificate": "Regulatory Certificate",
   "Exchange_introduction": "Exchange Introduction",
+  "no_assets_1": "There are no assets in the trading account",
+  "no_assets_2": "You can try simulated trading",
   "rxce_position_collateral_assets": "Position assets",
   "rxce_Close_position": "Close position",
   "rxce_exchange_hisentrust": "Historical transactions",

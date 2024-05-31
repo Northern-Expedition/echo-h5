@@ -13,7 +13,7 @@
           <svg-load name="news" class="rightImg" @click="openSideBar"></svg-load>
         </div>
       </div>
-      <div class="swiper">
+      <div class="swiper" v-if="carouselList.length">
         <van-swipe :autoplay="3000" lazy-render :loop="true" :show-indicators="false">
           <van-swipe-item v-for="(item, index) in carouselList" :key="index">
             <image-load :filePath="item.imgUrl" alt="" class="carouselItem" @click="linkto(item)" />

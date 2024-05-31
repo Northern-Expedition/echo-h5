@@ -929,6 +929,8 @@
   "borrow_money": "Prendere in Prestito",
   "sidebar_regulatoryCertificate": "Certificato Regolamentare",
   "Exchange_introduction": "Introduzione allo Scambio",
+  "no_assets_1": "Non ci sono asset nel conto di trading.",
+  "no_assets_2": "Puoi provare il trading simulato",
   "rxce_position_collateral_assets": "Posizionare gli asset",
   "rxce_Close_position": "Posizione chiusa",
   "rxce_exchange_hisentrust": "Transazioni storiche",

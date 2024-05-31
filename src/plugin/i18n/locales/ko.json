@@ -930,6 +930,8 @@
   "borrow_money": "돈 빌리기",
   "sidebar_regulatoryCertificate": "규제 인증서",
   "Exchange_introduction": "거래소 소개",
+  "no_assets_1": "거래 계정에 자산이 없습니다",
+  "no_assets_2": "시뮬레이션 거래를 시도할 수 있습니다",
   "rxce_position_collateral_assets": "포지션 자산",
   "rxce_Close_position": "포지션 닫기",
   "rxce_exchange_hisentrust": "과거 거래",
