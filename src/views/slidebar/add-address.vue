@@ -23,7 +23,7 @@
         <div class="input">
           <van-field
             class="input-field"
-            type="textarea"
+            type="input"
             v-model="form.address"
             :placeholder="_t18('exchange.input')"
           />
@@ -146,13 +146,12 @@ const submit = () => {
 }
 
 .bg {
-  background: var(--ex-login-tab-background-color) !important;
+  background: #0e1327;
 }
 .form {
   min-height: 100vh;
 
-  background: var(--ex-login-tab-background-color) !important;
-  border-radius: 15px 15px 0px 0px;
+  background: #0e1327;
   overflow: hidden;
   padding: 0 15px 15px;
   .img {
@@ -170,22 +169,31 @@ const submit = () => {
     line-height: 18px;
   }
   .form-item {
+    margin: 0.533333rem 0;
+
     .label {
-      font-size: 14px;
-      font-family: PingFangSC-Regular, PingFang SC;
-      font-weight: 400;
-      line-height: 20px;
-      margin: 20px auto 10px;
-      padding-left: 10px;
+      font-size: 0.373333rem;
+      color: var(--ex-input-label-color2);
+      margin-bottom: 0.266667rem;
+      margin-left: 0.133333rem;
     }
+
     .input {
       position: relative;
-      background: var(--ex-login-tab-background-color) !important;
       border-radius: 4px;
-      height: 40px;
       display: flex;
       align-items: center;
       padding-right: 10px;
+      background: var(--ex-input-background-color);
+      border-radius: 0.213333rem;
+      height: 1.333333rem;
+      font-size: 0.373333rem;
+      &:focus {
+        border: 0.026667rem solid #8885fb !important;
+        outline: none;
+        color: white !important;
+      }
+
       .coin {
         width: 25px;
         height: 25px;
@@ -219,5 +227,25 @@ const submit = () => {
     color: var(--ex-font-color);
     border: none;
   }
+}
+
+.van-cell::after {
+  display: none;
+}
+</style>
+
+<style lang="scss">
+.input {
+  .van-field__control {
+    color: white !important;
+  }
+}
+
+.van-popup,
+.van-action-sheet__item,
+.van-action-sheet__gap,
+.van-action-sheet__cancel {
+  background: #161a33;
+  color: white;
 }
 </style>

@@ -10,7 +10,7 @@
           <Logo @click="openSideBar"></Logo>
         </div>
         <div class="rightImg">
-          <svg-load name="news" class="rightImg" @click="openSideBar"></svg-load>
+          <svg-load name="news" class="rightImg" @click="openWindow"></svg-load>
         </div>
       </div>
       <div class="swiper" v-if="carouselList.length">
@@ -98,6 +98,11 @@ const dataList = computed(() => {
   })
   return tempData
 })
+
+function openWindow() {
+  const url = mainStroe.settingConfig?.SUPPORT_STAFF_SETTING?.[0]?.url
+  window.location.href =  window.location.origin + '/' + url
+}
 
 const linkTo = (item) => {
   mainStroe.setTradeStatus(Number(0))
