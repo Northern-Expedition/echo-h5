@@ -41,12 +41,14 @@
             style="display: flex; align-items: center"
           >
             <svg-load
+              v-if="item.iconName"
               :name="item.iconName"
               class="rightIcon"
               @click="handelClick(item.clickTo)"
             ></svg-load>
             <div
               v-if="item.text"
+              @click="handelClick(item.clickTo)"
               style="color: #8885fb; margin-left: 0.106667rem; font-size: 0.373333rem"
             >
               {{ item.text }}
@@ -97,7 +99,6 @@ const props = defineProps({
     default: false
   }
 })
-console.log(props.cuttentRight)
 const emit = defineEmits(['linkTo', 'showPopup', 'del'])
 const linkTo = () => {
   emit('linkTo')
@@ -106,7 +107,6 @@ const showPopup = () => {
   emit('showPopup')
 }
 let handelClick = (item) => {
-  console.log('123', item)
   if (item == 'event_serviceChange') {
     dispatchCustomEvent('event_serviceChange')
   } else if (item == 'del') {

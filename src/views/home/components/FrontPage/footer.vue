@@ -184,7 +184,7 @@ const handelShowTab = (item) => {
     .van-tabs__nav {
       border-radius: 0.266667rem;
       padding: 0;
-      background: var(--ex-home-tabs-bg-color);
+      background: #161a33;
     }
     .van-tab--active {
       background: var(--ex-home-tabs-bg-atv-color);
