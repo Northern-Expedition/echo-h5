@@ -2,18 +2,18 @@
 <template>
   <div>
     <van-popup v-model:show="show" position="left" class="sidebar">
-      <SideBar @closeSideBar="closeSideBar"></SideBar>
+      <SideBar @close-side-bar="closeSideBar" />
     </van-popup>
     <div class="carousel">
       <div class="top">
         <div>
-          <Logo @click="openSideBar"></Logo>
+          <Logo @click="openSideBar" />
         </div>
         <div class="rightImg">
-          <svg-load name="news" class="rightImg" @click="openWindow"></svg-load>
+          <svg-load name="news" class="rightImg" @click="openWindow" />
         </div>
       </div>
-      <div class="swiper" v-if="carouselList.length">
+      <div v-if="carouselList.length" class="swiper">
         <van-swipe :autoplay="3000" lazy-render :loop="true" :show-indicators="false">
           <van-swipe-item v-for="(item, index) in carouselList" :key="index">
             <image-load :filePath="item.imgUrl" alt="" class="carouselItem" @click="linkto(item)" />
@@ -58,13 +58,14 @@
   </div>
 </template>
 <script setup>
-import { useTradeStore } from '@/store/trade/index'
-import { useMainStore } from '@/store/index.js'
+import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { onMounted } from 'vue'
+
 import { publiceNotice } from '@/api/common/index'
-import { computed } from 'vue'
+import { useMainStore } from '@/store/index.js'
+import { useTradeStore } from '@/store/trade/index'
 import SideBar from '@/views/home/sidebar/index.vue'
+
 const show = ref(false)
 const openSideBar = () => {
   show.value = true
@@ -101,7 +102,7 @@ const dataList = computed(() => {
 
 function openWindow() {
   const url = mainStroe.settingConfig?.SUPPORT_STAFF_SETTING?.[0]?.url
-  window.location.href =  window.location.origin + '/' + url
+  window.location.href = window.location.origin + '/' + url
 }
 
 const linkTo = (item) => {
@@ -126,7 +127,9 @@ onMounted(async () => {
         return item.status != '1'
       })
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 })
 </script>
 <style lang="scss" scoped>

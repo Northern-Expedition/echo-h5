@@ -1,18 +1,18 @@
 <!-- 兑换 -->
 <template>
   <!-- 闪兑 -->
-  <HeaderBar :currentName="_t18('swap')"></HeaderBar>
+  <HeaderBar :currentName="_t18('swap')" />
   <div class="swap-page">
     <div class="content">
       <div class="from">
         <div class="left-img" @click="showAction('from')">
           <div class="svgImg">
             <image-load
+              v-if="list1Current?.icon?.length > 10"
               :filePath="list1Current?.icon"
               class="img"
-              v-if="list1Current?.icon?.length > 10"
             />
-            <svg-load :name="list1Current?.icon" class="img" v-else></svg-load>
+            <svg-load v-else :name="list1Current?.icon" class="img" />
           </div>
           <div class="coin-name">
             {{ list1Current?.coin?.toLocaleUpperCase() }}
@@ -21,10 +21,10 @@
         </div>
         <div class="input-item">
           <input
+            v-model="fromNum"
             type="number"
             disabled
             class="ff-num"
-            v-model="fromNum"
             :placeholder="_t18('exchange.input')"
           />
           <div class="all">{{ _t18('swap_all') }}</div>
@@ -32,18 +32,18 @@
       </div>
       <!-- 交换按钮 -->
       <div class="exchange_btn">
-        <svg-load name="duihuan40x40" class="dui" @click="jiaohuan()"></svg-load>
+        <svg-load name="duihuan40x40" class="dui" @click="jiaohuan()" />
         <!-- <svg-load name="duihuan40x40" class="dui"></svg-load> -->
       </div>
       <div class="to">
         <div class="left-img" @click="showAction('to')">
           <div class="svgImg">
             <image-load
+              v-if="list2Current?.icon?.length > 10"
               :filePath="list2Current?.icon"
               class="img"
-              v-if="list2Current?.icon?.length > 10"
             />
-            <svg-load :name="list2Current?.icon" class="img" v-else></svg-load>
+            <svg-load v-else :name="list2Current?.icon" class="img" />
           </div>
           <div class="coin-name">
             {{ list2Current?.coin?.toLocaleUpperCase() }}
@@ -52,10 +52,10 @@
         </div>
         <div class="change-input">
           <input
+            v-model="toNum"
             type="number"
             disabled
             class="ff-num"
-            v-model="toNum"
             :placeholder="_t18('swap_number')"
           />
         </div>
@@ -83,7 +83,7 @@
       </div>
       <div class="rate">
         <!-- 今日汇率 -->
-        <image-load filePath="rate.png" name="defi" class="img rateImg"></image-load>
+        <image-load filePath="rate.png" name="defi" class="img rateImg" />
         1
         <span>{{ list1Current.coin?.toLocaleUpperCase() }}</span
         >&nbsp;≈&nbsp;<span>{{ curRate }}</span
@@ -100,9 +100,9 @@
     </div>
     <!-- sheet币种面板 -->
     <van-action-sheet
+      id="sheetPopup"
       v-model:show="showSheet"
       title=""
-      id="sheetPopup"
       style="max-width: var(--ex-max-width); left: 50%; translate: -50%"
     >
       <div class="coinList">
@@ -114,12 +114,12 @@
         >
           <div class="svgImg">
             <image-load
+              v-if="item?.icon?.length > 10"
               :filePath="item.icon"
               alt=""
               class="iconImg"
-              v-if="item?.icon?.length > 10"
             />
-            <svg-load :name="item.icon" class="icon" v-else></svg-load>
+            <svg-load v-else :name="item.icon" class="icon" />
           </div>
           <div>
             <p>{{ item.coin?.toLocaleUpperCase() }}</p>
@@ -131,20 +131,24 @@
 </template>
 
 <script setup>
+import { debounce } from 'lodash'
+import { storeToRefs } from 'pinia'
+import { showToast } from 'vant'
+import { computed, onMounted, ref } from 'vue'
+
+import { rate, toExchange } from '@/api/account'
 import { DIFF_ISFREEZE } from '@/config/index'
 import { useFreeze } from '@/hook/useFreeze'
-const { _isFreeze } = useFreeze()
-import { showToast } from 'vant'
-import { _t18 } from '@/utils/public'
 import { useToast } from '@/hook/useToast'
-const { _toast } = useToast()
-import { rate, toExchange } from '@/api/account'
-import { debounce } from 'lodash'
-import { priceFormat } from '@/utils/decimal.js'
-import { ref, computed, onMounted } from 'vue'
 import { useAccountStore } from '@/store/account/index'
 import { useUserStore } from '@/store/user/index'
-import { storeToRefs } from 'pinia'
+import { priceFormat } from '@/utils/decimal.js'
+import { _t18 } from '@/utils/public'
+
+const { _isFreeze } = useFreeze()
+
+const { _toast } = useToast()
+
 const accountStore = useAccountStore()
 const userStore = useUserStore()
 userStore.getUserInfo()
@@ -200,8 +204,8 @@ const init = async () => {
   })
   // **************************
   // 兑换成什么列表添加金额
-  swapCoinList.value.forEach((item, index) => {
-    template1.forEach((items, indexs) => {
+  swapCoinList.value.forEach((item) => {
+    template1.forEach((items) => {
       if (items.coin == item.coin) {
         item['amount'] = items.amount
       }
@@ -217,10 +221,10 @@ const init = async () => {
   }
   // list1Current.value = template1[0]
   list1Coin.value = list1Current.value?.coin
-  list2.value = swapCoinList.value?.filter((item, index) => {
+  list2.value = swapCoinList.value?.filter((item) => {
     return item.coin != list1Current.value?.coin
   })
-  list2Current.value = swapCoinList.value?.filter((item, index) => {
+  list2Current.value = swapCoinList.value?.filter((item) => {
     return item.coin != list1Current.value?.coin
   })[0]
   list2Coin.value = list2Current.value?.coin
@@ -255,24 +259,24 @@ const getRate = (from, to) => {
 watch([list1Coin], ([newValue], [oldValue]) => {
   if (jiaohuanFlag.value) {
     //上面默认显示的货币
-    list1.value.forEach((item, index) => {
+    list1.value.forEach((item) => {
       if (item.coin == newValue) {
         list1Current.value = item
       }
     })
     //下面货币列表
-    list2.value = swapCoinList.value.filter((item, index) => {
+    list2.value = swapCoinList.value.filter((item) => {
       return item.coin != list1Current.value.coin
     })
     // 下面货币列表排他
     if (newValue == list2Coin.value) {
-      list2Current.value = swapCoinList.value.filter((item, index) => {
+      list2Current.value = swapCoinList.value.filter((item) => {
         return item.coin != list1Current.value.coin
       })[0]
       list2Coin.value = list2Current.value.coin
     }
   } else {
-    list1.value.forEach((item, index) => {
+    list1.value.forEach((item) => {
       if (item.coin == newValue) {
         list1Current.value = item
       }
@@ -282,22 +286,22 @@ watch([list1Coin], ([newValue], [oldValue]) => {
 watch([list2Coin], ([newValue], [oldValue]) => {
   if (jiaohuanFlag.value) {
     // 下面默认显示的货币
-    list2.value.forEach((item, index) => {
+    list2.value.forEach((item) => {
       if (item.coin == newValue) {
         list2Current.value = item
       }
     })
   } else {
-    list2.value.forEach((item, index) => {
+    list2.value.forEach((item) => {
       if (item.coin == newValue) {
         list2Current.value = item
       }
     })
-    list1.value = swapCoinList.value.filter((item, index) => {
+    list1.value = swapCoinList.value.filter((item) => {
       return item.coin != list2Current.value.coin
     })
     if (newValue == list2Coin.value) {
-      list1Current.value = swapCoinList.value.filter((item, index) => {
+      list1Current.value = swapCoinList.value.filter((item) => {
         return item.coin != list2Current.value.coin
       })[0]
       list1Coin.value = list2Current.value.coin
@@ -426,38 +430,47 @@ const submit = () => {
   font-size: 14px;
   color: var(--ex-default-font-color);
 }
+
 .swap-page {
   padding: 0 0.4rem;
+
   .content {
     padding: 0.8rem 0.4rem;
     background: var(--ex-financial-card-bg-color);
     margin-top: 0.533333rem;
     border-radius: 0.133333rem;
+
     .to,
     .from {
       display: flex;
       justify-content: space-between;
+
       .left-img {
         display: flex;
         align-items: center;
+
         .svgImg {
           width: 0.533333rem;
           height: 0.533333rem;
           border-radius: 50%;
+
           .img {
             width: 0.533333rem;
             height: 0.533333rem;
             border-radius: 50%;
           }
         }
+
         .coin-name {
           margin: 0 0.213333rem;
         }
+
         .downImg {
           width: 0.24rem;
           height: 0.133333rem;
         }
       }
+
       .change-input {
         input {
           text-align: right;
@@ -468,23 +481,28 @@ const submit = () => {
           color: var(--ex-copy-font-color);
         }
       }
+
       .input-item {
         display: flex;
         justify-content: space-around;
         align-items: center;
         padding-bottom: 0.346667rem;
         border-bottom: 0.026667rem solid var(--ex-font-color24);
+
         input {
           background-color: transparent;
+
           &::placeholder {
             color: #7a7a71;
           }
         }
+
         .all {
           color: var(--ex-copy-font-color);
         }
       }
     }
+
     .exchange_btn {
       margin-left: 2.506667rem;
 
@@ -492,6 +510,7 @@ const submit = () => {
         font-size: 40px;
       }
     }
+
     .rate {
       display: flex;
       align-items: center;
@@ -499,6 +518,7 @@ const submit = () => {
       padding: 0.4rem;
       border-radius: 0.133333rem;
       background: var(--ex-card-deep-bg-color);
+
       .rateImg {
         width: 0.586667rem;
         height: 0.586667rem;
@@ -506,6 +526,7 @@ const submit = () => {
       }
     }
   }
+
   .available-amount {
     display: flex;
     justify-content: space-between;
@@ -513,16 +534,20 @@ const submit = () => {
     margin-top: 0.533333rem;
     border-radius: 0.133333rem;
     padding: 0.4rem;
+
     &:first-child {
       font-size: 0.346667rem;
       color: var(--ex-passive-font-color);
     }
+
     &:last-child {
       font-size: 0.373333rem;
     }
   }
+
   .btn {
     padding: 1.76rem 0 1.333333rem;
+
     p {
       padding: 0.373333rem 0;
       font-size: 0.426667rem;
@@ -532,9 +557,11 @@ const submit = () => {
       text-align: center;
     }
   }
+
   .coinList {
     max-height: 250px;
   }
+
   .coinItem {
     display: flex;
     align-items: center;
@@ -545,31 +572,38 @@ const submit = () => {
     div {
       flex: 1;
     }
+
     .svgImg {
       text-align: right;
+
       // width: 30px;
       // height: 30px;
       .icon {
         text-align: right;
         font-size: 30px;
       }
+
       .iconImg {
         width: 30px;
       }
     }
+
     p {
       font-size: 16px;
       color: var(--ex-passive-font-color);
     }
+
     & > div:first-child {
       text-align: end;
       margin-right: 5px;
     }
+
     & > div:last-child {
       text-align: start;
       margin-left: 5px;
     }
   }
+
   input:disabled {
     background-color: var(--ex-default-background-color);
   }

@@ -1,15 +1,18 @@
 <!-- 初级认证 -->
 <script setup>
-import HeaderBar from '@/components/HeaderBar/index.vue'
-import Success from './components/success.vue'
-import { uploadKYC } from '@/api/user'
-import { reactive } from 'vue'
-import { useUserStore } from '@/store/user/index'
 import { storeToRefs } from 'pinia'
 import { showToast } from 'vant'
-import { _t18 } from '@/utils/public'
-import { useToast } from '@/hook/useToast'
+import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+
+import { uploadKYC } from '@/api/user'
+import HeaderBar from '@/components/HeaderBar/index.vue'
+import { useToast } from '@/hook/useToast'
+import { useUserStore } from '@/store/user/index'
+import { _t18 } from '@/utils/public'
+
+import Success from './components/success.vue'
+
 const { push } = useRouter()
 const { _toast } = useToast()
 const userStore = useUserStore()
@@ -56,8 +59,8 @@ const reSubmit = () => {
 </script>
 <template>
   <!-- 导航条 -->
-  <HeaderBar :currentName="_t18('sidebar_primary')" :cuttentRight="cuttentRight"></HeaderBar>
-  <div class="content" v-if="primaryAuth == '0' || primaryAuth == null">
+  <HeaderBar :currentName="_t18('sidebar_primary')" :cuttentRight="cuttentRight" />
+  <div v-if="primaryAuth == '0' || primaryAuth == null" class="content">
     <div class="tip advanced_txt">
       <image-load filePath="tips.png" class="tips" />
       {{ _t18('advanced_txt', ['aams']) }}
@@ -68,18 +71,18 @@ const reSubmit = () => {
     <div class="form">
       <div class="label">{{ _t18('advanced_name') }}：</div>
       <div class="formInput">
-        <input :placeholder="_t18('login_please')" v-model="formData.userName" class="form-input" />
+        <input v-model="formData.userName" :placeholder="_t18('login_please')" class="form-input" />
       </div>
       <div class="label">{{ _t18('advanced_license_number') }}：</div>
       <div class="formInput">
-        <input :placeholder="_t18('login_please')" v-model="formData.number" class="form-input" />
+        <input v-model="formData.number" :placeholder="_t18('login_please')" class="form-input" />
       </div>
     </div>
     <div class="btnBox" @click="submit">
       <ButtonBar :btnValue="_t18('advanced_submit')" />
     </div>
   </div>
-  <div class="success" v-if="primaryAuth == '3'">
+  <div v-if="primaryAuth == '3'" class="success">
     <Success
       :text="_t18('under_review')"
       :message="_t18('please_wait')"
@@ -93,7 +96,7 @@ const reSubmit = () => {
       </template>
     </Success>
   </div>
-  <div class="success" v-if="primaryAuth == '2'">
+  <div v-if="primaryAuth == '2'" class="success">
     <Success :text="_t18('Audit_failure')" :imgUrl="'defi/failed.png'" :color="'#333'">
       <template #btn>
         <div class="btnBox" @click="reSubmit">
@@ -103,7 +106,7 @@ const reSubmit = () => {
     </Success>
   </div>
   <div v-if="primaryAuth == '1'">
-    <Success :text="_t18('advanced_success')" :imgUrl="'defi/success.png'"></Success>
+    <Success :text="_t18('advanced_success')" :imgUrl="'defi/success.png'" />
     <div class="fromContent">
       <div>{{ _t18('advanced_name') }}：{{ userInfo.detail?.realName }}</div>
       <div>{{ _t18('advanced_license_number') }}：{{ userInfo.detail?.idCard }}</div>

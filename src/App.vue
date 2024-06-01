@@ -1,24 +1,21 @@
 <script setup>
+import PubSub from 'pubsub-js'
+import { showDialog } from 'vant'
+import { useRouter } from 'vue-router'
+
+import Loading from '@/components/common/Loading/index.vue'
+import ServicePopup from '@/components/CustomerService/ServicePopup.vue'
+import ActivityPopup from '@/components/Defi/ActivityPopup.vue'
+import { socketDict } from '@/config/dict'
 import { DIFF_ISFREEZE } from '@/config/index'
+import { initWebSocket } from '@/plugin/socket'
 import { useMainStore } from '@/store/index.js'
 import { useUserStore } from '@/store/user/index.js'
-import { socketDict } from '@/config/dict'
-import Loading from '@/components/common/Loading/index.vue'
-import ActivityPopup from '@/components/Defi/ActivityPopup.vue'
-import { getShowDefiActivityNoticeApi } from './api/defi'
-import ServicePopup from '@/components/CustomerService/ServicePopup.vue'
-// import FreezePopup from '@/components/Freeze/FreezePopup.vue'
-import { useToast } from './hook/useToast'
 import { _t18, _toView } from '@/utils/public'
-import { useRouter } from 'vue-router'
-import { initWebSocket } from '@/plugin/socket'
-import { showDialog } from 'vant'
-import PubSub from 'pubsub-js'
 
-// import { useFreeze } from '@/hook/useFreeze'
+import { getShowDefiActivityNoticeApi } from './api/defi'
+import { useToast } from './hook/useToast'
 
-// const isFreeze = useFreeze()
-// console.log('isFreeze', isFreeze)
 const router = useRouter()
 
 /**
@@ -45,7 +42,7 @@ const ownCoinKey = ref('')
  * 申购通知
  */
 const ownCoinKeyNotification = () => {
-  ownCoinKey.value = PubSub.subscribe(socketDict.OWNCOIN, (key, data) => {
+  ownCoinKey.value = PubSub.subscribe(socketDict.OWNCOIN, (_, data) => {
     showDialog({
       title: data.amountLimit, // 额度
       message: data.msg
@@ -202,26 +199,23 @@ onUnmounted(() => {
 
 <template>
   <div>
-    <loading v-if="isLoading" :loading="isLoading"></loading>
+    <loading v-if="isLoading" :loading="isLoading" />
     <SimulationTop v-if="userStore.userInfo.user?.type === '2'" />
     <router-view v-slot="{ Component, route }">
       <transition name="fade">
         <div :key="route.name">
           <keep-alive :include="[...tabbarPathNameList]">
-            <component :is="Component" :key="route.path"></component>
+            <component :is="Component" :key="route.path" />
           </keep-alive>
         </div>
       </transition>
     </router-view>
   </div>
-  <Tabbar v-if="tabbarPathNameList.includes(currentRoute.name)"></Tabbar>
+  <Tabbar v-if="tabbarPathNameList.includes(currentRoute.name)" />
   <!-- 幸运活动 -->
-  <ActivityPopup v-model:value="showDefiActivityPopup" :data="activityInfo"></ActivityPopup>
+  <ActivityPopup v-model:value="showDefiActivityPopup" :data="activityInfo" />
   <!-- 客服弹窗 -->
-  <ServicePopup
-    v-model:value="showServicePopup"
-    :data="mainStroe.getCustomerServiceList"
-  ></ServicePopup>
+  <ServicePopup v-model:value="showServicePopup" :data="mainStroe.getCustomerServiceList" />
   <!-- 冻结弹窗 -->
   <van-dialog
     v-model:show="showIsFreezePopup"
@@ -231,8 +225,7 @@ onUnmounted(() => {
     confirmButtonColor="#613af1"
     :confirmButtonText="_t18('btnConfirm')"
     @confirm="confirmFreezeDialog"
-  >
-  </van-dialog>
+  />
 </template>
 
 <style lang="scss">

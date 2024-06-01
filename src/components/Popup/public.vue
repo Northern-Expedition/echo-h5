@@ -4,18 +4,18 @@
       v-model:show="props.show"
       :round="props.round"
       :position="props.direction"
-      @click-overlay="handelClose"
       :style="{ height: props.height, width: props.width }"
+      @click-overlay="handelClose"
     >
-      <div class="popupHeader" v-if="props.showHeader">
+      <div v-if="props.showHeader" class="popupHeader">
         <slot name="titleCustomize"></slot>
-        <svg-load class="closeSvg" name="guanbi" v-if="props.close" @click="handelClose"></svg-load>
+        <svg-load v-if="props.close" class="closeSvg" name="guanbi" @click="handelClose" />
       </div>
-      <div class="popupContent" v-if="empty">
+      <div v-if="empty" class="popupContent">
         <slot name="contentCustomize"></slot>
       </div>
       <!-- 没有padding -->
-      <slot name="emptyContentCustomize" v-if="!empty"></slot>
+      <slot v-if="!empty" name="emptyContentCustomize"></slot>
     </van-popup>
   </div>
 </template>

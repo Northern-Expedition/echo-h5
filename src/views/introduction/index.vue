@@ -4,15 +4,17 @@
       :currentName="_t18('Exchange_introduction')"
       :border_bottom="true"
       :cuttentRight="cuttentRight"
-    ></HeaderBar>
-    <div class="itemDetailObj" v-html="content" v-if="content"></div>
+    />
+    <div v-if="content" class="itemDetailObj" v-html="content"></div>
     <Nodata v-else />
   </div>
 </template>
 <script setup>
-import { _t18 } from '@/utils/public'
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+
 import { getOptionRulesApi } from '@/api/loan.js'
+import { _t18 } from '@/utils/public'
+
 const cuttentRight = { iconRight: [{ iconName: 'kefu', clickTo: 'event_serviceChange' }] }
 
 const content = ref('')

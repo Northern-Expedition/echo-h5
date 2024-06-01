@@ -1,7 +1,8 @@
 <script setup>
-import { _t18 } from '@/utils/public'
 import { onMounted } from 'vue'
+
 import { _mul } from '@/utils/decimal'
+import { _t18 } from '@/utils/public'
 
 const props = defineProps({
   dataList: {
@@ -33,23 +34,23 @@ onMounted(() => {
   <div>
     <div class="loan-detail">
       <div class="header-record">
-        <image-load filePath="deposit.png" name="deposit" class="left-icon"></image-load>
+        <image-load filePath="deposit.png" name="deposit" class="left-icon" />
         <div class="right-status">
           <p class="tips">{{ _t18('borrow_money') }}</p>
           <!-- 状态 审核中 成功 失败 -->
-          <p class="right status0" v-if="props.dataList.status == 0">
+          <p v-if="props.dataList.status == 0" class="right status0">
             {{ _t18('loan_tab_wait') }}
           </p>
-          <p class="right status1" v-if="props.dataList.status == 1">
+          <p v-if="props.dataList.status == 1" class="right status1">
             {{ _t18('loan_apply_success') }}
           </p>
-          <p class="right status2" v-if="props.dataList.status == 2">
+          <p v-if="props.dataList.status == 2" class="right status2">
             {{ _t18('loan_apply_err') }}
           </p>
-          <p class="right status3" v-if="props.dataList.status == 3">
+          <p v-if="props.dataList.status == 3" class="right status3">
             {{ _t18('loan_apply_complete') }}
           </p>
-          <p class="right status4" v-if="props.dataList.status == 4">
+          <p v-if="props.dataList.status == 4" class="right status4">
             {{ _t18('loan_apply_overdue') }}
           </p>
         </div>
@@ -82,7 +83,7 @@ onMounted(() => {
           <div class="left">{{ _t18('loan_repayType') }}</div>
           <div class="right">{{ dataList.repayTypeLabel }}</div>
         </div>
-        <div class="item" v-if="!(dataList.status === 0 || dataList.status === 2)">
+        <div v-if="!(dataList.status === 0 || dataList.status === 2)" class="item">
           <!-- 还款时间 -->
           <div class="left">{{ _t18('loan_time') }}</div>
           <div class="right">

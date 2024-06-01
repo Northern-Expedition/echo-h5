@@ -3,11 +3,11 @@
     <!--申购标题-->
     <div class="cardTitle">
       <div class="fw-bold title">{{ data.showSymbol }}</div>
-      <div class="right" v-if="data.status == '1' || null">{{ _t18('Preparation') }}</div>
-      <div class="right btn" v-else-if="data.status == '2'" @click="toBuy">
+      <div v-if="data.status == '1' || null" class="right">{{ _t18('Preparation') }}</div>
+      <div v-else-if="data.status == '2'" class="right btn" @click="toBuy">
         {{ _t18('Subscription_ren') }}
       </div>
-      <div class="right" v-else-if="data.status == '3'">{{ _t18('In_over') }}</div>
+      <div v-else-if="data.status == '3'" class="right">{{ _t18('In_over') }}</div>
     </div>
 
     <!--申购详情-->
@@ -40,13 +40,13 @@
     </div>
 
     <!--订阅按钮-->
-    <div class="subscribe-button" v-if="data.status == 1">
+    <div v-if="data.status == 1" class="subscribe-button">
       <van-button
         round
         class="button-subscribe-button"
-        @click="btn_subscription(data)"
         color="#613af1"
         :disabled="disableBtn == 1"
+        @click="btn_subscription(data)"
       >
         {{ disableBtn == 1 ? _t18('subscribed') : _t18('subscription') }}
       </van-button>
@@ -55,15 +55,16 @@
 </template>
 
 <script setup>
-import { _t18, _toView } from '@/utils/public'
-import { _div, _sub, _add, _mul, _toFixed } from '@/utils/decimal.js'
-import { _timeFormat } from '@/utils/public'
-import { useRouter } from 'vue-router'
-import { subscribeCoins } from '@/api/subscription/index.js'
-import { useUserStore } from '@/store/user'
 import { Dialog, showDialog, showToast, Toast } from 'vant'
 import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { subscribeCoins } from '@/api/subscription/index.js'
 import { useToast } from '@/hook/useToast'
+import { useUserStore } from '@/store/user'
+import { _add, _div, _mul, _sub, _toFixed } from '@/utils/decimal.js'
+import { _t18, _timeFormat, _toView } from '@/utils/public'
+
 const { _toast } = useToast()
 const disableBtn = ref(0)
 // 申购订阅

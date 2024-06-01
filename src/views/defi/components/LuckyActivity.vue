@@ -1,12 +1,14 @@
 <!-- 幸运活动 -->
 <script setup>
+import { onMounted } from 'vue'
+
 import { dict } from '@/api/common'
 import { updateDefiActivityApi } from '@/api/defi'
 import { useDefiStore } from '@/store/defi'
 import { useUserStore } from '@/store/user'
 import { priceFormat } from '@/utils/decimal'
 import { _t18 } from '@/utils/public'
-import { onMounted } from 'vue'
+
 const { userInfo } = useUserStore()
 const defiStore = useDefiStore()
 const emits = defineEmits(['getShowDefiActivity'])
@@ -53,7 +55,7 @@ onMounted(() => {
   <div class="lucky">
     <div class="title">{{ _t18('defi_air_activity') }}</div>
     <div class="box">
-      <image-load filePath="defi/activity_lucky.png" class="img"></image-load>
+      <image-load filePath="defi/activity_lucky.png" class="img" />
       <div class="tit-box">
         <div class="num fw-num">{{ defiStore.divideBalance }} ETH</div>
         <!-- 矿池总金额 -->
@@ -92,7 +94,9 @@ onMounted(() => {
   // margin-top: 15px;
   .title {
     font-size: 18px;
-    font-family: PingFang SC-Regular, PingFang SC;
+    font-family:
+      PingFang SC-Regular,
+      PingFang SC;
     font-weight: 400;
     color: var(--ex-font-color6);
   }

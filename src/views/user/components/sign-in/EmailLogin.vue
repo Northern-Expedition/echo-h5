@@ -4,27 +4,32 @@
     <div class="formData">
       <p style="color: #a0a5af">{{ _t18('login_emailCode') }}</p>
       <div>
-        <input type="text" :placeholder="_t18('login_emailCode')" v-model="formData2.email" />
+        <input v-model="formData2.email" type="text" :placeholder="_t18('login_emailCode')" />
       </div>
     </div>
     <div class="formData">
       <p style="color: #a0a5af">{{ _t18('login_code') }}</p>
       <div>
-        <input type="text" :placeholder="_t18('login_please')" v-model="formData2.code" />
+        <input v-model="formData2.code" type="text" :placeholder="_t18('login_please')" />
         <p v-if="!flag" @click="send()">{{ _t18('login_send') }}</p>
         <p v-else><van-count-down :time="time" format="ss" @finish="finish" /></p>
       </div>
     </div>
-    <Footer :type="0" :formDataToLogin="formData2"></Footer>
+    <Footer :type="0" :formDataToLogin="formData2" />
   </div>
 </template>
 
 <script setup>
-import Footer from './../signFooter.vue'
-import { _t18 } from '@/utils/public'
-import { emailCode } from '@/api/user'
+import './../style.scss'
+
 import { showToast } from 'vant'
+
+import { emailCode } from '@/api/user'
 import { useToast } from '@/hook/useToast'
+import { _t18 } from '@/utils/public'
+
+import Footer from './../signFooter.vue'
+
 const { _toast } = useToast()
 /**
  * 表单数据
@@ -67,8 +72,6 @@ const send = () => {
 const finish = () => {
   flag.value = false
 }
-
-import './../style.scss'
 </script>
 
 <style lang="scss" scoped></style>

@@ -1,14 +1,14 @@
 <template>
   <div class="assetDetails">
     <div v-for="(item, index) in assetDetails" :key="index">
-      <div class="title" v-if="item.icon == 'usdt'">
+      <div v-if="item.icon == 'usdt'" class="title">
         <!-- 资产明细 -->
         <div class="left fw-bold">{{ _t18('asset_detail', ['ebc']) }}</div>
       </div>
       <div class="details">
         <div class="top">
-          <svg-load v-if="item.title == 'USDT'" :name="item.icon" class="currencyIcon"></svg-load>
-          <image-load :filePath="item.loge" v-else />
+          <svg-load v-if="item.title == 'USDT'" :name="item.icon" class="currencyIcon" />
+          <image-load v-else :filePath="item.loge" />
           <p class="fw-num">{{ item.title }}</p>
         </div>
         <div class="bottom">
@@ -21,10 +21,10 @@
           </div>
           <div>
             <!-- 占用 冻结-->
-            <p class="til" v-if="['rxce'].includes(_getConfig('_APP_ENV'))">
+            <p v-if="['rxce'].includes(_getConfig('_APP_ENV'))" class="til">
               {{ _t18('asset_cold') }}
             </p>
-            <p class="til" v-else>{{ _t18('asset_occupation', ['bitmake', 'ebc']) }}</p>
+            <p v-else class="til">{{ _t18('asset_occupation', ['bitmake', 'ebc']) }}</p>
             <p class="num fw-num">
               {{ amountFormat(item.zhanyong, 4) }}
             </p>
@@ -43,8 +43,9 @@
 </template>
 
 <script setup>
-import { _hide, _t18, _numberWithCommas } from '@/utils/public.js'
 import { priceFormat } from '@/utils/decimal.js'
+import { _hide, _numberWithCommas, _t18 } from '@/utils/public.js'
+
 const props = defineProps({
   assetDetails: {
     type: Object

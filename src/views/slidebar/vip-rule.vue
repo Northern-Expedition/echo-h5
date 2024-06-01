@@ -2,10 +2,10 @@
   <!-- 规则 -->
   <div class="bind-card">
     <!-- 导航条 -->
-    <HeaderBar :currentName="`VIP`" :border_bottom="true"></HeaderBar>
+    <HeaderBar :currentName="`VIP`" :border_bottom="true" />
     <!--内容-->
     <div class="itemDetailObj" v-html="currentHtml"></div>
-    <Nodata v-if="!currentHtml"></Nodata>
+    <Nodata v-if="!currentHtml" />
   </div>
 </template>
 <script setup>

@@ -1,17 +1,20 @@
 <!-- defi挖矿 新版本 -->
 <script setup>
+import { showToast } from 'vant'
+import { useRouter } from 'vue-router'
+
 import { DIFF_ISFREEZE } from '@/config/index'
 import { useFreeze } from '@/hook/useFreeze'
-const { _isFreeze } = useFreeze()
-import { priceFormat } from '@/utils/decimal.js'
+import { useToast } from '@/hook/useToast'
 import { approve } from '@/plugin/chain/index'
 import { useUserStore } from '@/store/user'
-import { _toView } from '@/utils/public'
-import { _t18 } from '@/utils/public'
-import { useToast } from '@/hook/useToast'
+import { priceFormat } from '@/utils/decimal.js'
+import { _t18, _toView } from '@/utils/public'
+
+const { _isFreeze } = useFreeze()
+
 const { _toast } = useToast()
-import { useRouter } from 'vue-router'
-import { showToast } from 'vant'
+
 const router = useRouter()
 const props = defineProps({
   incomeInfo: {
@@ -66,7 +69,7 @@ const toApprove = () => {
 </script>
 <template>
   <div class="mining_box">
-    <div class="mining_content" v-if="isApprove">
+    <div v-if="isApprove" class="mining_content">
       <!-- 已授权 -->
       <van-grid :border="false" :column-num="2" style="padding-left: 10px">
         <van-grid-item class="item" style="flex-basis: 50%; padding-right: 10px">
@@ -75,30 +78,30 @@ const toApprove = () => {
             {{ priceFormat(userStore.userInfo.appAddressInfo?.usdt || 0, 2) }} USDT
           </div>
           <div class="til">{{ _t18('pledge_hosting') }}</div>
-          <image-load filePath="totalOutput.png" name="defi" class="img img-icon"></image-load>
+          <image-load filePath="totalOutput.png" name="defi" class="img img-icon" />
         </van-grid-item>
         <van-grid-item class="item" style="flex-basis: 50%; padding-right: 10px">
           <div class="line"></div>
           <div class="fw-num">{{ priceFormat(props.incomeInfo.totalProfit) }} ETH</div>
           <div class="til">{{ _t18('pledge_hosting') }}</div>
-          <image-load filePath="userBenefits.png" name="defi" class="img img-icon"></image-load>
+          <image-load filePath="userBenefits.png" name="defi" class="img img-icon" />
         </van-grid-item>
         <van-grid-item class="item" style="flex-basis: 50%; padding-right: 10px">
           <div class="line"></div>
           <div class="fw-num">{{ priceFormat(props.incomeInfo.singleRate) }}</div>
           <div class="til">{{ _t18('defi_single benefit') }}</div>
-          <image-load filePath="participant.png" name="defi" class="img img-icon"></image-load>
+          <image-load filePath="participant.png" name="defi" class="img img-icon" />
         </van-grid-item>
         <van-grid-item class="item" style="flex-basis: 50%; padding-right: 10px">
           <div class="line"></div>
           <div class="fw-num">{{ priceFormat(props.incomeInfo.dayRate) }}</div>
           <div class="til">{{ _t18('defi_every_day_income') }}</div>
-          <image-load filePath="validNode.png" name="defi" class="img img-icon"></image-load>
+          <image-load filePath="validNode.png" name="defi" class="img img-icon" />
         </van-grid-item>
       </van-grid>
 
       <div class="mining_btn" @click="_toView('/defiDetail')">
-        <image-load filePath="fly.png" name="defi" class="img fly"></image-load>
+        <image-load filePath="fly.png" name="defi" class="img fly" />
         {{ _t18('defi_earnings Details') }}
       </div>
     </div>
@@ -108,30 +111,29 @@ const toApprove = () => {
           <div class="line"></div>
           <div class="fw-num">{{ priceFormat(outcomeInfo?.totalOutput) || 0 }} ETH</div>
           <div class="til">{{ _t18('defi_total_output') }}</div>
-          <image-load filePath="totalOutput.png" name="defi" class="img img-icon"></image-load>
+          <image-load filePath="totalOutput.png" name="defi" class="img img-icon" />
         </van-grid-item>
         <van-grid-item class="item" style="flex-basis: 50%; padding-right: 10px">
           <div class="line"></div>
           <div class="fw-num">{{ priceFormat(outcomeInfo?.userBenefits) || 0 }} U</div>
           <div class="til">{{ _t18('defi_user_benefit') }}</div>
-          <image-load filePath="userBenefits.png" name="defi" class="img img-icon"></image-load>
+          <image-load filePath="userBenefits.png" name="defi" class="img img-icon" />
         </van-grid-item>
         <van-grid-item class="item" style="flex-basis: 50%; padding-right: 10px">
           <div class="line"></div>
           <div class="fw-num">{{ outcomeInfo?.participant || 0 }}</div>
           <div class="til">{{ _t18('defi_participant') }}</div>
-          <image-load filePath="participant.png" name="defi" class="img img-icon"></image-load>
+          <image-load filePath="participant.png" name="defi" class="img img-icon" />
         </van-grid-item>
         <van-grid-item class="item" style="flex-basis: 50%; padding-right: 10px">
           <div class="line"></div>
           <div class="fw-num">{{ outcomeInfo?.validNode || 0 }}</div>
           <div class="til">{{ _t18('defi_valid_node') }}</div>
-          <image-load filePath="validNode.png" name="defi" class="img img-icon"></image-load>
+          <image-load filePath="validNode.png" name="defi" class="img img-icon" />
         </van-grid-item>
       </van-grid>
       <div class="mining_btn" @click="toApprove">
-        <image-load filePath="fly.png" name="defi" class="img fly"></image-load
-        >{{ _t18('defi_takePart_in') }}
+        <image-load filePath="fly.png" name="defi" class="img fly" />{{ _t18('defi_takePart_in') }}
       </div>
     </div>
   </div>

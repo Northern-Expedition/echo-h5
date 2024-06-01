@@ -4,8 +4,8 @@
       <van-cell>
         <template #title>
           <input
-            type="text"
             v-model.trim="searchName"
+            type="text"
             class="inputSearch"
             :placeholder="_t18('search_currency')"
             @input="searchBtn"
@@ -27,7 +27,7 @@
         />
       </div> -->
     </div>
-    <Filter :list="currentCoinList" @toSort="toSort"></Filter>
+    <Filter :list="currentCoinList" @to-sort="toSort" />
     <div class="leftList">
       <div v-if="currentList.length">
         <CurrencyItem
@@ -36,27 +36,29 @@
           :currencyItem="item"
           :showLeftImg="['fx'].includes(_getConfig('_APP_ENV')) ? true : false"
           @click="linkTo(item)"
-        ></CurrencyItem>
+        />
       </div>
-      <Nodata v-else></Nodata>
+      <Nodata v-else />
     </div>
   </div>
 </template>
 
 <script setup>
-import Filter from './filter.vue'
-import { filterKeyCoin } from '@/utils/filters'
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
 import CurrencyItem from '@/components/CurrencyList/currencyItem.vue'
-import { _t18 } from '@/utils/public'
 import { useMainStore } from '@/store/index'
-const mainStore = useMainStore()
 import { useTradeStore } from '@/store/trade'
+import { dispatchCustomEvent } from '@/utils'
+import { filterKeyCoin } from '@/utils/filters'
+import { _t18 } from '@/utils/public'
+
+import Filter from './filter.vue'
+
+const mainStore = useMainStore()
 
 const tradeStore = useTradeStore()
-import { computed } from 'vue'
-import { dispatchCustomEvent } from '@/utils'
-
-import { useRouter, useRoute } from 'vue-router'
 const $router = useRouter()
 const $route = useRoute()
 const props = defineProps({

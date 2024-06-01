@@ -1,27 +1,29 @@
 <!-- 提现 -->
 <template>
-  <HeaderBar :currentName="_t18('withdraw', ['latcoin'])"></HeaderBar>
-  <List :data="coinList"> </List>
+  <HeaderBar :currentName="_t18('withdraw', ['latcoin'])" />
+  <List :data="coinList" />
   <div class="record-info">
     <div class="record-card" @click="push('/withdraw-order')">
-      <image-load filePath="time.png" name="usdt" class="img left-img"></image-load>
+      <image-load filePath="time.png" name="usdt" class="img left-img" />
       <div class="record-right">
         <div>{{ _t18('withdraw_order') }}</div>
-        <image-load filePath="right-arrow.png" name="usdt" class="img right-img"></image-load>
+        <image-load filePath="right-arrow.png" name="usdt" class="img right-img" />
       </div>
     </div>
   </div>
 </template>
 <script setup>
-import { _t18 } from '@/utils/public'
-import List from './withdraw-list.vue'
-import { filterCoin2 } from '@/utils/public'
-import { useMainStore } from '@/store/index.js'
-import { useRouter } from 'vue-router'
-const mainStore = useMainStore()
 import { storeToRefs } from 'pinia'
-import { useUserStore } from '@/store/user/index'
 import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { useMainStore } from '@/store/index.js'
+import { useUserStore } from '@/store/user/index'
+import { _t18, filterCoin2 } from '@/utils/public'
+
+import List from './withdraw-list.vue'
+
+const mainStore = useMainStore()
 const userStore = useUserStore()
 const { push } = useRouter()
 // 用户余额信息
@@ -87,7 +89,9 @@ const coinList = computed(() => {
       justify-content: space-between;
       div {
         font-size: 0.373333rem;
-        font-family: PingFangSC, PingFang SC;
+        font-family:
+          PingFangSC,
+          PingFang SC;
         font-weight: 400;
         color: var(--ex-assets--record-font-color);
       }

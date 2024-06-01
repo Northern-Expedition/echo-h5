@@ -1,8 +1,8 @@
 <!--分享委托详情-->
 <template>
-  <div class="share-commission" id="html-canvas">
+  <div id="html-canvas" class="share-commission">
     <div class="share-img-box">
-      <image-load filePath="defi/share.png" class="img"></image-load>
+      <image-load filePath="defi/share.png" class="img" />
       <div
         class="fw-num"
         :class="[
@@ -18,7 +18,7 @@
       </div>
     </div>
     <!-- 下载-->
-    <svg-load name="download" class="download" @click="downloadImg"></svg-load>
+    <svg-load name="download" class="download" @click="downloadImg" />
 
     <!--交易单详情-->
     <div class="transaction-info">
@@ -45,7 +45,7 @@
     <div class="transaction-qrcode">
       <div class="number-one-logo">
         <div class="logo-one">
-          <Logo></Logo>
+          <Logo />
         </div>
       </div>
       <div class="introduction">
@@ -55,28 +55,31 @@
         </div>
       </div>
       <div class="qrcode">
-        <QRCode :address="historicalData.QrCode"></QRCode>
+        <QRCode :address="historicalData.QrCode" />
       </div>
     </div>
   </div>
 </template>
 <script setup>
 import html2canvas from 'html2canvas'
-import { _isRFD, _t18 } from '@/utils/public'
-import QRCode from '@/components/common/QRCode/index.vue'
 
-const props = defineProps({
+import QRCode from '@/components/common/QRCode/index.vue'
+import { _isRFD, _t18 } from '@/utils/public'
+
+defineProps({
   historicalData: {
     type: Object,
-    default: {
-      profitAndLossAmount: '0.00', // 盈亏金额
-      TransactionType: `BTC/USDT`, // 交易类型
-      CurrencyName: `平多`, // 币种名
-      OpeningPrice: '0.00', // 开仓价格
-      ClosingPrice: '0.00', // 平仓价格
-      QrCode: ``, // 二维码
-      bgType: `1`, //背景类型，此参数当为用户设置， 暂定1 为默认白色
-      currencyUnit: '' // 货币单位
+    default() {
+      return {
+        profitAndLossAmount: '0.00', // 盈亏金额
+        TransactionType: `BTC/USDT`, // 交易类型
+        CurrencyName: `平多`, // 币种名
+        OpeningPrice: '0.00', // 开仓价格
+        ClosingPrice: '0.00', // 平仓价格
+        QrCode: ``, // 二维码
+        bgType: `1`, //背景类型，此参数当为用户设置， 暂定1 为默认白色
+        currencyUnit: '' // 货币单位
+      }
     }
   }
 })

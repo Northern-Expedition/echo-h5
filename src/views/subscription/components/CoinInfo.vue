@@ -1,7 +1,7 @@
 <template>
   <div class="infoCoin">
     <div class="top">
-      <image-load :filePath="data?.logo" class="coinImg" v-if="data?.logo" />
+      <image-load v-if="data?.logo" :filePath="data?.logo" class="coinImg" />
       <p class="fw-bold">{{ data.showSymbol }}</p>
     </div>
     <div class="bottom">
@@ -23,6 +23,7 @@
 
 <script setup>
 import { _t18 } from '@/utils/public'
+
 const props = defineProps({
   data: {
     type: Object

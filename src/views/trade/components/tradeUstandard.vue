@@ -2,42 +2,42 @@
 <template>
   <div>
     <!-- 头部 -->
-    <UTradingHeader
-      :coinInfo="coinInfo"
-      @showSidePopup="showSidePopup"
-    ></UTradingHeader>
+    <UTradingHeader :coinInfo="coinInfo" @show-side-popup="showSidePopup" />
     <!-- 主体内容 -->
-    <UTradingContent :coinInfo="coinInfo"></UTradingContent>
+    <UTradingContent :coinInfo="coinInfo" />
 
     <!-- 左侧切换币种 -->
     <PublicPopup
       :show="sidePopup"
-      @handelClose="sidePopup = false"
       :direction="`left`"
       :height="`100%`"
       :width="`80%`"
       :showHeader="false"
       :empty="false"
+      @handel-close="sidePopup = false"
     >
       <template #emptyContentCustomize>
-        <LeftSide @close="sidePopup = false" :headerList="headerList"></LeftSide>
+        <LeftSide :headerList="headerList" @close="sidePopup = false" />
       </template>
     </PublicPopup>
   </div>
 </template>
 
 <script setup>
-import UTradingHeader from './ustandard/header/index.vue' // U本位header部分
-import UTradingContent from './ustandard/content/index.vue' // U本位content部分
-import PublicPopup from '@/components/Popup/public.vue'
-import LeftSide from './common/leftSide.vue'
 import { showToast } from 'vant'
-import { _t18 } from '@/utils/public'
-import { setCollect, removeCollect } from '@/api/trade'
-import { useTradeStore } from '@/store/trade'
-const tradeStore = useTradeStore()
-import { useRoute } from 'vue-router'
 import { onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+
+import { removeCollect, setCollect } from '@/api/trade'
+import PublicPopup from '@/components/Popup/public.vue'
+import { useTradeStore } from '@/store/trade'
+import { _t18 } from '@/utils/public'
+
+import LeftSide from './common/leftSide.vue'
+import UTradingContent from './ustandard/content/index.vue' // U本位content部分
+import UTradingHeader from './ustandard/header/index.vue'
+// U本位header部分
+const tradeStore = useTradeStore()
 const $route = useRoute()
 const props = defineProps({
   headerList: {

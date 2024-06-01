@@ -1,29 +1,24 @@
 <template>
-  <div class="placeholder" v-if="topHeight"></div>
+  <div v-if="topHeight" class="placeholder"></div>
   <van-sticky>
     <header
       :class="[border_bottom ? 'border_bottom' : '']"
       :style="{ 'background-color': bgColor }"
     >
       <div class="left">
-        <svg-load
-          v-if="backTo"
-          name="jiantou-z"
-          class="leftImg"
-          @click="$router.push(backTo)"
-        ></svg-load>
+        <svg-load v-if="backTo" name="jiantou-z" class="leftImg" @click="$router.push(backTo)" />
         <svg-load
           v-else-if="backwardNum != -1"
           name="jiantou-z"
           class="leftImg"
           @click="$router.go(backwardNum)"
-        ></svg-load>
-        <svg-load v-else name="jiantou-z" class="leftImg" @click="_back()"></svg-load>
+        />
+        <svg-load v-else name="jiantou-z" class="leftImg" @click="_back()" />
         <div :class="isCenter ? 'centerStyle' : ''">{{ currentName }}</div>
         <slot name="titleName"></slot>
       </div>
       <div class="right">
-        <div class="rightBtn" v-if="JSON.stringify(cuttentRight) !== '{}'">
+        <div v-if="JSON.stringify(cuttentRight) !== '{}'" class="rightBtn">
           <div v-if="cuttentRight.name" @click="linkTo">
             {{ cuttentRight.name }}
           </div>
@@ -35,8 +30,8 @@
           />
 
           <div
-            v-show="cuttentRight.iconRight"
             v-for="(item, index) in cuttentRight.iconRight"
+            v-show="cuttentRight.iconRight"
             :key="index"
             style="display: flex; align-items: center"
           >
@@ -45,11 +40,11 @@
               :name="item.iconName"
               class="rightIcon"
               @click="handelClick(item.clickTo)"
-            ></svg-load>
+            />
             <div
               v-if="item.text"
-              @click="handelClick(item.clickTo)"
               style="color: #8885fb; margin-left: 0.106667rem; font-size: 0.373333rem"
+              @click="handelClick(item.clickTo)"
             >
               {{ item.text }}
             </div>
@@ -62,8 +57,10 @@
   </van-sticky>
 </template>
 <script setup>
-import { dispatchCustomEvent } from '@/utils'
 import { useRouter } from 'vue-router'
+
+import { dispatchCustomEvent } from '@/utils'
+
 const router = useRouter()
 const props = defineProps({
   backTo: {

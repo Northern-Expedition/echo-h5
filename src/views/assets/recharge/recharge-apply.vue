@@ -1,9 +1,9 @@
 <!-- 充值申请 -->
 <template>
-  <HeaderBar :currentName="currentName"></HeaderBar>
+  <HeaderBar :currentName="currentName" />
   <!-- 二维码 -->
   <div class="erweima">
-    <QRCode :address="address"></QRCode>
+    <QRCode :address="address" />
   </div>
   <!-- 申请信息 -->
   <div class="applyMes">
@@ -11,7 +11,7 @@
       <!-- 充值地址 -->
       <p class="top">{{ _t18('recharge_address', ['bitmake']) }}({{ route.query.type }})</p>
       <div class="bottom">
-        <Copy :data="address" :fontSize="'16px'" ref="copyRef">
+        <Copy ref="copyRef" :data="address" :fontSize="'16px'">
           <template #copyMsg>
             <span class="fw-num">{{ address }}</span>
           </template>
@@ -30,15 +30,15 @@
         <!-- 充值数量 -->
         <p class="top">{{ _t18('recharge_number', ['bitmake']) }}</p>
         <div class="bottom">
-          <input type="number" :placeholder="_t18('recharge_input')" class="ff-num" v-model="num" />
+          <input v-model="num" type="number" :placeholder="_t18('recharge_input')" class="ff-num" />
         </div>
       </div>
       <div class="uploadImg">
         <!-- 上传支付详情截图 -->
         <p class="top">{{ _t18('recharge_imgUpload', ['bitmake']) }}</p>
-        <van-uploader :after-read="afterRead" max-count="1" v-model="fileList">
+        <van-uploader v-model="fileList" :after-read="afterRead" max-count="1">
           <div class="bottom">
-            <image-load filePath="defi/delete.png" name="delete" class="img"></image-load>
+            <image-load filePath="defi/delete.png" name="delete" class="img" />
           </div>
         </van-uploader>
       </div>
@@ -50,13 +50,13 @@
       <p>{{ _t18('copy') }}</p>
     </div>
     <!-- 充值说明列表 -->
-    <div class="tip-list" v-if="['bitbyex'].includes(_getConfig('_APP_ENV'))">
-      <div class="tip" v-for="(item, index) in tipList2" :key="index">
+    <div v-if="['bitbyex'].includes(_getConfig('_APP_ENV'))" class="tip-list">
+      <div v-for="(item, index) in tipList2" :key="index" class="tip">
         {{ item.content }}
       </div>
     </div>
-    <div class="tip-list" v-else>
-      <div class="tip" v-for="(item, index) in tipList" :key="index">
+    <div v-else class="tip-list">
+      <div v-for="(item, index) in tipList" :key="index" class="tip">
         {{ index + 1 }}.{{ item.content }}
       </div>
     </div>
@@ -76,19 +76,20 @@
 </template>
 
 <script setup>
-import { uploadImg } from '@/api/common/index.js'
-import { rechargeSubmit, getUserRechageNewApi } from '@/api/account.js'
-import { _toView, _hideAddress, _t18, _getConfig } from '@/utils/public'
-import { priceFormat } from '@/utils/decimal'
-import QRCode from '@/components/common/QRCode/index.vue'
-import Copy from '@/components/common/Copy/index.vue'
-import { showToast } from 'vant'
 import { debounce } from 'lodash'
-import { useToast } from '@/hook/useToast'
-import { useCopy } from '@/hook/useCopy'
-import { useRouter, useRoute } from 'vue-router'
-import { useMainStore } from '@/store'
+import { showToast } from 'vant'
 import { onMounted, reactive } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
+import { getUserRechageNewApi, rechargeSubmit } from '@/api/account.js'
+import { uploadImg } from '@/api/common/index.js'
+import Copy from '@/components/common/Copy/index.vue'
+import QRCode from '@/components/common/QRCode/index.vue'
+import { useCopy } from '@/hook/useCopy'
+import { useToast } from '@/hook/useToast'
+import { useMainStore } from '@/store'
+import { priceFormat } from '@/utils/decimal'
+import { _getConfig, _hideAddress, _t18, _toView } from '@/utils/public'
 
 const { _toast } = useToast()
 const { _copy } = useCopy()

@@ -59,7 +59,7 @@ export const useUserStore = defineStore('user', {
         this.$reset()
         const accountStore = useAccountStore()
         accountStore && accountStore.$reset()
-      } catch (error) {}
+      } catch (error) {console.log(error)}
     },
 
     /**

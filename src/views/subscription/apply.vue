@@ -1,17 +1,17 @@
 <template>
   <div>
     <!-- 申购详情 -->
-    <HeaderBar :currentName="_t18(`Apply_subscription`)"></HeaderBar>
+    <HeaderBar :currentName="_t18(`Apply_subscription`)" />
     <!-- 币种介绍 -->
-    <CoinInfo :data="formData"></CoinInfo>
+    <CoinInfo :data="formData" />
     <!-- 认购数量 -->
     <div class="infoItem">
       <p class="title fw-bold">{{ _t18('Subscription_quantity') }}</p>
       <input
+        v-model="number"
         type="number"
         class="numInput"
         :placeholder="_t18(`exchange.input`)"
-        v-model="number"
       />
     </div>
     <div class="tip-list">
@@ -28,7 +28,7 @@
     </div>
     <!-- 产品详情 -->
     <div class="infoItem">
-      <ProductInfo :data="formData"></ProductInfo>
+      <ProductInfo :data="formData" />
     </div>
     <!-- 提交申购 -->
     <div class="infoItem btnBox" @click="submit">
@@ -38,20 +38,21 @@
 </template>
 
 <script setup>
-import { _t18 } from '@/utils/public'
+import { showToast } from 'vant'
+import { useRoute, useRouter } from 'vue-router'
+
+import { getOwnCoinDetail, placing } from '@/api/subscription/index'
+import ButtonBar from '@/components/common/ButtonBar/index.vue'
 import HeaderBar from '@/components/HeaderBar/index.vue'
+import { useToast } from '@/hook/useToast'
+import { useUserStore } from '@/store/user/index'
+import { _mul } from '@/utils/decimal'
+import { _t18, _toView } from '@/utils/public'
+
 import CoinInfo from './components/CoinInfo.vue'
 import ProductInfo from './components/ProductInfo.vue'
-import ButtonBar from '@/components/common/ButtonBar/index.vue'
-import { getOwnCoinDetail, placing } from '@/api/subscription/index'
-import { _mul } from '@/utils/decimal'
-import { _toView } from '@/utils/public'
-import { useRouter, useRoute } from 'vue-router'
-import { showToast } from 'vant'
-import { useToast } from '@/hook/useToast'
-const { _toast } = useToast()
 
-import { useUserStore } from '@/store/user/index'
+const { _toast } = useToast()
 const userStore = useUserStore()
 userStore.getUserInfo()
 const $router = useRouter()
@@ -82,8 +83,8 @@ const submit = () => {
   let params = {
     userId: userStore.userInfo.user?.userId,
     ownId: formData.id,
-    amount: _mul(formData?.price, number.value||0),
-    number: number.value||0
+    amount: _mul(formData?.price, number.value || 0),
+    number: number.value || 0
   }
   if (!(number.value > 0 && number.value < formData.numLimit)) {
     // 请填写正确数量

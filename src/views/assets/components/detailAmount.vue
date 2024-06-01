@@ -1,10 +1,10 @@
 <template>
-  <div class="userAmount" v-if="$route.path.includes('recharge')">
+  <div v-if="$route.path.includes('recharge')" class="userAmount">
     <p class="add ff-num">+{{ priceFormat(props.data?.amount || 0) }}</p>
     <!-- 充值金额 -->
     <span>{{ _t18('recharge_money') }}({{ props.data?.type || '' }})</span>
   </div>
-  <div class="userAmount" v-if="$route.path.includes('withdraw')">
+  <div v-if="$route.path.includes('withdraw')" class="userAmount">
     <p class="reduce ff-num">-{{ priceFormat(props.data.amount || 0) }}</p>
     <!-- 提现金额 -->
     <span>{{ _t18('withdraw_money') }}({{ props.data?.type || '' }})</span>
@@ -12,8 +12,9 @@
 </template>
 
 <script setup>
-import { _t18 } from '@/utils/public'
 import { priceFormat } from '@/utils/decimal.js'
+import { _t18 } from '@/utils/public'
+
 const props = defineProps({
   data: {
     type: Object

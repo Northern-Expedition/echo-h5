@@ -1,7 +1,7 @@
 <template>
   <!-- 申购订单 -->
   <div class="columnFlex">
-    <HeaderBar :currentName="_t18(`pledge_order_record`)" :border_bottom="true"></HeaderBar>
+    <HeaderBar :currentName="_t18(`pledge_order_record`)" :border_bottom="true" />
   </div>
   <div class="recordList">
     <!-- 没有更多数据了 no_more_data 加载中  loading-->
@@ -13,7 +13,7 @@
       :loading-text="_t18(`loading`)"
       @load="onLoad"
     >
-      <div class="item" v-for="(item, index) in list" :key="index">
+      <div v-for="(item, index) in list" :key="index" class="item">
         <!-- 订单号 -->
         <div class="everyItem">
           <div>{{ _t18('order_number') }}</div>
@@ -55,14 +55,16 @@
         </div>
       </div>
     </van-list>
-    <Nodata v-if="list.length === 0 && isShow"></Nodata>
+    <Nodata v-if="list.length === 0 && isShow" />
   </div>
 </template>
 <script setup>
 import { onMounted, ref } from 'vue'
+
+import { getOwnCoinOrder } from '@/api/subscription/index'
 import Copy from '@/components/common/Copy/index.vue'
 import { _t18, _timeFormat } from '@/utils/public'
-import { getOwnCoinOrder } from '@/api/subscription/index'
+
 const list = ref([])
 const pageNum = ref(1)
 const pageSize = ref(8)
@@ -79,7 +81,6 @@ const onLoad = async () => {
       finished.value = true
     }
     pageNum.value++
-  } catch (error) {
   } finally {
     loading.value = false
   }

@@ -1,10 +1,13 @@
 <!-- 底部 -->
 <script setup>
-import { useMainStore } from '@/store/index.js'
-import { _toView } from '../../utils/public'
-import { useRouter } from 'vue-router'
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { useMainStore } from '@/store/index.js'
 import { useUserStore } from '@/store/user/index.js'
+
+import { _toView } from '../../utils/public'
+
 const userStore = useUserStore()
 const router = useRouter()
 
@@ -34,20 +37,20 @@ watch(
 </script>
 
 <template>
-  <div class="tab-bar-box" v-if="currentTab.linkUrl !== '/trade'">
+  <div v-if="currentTab.linkUrl !== '/trade'" class="tab-bar-box">
     <div class="tab-bar">
       <template v-for="item in getTabbarList" :key="item.key">
         <div class="item" @click="_toView(item.linkUrl)">
           <div class="itemTop">
             <image-load
-              :filePath="item.checkedImgUrl"
               v-show="currentTab.key == item.key"
+              :filePath="item.checkedImgUrl"
               class="tabbarImg"
             />
             <image-load
-              :filePath="item.imgUrl"
               v-show="currentTab.key != item.key"
               v-cloak
+              :filePath="item.imgUrl"
               class="tabbarImg"
             />
           </div>

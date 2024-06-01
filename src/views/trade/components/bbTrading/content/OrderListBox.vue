@@ -16,39 +16,38 @@
         <div class="listBox">
           <div v-if="dataNewList?.length > 0">
             <van-list
+              v-model:loading="loading"
               :finished="finished"
               :finished-text="_t18(`no_more_data`)"
               :loading-text="_t18(`loading`)"
               @load="onLoad"
-              v-model:loading="loading"
             >
               <van-cell v-for="(item, index) in dataNewList" :key="index" :border="false">
-                <EntrustOrderItem :data="item" @reduceOrderNum="reduceOrderNum"></EntrustOrderItem>
+                <EntrustOrderItem :data="item" @reduce-order-num="reduceOrderNum" />
               </van-cell>
             </van-list>
           </div>
-          <Nodata v-if="loading == false && dataNewList?.length <= 0"></Nodata>
+          <Nodata v-if="loading == false && dataNewList?.length <= 0" />
         </div>
       </van-tab>
     </van-tabs>
     <div class="tab_right">
-      <svg-load
-        :name="showEye ? 'yanjin-k' : 'yanjin-g'"
-        class="entrustRImg"
-        @click="handelEye"
-      ></svg-load>
-      <svg-load name="shuaxin" class="entrustRImg" @click="refresh"></svg-load>
+      <svg-load :name="showEye ? 'yanjin-k' : 'yanjin-g'" class="entrustRImg" @click="handelEye" />
+      <svg-load name="shuaxin" class="entrustRImg" @click="refresh" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { formatCurrentcurrency } from '@/utils/filters'
-import { _t18 } from '@/utils/public'
 import { onMounted } from 'vue'
-import EntrustOrderItem from './EntrustOrderItem.vue'
+
 import { getOrderListCurrencyApi } from '@/api/trade/index'
 import { useUserStore } from '@/store/user/index'
+import { formatCurrentcurrency } from '@/utils/filters'
+import { _t18 } from '@/utils/public'
+
+import EntrustOrderItem from './EntrustOrderItem.vue'
+
 const userStore = useUserStore()
 const props = defineProps({
   coinInfo: {
@@ -58,7 +57,7 @@ const props = defineProps({
 })
 const tabList = ref([
   { label: _t18(`exchange_curentrust`, ['bitmake', 'ebc']), value: 0, num: 0 },
-  { label: _t18(`exchange_hisentrust`, ['bitmake', 'ebc','rxce']), value: 1, num: 0 }
+  { label: _t18(`exchange_hisentrust`, ['bitmake', 'ebc', 'rxce']), value: 1, num: 0 }
 ])
 /**
  * 订单数据
@@ -170,7 +169,7 @@ defineExpose({
 .orderBox {
   position: relative;
 }
-:deep(.van-tabs__wrap){
+:deep(.van-tabs__wrap) {
   border-bottom: 1px solid var(--ex-border-color);
 }
 :deep(.van-tabs__nav) {
@@ -181,7 +180,7 @@ defineExpose({
   position: absolute;
   top: 0;
   right: 0;
-  background: var(--bgColor) !important;;
+  background: var(--bgColor) !important;
   padding: 15px 5px;
   .entrustRImg {
     padding: 0 8px;
@@ -191,7 +190,7 @@ defineExpose({
 .listBox {
   padding: 0;
 }
-.van-cell{
+.van-cell {
   background: var(--bgColor) !important;
   padding: 0;
   border-bottom: 1px solid var(--ex-border-color);

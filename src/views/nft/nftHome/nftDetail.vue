@@ -12,21 +12,21 @@
     <Price :title="titlePrice">
       <template #footerPrice>
         <div class="footerPriceUp fw-num">
-          <svg-load name="jiantou-sright" class="leftImg"></svg-load>
+          <svg-load name="jiantou-sright" class="leftImg" />
           <div class="text">0% above the floor price <span>0.015 ETH</span></div>
         </div>
       </template>
     </Price>
     <!-- 截止时间 -->
-    <Deadline></Deadline>
+    <Deadline />
     <!-- 详情 -->
-    <Details></Details>
+    <Details />
     <!-- 描述 -->
-    <Describe></Describe>
+    <Describe />
     <!-- 报价 -->
-    <Quotation></Quotation>
+    <Quotation />
     <!-- 交易历史 -->
-    <History></History>
+    <History />
   </div>
   <div class="bottomButton">
     <div class="twoList">
@@ -37,13 +37,13 @@
       <div class="item" @click="quotationShow = true">报价</div>
     </div> -->
   </div>
-  <Service></Service>
+  <Service />
   <!-- 报价 -->
   <OverlayPulic :show="quotationShow" :z-index="999">
     <template #contentCustomize>
       <div class="beCurrent">
         <div>报价</div>
-        <svg-load class="closeSvg" name="guanbi" @click="quotationShow = false"></svg-load>
+        <svg-load class="closeSvg" name="guanbi" @click="quotationShow = false" />
       </div>
       <div class="quotationOver">
         <div class="price">
@@ -64,8 +64,8 @@
                 <template #reference>
                   <div class="entrustSelect left">
                     <div>USDT</div>
-                    <svg-load v-show="!showPopover" name="jiantou10x5-x" class="img"></svg-load>
-                    <svg-load v-show="showPopover" name="jiantou10x5-s" class="img"></svg-load>
+                    <svg-load v-show="!showPopover" name="jiantou10x5-x" class="img" />
+                    <svg-load v-show="showPopover" name="jiantou10x5-s" class="img" />
                     <div class="line"></div>
                   </div>
                 </template>
@@ -85,7 +85,7 @@
           <div class="title ff-num marginTop">出价有效期至</div>
           <div class="periodValidity" @click="showDateOverlay = true">
             <div>2023-08-15 16:19</div>
-            <svg-load class="dateSvg" name="rili"></svg-load>
+            <svg-load class="dateSvg" name="rili" />
           </div>
           <div class="buttonlist">
             <div class="item" @click="quotationShow = false">取消</div>
@@ -100,14 +100,14 @@
     <template #contentCustomize>
       <div class="beCurrent">
         <div>购买</div>
-        <svg-load class="closeSvg" name="guanbi" @click="buyNowShow = false"></svg-load>
+        <svg-load class="closeSvg" name="guanbi" @click="buyNowShow = false" />
       </div>
       <div class="buyNowPrice">22.00 USDT</div>
       <ItemRow
         :currentImg="buyNowlist.rowUrl"
         :rightList="buyNowlist.rowRight"
         :bottomList="buyNowlist.rowBottom"
-      ></ItemRow>
+      />
       <div class="quotationOver">
         <div class="signing">
           <div class="title ff-num">签约</div>
@@ -122,8 +122,8 @@
                 <template #reference>
                   <div class="entrustSelect left">
                     <div>USDT</div>
-                    <svg-load v-show="!showBuyPopover" name="jiantou10x5-x" class="img"></svg-load>
-                    <svg-load v-show="showBuyPopover" name="jiantou10x5-s" class="img"></svg-load>
+                    <svg-load v-show="!showBuyPopover" name="jiantou10x5-x" class="img" />
+                    <svg-load v-show="showBuyPopover" name="jiantou10x5-s" class="img" />
                     <div class="line"></div>
                   </div>
                 </template>
@@ -150,32 +150,32 @@
     <template #contentCustomize>
       <div class="beCurrent">
         <div>{{ !showSuccessText ? '报价' : '购买' }}</div>
-        <svg-load class="closeSvg" name="guanbi" @click="successfulQuotation = false"></svg-load>
+        <svg-load class="closeSvg" name="guanbi" @click="successfulQuotation = false" />
       </div>
-      <svg-load class="successImg" name="chenggong"></svg-load>
+      <svg-load class="successImg" name="chenggong" />
       <div class="successText">{{ !showSuccessText ? '报价成功' : '购买成功' }}</div>
       <ItemRow
         :currentImg="successList.rowUrl"
         :rightList="successList.rowRight"
         :bottomList="successList.rowBottom"
-      ></ItemRow>
+      />
     </template>
   </OverlayPulic>
   <!-- 日期时间组件 -->
   <PublicPopup :show="showDateOverlay" :direction="`bottom`" :showHeader="false">
     <template #contentCustomize>
-      <div class="dateSelect" v-show="showSwtich">
+      <div v-show="showSwtich" class="dateSelect">
         <van-date-picker
           v-model="currentDate"
           title="选择日期"
           :cancel-button-text="`取消`"
           :confirm-button-text="`确认`"
+          :columns-type="['day', 'month', 'year']"
           @confirm="confirmDate"
           @cancel="cancelDate"
-          :columns-type="['day', 'month', 'year']"
         />
       </div>
-      <div class="dateSelect" v-show="!showSwtich">
+      <div v-show="!showSwtich" class="dateSelect">
         <van-time-picker
           v-model="currentTime"
           title="选择时间"
@@ -190,16 +190,18 @@
   </PublicPopup>
 </template>
 <script setup>
-import { reactive, computed } from 'vue'
+import { computed, reactive } from 'vue'
+
 import PublicPopup from '@/components/Popup/public.vue'
-import Service from '@/views/nft/components/Service/index.vue' //客服
-import Price from '@/views/nft/components/NftDetail/price.vue' // 价格
 import Deadline from '@/views/nft/components/NftDetail/deadline.vue' // 截止时间
-import Details from '@/views/nft/components/NftDetail/details.vue' // 详情
 import Describe from '@/views/nft/components/NftDetail/describe.vue' // 描述
-import Quotation from '@/views/nft/components/NftDetail/quotation.vue' // 报价
+import Details from '@/views/nft/components/NftDetail/details.vue' // 详情
 import History from '@/views/nft/components/NftDetail/history.vue' // 交易历史
 import ItemRow from '@/views/nft/components/NftDetail/itemRow.vue' // 弹窗的每一行展示内容
+import Price from '@/views/nft/components/NftDetail/price.vue' // 价格
+import Quotation from '@/views/nft/components/NftDetail/quotation.vue' // 报价
+import Service from '@/views/nft/components/Service/index.vue'
+//客服
 const titlePrice = ref('价格')
 const quotationShow = ref(false) // 报价
 const buyNowShow = ref(false) // 立即购买

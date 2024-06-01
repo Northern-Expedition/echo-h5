@@ -1,8 +1,8 @@
 <!--分享委托详情-->
 <template>
-  <div class="share-commission" id="html-canvas">
+  <div id="html-canvas" class="share-commission">
     <div class="share-img-box">
-      <image-load filePath="share.png" class="img"></image-load>
+      <image-load filePath="share.png" class="img" />
       <div
         :class="[
           'desc',
@@ -17,7 +17,7 @@
       </div>
     </div>
     <!-- 下载-->
-    <svg-load name="download" class="download" @click="downloadImg"></svg-load>
+    <svg-load name="download" class="download" @click="downloadImg" />
 
     <!--交易单详情-->
     <van-grid :column-num="3" :border="false" class="transaction-details">
@@ -44,7 +44,7 @@
     <van-row class="transaction-details">
       <van-col span="5" class="number-one-logo">
         <div class="logo-one">
-          <Logo></Logo>
+          <Logo />
         </div>
       </van-col>
       <van-col span="10" class="introduction">
@@ -54,15 +54,16 @@
         </div>
       </van-col>
       <van-col span="8" class="qrcode">
-        <QRCode :address="historicalData.QrCode"></QRCode>
+        <QRCode :address="historicalData.QrCode" />
       </van-col>
     </van-row>
   </div>
 </template>
 <script setup>
 import html2canvas from 'html2canvas'
-import { _isRFD, _t18 } from '@/utils/public'
+
 import QRCode from '@/components/common/QRCode/index.vue'
+import { _isRFD, _t18 } from '@/utils/public'
 
 const props = defineProps({
   historicalData: {

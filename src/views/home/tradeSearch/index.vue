@@ -1,10 +1,10 @@
 <template>
   <div class="search">
-    <svg-load name="sousuo-h" class="searchLeft"></svg-load>
+    <svg-load name="sousuo-h" class="searchLeft" />
     <div class="right">
       <input
-        type="text"
         v-model.trim="searchName"
+        type="text"
         placeholder="搜索币种"
         class="searchInput"
         @input="searchBtn"
@@ -12,12 +12,15 @@
       <div @click="_back()">取消</div>
     </div>
   </div>
-  <CurrencyData></CurrencyData>
+  <CurrencyData />
 </template>
 <script setup>
-import CurrencyData from '../components/currencyData.vue'
-import { debounceRef } from '@/utils/public'
 import { ref } from 'vue'
+
+import { debounceRef } from '@/utils/public'
+
+import CurrencyData from '../components/currencyData.vue'
+
 const searchName = debounceRef('')
 const searchBtn = () => {
   if (searchName.value !== '') {

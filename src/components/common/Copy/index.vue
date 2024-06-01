@@ -1,17 +1,19 @@
 <!-- 复制 -->
 <template>
-  <div class="copy" @click="toCopy" :style="{ justifyContent: contentFix }">
+  <div class="copy" :style="{ justifyContent: contentFix }" @click="toCopy">
     <slot name="copyMsg"></slot>
-    <svg-load name="copy" class="img" :style="{ fontSize: fontSize }" v-if="noFlag"></svg-load>
+    <svg-load v-if="noFlag" name="copy" class="img" :style="{ fontSize: fontSize }" />
   </div>
 </template>
 
 <script setup>
-import { _t18 } from '@/utils/public'
-import { useToast } from '@/hook/useToast'
-const { _toast } = useToast()
-import Copy from 'vue-clipboard3'
 import { defineExpose } from 'vue'
+import Copy from 'vue-clipboard3'
+
+import { useToast } from '@/hook/useToast'
+import { _t18 } from '@/utils/public'
+
+const { _toast } = useToast()
 
 const props = defineProps({
   data: {

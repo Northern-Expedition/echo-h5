@@ -1,8 +1,16 @@
 <template>
   <HeaderBar :currentName="`NFT`" />
   <div class="headerChoose">
-    <van-tabs v-model:active="currentIndex" line-width="20" line-height="2" color="#3CBC8C" background="#fff"
-      title-active-color="#000000" title-inactive-color="#838B9C" @click-tab="switchBtn(currentIndex)">
+    <van-tabs
+      v-model:active="currentIndex"
+      line-width="20"
+      line-height="2"
+      color="#3CBC8C"
+      background="#fff"
+      title-active-color="#000000"
+      title-inactive-color="#838B9C"
+      @click-tab="switchBtn(currentIndex)"
+    >
       <van-tab v-for="(item, index) in headerList" :key="index">
         <template #title>
           <div>{{ item.name }}</div>
@@ -11,7 +19,7 @@
     </van-tabs>
   </div>
   <div class="search">
-    <Search :disabledInput="false"></Search>
+    <Search :disabledInput="false" />
   </div>
   <footer v-if="!currentIndex">
     <FooterList @click="$router.push('/nftDetail')">
@@ -23,18 +31,20 @@
       </template>
     </FooterList>
   </footer>
-  <div class="transactionHistory" v-if="currentIndex">
-    <HistoryItem @click="$router.push('/nftDetail')"></HistoryItem>
+  <div v-if="currentIndex" class="transactionHistory">
+    <HistoryItem @click="$router.push('/nftDetail')" />
   </div>
   <!-- <Nodata></Nodata> -->
-  <Service></Service>
+  <Service />
 </template>
 <script setup>
-import Search from '@/views/nft/components/Search/index.vue' // 搜索
-import Service from '@/views/nft/components/Service/index.vue' //客服
-import FooterList from '@/views/nft/components/NftList/index.vue' // 作品列表
+import { onMounted, provide, ref, watch } from 'vue'
+
 import HistoryItem from '@/views/nft/components/NftList/historyItem.vue' // 交易历史
-import { ref, onMounted, provide, watch } from 'vue'
+import FooterList from '@/views/nft/components/NftList/index.vue' // 作品列表
+import Search from '@/views/nft/components/Search/index.vue' // 搜索
+import Service from '@/views/nft/components/Service/index.vue'
+//客服
 const currentIndex = ref(0)
 const headerList = computed(() => {
   return [
@@ -98,7 +108,7 @@ footer {
 
     .right {
       font-weight: bold;
-      color: var(--ex-font-color6)
+      color: var(--ex-font-color6);
     }
   }
 }

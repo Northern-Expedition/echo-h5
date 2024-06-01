@@ -1,14 +1,14 @@
 <template>
   <van-action-sheet
-    @click-overlay="handelClick"
     v-model:show="props.show"
     title=""
     style="max-width: var(--ex-max-width); left: 50%; translate: -50%; max-height: 60%"
+    @click-overlay="handelClick"
   >
     <div class="top">
       <div class="title">{{ _t18('areacode') }}</div>
       <div class="right">
-        <svg-load name="guanbi" class="guanbi" @click="handelClick"></svg-load>
+        <svg-load name="guanbi" class="guanbi" @click="handelClick" />
       </div>
     </div>
     <van-search
@@ -32,15 +32,16 @@
         </div>
       </div>
     </div>
-    <Nodata v-else></Nodata>
+    <Nodata v-else />
   </van-action-sheet>
 </template>
 
 <script setup>
-import { _t18 } from '@/utils/public'
+import { ref } from 'vue'
+
 import { getAreaCode } from '@/api/user'
 import { storageDict } from '@/config/dict'
-import { ref } from 'vue'
+import { _t18 } from '@/utils/public'
 
 const current = ref(localStorage.getItem(storageDict.LANGUAGE))
 const keywords = ref('')

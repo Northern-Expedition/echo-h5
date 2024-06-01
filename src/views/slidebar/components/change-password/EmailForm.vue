@@ -1,13 +1,15 @@
 <!-- 邮箱修改密码 -->
 <script setup>
-import ButtonBar from '@/components/common/ButtonBar/index.vue'
-import { emailCode, updatePwdByEmail } from '@/api/user'
-import { ref } from 'vue'
-import { useUserStore } from '@/store/user/index'
 import { storeToRefs } from 'pinia'
 import { showToast } from 'vant'
-import { _t18 } from '@/utils/public'
+import { ref } from 'vue'
+
+import { emailCode, updatePwdByEmail } from '@/api/user'
+import ButtonBar from '@/components/common/ButtonBar/index.vue'
 import { useToast } from '@/hook/useToast'
+import { useUserStore } from '@/store/user/index'
+import { _t18 } from '@/utils/public'
+
 const { _toast } = useToast()
 const userStore = useUserStore()
 userStore.getUserInfo()
@@ -96,43 +98,39 @@ const submit = () => {
   <div class="content">
     <div class="tip">{{ _t18('login_emailCode') }}</div>
     <div class="input disabled">
-      <svg-load name="youxiang-x" class="icon"></svg-load>
-      <input type="text" disabled v-model="form.email" />
+      <svg-load name="youxiang-x" class="icon" />
+      <input v-model="form.email" type="text" disabled />
     </div>
     <div class="tip">{{ _t18('verification_code') }}</div>
     <div class="input">
-      <svg-load name="yanzhengma" class="icon"></svg-load>
-      <input type="text" v-model="form.code" />
+      <svg-load name="yanzhengma" class="icon" />
+      <input v-model="form.code" type="text" />
       <div class="code-box">
-        <div class="wait-code" v-if="flag">
+        <div v-if="flag" class="wait-code">
           <van-count-down :time="time" format="ss" @finish="finish" />
         </div>
-        <div class="send-code" v-else @click="send">{{ _t18('login_send') }}</div>
+        <div v-else class="send-code" @click="send">{{ _t18('login_send') }}</div>
       </div>
     </div>
     <div class="tip">{{ _t18('forgot_newPwd') }}</div>
     <div class="input">
-      <svg-load name="mima" class="icon"></svg-load>
-      <input :type="newPwd ? 'text' : 'password'" v-model="form.newPwd" />
+      <svg-load name="mima" class="icon" />
+      <input v-model="form.newPwd" :type="newPwd ? 'text' : 'password'" />
       <svg-load
         :name="newPwd ? 'openeyes' : 'closeeyse'"
         class="icon"
         @click="setKeyVal('newPwd')"
-      ></svg-load>
+      />
     </div>
     <div class="tip">{{ _t18('forgot_require_newPwd') }}</div>
     <div class="input">
-      <svg-load name="mima" class="icon"></svg-load>
-      <input :type="NPwd ? 'text' : 'password'" v-model="form.NPwd" @input="pwdDiff" />
-      <svg-load
-        :name="NPwd ? 'openeyes' : 'closeeyse'"
-        class="icon"
-        @click="setKeyVal('NPwd')"
-      ></svg-load>
+      <svg-load name="mima" class="icon" />
+      <input v-model="form.NPwd" :type="NPwd ? 'text' : 'password'" @input="pwdDiff" />
+      <svg-load :name="NPwd ? 'openeyes' : 'closeeyse'" class="icon" @click="setKeyVal('NPwd')" />
     </div>
-    <p class="pwdDiff" v-if="showPwdDiff">*{{ _t18('register_pwd_diff') }}</p>
+    <p v-if="showPwdDiff" class="pwdDiff">*{{ _t18('register_pwd_diff') }}</p>
     <div class="btnBox" @click="submit">
-      <ButtonBar :btnValue="_t18('btnConfirm',['bitmake'])" />
+      <ButtonBar :btnValue="_t18('btnConfirm', ['bitmake'])" />
     </div>
   </div>
 </template>
@@ -145,7 +143,7 @@ const submit = () => {
     margin-bottom: 10px;
     text-align: left;
   }
-  
+
   .input {
     padding: 0 15px;
     width: 100%;
@@ -177,11 +175,11 @@ const submit = () => {
       align-items: center;
       color: var(--ex-font-color);
     }
-    .send-code{
+    .send-code {
       font-size: 14px;
     }
   }
-  .disabled{
+  .disabled {
     background: #efefef;
   }
   .icon {

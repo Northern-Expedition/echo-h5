@@ -47,9 +47,10 @@
   </div>
 </template>
 <script setup>
-import { timeOfreceipt, investmentStatus } from '@/utils/filters'
 import { priceFormat } from '@/utils/decimal'
+import { investmentStatus, timeOfreceipt } from '@/utils/filters'
 import { _t18 } from '@/utils/public'
+
 const props = defineProps({
   itemObj: {
     type: Object,

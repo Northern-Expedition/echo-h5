@@ -1,13 +1,20 @@
 <template>
   <div class="searchBtn">
-    <svg-load name="lujing3047" class="searchLeft"></svg-load>
-    <div class="searchInput" v-if="disabledInput">搜索商品</div>
-    <input v-if="!disabledInput" type="text" placeholder="搜索商品" class="searchInput" v-model.trim="searchName"
-      @input="searchBtn" />
+    <svg-load name="lujing3047" class="searchLeft" />
+    <div v-if="disabledInput" class="searchInput">搜索商品</div>
+    <input
+      v-if="!disabledInput"
+      v-model.trim="searchName"
+      type="text"
+      placeholder="搜索商品"
+      class="searchInput"
+      @input="searchBtn"
+    />
   </div>
 </template>
 <script setup>
 import { inject } from 'vue'
+
 const props = defineProps({
   disabledInput: {
     type: Boolean,

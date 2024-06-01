@@ -1,12 +1,14 @@
 <script setup>
-import HeaderBar from '@/components/HeaderBar/index.vue'
-import SetForm from './components/change-password/SetForm.vue'
-import EmailForm from './components/change-password/EmailForm.vue'
-import AccountForm from './components/change-password/AccountForm.vue'
-import { useUserStore } from '@/store/user'
 import { storeToRefs } from 'pinia'
-import { _t18 } from '@/utils/public'
+
+import HeaderBar from '@/components/HeaderBar/index.vue'
 import { useToast } from '@/hook/useToast'
+import { useUserStore } from '@/store/user'
+import { _t18 } from '@/utils/public'
+
+import AccountForm from './components/change-password/AccountForm.vue'
+import EmailForm from './components/change-password/EmailForm.vue'
+import SetForm from './components/change-password/SetForm.vue'
 
 const { _toast } = useToast()
 const userStore = useUserStore()
@@ -40,17 +42,17 @@ const changeMethod = () => {
       :currentName="notPwd ? _t18('sidebar_loginPwd', ['bitmake']) : _t18('password_set')"
       :cuttentRight="cuttentRight"
       :border_bottom="true"
-    ></HeaderBar>
+    />
     <!-- 添加登录密码 -->
-    <SetForm v-if="!loginPassword && updateLoginPwdMethod"></SetForm>
+    <SetForm v-if="!loginPassword && updateLoginPwdMethod" />
     <!-- 修改登录密码 -->
-    <AccountForm v-if="loginPassword && updateLoginPwdMethod"></AccountForm>
-    <EmailForm v-if="loginPassword && !updateLoginPwdMethod"></EmailForm>
-    <div class="box" v-if="loginPassword">
-      <div class="set" @click="changeMethod" v-if="!updateLoginPwdMethod">
+    <AccountForm v-if="loginPassword && updateLoginPwdMethod" />
+    <EmailForm v-if="loginPassword && !updateLoginPwdMethod" />
+    <div v-if="loginPassword" class="box">
+      <div v-if="!updateLoginPwdMethod" class="set" @click="changeMethod">
         {{ _t18('password_update_pwd') }}
       </div>
-      <div class="set" @click="changeMethod" v-else>{{ _t18('password_update_email') }}</div>
+      <div v-else class="set" @click="changeMethod">{{ _t18('password_update_email') }}</div>
     </div>
   </div>
 </template>

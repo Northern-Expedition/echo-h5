@@ -1,11 +1,12 @@
 <script setup>
-import { watch } from 'vue'
-import { reactive } from 'vue'
-import ButtonBar from '@/components/common/ButtonBar/index.vue'
-import { setFundPwd } from '@/api/user'
 import { showToast } from 'vant'
-import { _t18 } from '@/utils/public'
+import { reactive, watch } from 'vue'
+
+import { setFundPwd } from '@/api/user'
+import ButtonBar from '@/components/common/ButtonBar/index.vue'
 import { useToast } from '@/hook/useToast'
+import { _t18 } from '@/utils/public'
+
 const { _toast } = useToast()
 const form = reactive({
   pwd: false
@@ -35,13 +36,13 @@ const submit = () => {
     _toast('Fund_password_noempty')
     return
   }
-  
-  setFundPwd(formData.value.password).then(res=>{
-    if(res.code=='200'){
+
+  setFundPwd(formData.value.password).then((res) => {
+    if (res.code == '200') {
       // showToast('设置成功')
-    _toast('Fund_password_set_success')
+      _toast('Fund_password_set_success')
       success.value = true
-    }else{
+    } else {
       showToast(res.msg)
     }
   })
@@ -50,12 +51,12 @@ const submit = () => {
 <template>
   <div class="content">
     <div class="input">
-      <svg-load name="mima" class="icon"></svg-load>
-      <input :type="form.pwd ? 'text' : 'password'" v-model="formData.password" />
-      <svg-load :name="form.pwd ? 'openeyes' : 'closeeyse'" class="icon" @click="setVal"></svg-load>
+      <svg-load name="mima" class="icon" />
+      <input v-model="formData.password" :type="form.pwd ? 'text' : 'password'" />
+      <svg-load :name="form.pwd ? 'openeyes' : 'closeeyse'" class="icon" @click="setVal" />
     </div>
     <div class="btnBox" @click="submit">
-      <ButtonBar :btnValue="_t18('btnConfirm',['bitmake'])" />
+      <ButtonBar :btnValue="_t18('btnConfirm', ['bitmake'])" />
     </div>
   </div>
 </template>

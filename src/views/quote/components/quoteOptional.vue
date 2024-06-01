@@ -4,7 +4,7 @@
     <Filter
       :isOptional="isOptional && collectList?.length > 0"
       :list="collectList"
-      @toSort="toSort"
+      @to-sort="toSort"
     />
     <div v-if="collectList?.length > 0">
       <CollectItem
@@ -12,11 +12,10 @@
         :key="index"
         :collectItem="item"
         @click="linkTo(item)"
-      >
-      </CollectItem>
+      />
     </div>
     <div v-else>
-      <Nodata></Nodata>
+      <Nodata />
       <div class="addOptional">
         <div class="addOptionalBtn" @click="$router.push('/addOptional')">
           +{{ _t18(`quote_addOwn`) }}
@@ -27,12 +26,16 @@
 </template>
 
 <script setup>
-import { filterKeyCoin } from '@/utils/filters'
-import Filter from './common/filter.vue'
-import CollectItem from './common/collectItem.vue'
-import { getCollect } from '@/api/trade'
 import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { getCollect } from '@/api/trade'
 import { useUserStore } from '@/store/user'
+import { filterKeyCoin } from '@/utils/filters'
+
+import CollectItem from './common/collectItem.vue'
+import Filter from './common/filter.vue'
+
 const props = defineProps({
   searchName: {
     type: String
@@ -56,10 +59,8 @@ onMounted(() => {
 const toSort = (v) => {
   collectList.value = v
 }
-
-import { useRouter } from 'vue-router'
 const router = useRouter()
-const linkTo=(item)=>{
+const linkTo = (item) => {
   router.push(`/trade?symbol=${item.coin}`)
 }
 </script>

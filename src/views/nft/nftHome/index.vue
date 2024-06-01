@@ -1,7 +1,7 @@
 <template>
   <HeaderBar :currentName="`NFT`" />
   <div class="search">
-    <Search @click="$router.push('/nftResult')"></Search>
+    <Search @click="$router.push('/nftResult')" />
   </div>
   <div class="carousel">
     <van-swipe :autoplay="3000" lazy-render :loop="true" :show-indicators="false">
@@ -35,13 +35,13 @@
         <van-popover v-model:show="showFirstPopover">
           <div class="rightScondList">
             <div
-              class="rightScondListItem"
-              :class="showFirstIndex === index ? 'hightBlue' : ''"
               v-for="(item, index) in showFirstList"
               :key="index"
+              class="rightScondListItem"
+              :class="showFirstIndex === index ? 'hightBlue' : ''"
               @click="checkedFirst(index)"
             >
-              <image-load :filePath="item.logo" v-if="item.logo" class="imgLogo" />
+              <image-load v-if="item.logo" :filePath="item.logo" class="imgLogo" />
               <div>{{ item.showSymbol }}</div>
             </div>
           </div>
@@ -50,8 +50,8 @@
               <div class="entrustName text-ellipsis">
                 {{ showFirstList[showFirstIndex].showSymbol }}
               </div>
-              <svg-load v-show="!showFirstPopover" name="jiantou10x5-x" class="img"></svg-load>
-              <svg-load v-show="showFirstPopover" name="jiantou10x5-s" class="img"></svg-load>
+              <svg-load v-show="!showFirstPopover" name="jiantou10x5-x" class="img" />
+              <svg-load v-show="showFirstPopover" name="jiantou10x5-s" class="img" />
             </div>
           </template>
         </van-popover>
@@ -67,8 +67,8 @@
           <template #reference>
             <div class="entrustSelect left">
               <div>123</div>
-              <svg-load v-show="!showSecondPopover" name="jiantou10x5-x" class="img"></svg-load>
-              <svg-load v-show="showSecondPopover" name="jiantou10x5-s" class="img"></svg-load>
+              <svg-load v-show="!showSecondPopover" name="jiantou10x5-x" class="img" />
+              <svg-load v-show="showSecondPopover" name="jiantou10x5-s" class="img" />
             </div>
           </template>
         </van-popover>
@@ -84,8 +84,8 @@
           <template #reference>
             <div class="entrustSelect left">
               <div>123</div>
-              <svg-load v-show="!showThirdPopover" name="jiantou10x5-x" class="img"></svg-load>
-              <svg-load v-show="showThirdPopover" name="jiantou10x5-s" class="img"></svg-load>
+              <svg-load v-show="!showThirdPopover" name="jiantou10x5-x" class="img" />
+              <svg-load v-show="showThirdPopover" name="jiantou10x5-s" class="img" />
             </div>
           </template>
         </van-popover>
@@ -98,7 +98,7 @@
     <div class="contain">
       <div class="item" @click="$router.push('/listDetail')">
         <div class="num fw-num">
-          <svg-load name="1" class="num"></svg-load>
+          <svg-load name="1" class="num" />
         </div>
         <div class="leftImg"></div>
         <div class="right fw-num">
@@ -114,7 +114,7 @@
       </div>
       <div class="item" @click="$router.push('/listDetail')">
         <div class="num fw-num">
-          <svg-load name="1" class="num"></svg-load>
+          <svg-load name="1" class="num" />
         </div>
         <div class="leftImg"></div>
         <div class="right fw-num">
@@ -130,14 +130,16 @@
       </div>
     </div>
   </div>
-  <Service></Service>
+  <Service />
 </template>
 <script setup>
+import { computed, onMounted, reactive, ref } from 'vue'
+
+import { useTradeStore } from '@/store/trade/index'
+import { _t18 } from '@/utils/public'
 import Search from '@/views/nft/components/Search/index.vue'
 import Service from '@/views/nft/components/Service/index.vue'
-import { useTradeStore } from '@/store/trade/index'
-import { ref, onMounted, reactive, computed } from 'vue'
-import { _t18 } from '@/utils/public'
+
 const tradeStore = useTradeStore()
 const secondContractCoinList = computed(() => {
   return tradeStore.secondContractCoinList.filter((it, inx) => {

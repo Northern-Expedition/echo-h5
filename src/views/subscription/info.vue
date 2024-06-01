@@ -1,16 +1,16 @@
 <template>
   <div>
     <!-- 申购详情 -->
-    <HeaderBar :currentName="_t18(`host.detail`)"></HeaderBar>
+    <HeaderBar :currentName="_t18(`host.detail`)" />
     <!-- 币种介绍 -->
-    <CoinInfo :data="formData"></CoinInfo>
+    <CoinInfo :data="formData" />
     <!-- 产品详情 -->
-    <div class="infoItem" v-if="formData?.id">
-      <ProductInfo :data="formData"></ProductInfo>
+    <div v-if="formData?.id" class="infoItem">
+      <ProductInfo :data="formData" />
     </div>
     <!-- 产品规则 -->
     <div class="infoItem">
-      <RuleInfo :purchaseLimit="formData.purchaseLimit"></RuleInfo>
+      <RuleInfo :purchaseLimit="formData.purchaseLimit" />
     </div>
     <!-- 提交申购 -->
     <div class="infoItem btnBox" @click="toApply()">
@@ -20,15 +20,17 @@
 </template>
 
 <script setup>
-import { _t18 } from '@/utils/public'
+import { useRoute } from 'vue-router'
+
+import { getOwnCoinDetail } from '@/api/subscription/index'
+import ButtonBar from '@/components/common/ButtonBar/index.vue'
 import HeaderBar from '@/components/HeaderBar/index.vue'
+import { _t18, _toView } from '@/utils/public'
+
 import CoinInfo from './components/CoinInfo.vue'
 import ProductInfo from './components/ProductInfo.vue'
 import RuleInfo from './components/RuleInfo.vue'
-import ButtonBar from '@/components/common/ButtonBar/index.vue'
-import { _toView } from '@/utils/public'
-import { getOwnCoinDetail } from '@/api/subscription/index'
-import { useRoute } from 'vue-router'
+
 const route = useRoute()
 /**
  * 详情数据

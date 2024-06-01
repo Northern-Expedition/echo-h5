@@ -1,8 +1,10 @@
 <!-- 平台Logo -->
 <script setup name="img-load">
 import { computed } from 'vue'
-import { _toView } from '@/utils/public.js'
+
 import { useMainStore } from '@/store/index.js'
+import { _toView } from '@/utils/public.js'
+
 const mainStroe = useMainStore()
 
 /**

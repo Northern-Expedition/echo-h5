@@ -85,7 +85,7 @@ export const useTradeStore = defineStore('trade', {
                   2
                 )
               }
-            } catch (error) {}
+            } catch (error) {console.log(error)}
             tempAllCoinPriceInfo[elem.coin] = {
               close: priceFormat(elem.amount),
               openPrice: priceFormat(elem.open),

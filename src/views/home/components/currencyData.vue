@@ -1,11 +1,12 @@
 <script setup>
 import { useTradeStore } from '@/store/trade/index'
+
 const tradeStore = useTradeStore()
 // 显示数组 []
 </script>
 <template>
-  <div class="list" v-if="tradeStore.secondContractCoinList.length">
-    <div class="listItem" v-for="(item, index) in tradeStore.secondContractCoinList" :key="index">
+  <div v-if="tradeStore.secondContractCoinList.length" class="list">
+    <div v-for="(item, index) in tradeStore.secondContractCoinList" :key="index" class="listItem">
       <div class="left">
         <image-load :filePath="item.logo" class="leftImg" />
         <div class="itemTitle">
@@ -32,7 +33,7 @@ const tradeStore = useTradeStore()
       </div>
     </div>
   </div>
-  <Nodata v-else></Nodata>
+  <Nodata v-else />
 </template>
 
 <style lang="scss" scoped>

@@ -2,12 +2,12 @@
 <template>
   <van-tabs
     :active="props.active"
-    @clickTab="change"
     title-inactive-color="#333"
     title-active-color="#613af1"
     color="#613af1"
     :line-width="lineWidth"
     :class="flexBetween ? 'betweenClass' : ''"
+    @click-tab="change"
   >
     <van-tab v-for="(item, index) in props.tabList" :key="index" :title="item">
       <div class="tabContent">

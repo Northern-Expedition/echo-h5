@@ -5,7 +5,7 @@
         <img src="@/assets/financial/coin-JyvGAUty.png" class="img" />
         <div class="info">{{ itemObj.title }}</div>
         <!-- 普通和增值没有 -->
-        <div class="vip" v-if="itemObj.classify !== '0' && itemObj.classify !== '2'">
+        <div v-if="itemObj.classify !== '0' && itemObj.classify !== '2'" class="vip">
           VIP{{ itemObj.level }}
         </div>
       </div>
@@ -69,6 +69,7 @@
 </template>
 <script setup>
 import { _t18 } from '@/utils/public'
+
 const props = defineProps({
   itemObj: {
     type: Object,

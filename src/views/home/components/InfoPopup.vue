@@ -1,6 +1,7 @@
 <!-- 站内信弹窗 -->
 <script setup>
 import { showToast } from 'vant'
+
 import { haveRead } from '@/api/info'
 import { _t18 } from '@/utils/public'
 

@@ -12,12 +12,12 @@
         </p>
       </div>
 
-      <van-icon name="cross" @click="$router.push('/')" size="20" />
+      <van-icon name="cross" size="20" @click="$router.push('/')" />
     </div>
     <div class="top">
       <!-- <p class="left" v-if="props.type != 2">Hi</p> -->
       <!-- 忘记密码 -->
-      <p class="left" v-if="props.type == 2">{{ _t18('forget_pwd', ['bitmake']) }}</p>
+      <p v-if="props.type == 2" class="left">{{ _t18('forget_pwd', ['bitmake']) }}</p>
     </div>
     <div class="bottom">
       <!-- 欢迎登录 -->
@@ -28,9 +28,11 @@
 </template>
 
 <script setup>
-import { _t18 } from '@/utils/public'
-import { useMainStore } from '@/store/index'
 import { computed } from 'vue'
+
+import { useMainStore } from '@/store/index'
+import { _t18 } from '@/utils/public'
+
 const mainStore = useMainStore()
 /**
  * 当前语言实例

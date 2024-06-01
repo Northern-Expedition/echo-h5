@@ -1,19 +1,21 @@
 <template>
   <HeaderBar :currentName="_t18(`home_service`)" />
-  <div class="onlineService" v-if="list.length > 0">
-    <div class="item" v-for="(item, index) in list" :key="index" @click="linkTo(item.url)">
+  <div v-if="list.length > 0" class="onlineService">
+    <div v-for="(item, index) in list" :key="index" class="item" @click="linkTo(item.url)">
       <image-load :filePath="item.imgUrl" alt="" class="itemImg" />
-      <div class="right"><svg-load name="jiantou" class="jiantou"></svg-load></div>
+      <div class="right"><svg-load name="jiantou" class="jiantou" /></div>
     </div>
   </div>
-  <Nodata v-if="list.length === 0 && isShow"></Nodata>
+  <Nodata v-if="list.length === 0 && isShow" />
 </template>
 <script setup>
 import { onMounted, ref } from 'vue'
-import HeaderBar from '@/components/HeaderBar/index.vue'
+
 import { getCustomerService } from '@/api/common/index'
-import { _t18 } from '@/utils/public'
+import HeaderBar from '@/components/HeaderBar/index.vue'
 import { useMainStore } from '@/store/index.js'
+import { _t18 } from '@/utils/public'
+
 const mainStroe = useMainStore()
 const list = ref([])
 const isShow = ref(false)

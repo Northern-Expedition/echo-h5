@@ -4,35 +4,39 @@
     <div class="formData">
       <p style="color: #a0a5af">{{ _t18('login_mobileCode') }}</p>
       <div>
-        <input type="text" :placeholder="_t18('login_mobileCode')" v-model="formData3.mobile" />
+        <input v-model="formData3.mobile" type="text" :placeholder="_t18('login_mobileCode')" />
         <div class="right" style="position: relative">
           <i class="teshu"></i>
           <i style="color: #fff">+</i>
           <p style="color: #fff">{{ formData3.areaCode }}</p>
-          <svg-load name="jiantou10x5-x" class="jiantou" @click="showAreaCode"></svg-load>
+          <svg-load name="jiantou10x5-x" class="jiantou" @click="showAreaCode" />
         </div>
       </div>
     </div>
     <div class="formData">
       <p style="color: #a0a5af">{{ _t18('login_code') }}</p>
       <div>
-        <input type="text" :placeholder="_t18('login_please')" v-model="formData3.code" />
+        <input v-model="formData3.code" type="text" :placeholder="_t18('login_please')" />
         <p v-if="!flag" @click="send()">{{ _t18('login_send') }}</p>
         <p v-else><van-count-down :time="time" format="ss" @finish="finish" /></p>
       </div>
     </div>
-    <Footer :type="0" :formDataToLogin="formData3" @refersh="refreshCode"></Footer>
-    <AreaCode :show="show" @handelClick="close" @handelSelect="select"></AreaCode>
+    <Footer :type="0" :formDataToLogin="formData3" @refersh="refreshCode" />
+    <AreaCode :show="show" @handel-click="close" @handel-select="select" />
   </div>
 </template>
 
 <script setup>
-import Footer from './../signFooter.vue'
+import './../style.scss'
+
 import { mobileCode } from '@/api/user'
-import AreaCode from './../areaCode.vue'
 import { useToast } from '@/hook/useToast'
-const { _toast } = useToast()
 import { _t18 } from '@/utils/public'
+
+import AreaCode from './../areaCode.vue'
+import Footer from './../signFooter.vue'
+
+const { _toast } = useToast()
 /**
  * 表单数据
  */
@@ -86,7 +90,6 @@ const finish = () => {
   flag.value = false
 }
 const refreshCode = () => {}
-import './../style.scss'
 </script>
 
 <style lang="scss" scoped>

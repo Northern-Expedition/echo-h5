@@ -2,14 +2,14 @@
 <template>
   <div>
     <van-popup v-model:show="show" position="right" class="sidebar" @close="closeSideBar">
-      <SideBar @closeSideBar="closeSideBar"></SideBar>
+      <SideBar @close-side-bar="closeSideBar" />
     </van-popup>
     <div class="top">
       <div>
-        <Logo></Logo>
+        <Logo />
       </div>
       <div @click="openWindow">
-        <svg-load name="news" class="rightImg"></svg-load>
+        <svg-load name="news" class="rightImg" />
       </div>
     </div>
     <div class="carousel">
@@ -27,11 +27,11 @@
   </div>
   <div class="currentList">
     <div
-      class="item centerItem"
       v-for="(item, index) in dataList.filter((it, idx) => {
         return idx < 4
       })"
       :key="index"
+      class="item centerItem"
       @click="linkTo(item)"
     >
       <div class="itemTop ff-num">{{ item.showSymbol }}</div>
@@ -61,12 +61,12 @@
   </div>
 </template>
 <script setup>
-import { useTradeStore } from '@/store/trade/index'
-import { useMainStore } from '@/store/index.js'
+import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { onMounted } from 'vue'
+
 import { publiceNotice } from '@/api/common/index'
-import { computed } from 'vue'
+import { useMainStore } from '@/store/index.js'
+import { useTradeStore } from '@/store/trade/index'
 import SideBar from '@/views/home/sidebar/index.vue'
 
 const show = ref(false)
@@ -129,7 +129,9 @@ onMounted(async () => {
         return item.status != '1'
       })
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 })
 </script>
 <style lang="scss" scoped>
@@ -162,22 +164,22 @@ onMounted(async () => {
     margin-left: 5px;
   }
   .rightImg {
-      width: 0.533333rem;
-      height: 0.533333rem;
-      position: relative;
+    width: 0.533333rem;
+    height: 0.533333rem;
+    position: relative;
 
-      &::before {
-        display: block;
-        content: '';
-        position: absolute;
-        top: -0.026667rem;
-        right: -0.026667rem;
-        width: 0.16rem;
-        height: 0.16rem;
-        border-radius: 50%;
-        background: #ff6058;
-      }
+    &::before {
+      display: block;
+      content: '';
+      position: absolute;
+      top: -0.026667rem;
+      right: -0.026667rem;
+      width: 0.16rem;
+      height: 0.16rem;
+      border-radius: 50%;
+      background: #ff6058;
     }
+  }
 }
 .carousel {
   // height: 200px;

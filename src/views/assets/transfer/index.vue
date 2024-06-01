@@ -1,6 +1,6 @@
 <!-- 划转 -->
 <template>
-  <HeaderBar :currentName="_t18('transfer')"></HeaderBar>
+  <HeaderBar :currentName="_t18('transfer')" />
 
   <div class="content_box">
     <div class="cardOne">
@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="right" @click="jiaohuanbtn2">
-        <svg-load name="huazhuanbtn" class="huazhuanbtn"></svg-load>
+        <svg-load name="huazhuanbtn" class="huazhuanbtn" />
       </div>
     </div>
     <div class="cardTwo">
@@ -34,11 +34,11 @@
       <div class="top">{{ _t18('transfer_amount') }}</div>
       <div class="bottom">
         <input
+          v-model="params.amount"
           type="number"
           :placeholder="`${_t18('transfer_less', ['aams'])}1${params.coin?.toUpperCase()}`"
-          v-model="params.amount"
         />
-        <span @click="amountAll" style="color: #613af1">
+        <span style="color: #613af1" @click="amountAll">
           {{ _t18('swap_all') }}
         </span>
         <i>|</i>
@@ -58,21 +58,22 @@
 </template>
 
 <script setup>
+import { showToast } from 'vant'
+import { computed, onMounted, ref } from 'vue'
+
+import { getTransferList, getUserBalance } from '@/api/account'
+import ButtonBar from '@/components/common/ButtonBar/index.vue'
 import { DIFF_ISFREEZE } from '@/config/index'
 import { useFreeze } from '@/hook/useFreeze'
-
-const { _isFreeze } = useFreeze()
-import ButtonBar from '@/components/common/ButtonBar/index.vue'
-import { getTransferList, getUserBalance } from '@/api/account'
-import { onMounted, ref, computed } from 'vue'
-import { showToast } from 'vant'
-import { _t18 } from '@/utils/public'
+import { useToast } from '@/hook/useToast'
 import { useMainStore } from '@/store'
 import { useUserStore } from '@/store/user'
+import { _t18 } from '@/utils/public'
+
+const { _isFreeze } = useFreeze()
 
 const mainStore = useMainStore()
 const userStore = useUserStore()
-import { useToast } from '@/hook/useToast'
 
 const { _toast } = useToast()
 

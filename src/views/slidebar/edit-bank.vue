@@ -7,7 +7,7 @@
       :cuttentRight="cuttentRight"
       :border_bottom="true"
       @del="del"
-    ></HeaderBar>
+    />
     <!--内容-->
     <div class="content">
       <div class="form">
@@ -18,74 +18,74 @@
             v-model="formData.userName"
             class="form-input"
           /> -->
-          <input :placeholder="_t18('login_please')" v-model="bindUserName" class="form-input" />
+          <input v-model="bindUserName" :placeholder="_t18('login_please')" class="form-input" />
         </div>
         <div class="formInput">
           <p
-            class="label"
             v-if="
               ['trustwallet', 'coinmarketcap', 'kabit', 'etfinex', 'ebc'].includes(
                 _getConfig('_APP_ENV')
               )
             "
+            class="label"
           >
             {{ _t18('bank_account') }}
           </p>
-          <p class="label" v-else>{{ _t18('Bank_card_number') }}</p>
+          <p v-else class="label">{{ _t18('Bank_card_number') }}</p>
           <input
-            :placeholder="_t18('login_please')"
             v-model="formData.cardNumber"
+            :placeholder="_t18('login_please')"
             class="form-input"
           />
         </div>
         <div class="formInput">
           <p
-            class="label"
             v-if="
               ['trustwallet', 'coinmarketcap', 'kabit', 'etfinex', 'ebc'].includes(
                 _getConfig('_APP_ENV')
               )
             "
+            class="label"
           >
             {{ _t18('bank_name') }}
           </p>
-          <p class="label" v-else>
+          <p v-else class="label">
             {{ _t18('Bank_own') }}
           </p>
           <input
-            :placeholder="_t18('login_please')"
             v-model="formData.bankName"
+            :placeholder="_t18('login_please')"
             class="form-input"
           />
         </div>
-        <div class="formInput" v-if="formData.bankBranch">
+        <div v-if="formData.bankBranch" class="formInput">
           <p
-            class="label"
             v-if="
               ['trustwallet', 'coinmarketcap', 'kabit', 'etfinex', 'ebc'].includes(
                 _getConfig('_APP_ENV')
               )
             "
+            class="label"
           >
             {{ _t18('branch_namee') }}
           </p>
-          <p class="label" v-else>{{ _t18('branch_name') }}</p>
+          <p v-else class="label">{{ _t18('branch_name') }}</p>
           <input
-            :placeholder="_t18('login_please')"
             v-model="formData.bankBranch"
+            :placeholder="_t18('login_please')"
             class="form-input"
           />
         </div>
         <!-- HFM2 币种选择-->
-        <div class="formInput" v-if="['HFM2', 'dev'].includes(_getConfig('_APP_ENV'))">
+        <div v-if="['HFM2', 'dev'].includes(_getConfig('_APP_ENV'))" class="formInput">
           <p class="label">
             {{ _t18('recharge_coin') }}
           </p>
           <van-field
+            v-model="formData.coin"
             class="form-input"
             is-link
             readonly
-            v-model="formData.coin"
             :placeholder="_t18('recharge_coin')"
             @click="showCoinPicker = true"
           />
@@ -99,23 +99,25 @@
       <div class="btnBox" @click="submit">
         <ButtonBar :btnValue="_t18('Bank_save')" />
       </div>
-      <van-dialog v-model:show="show" title="" show-cancel-button></van-dialog>
+      <van-dialog v-model:show="show" title="" show-cancel-button />
     </div>
   </div>
 </template>
 <script setup>
-import HeaderBar from '@/components/HeaderBar/index.vue'
-import ButtonBar from '@/components/common/ButtonBar/index.vue'
+import { storeToRefs } from 'pinia'
 import { showConfirmDialog, showToast } from 'vant'
-import { reactive, onMounted } from 'vue'
+import { onMounted, reactive } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
+
 import { delBindCard, updateBindCard } from '@/api/account'
-import { _toView, _t18 } from '@/utils/public'
+import { dict } from '@/api/common/index.js'
+import ButtonBar from '@/components/common/ButtonBar/index.vue'
+import HeaderBar from '@/components/HeaderBar/index.vue'
 import { useToast } from '@/hook/useToast'
 import { useUserStore } from '@/store/user/index'
-import { dict } from '@/api/common/index.js'
-import { storeToRefs } from 'pinia'
-import { useI18n } from 'vue-i18n'
+import { _t18, _toView } from '@/utils/public'
+
 const { t } = useI18n()
 const userStore = useUserStore()
 // userStore.getUserInfo()

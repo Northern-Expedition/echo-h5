@@ -1,14 +1,14 @@
 <template>
   <!-- 充值记录 -->
-  <HeaderBar :currentName="_t18('recharge_order')"></HeaderBar>
+  <HeaderBar :currentName="_t18('recharge_order')" />
   <Tab :tabList="tabList" :active="curIndex" @change="changeIndex">
     <template #tabContent>
       <!-- 下拉刷新 -->
       <van-pull-refresh
         v-model="refreshing"
-        @refresh="onRefresh"
         :loading-text="_t18('loading')"
         :loosing-text="_t18('release_refresh')"
+        @refresh="onRefresh"
       >
         <!-- 加载中动画 -->
         <van-loading v-if="showLoading" />
@@ -23,8 +23,8 @@
             :loading-text="_t18(`loading`)"
             @load="onLoad"
           >
-            <van-cell :border="false" v-for="(item, index) in tabContentList" :key="index">
-              <OrderList :data="item"></OrderList>
+            <van-cell v-for="(item, index) in tabContentList" :key="index" :border="false">
+              <OrderList :data="item" />
             </van-cell>
           </van-list>
           <!-- 数据为空 -->
@@ -38,8 +38,10 @@
 <script setup>
 import { getRechargeList } from '@/api/account'
 import Tab from '@/components/Tab/index.vue'
-import OrderList from '../components/orderList.vue'
 import { _t18 } from '@/utils/public'
+
+import OrderList from '../components/orderList.vue'
+
 const refreshing = ref(false) //下拉刷新的加载展示
 const showLoading = ref(true) //加载动画
 const loading = ref(false) //分页加载

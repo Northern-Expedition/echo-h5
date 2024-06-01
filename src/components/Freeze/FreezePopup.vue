@@ -15,12 +15,12 @@ const props = defineProps({
   value: {
     type: Boolean,
     default: false
-  },
+  }
 })
 const show = computed(() => props.value)
 const emits = defineEmits(['closePopup'])
-const cancel=()=>{
-    emits('closePopup')
+const cancel = () => {
+  emits('closePopup')
 }
 </script>
 

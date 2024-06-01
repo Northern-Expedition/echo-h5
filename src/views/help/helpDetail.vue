@@ -6,15 +6,17 @@
       <div class="time">{{ questionDetail.createTime }}</div>
 
       <div class="itemDetailObj" v-html="currentHtml"></div>
-      <Nodata v-if="!currentHtml"></Nodata>
+      <Nodata v-if="!currentHtml" />
     </div>
   </div>
 </template>
 <script setup>
-import { _t18 } from '@/utils/public'
-import { getHelpcenterDetail } from '@/api/help/index'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+
+import { getHelpcenterDetail } from '@/api/help/index'
+import { _t18 } from '@/utils/public'
+
 const Route = useRoute()
 const currentHtml = ref('')
 const questionDetail = ref({})
@@ -26,7 +28,9 @@ onMounted(async () => {
         questionDetail.value = res.data
         currentHtml.value = res.data.content
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   }
 })
 </script>

@@ -2,6 +2,7 @@
 <script setup>
 import { useMainStore } from '@/store/index.js'
 import { _t18 } from '@/utils/public'
+
 const props = defineProps({
   title: {
     type: String,
@@ -45,10 +46,10 @@ const leftClick = () => {
     <div class="nav-bar">
       <slot name="head"></slot>
       <div class="left" @click="leftClick">
-        <svg-load v-if="leftIcon" :name="leftIcon" :platform="[]"></svg-load>
+        <svg-load v-if="leftIcon" :name="leftIcon" :platform="[]" />
         <slot name="left"></slot>
       </div>
-      <div class="center" v-if="props.title">
+      <div v-if="props.title" class="center">
         {{ _t18(props.title) }}
         <slot name="center"></slot>
       </div>

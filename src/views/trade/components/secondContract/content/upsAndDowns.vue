@@ -2,7 +2,7 @@
 <template>
   <div>
     <!-- 看跌 看跌 -->
-    <div class="upsAndDowns" v-if="amountSum != 0">
+    <div v-if="amountSum != 0" class="upsAndDowns">
       <div class="ups item" @click="showBtn(1)">
         {{ _t18(`exchange_bullish`, ['bitmake', 'bityc', 'aams', 'math']) }}
       </div>
@@ -10,12 +10,12 @@
         {{ _t18(`exchange_bearish`, ['bitmake', 'bityc', 'aams', 'math']) }}
       </div>
     </div>
-    <div class="upsAndDowns" v-else>
+    <div v-else class="upsAndDowns">
       <div class="start_btn" @click="clickMock">{{ _t18('open_mock') }}</div>
     </div>
   </div>
   <!-- 涨跌 -->
-  <PublicPopup :show="showOverlay" :direction="`bottom`" @handelClose="handelClose">
+  <PublicPopup :show="showOverlay" :direction="`bottom`" @handel-close="handelClose">
     <template #titleCustomize>
       <div class="titleLeft">
         <!-- customizeFlag   1否 2是 -->
@@ -39,11 +39,11 @@
           <div class="firstHeader fw-bold">{{ _t18(`select_cycle`, ['ebc']) }}</div>
           <div class="firstList">
             <div
+              v-for="(item, index) in cycleList"
+              :key="index"
               style="display: inline-block"
               class="firstItem fw-num"
               :class="cycleIndex === index ? 'hightColor' : ''"
-              v-for="(item, index) in cycleList"
-              :key="index"
               @click="chooseCycle(index, item)"
             >
               <div class="firstItemTop">{{ item.period }}s</div>
@@ -62,15 +62,17 @@
               ['aams'].includes(_getConfig('_APP_ENV'))
                 ? 100
                 : cycleObj && cycleObj.minAmount
-                ? cycleObj.minAmount
-                : 0
+                  ? cycleObj.minAmount
+                  : 0
             } ${['aams'].includes(_getConfig('_APP_ENV')) ? 'USD' : 'USDT'}`"
             label-width="0"
             class="inputQuantity"
           />
           <div class="quantityList">
             <div
+              v-for="(item, index) in quantityList"
               v-show="item.show"
+              :key="index"
               class="item fw-num"
               :class="
                 selectAll
@@ -78,11 +80,9 @@
                     ? 'hightColor'
                     : ''
                   : Number(quantity) === Number(item.name)
-                  ? 'hightColor'
-                  : ''
+                    ? 'hightColor'
+                    : ''
               "
-              v-for="(item, index) in quantityList"
-              :key="index"
               @click="chooseNums(item.name)"
             >
               {{ item.name }}
@@ -109,7 +109,7 @@
       <div class="countdown">
         <div class="fw-bold closeBtn">
           <div>{{ matchText(coinInfo.showSymbol, '/USDT') }}</div>
-          <svg-load class="closeSvg" name="guanbi" @click="turnOffCountdown"></svg-load>
+          <svg-load class="closeSvg" name="guanbi" @click="turnOffCountdown" />
         </div>
         <div class="circle">
           <van-circle
@@ -157,7 +157,7 @@
             <div class="itemRight fw-num">{{ buyPrice }} USDT</div>
           </div>
           <!-- 预计盈利 -->
-          <div class="item" v-if="!['bitmake'].includes(_getConfig('_APP_ENV'))">
+          <div v-if="!['bitmake'].includes(_getConfig('_APP_ENV'))" class="item">
             <div>{{ _t18(`quick_label_7`) }}</div>
             <div
               class="itemRight fw-num"
@@ -189,7 +189,7 @@
       <div class="countdown">
         <div class="fw-bold closeBtn">
           <div>{{ matchText(coinInfo.showSymbol, '/USDT') }}</div>
-          <svg-load class="closeSvg" name="guanbi" @click="countdownClose"></svg-load>
+          <svg-load class="closeSvg" name="guanbi" @click="countdownClose" />
         </div>
         <div class="countdownHeader">
           <div
@@ -243,31 +243,38 @@
   </OverlayPulic>
 </template>
 <script setup>
-import { ref, watchEffect, computed } from 'vue'
-import { matchText } from '@/utils/filters'
-import PublicPopup from '@/components/Popup/public.vue'
-import OverlayPulic from '@/components/Popup/overlayPulic.vue'
-import { getPeriodList, createSecondContractOrder } from '@/api/trade/index'
-import { useUserStore } from '@/store/user/index'
-import { useToast } from '@/hook/useToast'
-import { DIFF_FREEZE_ASSETS } from '@/config/index'
-import { socketDict } from '@/config/dict'
-import { priceFormat } from '@/utils/decimal.js'
 import { showConfirmDialog, showLoadingToast, showToast } from 'vant'
-import { switchTypeApi } from '@/api/quote'
+import { computed, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
-const { push } = useRouter()
-const { _toast, _showName } = useToast()
+
+import { switchTypeApi } from '@/api/quote'
+import {
+  createSecondContractOrder,
+  getPeriodList,
+  secondContractOrderselectOrderList
+} from '@/api/trade/index'
+import OverlayPulic from '@/components/Popup/overlayPulic.vue'
+import PublicPopup from '@/components/Popup/public.vue'
+import { socketDict } from '@/config/dict'
+import { DIFF_FREEZE_ASSETS } from '@/config/index'
+import { useToast } from '@/hook/useToast'
 import { useTradeStore } from '@/store/trade/index'
+import { useUserStore } from '@/store/user/index'
+import { _mul, _toFixed } from '@/utils/decimal'
+import { priceFormat } from '@/utils/decimal.js'
 import {
   countdownNum,
   formatExpectedProfit,
   formatExpectedProfitColor,
+  matchText,
   profitAndloss,
   profitAndlossColor
 } from '@/utils/filters'
-import { _toFixed, _mul } from '@/utils/decimal'
 import { _t18 } from '@/utils/public'
+
+const { push } = useRouter()
+const { _toast, _showName } = useToast()
+
 const tradeStore = useTradeStore()
 const props = defineProps({
   coinInfo: {
@@ -640,7 +647,6 @@ const chooseCycle = (index, item) => {
 }
 const countDown = ref(0) // 初始倒计时
 const overFlag = ref(false)
-import { secondContractOrderselectOrderList } from '@/api/trade/index'
 // import { watch } from 'fs'
 const isCloseCountdown = ref(false) // 根据关闭按钮展示是否开始倒计时
 // 订单数据
@@ -671,7 +677,9 @@ watchEffect(() => {
             }
           })
         }, 500)
-      } catch (error) {}
+      } catch (error) {
+        console.log(error)
+      }
     }
     if (overFlag.value && countDown.value <= 0) {
       showOver.value = true
@@ -698,7 +706,7 @@ const determine = async () => {
   let data = {
     betContent: titleFlag.value,
     betAmount: quantity.value,
-    openPrice: coinPriceInfo.close,
+    openPrice: coinPriceInfo.value.close,
     openTime: new Date().getTime(),
     symbol: props.coinInfo.symbol,
     coinSymbol: props.coinInfo.coin,
@@ -720,7 +728,9 @@ const determine = async () => {
     } else {
       showToast(res.msg)
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
 // 关闭倒计时
 const turnOffCountdown = () => {
@@ -756,7 +766,9 @@ const getCycleList = async () => {
       cycleList.value = res.data
       cycleObj.value = cycleList.value[0]
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
 const emit = defineEmits(['eventBusBrother'])
 const handelClose = () => {

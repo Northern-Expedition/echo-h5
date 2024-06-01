@@ -2,21 +2,26 @@
   <div class="content">
     <!-- 币种列表 -->
     <div class="list">
-      <div class="listCoin" v-for="(item, index) in data" :key="index" @click="toClick(item)">
+      <div v-for="(item, index) in data" :key="index" class="listCoin" @click="toClick(item)">
         <div class="left">
-          <svg-load :name="item.icon" class="coin"></svg-load>
+          <svg-load :name="item.icon" class="coin" />
           <span>{{ item.title }}</span>
         </div>
-        <div class="right"><svg-load name="jiantou" class="jiantou"></svg-load></div>
+        <div class="right"><svg-load name="jiantou" class="jiantou" /></div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
-import { _t18 } from '@/utils/public'
+
 import { useToast } from '@/hook/useToast'
+// 特殊平台，提现需要初级认证（初级）
+import { useUserStore } from '@/store/user/index'
+import { _t18 } from '@/utils/public'
+
 const { _toast } = useToast()
 const router = useRouter()
 const props = defineProps({
@@ -61,9 +66,6 @@ const toClick = (item) => {
     }
   }
 }
-// 特殊平台，提现需要初级认证（初级）
-import { useUserStore } from '@/store/user/index'
-import { storeToRefs } from 'pinia'
 const userStore = useUserStore()
 userStore.getUserInfo()
 const { userInfo } = storeToRefs(userStore)

@@ -2,46 +2,46 @@
 <template>
   <div>
     <!-- 头部 -->
-    <SecondContractHeader
-      :coinInfo="coinInfo"
-      @showSidePopup="showSidePopup"
-    ></SecondContractHeader>
+    <SecondContractHeader :coinInfo="coinInfo" @show-side-popup="showSidePopup" />
     <!-- k线，委托数据 -->
-    <SecondContractContent :coinInfo="coinInfo" ref="childComp"></SecondContractContent>
+    <SecondContractContent ref="childComp" :coinInfo="coinInfo" />
     <!-- 看涨看跌 -->
-    <UpsAndDowns :coinInfo="coinInfo" @eventBusBrother="eventBusBrother"></UpsAndDowns>
+    <UpsAndDowns :coinInfo="coinInfo" @event-bus-brother="eventBusBrother" />
     <!-- 左侧切换币种 -->
     <PublicPopup
       :show="sidePopup"
-      @handelClose="sidePopup = false"
       :direction="`left`"
       :height="`100%`"
       :width="`80%`"
       :showHeader="false"
       :empty="false"
+      @handel-close="sidePopup = false"
     >
       <template #emptyContentCustomize>
-        <LeftSide @close="sidePopup = false" :headerList="headerList"></LeftSide>
+        <LeftSide :headerList="headerList" @close="sidePopup = false" />
       </template>
     </PublicPopup>
   </div>
 </template>
 
 <script setup>
-import SecondContractHeader from './secondContract/header/index.vue' // 秒合约header部分
+import { showToast } from 'vant'
+import { onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+
+import { removeCollect, setCollect } from '@/api/trade'
+import PublicPopup from '@/components/Popup/public.vue'
+import { useTradeStore } from '@/store/trade'
+import { useUserStore } from '@/store/user'
+import { _t18 } from '@/utils/public'
+
+import LeftSide from './common/leftSide.vue'
 import SecondContractContent from './secondContract/content/index.vue' // 秒合约内容部分
 import UpsAndDowns from './secondContract/content/upsAndDowns.vue' //涨跌
-import PublicPopup from '@/components/Popup/public.vue'
-import LeftSide from './common/leftSide.vue'
-import { showToast } from 'vant'
-import { _t18 } from '@/utils/public'
-import { setCollect, removeCollect } from '@/api/trade'
-import { useTradeStore } from '@/store/trade'
+import SecondContractHeader from './secondContract/header/index.vue'
+// 秒合约header部分
 const tradeStore = useTradeStore()
-import { useUserStore } from '@/store/user'
 const userStore = useUserStore()
-import { useRoute } from 'vue-router'
-import { onMounted } from 'vue'
 const $route = useRoute()
 const props = defineProps({
   headerList: {

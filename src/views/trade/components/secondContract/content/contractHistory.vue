@@ -31,7 +31,7 @@
         <div class="fw-num numItem">{{ itemHistroy.betAmount }}</div>
       </div>
       <!-- 当前价 -->
-      <div class="item" v-if="!currentEntruset">
+      <div v-if="!currentEntruset" class="item">
         <div>{{ _t18(`option_now_price`) }}</div>
         <div class="fw-num numItem">
           {{ tradeStore.allCoinPriceInfo[itemHistroy.coinSymbol].close }}
@@ -46,7 +46,7 @@
       </div>
 
       <!-- 收盘时间 -->
-      <div class="item" v-if="currentEntruset">
+      <div v-if="currentEntruset" class="item">
         <div>{{ _t18(`exchange.finashTime`) }}</div>
         <div class="fw-num numItem">
           <!-- {{ _timeFormat(itemHistroy.params?.closeTime, 'DD/MM/YYYY HH:mm:ss', true) }} -->
@@ -55,7 +55,7 @@
       </div>
 
       <!-- 收盘价 -->
-      <div class="item" v-if="currentEntruset">
+      <div v-if="currentEntruset" class="item">
         <div>{{ _t18(`exchange.close`) }}</div>
         <div class="fw-num numItem">
           {{ itemHistroy.closePrice }}
@@ -101,7 +101,7 @@
       </div>
 
       <!-- 倒计时 -->
-      <div class="item" v-if="!currentEntruset">
+      <div v-if="!currentEntruset" class="item">
         <div>{{ _t18(`option_countdown`) }}</div>
         <div class="fw-num numItem">
           {{ formatTime(countdown) }}
@@ -109,7 +109,7 @@
       </div>
 
       <!-- 分享 -->
-      <div class="item" v-if="currentEntruset && HISTORY_SNIPASTE.includes(_getConfig('_APP_ENV'))">
+      <div v-if="currentEntruset && HISTORY_SNIPASTE.includes(_getConfig('_APP_ENV'))" class="item">
         <div></div>
         <div class="fw-num numItem">
           <p class="share-button" @click="sharedImg(itemHistroy)">{{ _t18(`trade_share`) }}</p>
@@ -120,20 +120,19 @@
 </template>
 
 <script setup>
-import { HISTORY_SNIPASTE } from '@/config/index'
-import { _toFixed } from '@/utils/decimal'
-import { formatTime } from '@/utils/filters'
-import { _timeFormat } from '@/utils/public'
-import { watchEffect, onMounted } from 'vue'
-import { useTradeStore } from '@/store/trade/index'
+import { onMounted, watchEffect } from 'vue'
 
+import { HISTORY_SNIPASTE } from '@/config/index'
+import { useTradeStore } from '@/store/trade/index'
+import { _toFixed } from '@/utils/decimal'
 import {
   formatExpectedProfit,
   formatExpectedProfitColor,
+  formatTime,
   profitAndloss,
   profitAndlossColor
 } from '@/utils/filters'
-import { _t18 } from '@/utils/public'
+import { _t18, _timeFormat } from '@/utils/public'
 
 const tradeStore = useTradeStore()
 const countdown = ref(-1)

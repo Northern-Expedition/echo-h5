@@ -5,15 +5,15 @@
       :currentName="_t18(`IEO_subscription`, 'latcoin')"
       :cuttentRight="cuttentRight"
       :border_bottom="true"
-    ></HeaderBar>
+    />
     <div class="content">
-      <van-tabs v-model:active="active" type="card" @click-tab="clickTab" class="subscription">
-        <van-tab :title="item.title" v-for="(item, index) in tabList" :key="index">
+      <van-tabs v-model:active="active" type="card" class="subscription" @click-tab="clickTab">
+        <van-tab v-for="(item, index) in tabList" :key="index" :title="item.title">
           <van-pull-refresh v-model="loading" @refresh="onRefresh">
-            <div class="tabContent" v-if="dataList.length">
-              <Card :data="item" v-for="item in dataList" :key="item.id"></Card>
+            <div v-if="dataList.length" class="tabContent">
+              <Card v-for="item in dataList" :key="item.id" :data="item" />
             </div>
-            <Nodata v-else></Nodata>
+            <Nodata v-else />
           </van-pull-refresh>
         </van-tab>
       </van-tabs>
@@ -22,9 +22,10 @@
 </template>
 
 <script setup>
-import { _t18 } from '@/utils/public'
-import Card from './components/Card.vue'
 import { ownCoinList } from '@/api/subscription/index'
+import { _t18 } from '@/utils/public'
+
+import Card from './components/Card.vue'
 // 下拉刷新
 const loading = ref(false)
 const onRefresh = () => {
@@ -42,7 +43,9 @@ const init = async () => {
   }
 }
 const cuttentRight = {
-  iconRight: [{ iconName: 'sub-record', clickTo: '/subscription/order', text: _t18('pledge_order_record') }]
+  iconRight: [
+    { iconName: 'sub-record', clickTo: '/subscription/order', text: _t18('pledge_order_record') }
+  ]
 }
 const tabList = [
   { id: 1, title: _t18('Preparation') },

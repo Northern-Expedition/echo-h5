@@ -1,10 +1,11 @@
 <!-- 活动弹窗 -->
 <script setup>
-import { priceFormat } from '@/utils/decimal.js'
-import { updateDefiActivityApi } from '@/api/defi'
-import { _toView } from '@/utils/public'
 import { dict } from '@/api/common'
+import { updateDefiActivityApi } from '@/api/defi'
 import { useDefiStore } from '@/store/defi/index'
+import { priceFormat } from '@/utils/decimal.js'
+import { _toView } from '@/utils/public'
+
 const emits = defineEmits(['update:value'])
 const defiStore = useDefiStore()
 const props = defineProps({
@@ -53,7 +54,7 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <van-popup v-model:show="show" @close="close" :close-on-click-overlay="false">
+    <van-popup v-model:show="show" :close-on-click-overlay="false" @close="close">
       <div>
         <div class="title">
           <!-- 幸运活动 -->
@@ -92,7 +93,7 @@ onMounted(() => {
             </div>
           </div>
           <div class="r">
-            <image-load filePath="defi/lucky.png"></image-load>
+            <image-load filePath="defi/lucky.png" />
           </div>
         </div>
       </div>

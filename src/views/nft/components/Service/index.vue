@@ -1,7 +1,7 @@
 <template>
   <div class="customer">
     <div class="service" @click="dispatchCustomEvent('event_serviceChange')">
-      <svg-load name="kefuNft" class="serviceImg"></svg-load>
+      <svg-load name="kefuNft" class="serviceImg" />
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div class="currencyItem">
     <div class="left">
-      <image-load :filePath="currencyItem.logo" class="leftImg" v-if="showLeftImg" />
+      <image-load v-if="showLeftImg" :filePath="currencyItem.logo" class="leftImg" />
       <div>
         <div class="topText ff-num">
           <div class="textTop fw-num">
@@ -35,6 +35,7 @@
 <script setup>
 import { useTradeStore } from '@/store/trade/index'
 import { priceFormat } from '@/utils/decimal.js'
+
 const tradeStore = useTradeStore()
 const props = defineProps({
   currencyItem: {

@@ -1,19 +1,19 @@
 <!-- 忘记密码 -->
 <template>
-  <Header :type="2"></Header>
+  <Header :type="2" />
   <div class="content">
     <div class="formData">
       <!-- 邮箱 -->
       <p>{{ _t18('login_emailCode') }}</p>
       <div>
-        <input type="text" :placeholder="_t18('login_emailCode')" v-model="formData.email" />
+        <input v-model="formData.email" type="text" :placeholder="_t18('login_emailCode')" />
       </div>
     </div>
     <div class="formData">
       <!-- 验证码 -->
       <p>{{ _t18('login_code') }}</p>
       <div>
-        <input type="text" :placeholder="_t18('login_please')" v-model="formData.code" />
+        <input v-model="formData.code" type="text" :placeholder="_t18('login_please')" />
         <p v-if="!flag" @click="send()">{{ _t18('login_send') }}</p>
         <p v-else><van-count-down :time="time" format="ss" @finish="finish" /></p>
       </div>
@@ -23,11 +23,11 @@
       <p>{{ _t18('forgot_newPwd') }}</p>
       <div>
         <input
+          v-model="formData.password"
           :type="showk ? 'text' : 'password'"
           :placeholder="_t18('login_please')"
-          v-model="formData.password"
         />
-        <svg-load :name="showk ? 'yanjin-k' : 'yanjin-g'" @click="showk = !showk"></svg-load>
+        <svg-load :name="showk ? 'yanjin-k' : 'yanjin-g'" @click="showk = !showk" />
       </div>
     </div>
     <div class="formData">
@@ -35,29 +35,32 @@
       <p>{{ _t18('forgot_require_newPwd') }}</p>
       <div>
         <input
+          v-model="formData.password2"
           :type="requireShowk ? 'text' : 'password'"
           :placeholder="_t18('login_please')"
-          v-model="formData.password2"
           @input="inputPass"
         /><svg-load
           :name="requireShowk ? 'yanjin-k' : 'yanjin-g'"
           @click="requireShowk = !requireShowk"
-        ></svg-load>
+        />
       </div>
     </div>
-    <p class="requirePass" v-if="requirePass">*{{ _t18('register_pwd_diff') }}</p>
+    <p v-if="requirePass" class="requirePass">*{{ _t18('register_pwd_diff') }}</p>
   </div>
-  <Footer :type="2" :formDataToForget="formData"></Footer>
+  <Footer :type="2" :formDataToForget="formData" />
 </template>
 
 <script setup>
-import Header from './components/signHeader.vue'
-import Footer from './components/signFooter.vue'
-import { emailCode } from '@/api/user'
 import { showToast } from 'vant'
+
+import { emailCode } from '@/api/user'
 import { useToast } from '@/hook/useToast'
-const { _toast } = useToast()
 import { _t18 } from '@/utils/public'
+
+import Footer from './components/signFooter.vue'
+import Header from './components/signHeader.vue'
+
+const { _toast } = useToast()
 // 眼睛
 const showk = ref(false)
 const requireShowk = ref(false)

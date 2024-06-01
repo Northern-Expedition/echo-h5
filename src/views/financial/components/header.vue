@@ -1,26 +1,27 @@
 <template>
   <div class="header">
-    <div class="bgImg" v-if="finaImg">
+    <div v-if="finaImg" class="bgImg">
       <image-load :filePath="finaImg" class="img" />
     </div>
     <div class="navigationList">
       <div
-        class="item"
         v-for="item in listNav"
         :key="item.icon"
+        class="item"
         @click="$router.push(item.clickName)"
       >
-        <svg-load :name="item.icon" class="itemImg"></svg-load>
+        <svg-load :name="item.icon" class="itemImg" />
         <div class="itemName">{{ item.name }}</div>
       </div>
     </div>
   </div>
 </template>
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { _t18 } from '@/utils/public'
+
 import { publiceNotice } from '@/api/common/index'
+import { _t18 } from '@/utils/public'
 // 增值收益 会员专区 普通产品 我的投资
 const listNav = computed(() => {
   return [
@@ -53,7 +54,9 @@ onMounted(async () => {
     if (res.code === 200) {
       finaImg.value = res.data[0].imgUrl
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 })
 </script>
 <style lang="scss" scoped>

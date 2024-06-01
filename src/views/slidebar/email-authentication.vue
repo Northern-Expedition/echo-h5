@@ -4,24 +4,24 @@
     :currentName="_t18('sidebar_certified')"
     :cuttentRight="cuttentRight"
     :border_bottom="true"
-  ></HeaderBar>
+  />
   <div class="content-box">
-    <div class="bind-not" v-if="!bind">
+    <div v-if="!bind" class="bind-not">
       <div class="item">
         <div class="text">{{ _t18('login_emailCode') }}</div>
         <div class="input">
-          <input type="text" v-model="formData.email" :placeholder="_t18('recharge_input')" />
+          <input v-model="formData.email" type="text" :placeholder="_t18('recharge_input')" />
         </div>
       </div>
       <div class="item">
         <div class="text">{{ _t18('verification_code') }}</div>
         <div class="input">
-          <input type="text" v-model="formData.code" :placeholder="_t18('recharge_input')" />
+          <input v-model="formData.code" type="text" :placeholder="_t18('recharge_input')" />
           <div class="code-box">
-            <div class="wait-code" v-if="flag">
+            <div v-if="flag" class="wait-code">
               <van-count-down :time="time" format="ss" @finish="finish" />
             </div>
-            <div class="send-code" v-else @click="send">{{ _t18('login_send') }}</div>
+            <div v-else class="send-code" @click="send">{{ _t18('login_send') }}</div>
           </div>
         </div>
       </div>
@@ -29,7 +29,7 @@
         <ButtonBar :btnValue="_t18('btnConfirm', ['bitmake'])" />
       </div>
     </div>
-    <div class="bind-yes" v-else>
+    <div v-else class="bind-yes">
       <div class="top">
         <img src="@/assets/defi/email.png" alt="" />
         <div class="text">{{ _t18('email_bind_success') }}</div>
@@ -42,14 +42,16 @@
   </div>
 </template>
 <script setup>
-import HeaderBar from '@/components/HeaderBar/index.vue'
-import ButtonBar from '@/components/common/ButtonBar/index.vue'
-import { emailCode, emailBind } from '@/api/user'
-import { useUserStore } from '@/store/user/index'
 import { storeToRefs } from 'pinia'
 import { showToast } from 'vant'
-import { _t18 } from '@/utils/public'
+
+import { emailBind, emailCode } from '@/api/user'
+import ButtonBar from '@/components/common/ButtonBar/index.vue'
+import HeaderBar from '@/components/HeaderBar/index.vue'
 import { useToast } from '@/hook/useToast'
+import { useUserStore } from '@/store/user/index'
+import { _t18 } from '@/utils/public'
+
 const { _toast } = useToast()
 const userStore = useUserStore()
 userStore.getUserInfo()

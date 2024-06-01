@@ -5,9 +5,9 @@
       <p>{{ _t18('account', ['bitmake', 'aams']) }}</p>
       <div>
         <input
+          v-model="formData1.username"
           type="text"
           :placeholder="_t18('login_name', ['bitmake'])"
-          v-model="formData1.username"
         />
       </div>
     </div>
@@ -15,33 +15,37 @@
       <p>{{ _t18('login_pwd') }}</p>
       <div>
         <input
+          v-model="formData1.password"
           :type="showk ? 'text' : 'password'"
           :placeholder="_t18('login_please')"
-          v-model="formData1.password"
-        /><svg-load :name="showk ? 'yanjin-k' : 'yanjin-g'" @click="showk = !showk"></svg-load>
+        /><svg-load :name="showk ? 'yanjin-k' : 'yanjin-g'" @click="showk = !showk" />
       </div>
     </div>
     <p class="forgotPwd" @click="$router.push('/forgot-password')">
       {{ _t18('forget_pwd', ['bitmake']) }}?
     </p>
-    <div class="formData" v-if="mainStore.getISCode">
+    <div v-if="mainStore.getISCode" class="formData">
       <p>{{ _t18('login_code') }}</p>
       <div>
-        <input type="text" :placeholder="_t18('login_please')" v-model="formData1.code" /><span
+        <input v-model="formData1.code" type="text" :placeholder="_t18('login_please')" /><span
           @click="refreshCode"
         >
           <img :src="codeUrl" />
         </span>
       </div>
     </div>
-    <Footer :type="0" :formDataToLogin="formData1" @refersh="refreshCode"></Footer>
+    <Footer :type="0" :formDataToLogin="formData1" @refersh="refreshCode" />
   </div>
 </template>
 
 <script setup>
-import Footer from './../signFooter.vue'
-import { _t18 } from '@/utils/public'
+import './../style.scss'
+
 import { useMainStore } from '@/store/index.js'
+import { _t18 } from '@/utils/public'
+
+import Footer from './../signFooter.vue'
+
 const mainStore = useMainStore()
 const formData1 = ref({
   type: 1, //自定义注册类型：1普通2邮箱3手机
@@ -63,8 +67,6 @@ const refreshCode = () => {
 }
 // 眼睛
 const showk = ref(false)
-
-import './../style.scss'
 </script>
 
 <style lang="scss" scoped>

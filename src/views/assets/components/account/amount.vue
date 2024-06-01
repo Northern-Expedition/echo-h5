@@ -3,8 +3,8 @@
     <div>
       <!-- 账户余额 -->
       <p>{{ _t18('asset_account', ['ebc']) }}(USDT)</p>
-      <svg-load :name="showicon" class="yanjin" @click="handleYanjin"></svg-load>
-      <svg-load name="refresh" class="shuaxin" @click="handleShuaxin"></svg-load>
+      <svg-load :name="showicon" class="yanjin" @click="handleYanjin" />
+      <svg-load name="refresh" class="shuaxin" @click="handleShuaxin" />
     </div>
     <p class="userInfo fw-num">{{ _numberWithCommas(amount) }}</p>
   </div>
@@ -16,17 +16,17 @@
       :key="index"
       @click="toRecharge(item.url)"
     >
-      <svg-load :name="item.icon" class="currencyIcon"></svg-load>
+      <svg-load :name="item.icon" class="currencyIcon" />
       <p>{{ item.title }}</p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { dispatchCustomEvent } from '@/utils'
-import { _t18, _toView } from '@/utils/public'
 import { DIFF_RECHARGE_COSTORM } from '@/config/index'
 import { useUserStore } from '@/store/user/index'
+import { dispatchCustomEvent } from '@/utils'
+import { _t18, _toView } from '@/utils/public'
 
 const userStore = useUserStore()
 const getIsMock = computed(() => userStore.userInfo.user?.type === '2')

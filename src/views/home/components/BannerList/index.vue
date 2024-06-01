@@ -26,7 +26,7 @@ const onChange = (index) => {
 </script>
 <template>
   <div class="banner-list-box">
-    <van-swipe @change="onChange" :autoplay="3000" lazy-render :loop="true">
+    <van-swipe :autoplay="3000" lazy-render :loop="true" @change="onChange">
       <van-swipe-item v-for="item in bannerList" :key="item.url">
         <image-load :filePath="item.url" class="img" />
       </van-swipe-item>

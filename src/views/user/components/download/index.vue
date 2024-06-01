@@ -1,7 +1,7 @@
 <template>
   <div class="download">
     <div class="laod-header">
-      <HeaderBar :currentName="_t18('robinhood2_download_center')"></HeaderBar>
+      <HeaderBar :currentName="_t18('robinhood2_download_center')" />
       <div class="placeholder"></div>
       <div class="sub-title">ZHILIAN_DARK {{ _t18('digitalTradingPlatform') }}</div>
       <div class="btn-list">
@@ -11,7 +11,7 @@
           :filePath="item.icon"
           class="img btn-img"
           @click="tohref(item.path)"
-        ></image-load>
+        />
       </div>
     </div>
     <div class="load-section">
@@ -19,19 +19,20 @@
         {{ _t18('The world s first blockchain ecological aggregation product') }}
       </div>
       <div class="item-body">
-        <div class="row-item" v-for="(item, index) in sectionData" :key="index">
-          <image-load :filePath="item.icon" class="img"></image-load>
+        <div v-for="(item, index) in sectionData" :key="index" class="row-item">
+          <image-load :filePath="item.icon" class="img" />
           <div>{{ item.title }}</div>
         </div>
       </div>
     </div>
     <div class="subtitle">{{ _t18('trusted_partners') }}</div>
-    <image-load filePath="footer-2GI7uaLH.png" class="footerImg"></image-load>
+    <image-load filePath="footer-2GI7uaLH.png" class="footerImg" />
   </div>
 </template>
 <script setup>
-import { useMainStore } from '@/store'
 import { useRoute } from 'vue-router'
+
+import { useMainStore } from '@/store'
 import { _t18 } from '@/utils/public'
 
 const mainStore = useMainStore()

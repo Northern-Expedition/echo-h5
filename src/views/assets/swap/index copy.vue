@@ -1,32 +1,29 @@
 <!-- 兑换 -->
 <template>
-  <HeaderBar :currentName="`闪兑`"></HeaderBar>
-  <Amount
-    :amount="list1Current?.amount || 0"
-    :coin="list1Current?.coin?.toLocaleUpperCase()"
-  ></Amount>
+  <HeaderBar :currentName="`闪兑`" />
+  <Amount :amount="list1Current?.amount || 0" :coin="list1Current?.coin?.toLocaleUpperCase()" />
   <div class="content">
     <div class="from">
-      <input type="number" v-model="fromNum" placeholder="请输入" class="ff-num" />
+      <input v-model="fromNum" type="number" placeholder="请输入" class="ff-num" />
       <div>
         <div class="left" @click="fromNum = list1Current?.amount || '0'">全部</div>
         <span>|</span>
         <div class="right" @click="showAction('from')">
           {{ list1Current?.coin?.toLocaleUpperCase() }}
-          <svg-load :name="list1Current?.icon" class="icon"></svg-load>
+          <svg-load :name="list1Current?.icon" class="icon" />
         </div>
       </div>
     </div>
     <!-- 交换按钮 -->
     <div class="exchange_btn">
-      <svg-load name="duihuan40x40" class="dui" @click="jiaohuan()"></svg-load>
+      <svg-load name="duihuan40x40" class="dui" @click="jiaohuan()" />
     </div>
     <div class="to">
-      <input type="number" disabled class="ff-num" v-model="toNum" placeholder="兑换数量" />
+      <input v-model="toNum" type="number" disabled class="ff-num" placeholder="兑换数量" />
       <div>
         <div class="right" @click="showAction('to')">
           {{ list2Current?.coin?.toLocaleUpperCase() }}
-          <svg-load :name="list2Current?.icon" class="icon"></svg-load>
+          <svg-load :name="list2Current?.icon" class="icon" />
         </div>
       </div>
     </div>
@@ -49,7 +46,7 @@
         class="coinItem"
         @click="selectCoin(item, index)"
       >
-        <div><svg-load :name="item.icon" class="icon"></svg-load></div>
+        <div><svg-load :name="item.icon" class="icon" /></div>
         <div>
           <p>{{ item.coin?.toLocaleUpperCase() }}</p>
         </div>
@@ -59,17 +56,21 @@
 </template>
 
 <script setup>
-import { showToast } from 'vant'
-import { useToast } from '@/hook/useToast'
-const { _toast } = useToast()
-import { rate, toExchange } from '@/api/account'
 import { debounce } from 'lodash'
-import { priceFormat } from '@/utils/decimal.js'
-import Amount from './../components/applyAmount.vue'
-import { ref, onMounted } from 'vue'
-import { useAccountStore } from '@/store/index.js'
 import { storeToRefs } from 'pinia'
+import { showToast } from 'vant'
+import { onMounted, ref } from 'vue'
+
+import { rate, toExchange } from '@/api/account'
+import { useToast } from '@/hook/useToast'
+import { useAccountStore } from '@/store/index.js'
 import { useUserStore } from '@/store/user/index'
+import { priceFormat } from '@/utils/decimal.js'
+
+import Amount from './../components/applyAmount.vue'
+
+const { _toast } = useToast()
+
 const accountStore = useAccountStore()
 const userStore = useUserStore()
 userStore.getUserInfo()
@@ -116,8 +117,8 @@ async function init() {
     }
   })
   // 兑换成什么列表添加金额
-  swapCoinList.value.forEach((item, index) => {
-    template1.forEach((items, indexs) => {
+  swapCoinList.value.forEach((item) => {
+    template1.forEach((items) => {
       if (items.coin == item.coin) {
         item['amount'] = items.amount
       }
@@ -126,10 +127,10 @@ async function init() {
   list1.value = template1
   list1Current.value = template1[0]
   list1Coin.value = list1Current.value?.coin
-  list2.value = swapCoinList.value?.filter((item, index) => {
+  list2.value = swapCoinList.value?.filter((item) => {
     return item.coin != list1Current.value?.coin
   })
-  list2Current.value = swapCoinList.value?.filter((item, index) => {
+  list2Current.value = swapCoinList.value?.filter((item) => {
     return item.coin != list1Current.value?.coin
   })[0]
   list2Coin.value = list2Current.value?.coin

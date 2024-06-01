@@ -1,15 +1,18 @@
 <script setup>
+import { storeToRefs } from 'pinia'
+import { showToast } from 'vant'
+import { useRoute, useRouter } from 'vue-router'
+
+import { pledgeSubmit } from '@/api/pledge/index'
 import { DIFF_ISFREEZE } from '@/config/index'
 import { useFreeze } from '@/hook/useFreeze'
-const { _isFreeze } = useFreeze()
-import { _t18 } from '@/utils/public'
-import { pledgeSubmit } from '@/api/pledge/index'
-import { priceFormat } from '@/utils/decimal.js'
-import { useUserStore } from '@/store/user/index'
-import { storeToRefs } from 'pinia'
-import { useRoute, useRouter } from 'vue-router'
-import { showToast } from 'vant'
 import { useToast } from '@/hook/useToast'
+import { useUserStore } from '@/store/user/index'
+import { priceFormat } from '@/utils/decimal.js'
+import { _t18 } from '@/utils/public'
+
+const { _isFreeze } = useFreeze()
+
 const { _toast } = useToast()
 
 const route = useRoute()
@@ -61,7 +64,7 @@ const submit = () => {
 }
 </script>
 <template>
-  <HeaderBar :currentName="_t18('host.detail')"></HeaderBar>
+  <HeaderBar :currentName="_t18('host.detail')" />
   <!-- 申购金额 -->
   <div class="content1">
     <div class="jine">
@@ -108,10 +111,10 @@ const submit = () => {
       <!-- 可购次数 -->
       <div>
         <div class="left">{{ _t18('pledge_Available_times') }}</div>
-        <div class="right ff-num" v-if="['dev'].includes(_getConfig('_APP_ENV'))">
+        <div v-if="['dev'].includes(_getConfig('_APP_ENV'))" class="right ff-num">
           {{ `${data.buyPurchase}/${data.timeLimit}` }}
         </div>
-        <div class="right ff-num" v-else>{{ `${data.timeLimit}` }}</div>
+        <div v-else class="right ff-num">{{ `${data.timeLimit}` }}</div>
       </div>
       <!-- <div>
         <div class="left">总年化率</div>

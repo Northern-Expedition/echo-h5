@@ -1,6 +1,7 @@
 <script setup>
 import { showToast } from 'vant'
 import { reactive } from 'vue'
+
 import { storageDict } from '@/config/dict'
 import { _back } from '@/utils/public'
 
@@ -58,18 +59,18 @@ const submit = () => {
     <div class="form">
       <div class="tit">平台key</div>
       <input
+        v-model.trim="form.platform"
         type="text"
         class="input"
-        v-model.trim="form.platform"
         placeholder="请输入 平台key"
         @blur="platformBlur"
       />
 
       <div class="tit">平台域名</div>
-      <input type="text" class="input" v-model.trim="form.domain" placeholder="请输入 平台域名" />
+      <input v-model.trim="form.domain" type="text" class="input" placeholder="请输入 平台域名" />
 
       <div class="tit">密码</div>
-      <input type="password" class="input" v-model.trim="form.password" placeholder="请输入 密码" />
+      <input v-model.trim="form.password" type="password" class="input" placeholder="请输入 密码" />
 
       <div class="btn" @click="submit">立即切换</div>
       <div class="btn clear" @click="clear">清除</div>

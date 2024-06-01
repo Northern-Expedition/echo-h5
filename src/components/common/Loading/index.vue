@@ -17,7 +17,7 @@ let props = defineProps({
       <div></div>
       <div></div>
     </div>
-    <div class="text" v-if="prop.text">{{ prop.text }}</div>
+    <div v-if="prop.text" class="text">{{ prop.text }}</div>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -28,7 +28,7 @@ let props = defineProps({
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color:var(--ex-default-background-color);
+  background-color: var(--ex-default-background-color);
   z-index: 99;
   transition: opacity 0.3s;
 }

@@ -3,36 +3,36 @@
   <div>
     <div class="mainBgc">
       <div class="main_collect">
-        <div class="main_header" v-if="isOptional">
+        <div v-if="isOptional" class="main_header">
           <!-- 现货 -->
           <div class="left">{{ _t18(`quote_spot`) }}</div>
           <div class="right" @click="$router.push('/editOptional')">
-            <svg-load name="bianji"></svg-load>
+            <svg-load name="bianji" />
           </div>
         </div>
         <div class="main">
           <div class="mainItem" @click="toDealSort">
             <div>{{ _t18(`home_currencyName`, ['latcoin']) }}</div>
             <div class="arrows">
-              <svg-load v-if="arrowList.firstIcon === 0" name="moren" class="itemImg"></svg-load>
-              <svg-load v-if="arrowList.firstIcon === 1" name="gao" class="itemImg"></svg-load>
-              <svg-load v-if="arrowList.firstIcon === 2" name="di" class="itemImg"></svg-load>
+              <svg-load v-if="arrowList.firstIcon === 0" name="moren" class="itemImg" />
+              <svg-load v-if="arrowList.firstIcon === 1" name="gao" class="itemImg" />
+              <svg-load v-if="arrowList.firstIcon === 2" name="di" class="itemImg" />
             </div>
           </div>
           <div class="mainItem" @click="toUpSort">
             <div>{{ _t18(`home_newPrice`, ['latcoin']) }}</div>
             <div class="arrows">
-              <svg-load v-if="arrowList.secondIcon === 0" name="moren" class="itemImg"></svg-load>
-              <svg-load v-if="arrowList.secondIcon === 1" name="gao" class="itemImg"></svg-load>
-              <svg-load v-if="arrowList.secondIcon === 2" name="di" class="itemImg"></svg-load>
+              <svg-load v-if="arrowList.secondIcon === 0" name="moren" class="itemImg" />
+              <svg-load v-if="arrowList.secondIcon === 1" name="gao" class="itemImg" />
+              <svg-load v-if="arrowList.secondIcon === 2" name="di" class="itemImg" />
             </div>
           </div>
           <div class="mainItem" @click="toRafSort">
             <div>{{ _t18(`home_upDown`, ['latcoin']) }}</div>
             <div class="arrows">
-              <svg-load v-if="arrowList.thirdIcon === 0" name="moren" class="itemImg"></svg-load>
-              <svg-load v-if="arrowList.thirdIcon === 1" name="gao" class="itemImg"></svg-load>
-              <svg-load v-if="arrowList.thirdIcon === 2" name="di" class="itemImg"></svg-load>
+              <svg-load v-if="arrowList.thirdIcon === 0" name="moren" class="itemImg" />
+              <svg-load v-if="arrowList.thirdIcon === 1" name="gao" class="itemImg" />
+              <svg-load v-if="arrowList.thirdIcon === 2" name="di" class="itemImg" />
             </div>
           </div>
         </div>
@@ -42,13 +42,14 @@
 </template>
 
 <script setup>
-import {
-  letterSmallToLarge,
-  letterLargeToSmall,
-  LatestpriceLargeToSmall,
-  LatestpriceSmallToLarge
-} from '@/utils/filters'
 import { useTradeStore } from '@/store/trade'
+import {
+  LatestpriceLargeToSmall,
+  LatestpriceSmallToLarge,
+  letterLargeToSmall,
+  letterSmallToLarge
+} from '@/utils/filters'
+
 const tradeStore = useTradeStore()
 const props = defineProps({
   isOptional: {

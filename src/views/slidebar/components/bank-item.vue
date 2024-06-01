@@ -4,9 +4,9 @@
       <li v-for="item in props.bankList" :key="item.id" @click="change(item)">
         <div class="top-content">
           <p class="bank-type">
-            {{ item.bankName }}<span class="scl" v-if="item.coin">（{{ item.coin }}）</span>
+            {{ item.bankName }}<span v-if="item.coin" class="scl">（{{ item.coin }}）</span>
           </p>
-          <van-icon name="edit" @click="change(item)" size="20" />
+          <van-icon name="edit" size="20" @click="change(item)" />
         </div>
         <p class="name">{{ item.userName }}</p>
         <p class="bankNumber">{{ item.cardNumber }}</p>
@@ -18,6 +18,7 @@
 </template>
 <script setup>
 import { useRouter } from 'vue-router'
+
 import { _t18 } from '@/utils/public'
 
 const router = useRouter()

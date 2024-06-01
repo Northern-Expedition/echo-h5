@@ -7,13 +7,13 @@
 <template>
   <div class="columnFlex">
     <!-- 编辑自选 -->
-    <HeaderBar :currentName="_t18('quote_edit')" :cuttentRight="cuttentRight" @linkTo="linkTo" />
+    <HeaderBar :currentName="_t18('quote_edit')" :cuttentRight="cuttentRight" @link-to="linkTo" />
     <div class="currencyList">
-      <van-checkbox-group v-model="checked" shape="square" @change="change" ref="checkboxGroup">
-        <div class="itemEvery" v-for="(item, index) in currentCoinList" :key="index">
+      <van-checkbox-group ref="checkboxGroup" v-model="checked" shape="square" @change="change">
+        <div v-for="(item, index) in currentCoinList" :key="index" class="itemEvery">
           <div class="item">
-            <EditLeft :data="item"></EditLeft>
-            <CurrentcyNumVue :data="item"></CurrentcyNumVue>
+            <EditLeft :data="item" />
+            <CurrentcyNumVue :data="item" />
             <!-- <van-checkbox :name="`{id:${item.id},coin:${item.coin},icon:${item.logo}}`"> -->
             <van-checkbox :name="item.coin">
               <template #icon="props">
@@ -27,16 +27,14 @@
     <div class="placeholder"></div>
     <div class="editCon">
       <div class="left" @click="delList">
-        <svg-load :name="showDel ? 'sanchu16x18-x' : 'sanchu16x18-w'" class="chooseImg"></svg-load>
+        <svg-load :name="showDel ? 'sanchu16x18-x' : 'sanchu16x18-w'" class="chooseImg" />
         <!-- 删除 -->
-        <div :style="{ color: showDel ? '#613af1' : '#bcbcbc', marginLeft: '10px' }">{{ _t18('quote_del') }}</div>
+        <div :style="{ color: showDel ? '#613af1' : '#bcbcbc', marginLeft: '10px' }">
+          {{ _t18('quote_del') }}
+        </div>
       </div>
       <div class="right">
-        <svg-load
-          :name="allFlag ? 'gou-x' : 'gou-w'"
-          class="chooseImg"
-          @click="checkAll"
-        ></svg-load>
+        <svg-load :name="allFlag ? 'gou-x' : 'gou-w'" class="chooseImg" @click="checkAll" />
         <!-- <svg-load :name="allFlag?'gou-x':'gou-w'" class="chooseImg" @click="toggleAll"></svg-load> -->
         <!-- 全选 -->
         <div>{{ _t18('quote_all') }}</div>
@@ -45,22 +43,27 @@
   </div>
 </template>
 <script setup>
+import { showToast } from 'vant'
 import { ref } from 'vue'
-import { getCollect, setCollectAdds, removeCollectRemoves } from '@/api/trade'
-import HeaderBar from '@/components/HeaderBar/index.vue'
+
+import { getCollect, removeCollectRemoves, setCollectAdds } from '@/api/trade'
 import EditLeft from '@/components/CurrencyList/editLeft.vue'
+import HeaderBar from '@/components/HeaderBar/index.vue'
+import { useToast } from '@/hook/useToast'
+import { useMainStore } from '@/store/index.js'
+import { useTradeStore } from '@/store/trade'
+import { _t18 } from '@/utils/public'
+
 import CurrentcyNumVue from '../components/optional/currentcyNum.vue'
+
 const cuttentRight = {
-  name: _t18('quote_add')//添加
+  name: _t18('quote_add') //添加
 }
 // 删除按钮
 const showDel = ref(false)
-import { useTradeStore } from '@/store/trade'
-import { showToast } from 'vant'
-import { _t18 } from '@/utils/public'
-import { useToast } from '@/hook/useToast'
+
 const { _toast } = useToast()
-import { useMainStore } from '@/store/index.js'
+
 const mainStroe = useMainStore()
 mainStroe.setTradeStatus(Number(-1))
 const tradeStore = useTradeStore()

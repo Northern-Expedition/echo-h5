@@ -1,6 +1,6 @@
 <template>
   <!-- K线 -->
-  <Candlestick :coinInfo="coinInfo" type="secondContract"></Candlestick>
+  <Candlestick :coinInfo="coinInfo" type="secondContract" />
   <div class="line"></div>
   <!-- 订单信息 -->
   <div class="entrust">
@@ -23,41 +23,31 @@
 
     <!-- 隐藏其他币种，刷新 -->
     <div class="entrustR">
-      <svg-load
-        v-if="currentEye"
-        name="yanjin-k"
-        class="entrustRImg"
-        @click="switchingEye"
-      ></svg-load>
-      <svg-load
-        v-if="!currentEye"
-        name="yanjin-g"
-        class="entrustRImg"
-        @click="switchingEye"
-      ></svg-load>
-      <svg-load name="shuaxin" class="entrustRUpdateImg" @click="toRefresh"></svg-load>
+      <svg-load v-if="currentEye" name="yanjin-k" class="entrustRImg" @click="switchingEye" />
+      <svg-load v-if="!currentEye" name="yanjin-g" class="entrustRImg" @click="switchingEye" />
+      <svg-load name="shuaxin" class="entrustRUpdateImg" @click="toRefresh" />
     </div>
   </div>
   <!-- 合约历史 -->
   <div v-if="amountSum !== 0 && historyNewList.length > 0">
     <ContractHistory
-      :currentEntruset="currentEntruset"
-      :itemHistroy="item"
       v-for="item in historyNewList"
       :key="item.userId"
+      :currentEntruset="currentEntruset"
+      :itemHistroy="item"
       @recombine="remove"
-      @updateRecord="updateRecord"
-      @shareRevenue="shareRevenue"
-    ></ContractHistory>
+      @update-record="updateRecord"
+      @share-revenue="shareRevenue"
+    />
   </div>
 
   <!-- 暂无数据   -->
-  <div class="tips" v-if="amountSum == 0">
+  <div v-if="amountSum == 0" class="tips">
     <div class="fw-bold tips_nozc">{{ _t18(`no_assets_1`) }}</div>
     <div class="tips_smn">{{ _t18(`no_assets_2`) }}</div>
   </div>
 
-  <Nodata v-if="amountSum != 0 && historyNewList.length === 0"></Nodata>
+  <Nodata v-if="amountSum != 0 && historyNewList.length === 0" />
   <div class="placeholder"></div>
 
   <!-- 分享收益-->
@@ -69,21 +59,23 @@
 </template>
 
 <script setup>
+import PubSub from 'pubsub-js'
+import { closeToast, showLoadingToast } from 'vant'
 import { onMounted, onUnmounted, ref, watch } from 'vue'
-import { _div } from '@/utils/decimal'
-import { showLoadingToast, closeToast } from 'vant'
 import { useRoute } from 'vue-router'
-import Candlestick from '../../common/candlestick.vue'
-import ContractHistory from './contractHistory.vue'
-import ShareCommissionDetail from './../../common/ShareCommissionDetail.vue'
+
 import { secondContractOrderselectOrderList } from '@/api/trade/index'
+import { socketDict } from '@/config/dict'
+import { DIFF_FREEZE_ASSETS } from '@/config/index'
+import { useUserStore } from '@/store/user'
+import { _div } from '@/utils/decimal'
+import { priceFormat } from '@/utils/decimal.js'
 import { formatCurrentcurrency, profitAndloss } from '@/utils/filters'
 import { _t18 } from '@/utils/public'
-import { useUserStore } from '@/store/user'
-import { priceFormat } from '@/utils/decimal.js'
-import { DIFF_FREEZE_ASSETS } from '@/config/index'
-import { socketDict } from '@/config/dict'
-import PubSub from 'pubsub-js'
+
+import Candlestick from '../../common/candlestick.vue'
+import ShareCommissionDetail from './../../common/ShareCommissionDetail.vue'
+import ContractHistory from './contractHistory.vue'
 
 const props = defineProps({
   coinInfo: {
@@ -97,7 +89,7 @@ const { asset } = storeToRefs(userStore)
 const assetDetails = computed(() => {
   let list = []
   //[{icon: 'usdt', title: 'USDT', keyong: 100, zhanyong: 100, zhehe: 100}]
-  asset.value.forEach((item, index) => {
+  asset.value.forEach((item) => {
     // 之前两块多平台判断逻辑是一样的 -> 精简合并
 
     let obj = {}
@@ -106,7 +98,7 @@ const assetDetails = computed(() => {
     if (DIFF_FREEZE_ASSETS.includes(__config._APP_ENV)) {
       let temp = 0
       if (freezeList.value) {
-        freezeList.value.forEach((itm, inx) => {
+        freezeList.value.forEach((itm) => {
           if (itm.coin == item.symbol && item.type == 1) {
             temp = itm.price
           }
@@ -261,7 +253,9 @@ const getNumber = async (status) => {
         firstNum.value = result.length
       }
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
 onMounted(() => {
   getList(0)
@@ -280,10 +274,10 @@ const shareRevenue = (model) => {
   let amuout = profitAndloss(model.betAmount, model.rewardAmount)
 
   // 二维码链接
-  const shareLink = `${location.origin}/#/i&`
-  const userStore = useUserStore()
-  const userInfo = userStore.userInfo
-  const sharkCode = userInfo?.user?.activeCode
+  // const shareLink = `${location.origin}/#/i&`
+  // const userStore = useUserStore()
+  // const userInfo = userStore.userInfo
+  // const sharkCode = userInfo?.user?.activeCode
 
   // 组件赋值
   revenueDetails.value = {
@@ -323,22 +317,23 @@ const settlementNotification = () => {
 }
 settlementNotification()
 onUnmounted(() => {
-  settlementKey && PubSub.unsubscribe(settlementKey)
+  settlementKey.value && PubSub.unsubscribe(settlementKey)
 })
-const submit = () => {
-  if (DIFF_ISFREEZE.includes(__config._APP_ENV)) {
-    if (_isFreeze(DIFF_ISFREEZE)) {
-      submitForm()
-    }
-  } else {
-    submitForm()
-  }
-}
+// const submit = () => {
+//   if (DIFF_ISFREEZE.includes(__config._APP_ENV)) {
+//     if (_isFreeze(DIFF_ISFREEZE)) {
+//       submitForm()
+//     }
+//   } else {
+//     submitForm()
+//   }
+// }
 </script>
 <style lang="scss" scoped>
 .tips {
   padding: 1.333333rem 0 2.133333rem;
   text-align: center;
+
   .tips_nozc {
     font-size: 0.426667rem;
     color: var(--ex-default-font-color-deep2);

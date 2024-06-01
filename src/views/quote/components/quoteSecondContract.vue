@@ -1,24 +1,27 @@
 <!-- 行情——>秒合约 -->
 <template>
   <div>
-    <Filter :list="currentCoinList" @toSort="toSort" />
+    <Filter :list="currentCoinList" @to-sort="toSort" />
     <div v-if="currentList.length" class="currentCoinListStyle">
       <CurrencyItem
         v-for="(item, index) in filterKeyCoin(currentList, searchName)"
         :key="index"
         :currencyItem="item"
         @click="linkTo(item)"
-      >
-      </CurrencyItem>
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-import { filterKeyCoin } from '@/utils/filters'
-import Filter from './common/filter.vue'
+import { useRouter } from 'vue-router'
+
 import CurrencyItem from '@/components/CurrencyList/currencyItem.vue'
 import { useTradeStore } from '@/store/trade'
+import { filterKeyCoin } from '@/utils/filters'
+
+import Filter from './common/filter.vue'
+
 const props = defineProps({
   searchName: {
     type: String
@@ -33,9 +36,8 @@ const currentList = ref(tradeStore.secondContractCoinList)
 const toSort = (v) => {
   currentList.value = v
 }
-import { useRouter } from 'vue-router'
 const router = useRouter()
-const linkTo=(item)=>{
+const linkTo = (item) => {
   router.push(`/trade?symbol=${item.coin}`)
 }
 </script>

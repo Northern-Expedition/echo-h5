@@ -1,5 +1,5 @@
 <template>
-  <div class="userMess" v-if="userId">
+  <div v-if="userId" class="userMess">
     <!-- vip等级
     <div class="messLeft" v-if="showVip">
       <image-load filePath="defi/组 249.png" class="userMessImg"></image-load>
@@ -9,7 +9,7 @@
     </div> -->
     <div class="user">
       <div class="User-user-inf">
-        <image-load filePath="defi/logo.png" class="logo" name="defi"></image-load>
+        <image-load filePath="defi/logo.png" class="logo" name="defi" />
         <div class="user-item">
           <div class="user-item-con">
             <p class="userName">{{ loginName }}</p>
@@ -33,12 +33,13 @@
   </div> -->
 </template>
 <script setup>
-import { _t18 } from '@/utils/public'
-import Copy from '@/components/common/Copy/index.vue'
-import { useUserStore } from '@/store/user/index'
-import { useMainStore } from '@/store/index'
 import { computed } from 'vue'
-import { _hideAddress } from '@/utils/public'
+
+import Copy from '@/components/common/Copy/index.vue'
+import { useMainStore } from '@/store/index'
+import { useUserStore } from '@/store/user/index'
+import { _hideAddress, _t18 } from '@/utils/public'
+
 // const vipClass = ref(0) //vip等级
 const userStore = useUserStore()
 const mainStore = useMainStore()

@@ -5,7 +5,7 @@
       <div class="left">
         <div class="title">NEON CUTE <span class="ff-num">#345</span></div>
         <div class="car">
-          <svg-load name="shoumai" class="carShop"></svg-load>
+          <svg-load name="shoumai" class="carShop" />
           <div>售卖</div>
         </div>
       </div>

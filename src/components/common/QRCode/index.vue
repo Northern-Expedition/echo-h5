@@ -10,6 +10,7 @@
 <script setup>
 import QRCode from 'qrcode'
 import { watch } from 'vue'
+
 const props = defineProps({
   address: {
     type: String,

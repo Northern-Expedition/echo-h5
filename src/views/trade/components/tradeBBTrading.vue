@@ -2,42 +2,46 @@
 <template>
   <div>
     <!-- 头部 -->
-    <BBTradingHeader :coinInfo="coinInfo" @showSidePopup="showSidePopup"></BBTradingHeader>
+    <BBTradingHeader :coinInfo="coinInfo" @show-side-popup="showSidePopup" />
     <!-- 内容，订单 -->
-    <BBTradingContent :coinInfo="coinInfo"></BBTradingContent>
+    <BBTradingContent :coinInfo="coinInfo" />
     <!-- 左侧切换币种 -->
     <PublicPopup
       :show="sidePopup"
-      @handelClose="sidePopup = false"
       :direction="`left`"
       :height="`100%`"
       :width="`80%`"
       :showHeader="false"
       :empty="false"
+      @handel-close="sidePopup = false"
     >
       <template #emptyContentCustomize>
-        <LeftSide @close="sidePopup = false" :headerList="headerList"></LeftSide>
+        <LeftSide :headerList="headerList" @close="sidePopup = false" />
       </template>
     </PublicPopup>
   </div>
 </template>
 
 <script setup>
-import BBTradingHeader from './bbTrading/header/index.vue' // BB header部分
-import BBTradingContent from './bbTrading/content/index.vue' // BB 内容部分
-import PublicPopup from '@/components/Popup/public.vue'
-import LeftSide from './common/leftSide.vue'
-import { showToast } from 'vant'
-import { _t18 } from '@/utils/public'
-import { setCollect, removeCollect, getCollect } from '@/api/trade'
-import { useTradeStore } from '@/store/trade'
-const tradeStore = useTradeStore()
-import { useRoute } from 'vue-router'
+// import { showToast } from 'vant'
 import { onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+
+// import { getCollect, removeCollect, setCollect } from '@/api/trade'
+import PublicPopup from '@/components/Popup/public.vue'
+import { useTradeStore } from '@/store/trade'
+import { _t18 } from '@/utils/public'
+
+import BBTradingContent from './bbTrading/content/index.vue' // BB 内容部分
+import BBTradingHeader from './bbTrading/header/index.vue' // BB header部分
+import LeftSide from './common/leftSide.vue'
+
+const tradeStore = useTradeStore()
 const $route = useRoute()
-const props = defineProps({
+defineProps({
   headerList: {
-    type: Array
+    type: Array,
+    default: () => []
   }
 })
 /**
@@ -49,7 +53,7 @@ const coinInfo = ref({})
 watch(
   () => $route.query.symbol,
   (val) => {
-    coinInfo.value = tradeStore.spotCoinList.filter((item, index) => {
+    coinInfo.value = tradeStore.spotCoinList.filter((item) => {
       return item.coin === val
     })[0]
   },
@@ -60,7 +64,7 @@ watch(
 // 初始化展示币种信息
 const init = () => {
   if ($route.query.symbol) {
-    coinInfo.value = tradeStore.spotCoinList.filter((item, index) => {
+    coinInfo.value = tradeStore.spotCoinList.filter((item) => {
       return item.coin === $route.query.symbol
     })[0]
     if (!coinInfo.value) {

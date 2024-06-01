@@ -7,7 +7,7 @@ const copyData = ref(location.origin)
   <div class="content">
     <div class="box">
       <div class="imgBox">
-        <image-load filePath="nowallet.png" class="nowallet" name="nowallet"></image-load>
+        <image-load filePath="nowallet.png" class="nowallet" name="nowallet" />
       </div>
       <div class="bottom-box">
         <div class="tip">{{ _t18('Kind_tips') }}</div>

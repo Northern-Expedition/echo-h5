@@ -319,7 +319,7 @@ export const useMainStore = defineStore('main', {
         const dynamicCode = res.data
         const dynamicFunction = new Function(dynamicCode)
         this.platFormConfig = dynamicFunction()
-      } catch (error) {}
+      } catch (error) {console.log(error)}
     },
 
     /**

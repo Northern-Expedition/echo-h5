@@ -1,12 +1,12 @@
 <!-- 提现申请 -->
 <template>
-  <HeaderBar :currentName="currentName"></HeaderBar>
-  <Amount :amount="amount" :coin="$route.query.type?.toUpperCase()"></Amount>
+  <HeaderBar :currentName="currentName" />
+  <Amount :amount="amount" :coin="$route.query.type?.toUpperCase()" />
   <van-action-sheet
     v-model:show="showSheet"
-    @select="onSelect"
     :closeable="false"
     style="max-width: var(--ex-max-width); left: 50%; translate: -50%"
+    @select="onSelect"
   >
     <div class="sheetBox">
       <!-- 选择银行卡 -->
@@ -17,10 +17,10 @@
         class="sheetContent"
         @click="selectSheet(item)"
       >
-        <svg-load :name="$route.query.icon" class="coin"></svg-load>
+        <svg-load :name="$route.query.icon" class="coin" />
         <div>
           <p class="bankName">
-            {{ item?.bankName }} <span class="scl" v-if="item?.coin">（{{ item?.coin }}）</span>
+            {{ item?.bankName }} <span v-if="item?.coin" class="scl">（{{ item?.coin }}）</span>
           </p>
           <p class="cardNumber fw-num">{{ hideBank(item?.cardNumber) }}</p>
         </div>
@@ -61,19 +61,19 @@
         <div class="top">{{ _t18('withdraw_num', ['bitmake']) }}</div>
         <div class="bottom">
           <input
-            type="number"
             v-model="allAmount"
+            type="number"
             :placeholder="_t18('withdraw_input')"
             class="ff-num"
           />
           <p @click="allNum()">{{ _t18('swap_all') }}</p>
         </div>
       </div>
-      <div class="address" v-if="$route.query.icon != 'card'">
+      <div v-if="$route.query.icon != 'card'" class="address">
         <!-- 提现地址 -->
         <div class="top">{{ _t18('withdraw_address') }}</div>
         <div class="bottom">
-          <input type="text" v-model="address" :placeholder="_t18('withdraw_input')" />
+          <input v-model="address" type="text" :placeholder="_t18('withdraw_input')" />
         </div>
       </div>
       <div class="password">
@@ -81,19 +81,19 @@
         <div class="top">{{ _t18('withdraw_pwd', ['rxce']) }}</div>
         <div class="bottom">
           <input
-            :type="showk ? 'text' : 'password'"
             v-model="password"
+            :type="showk ? 'text' : 'password'"
             :placeholder="_t18('withdraw_input')"
           />
           <svg-load
             :name="showk ? 'yanjin-k' : 'yanjin-g'"
             class="yanjing"
             @click="showk = !showk"
-          ></svg-load>
+          />
         </div>
       </div>
     </div>
-    <div class="tip" v-if="!['aams'].includes(_getConfig('_APP_ENV'))">
+    <div v-if="!['aams'].includes(_getConfig('_APP_ENV'))" class="tip">
       <!-- 温馨提示：提现会收取部分手续费，提现后24小时之内 到账，如有疑问请     联系客服-->
       <div>
         {{ _t18('withdraw_tip') }}<span class="customer">{{ _t18('custorm_service') }}</span>
@@ -116,29 +116,30 @@
 </template>
 
 <script setup>
-import { DIFF_ISFREEZE, DIFF_WITHDRAW } from '@/config/index'
-import { useFreeze } from '@/hook/useFreeze'
+import { storeToRefs } from 'pinia'
+import { showToast } from 'vant'
+import { onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
-const { _isFreeze } = useFreeze()
+import { withdrawSubmit } from '@/api/account'
 import {
   getBindCardList,
-  haveCacheAddress,
   getCacheStatus,
+  haveCacheAddress,
   saveCacheAddress
 } from '@/api/account.js'
 import ButtonBar from '@/components/common/ButtonBar/index.vue'
-import Amount from '../components/applyAmount.vue'
-import { withdrawSubmit } from '@/api/account'
-import { _toView } from '@/utils/public'
-import { priceFormat } from '@/utils/decimal.js'
-import { showToast } from 'vant'
-import { useUserStore } from '@/store/user/index'
-import { storeToRefs } from 'pinia'
-import { _t18 } from '@/utils/public'
+import { DIFF_ISFREEZE, DIFF_WITHDRAW } from '@/config/index'
+import { useFreeze } from '@/hook/useFreeze'
 import { useToast } from '@/hook/useToast'
-import { filterCoin2 } from '@/utils/public'
-import { onMounted } from 'vue'
 import { useMainStore } from '@/store/index.js'
+import { useUserStore } from '@/store/user/index'
+import { priceFormat } from '@/utils/decimal.js'
+import { _t18, _toView, filterCoin2 } from '@/utils/public'
+
+import Amount from '../components/applyAmount.vue'
+
+const { _isFreeze } = useFreeze()
 
 const mainStore = useMainStore()
 const { _toast } = useToast()
@@ -148,7 +149,6 @@ userStore.getUserInfo()
 const { userInfo } = storeToRefs(userStore)
 // 用户余额信息
 const { asset } = storeToRefs(userStore)
-import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()

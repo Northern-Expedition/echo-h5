@@ -7,6 +7,7 @@
 </template>
 <script setup>
 import { useRouter } from 'vue-router'
+
 const { push } = useRouter()
 </script>
 <style lang="scss" scoped>

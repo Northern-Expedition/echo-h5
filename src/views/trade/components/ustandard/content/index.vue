@@ -3,7 +3,7 @@
     <div class="content">
       <!-- 盘口信息 -->
       <div class="content_left">
-        <Handicap :rows="8" :coinInfo="coinInfo" @setTradePrice="setTradePrice"></Handicap>
+        <Handicap :rows="8" :coinInfo="coinInfo" @set-trade-price="setTradePrice" />
       </div>
       <!-- 下单 -->
       <div class="content_right">
@@ -35,17 +35,14 @@
                   <div>
                     {{ transactionLabel ? _t18(`bb_market_order`) : _t18(`bb_Limit_order`) }}
                   </div>
-                  <svg-load
-                    :name="showPopover ? 'jiantou10x5-s' : 'jiantou10x5-x'"
-                    class="img"
-                  ></svg-load>
+                  <svg-load :name="showPopover ? 'jiantou10x5-s' : 'jiantou10x5-x'" class="img" />
                 </div>
               </template>
             </van-popover>
           </div>
           <div class="right firstItem">
             <van-popover v-model:show="showPopoverNum" :show-arrow="false">
-              <div class="rightScondListNum" v-if="numList.length > 0">
+              <div v-if="numList.length > 0" class="rightScondListNum">
                 <div
                   v-for="item in numList"
                   :key="item.id"
@@ -59,39 +56,39 @@
               <template #reference>
                 <div class="entrustSelect right">
                   <div class="fw-num">{{ transactionNum }}</div>
-                  <svg-load v-if="!showPopoverNum" name="jiantou10x5-x" class="img"></svg-load>
-                  <svg-load v-if="showPopoverNum" name="jiantou10x5-s" class="img"></svg-load>
+                  <svg-load v-if="!showPopoverNum" name="jiantou10x5-x" class="img" />
+                  <svg-load v-if="showPopoverNum" name="jiantou10x5-s" class="img" />
                 </div>
               </template>
             </van-popover>
           </div>
         </div>
         <!-- 市价占位 -->
-        <div class="rightThird" v-if="transactionLabel">{{ _t18(`market_price`) }}</div>
+        <div v-if="transactionLabel" class="rightThird">{{ _t18(`market_price`) }}</div>
         <!-- 市价委托：数量(手lots/张lots2) -->
-        <div class="rightFifth" v-if="transactionLabel">
+        <div v-if="transactionLabel" class="rightFifth">
           <input
-            type="number"
             v-model.trim="delegateTotal"
+            type="number"
             class="amount"
             :placeholder="`${_t18(`metastaking_bb_count`)}(${_t18(`lots`)})`"
           />
         </div>
         <!-- 限价委托：价格，数量 -->
-        <div class="rightFifth" v-if="!transactionLabel">
+        <div v-if="!transactionLabel" class="rightFifth">
           <!-- 价格 -->
           <input
+            v-model.trim="delegatePrice"
             type="number"
             class="amount"
-            v-model.trim="delegatePrice"
             :placeholder="_t18(`price`)"
           />
         </div>
-        <div class="rightFifth" v-if="!transactionLabel">
+        <div v-if="!transactionLabel" class="rightFifth">
           <!-- 数量(手lots/张lots2) -->
           <input
-            type="number"
             v-model.trim="delegateTotal"
+            type="number"
             class="amount"
             :placeholder="`${_t18(`metastaking_bb_count`)}(${_t18(`lots`)})`"
           />
@@ -100,11 +97,11 @@
         <div class="rightFourth">
           <div class="lineBg">
             <div
+              v-for="(item, index) in 5"
+              :key="index"
               :class="
                 sliderValue === 0 ? 'node' : index * 25 > sliderValue ? 'node' : 'node active'
               "
-              v-for="(item, index) in 5"
-              :key="index"
             ></div>
           </div>
           <van-slider v-model="sliderValue" active-color="#00e291" inactive-color="#d9d9d9">
@@ -220,48 +217,52 @@
     </div>
     <!-- 订单 -->
     <!-- 订单信息 -->
-    <OrderListBox
-      ref="orderListBoxRef"
-      :coinInfo="coinInfo"
-      :availableBalance="availableBalance"
-    ></OrderListBox>
+    <OrderListBox ref="orderListBoxRef" :coinInfo="coinInfo" :availableBalance="availableBalance" />
   </div>
-  <div class="start_sim" @click="handlejiaoyi" v-if="isShow.availableAmount <= 0">
+  <div v-if="isShow.availableAmount <= 0" class="start_sim" @click="handlejiaoyi">
     <div class="start_btn">开启模拟交易</div>
          
   </div>
 </template>
 
 <script setup>
-import { _mul, _div, _toFixed } from '@/utils/decimal'
-import { DIFF_ISFREEZE } from '@/config/index'
-import { useFreeze } from '@/hook/useFreeze'
-const { _isFreeze } = useFreeze()
-import Handicap from '../../common/handicap.vue'
-import OrderListBox from './OrderList.vue'
-import { _t18 } from '@/utils/public'
-import { showToast, showLoadingToast, closeToast } from 'vant'
-import { useToast } from '@/hook/useToast'
-const { _toast } = useToast()
-import { useMainStore } from '@/store/index'
-const mainStore = useMainStore()
-import { matchText, formatCurrentcurrency } from '@/utils/filters'
-import { switchTypeApi } from '@/api/quote'
+import PubSub from 'pubsub-js'
+import { closeToast, showLoadingToast, showToast } from 'vant'
 import { useRouter } from 'vue-router'
+
+import { switchTypeApi } from '@/api/quote'
 import {
-  submitUcontract,
   contractHistoryList,
   contractLossList,
-  orderList
+  orderList,
+  submitUcontract
 } from '@/api/trade/index'
+import { socketDict } from '@/config/dict'
+import { DIFF_ISFREEZE } from '@/config/index'
+import { useFreeze } from '@/hook/useFreeze'
+import { useToast } from '@/hook/useToast'
+import { useMainStore } from '@/store/index'
 import { useTradeStore } from '@/store/trade'
+import { useUserStore } from '@/store/user/index'
+import { _div, _mul, _toFixed } from '@/utils/decimal'
+import { formatCurrentcurrency, matchText } from '@/utils/filters'
+import { _t18 } from '@/utils/public'
+
+import Handicap from '../../common/handicap.vue'
+import OrderListBox from './OrderList.vue'
+
+const { _isFreeze } = useFreeze()
+
+const { _toast } = useToast()
+
+const mainStore = useMainStore()
+
 const tradeStore = useTradeStore()
 const { push } = useRouter()
-import { useUserStore } from '@/store/user/index'
+
 const userStore = useUserStore()
 const { asset } = storeToRefs(userStore)
-import { socketDict } from '@/config/dict'
-import PubSub from 'pubsub-js'
+
 const orderListBoxRef = ref(null)
 const props = defineProps({
   coinInfo: {

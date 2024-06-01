@@ -4,8 +4,10 @@
 </template>
 <script setup>
 import { onMounted } from 'vue'
-import { noticeDetail } from '@/api/common/index'
 import { useRoute } from 'vue-router'
+
+import { noticeDetail } from '@/api/common/index'
+
 const $route = useRoute()
 const currentName = ref('')
 const currentHtml = ref(null)
@@ -16,7 +18,9 @@ onMounted(async () => {
       currentName.value = res.data.noticeTitle
       currentHtml.value = res.data.noticeContent
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 })
 </script>
 <style lang="scss">

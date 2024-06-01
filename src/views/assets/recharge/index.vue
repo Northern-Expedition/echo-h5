@@ -1,38 +1,40 @@
 <!-- 快捷充币 -->
 <template>
-  <HeaderBar :currentName="_t18('recharge_fast', ['aams', 'robinhood2'])"></HeaderBar>
-  <List :data="coinList"></List>
+  <HeaderBar :currentName="_t18('recharge_fast', ['aams', 'robinhood2'])" />
+  <List :data="coinList" />
   <div class="record-info">
     <div class="record-card" @click="push('/recharge-order')">
-      <image-load filePath="time.png" name="usdt" class="img left-img"></image-load>
+      <image-load filePath="time.png" name="usdt" class="img left-img" />
       <div class="record-right">
         <div>{{ _t18('recharge_order') }}</div>
-        <image-load filePath="right-arrow.png" name="usdt" class="img right-img"></image-load>
+        <image-load filePath="right-arrow.png" name="usdt" class="img right-img" />
       </div>
     </div>
   </div>
 
   <div
+    v-if="['das', 'dev'].includes(_getConfig('_APP_ENV'))"
     class="custorm"
     @click="dispatchCustomEvent('event_serviceChange')"
-    v-if="['das', 'dev'].includes(_getConfig('_APP_ENV'))"
   >
     <!-- 人工匹配商家 -->
     <div class="left">
-      <image-load filePath="defi/custorm.png" class="service-img"></image-load>
+      <image-load filePath="defi/custorm.png" class="service-img" />
       <span class="text">{{ _t18('findCustorm') }}</span>
     </div>
-    <div class="right"><svg-load name="jiantou" class="jiantou"></svg-load></div>
+    <div class="right"><svg-load name="jiantou" class="jiantou" /></div>
   </div>
 </template>
 
 <script setup>
-import { dispatchCustomEvent } from '@/utils'
-import { _t18 } from '@/utils/public'
-import List from './recharge-list.vue'
-import { filterCoin2 } from '@/utils/public'
-import { useMainStore } from '@/store/index.js'
 import { useRouter } from 'vue-router'
+
+import { useMainStore } from '@/store/index.js'
+import { dispatchCustomEvent } from '@/utils'
+import { _t18, filterCoin2 } from '@/utils/public'
+
+import List from './recharge-list.vue'
+
 const { push } = useRouter()
 const mainStore = useMainStore()
 
@@ -99,7 +101,9 @@ const coinList = computed(() => {
       justify-content: space-between;
       div {
         font-size: 0.373333rem;
-        font-family: PingFangSC, PingFang SC;
+        font-family:
+          PingFangSC,
+          PingFang SC;
         font-weight: 400;
         color: var(--ex-assets--record-font-color);
       }

@@ -3,7 +3,11 @@
     <template #footer>
       <div class="barRight">
         <div class="list">
-          <div class="item" :class="!hightStatus ? 'hightStatus' : ''" @click="selectHightStatus(0)">
+          <div
+            class="item"
+            :class="!hightStatus ? 'hightStatus' : ''"
+            @click="selectHightStatus(0)"
+          >
             ETH
           </div>
           <div class="item" :class="hightStatus ? 'hightStatus' : ''" @click="selectHightStatus(1)">
@@ -26,8 +30,16 @@
     </van-tabs>
   </header>
   <div class="headerChoose">
-    <van-tabs v-model:active="currentIndex" line-width="20" line-height="2" color="#3CBC8C" background="#fff"
-      title-active-color="#000000" title-inactive-color="#838B9C" @click-tab="switchBtn(currentIndex)">
+    <van-tabs
+      v-model:active="currentIndex"
+      line-width="20"
+      line-height="2"
+      color="#3CBC8C"
+      background="#fff"
+      title-active-color="#000000"
+      title-inactive-color="#838B9C"
+      @click-tab="switchBtn(currentIndex)"
+    >
       <van-tab v-for="(item, index) in headerList" :key="index">
         <template #title>
           <div>{{ item.name }}</div>
@@ -36,7 +48,7 @@
     </van-tabs>
   </div>
   <div class="search">
-    <Search :disabledInput="false"></Search>
+    <Search :disabledInput="false" />
   </div>
   <footer v-if="!currentIndex">
     <FooterList @click="$router.push('/nftDetail')">
@@ -48,19 +60,21 @@
       </template>
     </FooterList>
   </footer>
-  <div class="transactionHistory" v-if="currentIndex">
-    <HistoryItem @click="$router.push('/nftDetail')"></HistoryItem>
+  <div v-if="currentIndex" class="transactionHistory">
+    <HistoryItem @click="$router.push('/nftDetail')" />
   </div>
   <!-- <Nodata></Nodata> -->
-  <Service></Service>
+  <Service />
 </template>
 <script setup>
+import { onMounted, ref } from 'vue'
+
 import { _t18 } from '@/utils/public'
-import Search from '@/views/nft/components/Search/index.vue' // 搜索
-import Service from '@/views/nft/components/Service/index.vue' //客服
-import FooterList from '@/views/nft/components/NftList/index.vue' // 作品列表
 import HistoryItem from '@/views/nft/components/NftList/historyItem.vue' // 交易历史
-import { ref, onMounted } from 'vue'
+import FooterList from '@/views/nft/components/NftList/index.vue' // 作品列表
+import Search from '@/views/nft/components/Search/index.vue' // 搜索
+import Service from '@/views/nft/components/Service/index.vue'
+//客服
 const allList = ref([
   {
     name: _t18(`current_position`),
@@ -181,7 +195,7 @@ header {
 
     .tabItemBot {
       font-size: 12px;
-      color: var(--ex-font-color6)
+      color: var(--ex-font-color6);
     }
   }
 }
@@ -224,7 +238,7 @@ footer {
 
     .right {
       font-weight: bold;
-      color: var(--ex-font-color6)
+      color: var(--ex-font-color6);
     }
   }
 }

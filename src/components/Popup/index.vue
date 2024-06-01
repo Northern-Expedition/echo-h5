@@ -33,14 +33,14 @@ const handelClose = () => {
       v-model:show="props.show"
       round
       :transition-appear="true"
-      @click-overlay="handelClose"
       :position="direction"
+      @click-overlay="handelClose"
     >
       <div class="popup">
         <!-- 标题 -->
         <p>{{ props.title }}</p>
         <!-- 关闭按钮 -->
-        <svg-load class="closeSvg" name="guanbi" v-if="props.close" @click="handelClose"></svg-load>
+        <svg-load v-if="props.close" class="closeSvg" name="guanbi" @click="handelClose" />
         <!-- 内容 仅适用于规则/说明-->
         <div v-if="props.content">
           <div v-for="(item, index) in content" :key="index" class="popupContent">
@@ -103,7 +103,7 @@ const handelClose = () => {
         }
         div {
           // text-indent: 2em;
-         color: var(--ex-font-color8);
+          color: var(--ex-font-color8);
           line-height: 1.3;
           margin: 10px 0 10px;
         }

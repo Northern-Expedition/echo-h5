@@ -9,10 +9,10 @@
     <van-sticky>
       <div class="headerList">
         <div class="left">
-          <svg-load name="jiantou-z" class="leftImg" @click="_back()"></svg-load>
+          <svg-load name="jiantou-z" class="leftImg" @click="_back()" />
         </div>
         <div class="headerChoose">
-          <van-tabs swipeable v-model:active="currentIndex">
+          <van-tabs v-model:active="currentIndex" swipeable>
             <van-tab v-for="(item, index) in headerList" :key="index">
               <template #title>
                 <div class="tab-item" :class="currentIndex === index ? 'atv' : ''">
@@ -25,22 +25,25 @@
       </div>
     </van-sticky>
     <!-- tab -->
-    <component :is="currentComponent" :headerList="headerList"></component>
+    <component :is="currentComponent" :headerList="headerList" />
   </div>
 </template>
 
 <script setup>
-import { _t18 } from '@/utils/public'
-import { useMainStore } from '@/store/index'
-const mainStore = useMainStore()
-import { useTradeStore } from '@/store/trade'
-const tradeStore = useTradeStore()
-import { useRoute } from 'vue-router'
-const $route = useRoute()
 import { computed, onMounted } from 'vue'
-import SecondContract from './components/tradeSecondContract.vue'
+import { useRoute } from 'vue-router'
+
+import { useMainStore } from '@/store/index'
+import { useTradeStore } from '@/store/trade'
+import { _t18 } from '@/utils/public'
+
 import BBTrading from './components/tradeBBTrading.vue'
+import SecondContract from './components/tradeSecondContract.vue'
 import Ustandard from './components/tradeUstandard.vue'
+
+const mainStore = useMainStore()
+const tradeStore = useTradeStore()
+const $route = useRoute()
 // tabs
 const headerList = computed(() => {
   let tempList = mainStore.getTradeHeaderList.filter((item, index) => {

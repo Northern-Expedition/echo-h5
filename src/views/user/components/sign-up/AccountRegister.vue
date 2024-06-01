@@ -4,7 +4,7 @@
       <!-- 账号 -->
       <p style="color: #a0a5af">{{ _t18('account', ['bitmake']) }}</p>
       <div>
-        <input type="text" :placeholder="_t18('login_please')" v-model="formData1.username" />
+        <input v-model="formData1.username" type="text" :placeholder="_t18('login_please')" />
       </div>
     </div>
     <div class="formData">
@@ -12,11 +12,11 @@
       <p style="color: #a0a5af">{{ _t18('login_pwd') }}</p>
       <div>
         <input
+          v-model="formData1.password"
           :type="showk ? 'text' : 'password'"
           :placeholder="_t18('login_please')"
-          v-model="formData1.password"
         />
-        <svg-load :name="showk ? 'yanjin-k' : 'yanjin-g'" @click="showk = !showk"></svg-load>
+        <svg-load :name="showk ? 'yanjin-k' : 'yanjin-g'" @click="showk = !showk" />
       </div>
     </div>
     <div class="formData">
@@ -24,17 +24,17 @@
       <p style="color: #a0a5af">{{ _t18('register_pwd_require') }}</p>
       <div>
         <input
+          v-model="formData1.password2"
           :type="requireShowk ? 'text' : 'password'"
           :placeholder="_t18('login_please')"
-          v-model="formData1.password2"
           @input="inputPass"
         /><svg-load
           :name="requireShowk ? 'yanjin-k' : 'yanjin-g'"
           @click="requireShowk = !requireShowk"
-        ></svg-load>
+        />
       </div>
     </div>
-    <p class="requirePass" v-if="requirePass">*{{ _t18('register_pwd_diff') }}</p>
+    <p v-if="requirePass" class="requirePass">*{{ _t18('register_pwd_diff') }}</p>
     <div class="formData">
       <!-- 邀请码 选填-->
       <p style="color: #a0a5af">
@@ -50,14 +50,14 @@
         >
       </p>
       <div>
-        <input type="text" :placeholder="_t18('login_please')" v-model="formData1.invitCode" />
+        <input v-model="formData1.invitCode" type="text" :placeholder="_t18('login_please')" />
       </div>
     </div>
-    <div class="formData" v-if="mainStore.getISCode">
+    <div v-if="mainStore.getISCode" class="formData">
       <!-- 验证码 -->
       <p style="color: #a0a5af">{{ _t18('login_code') }}</p>
       <div>
-        <input type="text" :placeholder="_t18('login_please')" v-model="formData1.code" /><span
+        <input v-model="formData1.code" type="text" :placeholder="_t18('login_please')" /><span
           @click="refreshCode"
         >
           <img :src="codeUrl" />
@@ -65,16 +65,21 @@
       </div>
     </div>
 
-    <Footer :type="1" :formDataToRegister="formData1" @refersh="refreshCode"></Footer>
+    <Footer :type="1" :formDataToRegister="formData1" @refersh="refreshCode" />
   </div>
 </template>
 
 <script setup>
-import Footer from './../signFooter.vue'
-import { _t18 } from '@/utils/public'
+import './../style.scss'
+
+import { useRoute } from 'vue-router'
+
 import { REGISTER_REQUIRED_ACTIVECODE } from '@/config'
 import { useMainStore } from '@/store/index.js'
-import { useRoute } from 'vue-router'
+import { _t18 } from '@/utils/public'
+
+import Footer from './../signFooter.vue'
+
 const route = useRoute()
 const mainStore = useMainStore()
 /**
@@ -108,7 +113,6 @@ const inputPass = () => {
 // 眼睛
 const showk = ref(false)
 const requireShowk = ref(false)
-import './../style.scss'
 </script>
 
 <style lang="scss" scoped></style>

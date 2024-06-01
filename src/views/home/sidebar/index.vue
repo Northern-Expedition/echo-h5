@@ -1,7 +1,7 @@
 <template>
   <div class="slidebar">
     <!-- 未登录 -->
-    <div class="user" v-if="!isSign">
+    <div v-if="!isSign" class="user">
       <div class="user-login">
         <div class="user-login-but" @click="_toView('/sign-in')">
           {{ _t18('login') }}
@@ -11,12 +11,12 @@
         </div>
       </div>
     </div>
-    <UserLogin v-if="isSign"></UserLogin>
-    <Navigation></Navigation>
+    <UserLogin v-if="isSign" />
+    <Navigation />
 
     <!-- 已登录 -->
     <div v-if="isSign && !userInfo.addressFlag" class="logged" @click="exit">
-      <image-load filePath="log-out.png" class="loggedImg"></image-load>
+      <image-load filePath="log-out.png" class="loggedImg" />
       <!-- 退出登录 -->
       <div>{{ _t18('layout', ['aams']) }}</div>
     </div>
@@ -28,23 +28,24 @@
       :title="``"
       :content="_t18('layout_require')"
       confirm-button-color="#613af1"
-      @cancelBtn="cancelBtn"
-      @confirmBtn="confirmBtn"
       :confirmButtonText="_t18('btnConfirm', ['bitmake'])"
       :cancelButtonText="_t18('cancel')"
       z-index="200"
-    ></Dialog>
+      @cancel-btn="cancelBtn"
+      @confirm-btn="confirmBtn"
+    />
   </div>
 </template>
 <script setup>
-import { _back, _t18, _toView, _toReplace } from '@/utils/public'
-import ButtonBar from '@/components/common/ButtonBar/index.vue'
 import { signOut } from '@/api/user'
-import { useUserStore } from '@/store/user/index'
-import UserLogin from '../components/Sidebar/userLogin.vue'
-import Navigation from '../components/Sidebar/navigation.vue'
 import Dialog from '@/components/Dialog/index.vue'
 import { useToast } from '@/hook/useToast'
+import { useUserStore } from '@/store/user/index'
+import { _back, _t18, _toReplace, _toView } from '@/utils/public'
+
+import Navigation from '../components/Sidebar/navigation.vue'
+import UserLogin from '../components/Sidebar/userLogin.vue'
+
 const { _toast } = useToast()
 
 const userStore = useUserStore()

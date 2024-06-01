@@ -2,14 +2,14 @@
 <template>
   <div v-if="NO_SHOW_MEMBER.includes(_getConfig('_APP_ENV'))">
     <div class="content">
-      <image-load filePath="plugbg.png" class="img-bg"></image-load>
+      <image-load filePath="plugbg.png" class="img-bg" />
       <div class="toBack" @click="$router.push('/')">
-        <svg-load name="back" class="back"></svg-load>
+        <svg-load name="back" class="back" />
         <div class="code_box">
           <p class="code1 fw-bold">{{ _t18('plug_invite') }}</p>
           <p class="code2">{{ _t18('plug_toInvite') }}</p>
           <div class="erweima">
-            <QRCode :address="sharkCode"></QRCode>
+            <QRCode :address="sharkCode" />
           </div>
           <div class="sharkCode">
             <Copy :data="sharkCode">
@@ -37,8 +37,8 @@
       :currentName="_t18('plug')"
       :cuttentRight="cuttentRight"
       :border_bottom="false"
-      @showPopup="showPopup"
-    ></HeaderBar>
+      @show-popup="showPopup"
+    />
     <!-- 团队信息 -->
     <div class="banner">
       <div class="plug-header">
@@ -99,9 +99,9 @@
     </div>
     <div v-if="!['das'].includes(_getConfig('_APP_ENV'))">
       <!-- 我的推广 -->
-      <div class="promotion_my" v-if="!['bitfly'].includes(_getConfig('_APP_ENV'))">
+      <div v-if="!['bitfly'].includes(_getConfig('_APP_ENV'))" class="promotion_my">
         <div class="title fw-bold">{{ _t18('plug_myShare', ['aams']) }}</div>
-        <van-tabs v-model:active="curIndex" @change="changeIndex" shrink>
+        <van-tabs v-model:active="curIndex" shrink @change="changeIndex">
           <!-- 加载中动画 -->
           <van-tab v-for="(item, index) in tabList">
             <template #title>
@@ -115,9 +115,9 @@
             </div>
 
             <van-loading v-if="showLoading" />
-            <Nodata v-if="teamList.length <= 0 && !showLoading"></Nodata>
+            <Nodata v-if="teamList.length <= 0 && !showLoading" />
             <div v-else class="contentBox">
-              <div class="content" v-for="(item, index) in teamList" :key="index">
+              <div v-for="(item, index) in teamList" :key="index" class="content">
                 <p class="ff-num">{{ item.fromId || '' }}</p>
                 <p class="ff-num">{{ item.sumAmount || 0 }}</p>
                 <!-- <p>{{ item.createTime?_timeFormat(item.createTime, 'HH:mm MM/DD', true):'' }}</p> -->
@@ -163,12 +163,11 @@
     <!-- 质押挖矿规则弹窗 -->
     <Popup
       :show="showRule"
-      @handelClose="closePopup"
       :title="txt"
       :content="popupContent"
       :direction="direction"
-    >
-    </Popup>
+      @handel-close="closePopup"
+    />
     <van-popup v-model:show="showInvite" round>
       <div class="popup-invite">
         <div class="invite-header">
@@ -198,17 +197,18 @@
 </template>
 
 <script setup>
-import { NO_SHOW_MEMBER } from '@/config/index'
-import { _t18 } from '@/utils/public'
-import HeaderBar from '@/components/HeaderBar/index.vue'
-import QRCode from '@/components/common/QRCode/index.vue'
-import Copy from '@/components/common/Copy/index.vue'
-import Tab from '@/components/Tab/index.vue'
-import Popup from '@/components/Popup/index.vue'
-import { useUserStore } from '@/store/user/index'
-import { getAgentInfo, getAgentList } from '@/api/plug.js'
 import { onMounted } from 'vue'
+
 import { rulesList } from '@/api/common/index'
+import { getAgentInfo, getAgentList } from '@/api/plug.js'
+import Copy from '@/components/common/Copy/index.vue'
+import QRCode from '@/components/common/QRCode/index.vue'
+import HeaderBar from '@/components/HeaderBar/index.vue'
+import Popup from '@/components/Popup/index.vue'
+import Tab from '@/components/Tab/index.vue'
+import { NO_SHOW_MEMBER } from '@/config/index'
+import { useUserStore } from '@/store/user/index'
+import { _t18 } from '@/utils/public'
 
 const cuttentRight = reactive({
   iconRight: [{ iconName: 'right-rule', clickTo: '', text: _t18('plug_rule') }]

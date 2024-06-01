@@ -1,7 +1,7 @@
 <template>
   <div class="userAmount">
     <div class="left">
-      <svg-load :name="$route.query.icon" class="coin-img"></svg-load>
+      <svg-load :name="$route.query.icon" class="coin-img" />
       <div class="title">{{ $route.query.type }}</div>
     </div>
     <div class="right">
@@ -17,8 +17,9 @@
 </template>
 
 <script setup>
-import { _t18 } from '@/utils/public'
 import { priceFormat } from '@/utils/decimal.js'
+import { _t18 } from '@/utils/public'
+
 const props = defineProps({
   amount: {
     type: Number

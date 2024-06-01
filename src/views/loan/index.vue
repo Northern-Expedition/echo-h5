@@ -1,17 +1,18 @@
 <script setup>
-import { _t18 } from '@/utils/public'
-import HeaderBar from '@/components/HeaderBar/index.vue'
+import { showToast } from 'vant'
 // import Success from './components/success.vue'
-import { reactive, ref, onMounted, computed } from 'vue'
-import { _div, _mul, priceFormat } from '@/utils/decimal.js'
-import { getLoanProductList, getLoan } from '@/api/loan.js'
+import { computed, onMounted, reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
 import { dict } from '@/api/common/index'
 import { uploadImg } from '@/api/common/index.js'
-import { showToast } from 'vant'
+import { getLoan, getLoanProductList } from '@/api/loan.js'
+import HeaderBar from '@/components/HeaderBar/index.vue'
 import { useToast } from '@/hook/useToast'
+import { _div, _mul, priceFormat } from '@/utils/decimal.js'
+import { _t18, _toView } from '@/utils/public'
+
 const { _toast } = useToast()
-import { _toView } from '@/utils/public'
-import { useRouter } from 'vue-router'
 const router = useRouter()
 const ProductList = ref([])
 const amount = ref('')
@@ -194,11 +195,7 @@ const stepsActive = ref(0)
 </script>
 <template>
   <!-- 助力贷 -->
-  <HeaderBar
-    :currentName="_t18('asset_loan')"
-    :cuttentRight="cuttentRight"
-    :border_bottom="true"
-  ></HeaderBar>
+  <HeaderBar :currentName="_t18('asset_loan')" :cuttentRight="cuttentRight" :border_bottom="true" />
   <div class="content">
     <div class="header-step">
       <van-steps
@@ -211,7 +208,7 @@ const stepsActive = ref(0)
         <van-step>{{ _t18('application_result') }}</van-step>
       </van-steps>
     </div>
-    <div class="loan-apply" v-if="stepsActive === 0">
+    <div v-if="stepsActive === 0" class="loan-apply">
       <div class="top">
         <!-- 经平台审核，您可向平台申请一笔借款！ -->
         <strong class="tip">{{ _t18('loan_msg') }}</strong>
@@ -286,10 +283,10 @@ const stepsActive = ref(0)
       <!-- 借贷记录 -->
       <div class="record-info" @click="$router.push('/loan-record')">
         <div class="record-card">
-          <image-load filePath="time.png" class="img left-img"></image-load>
+          <image-load filePath="time.png" class="img left-img" />
           <div class="record-right">
             <div>{{ _t18('Debit_and_credit_record') }}</div>
-            <image-load filePath="right-arrow.png" class="img right-img"></image-load>
+            <image-load filePath="right-arrow.png" class="img right-img" />
           </div>
         </div>
       </div>
@@ -297,7 +294,7 @@ const stepsActive = ref(0)
         <p @click="stepsActive++">{{ _t18('next_step') }}</p>
       </div>
     </div>
-    <div class="bottom" v-if="stepsActive === 1">
+    <div v-if="stepsActive === 1" class="bottom">
       <div class="upload">
         <!-- 证件照 请确保证件照清晰可见-->
         <div class="photo">
@@ -307,22 +304,22 @@ const stepsActive = ref(0)
       <div class="upload-box">
         <div class="item">
           <!-- 上传正面 -->
-          <van-uploader :after-read="afterRead1" v-model="fileList1">
-            <image-load filePath="defi/delete.png" name="delete" class="img"></image-load>
+          <van-uploader v-model="fileList1" :after-read="afterRead1">
+            <image-load filePath="defi/delete.png" name="delete" class="img" />
             <div class="tit">{{ _t18('loan_front') }}</div>
           </van-uploader>
         </div>
         <div class="item">
           <!-- 上传反面 -->
-          <van-uploader :after-read="afterRead2" v-model="fileList2">
-            <image-load filePath="defi/delete.png" name="delete" class="img"></image-load>
+          <van-uploader v-model="fileList2" :after-read="afterRead2">
+            <image-load filePath="defi/delete.png" name="delete" class="img" />
             <div class="tit">{{ _t18('loan_reverse') }}</div>
           </van-uploader>
         </div>
         <div class="item">
           <!-- 上传手持证件照 -->
-          <van-uploader :after-read="afterRead3" v-model="fileList3">
-            <image-load filePath="defi/delete.png" name="delete" class="img"></image-load>
+          <van-uploader v-model="fileList3" :after-read="afterRead3">
+            <image-load filePath="defi/delete.png" name="delete" class="img" />
             <div class="tit">{{ _t18('loan_hand') }}</div>
           </van-uploader>
         </div>
@@ -332,8 +329,8 @@ const stepsActive = ref(0)
         <p>{{ _t18('loan_require') }}</p>
       </div>
     </div>
-    <div class="success-info" v-if="stepsActive === 2">
-      <image-load filePath="defi/success.png" class="img success-img"></image-load>
+    <div v-if="stepsActive === 2" class="success-info">
+      <image-load filePath="defi/success.png" class="img success-img" />
       <div>{{ _t18('Congratulations_on_your_successful_application') }}</div>
       <div>
         {{
@@ -349,7 +346,6 @@ const stepsActive = ref(0)
 :deep(.van-action-sheet__content) {
   background: var(--ex-default-background-color);
 }
-
 
 .action {
   li {
@@ -482,7 +478,9 @@ const stepsActive = ref(0)
         justify-content: space-between;
         div {
           font-size: 0.373333rem;
-          font-family: PingFangSC, PingFang SC;
+          font-family:
+            PingFangSC,
+            PingFang SC;
           font-weight: 400;
           color: var(--ex-assets--record-font-color);
         }

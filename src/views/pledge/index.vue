@@ -1,13 +1,16 @@
 <!-- 质押挖矿 -->
 <script setup>
-import { _t18 } from '@/utils/public'
-import { getPledgeProductList, getPledgeShowInfo } from '@/api/pledge/index'
-import { priceFormat } from '@/utils/decimal.js'
-import { useRouter } from 'vue-router'
-import Popup from '@/components/Popup/index.vue'
-import Card from './components/card.vue'
 import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+
 import { rulesList } from '@/api/common/index'
+import { getPledgeProductList, getPledgeShowInfo } from '@/api/pledge/index'
+import Popup from '@/components/Popup/index.vue'
+import { priceFormat } from '@/utils/decimal.js'
+import { _t18 } from '@/utils/public'
+
+import Card from './components/card.vue'
+
 const router = useRouter()
 
 const showRule = ref(false)
@@ -64,16 +67,15 @@ onMounted(() => {
   <Popup
     :show="showRule"
     :direction="direction"
-    @handelClose="closePopup"
     :title="txt"
     :content="popupContent"
-  >
-  </Popup>
+    @handel-close="closePopup"
+  />
   <HeaderBar
     :currentName="_t18('defi_host_lockup')"
     :cuttentRight="cuttentRight"
-    @showPopup="showPopup"
-  ></HeaderBar>
+    @show-popup="showPopup"
+  />
   <div class="container">
     <div class="title">
       <div class="left">MOONEX</div>
@@ -88,15 +90,15 @@ onMounted(() => {
   </div>
   <!-- 广告图 -->
   <div class="banner">
-    <image-load filePath="zhiyabg.png" name="defi"></image-load>
+    <image-load filePath="zhiyabg.png" name="defi" />
   </div>
   <!-- 质押记录 -->
   <div class="pledge_record" @click="router.push('/pledge/pledgeOrder')">
     <div class="flex">
-      <image-load filePath="time.png" name="usdt" class="img time"></image-load>
+      <image-load filePath="time.png" name="usdt" class="img time" />
       <span class="text">{{ _t18('pledge_records') }}</span>
     </div>
-    <image-load filePath="right-arrow.png" name="usdt" class="img right-arrow"></image-load>
+    <image-load filePath="right-arrow.png" name="usdt" class="img right-arrow" />
   </div>
   <!-- 收益信息（资金、收益） -->
   <div class="userAccount">
@@ -111,7 +113,7 @@ onMounted(() => {
           style="flex-basis: 50%; padding-right: 10px"
           :style="{ marginTop: index >= 2 ? '10px' : '' }"
         >
-          <image-load class="img icon" filePath="pledge_hosting.png" name="defi"></image-load>
+          <image-load class="img icon" filePath="pledge_hosting.png" name="defi" />
           <p class="fw-num">{{ priceFormat(showInfo.amount) || 0 }}</p>
           <div class="til">{{ _t18('pledge_hosting') }}</div>
         </van-grid-item>
@@ -119,7 +121,7 @@ onMounted(() => {
           style="flex-basis: 50%; padding-right: 10px"
           :style="{ marginTop: index >= 2 ? '10px' : '' }"
         >
-          <image-load class="img icon" filePath="pledge_hosting.png" name="defi"></image-load>
+          <image-load class="img icon" filePath="pledge_hosting.png" name="defi" />
           <p class="fw-num">{{ showInfo.orderNum || 0 }}</p>
           <div class="til">{{ _t18('pledge_commissioned_order') }}</div>
         </van-grid-item>
@@ -127,11 +129,7 @@ onMounted(() => {
           style="flex-basis: 50%; padding-right: 10px"
           :style="{ marginTop: index >= 2 ? '10px' : '' }"
         >
-          <image-load
-            class="img icon"
-            filePath="pledge_Today_Earnings.png"
-            name="defi"
-          ></image-load>
+          <image-load class="img icon" filePath="pledge_Today_Earnings.png" name="defi" />
           <p class="fw-num">{{ showInfo.orderNum || 0 }}</p>
           <div class="til">{{ _t18('pledge_Today_Earnings') }}</div>
         </van-grid-item>
@@ -139,7 +137,7 @@ onMounted(() => {
           style="flex-basis: 50%; padding-right: 10px"
           :style="{ marginTop: index >= 2 ? '10px' : '' }"
         >
-          <image-load class="img icon" filePath="Cumulative_income.png" name="defi"></image-load>
+          <image-load class="img icon" filePath="Cumulative_income.png" name="defi" />
           <p class="fw-num">{{ priceFormat(showInfo.profitMoney) || 0 }}</p>
           <div class="til">{{ _t18('Cumulative_income') }}</div>
         </van-grid-item>
@@ -153,16 +151,16 @@ onMounted(() => {
       <div class="text">{{ _t18('pledge_the_position') }}</div>
       <div class="line"></div>
     </div>
-    <div class="projectList" v-if="projectList?.length > 0">
+    <div v-if="projectList?.length > 0" class="projectList">
       <Card
         v-for="(item, index) in projectList"
-        @click="toView(item)"
         :key="index"
         :index="index + 1"
         :cardData="item"
-      ></Card>
+        @click="toView(item)"
+      />
     </div>
-    <Nodata v-else></Nodata>
+    <Nodata v-else />
   </div>
 </template>
 <style lang="scss" scoped>
@@ -194,7 +192,9 @@ onMounted(() => {
   }
   .introduce {
     font-size: 0.346667rem;
-    font-family: PingFangSC, PingFang SC;
+    font-family:
+      PingFangSC,
+      PingFang SC;
     font-weight: 500;
     color: var(--ex--home-grid-text-color);
     line-height: 0.48rem;

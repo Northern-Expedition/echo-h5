@@ -12,7 +12,7 @@
       :loading-text="_t18(`loading`)"
       @load="onLoad"
     >
-      <div class="item" v-for="(item, index) in list" :key="index">
+      <div v-for="(item, index) in list" :key="index" class="item">
         <!-- 时间 -->
         <div class="everyItem">
           <div>{{ _t18(`k_time`) }}</div>
@@ -32,14 +32,16 @@
         </div>
       </div>
     </van-list>
-    <Nodata v-if="list.length === 0 && isShow"></Nodata>
+    <Nodata v-if="list.length === 0 && isShow" />
   </div>
 </template>
 <script setup>
 import { onMounted, ref } from 'vue'
-import { _t18, _timeFormat } from '@/utils/public'
+
 import { showOrderDetail } from '@/api/defi/index'
 import { useUserStore } from '@/store/user/index.js'
+import { _t18, _timeFormat } from '@/utils/public'
+
 const userStore = useUserStore()
 const list = ref([])
 const pageNum = ref(1)
@@ -57,7 +59,6 @@ const onLoad = async () => {
       finished.value = true
     }
     pageNum.value++
-  } catch (error) {
   } finally {
     loading.value = false
   }
@@ -79,7 +80,9 @@ const getInit = async () => {
     } else {
       finished.value = true
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
 onMounted(() => {
   if (userStore.userInfo.user?.userId) {

@@ -1,6 +1,6 @@
 <template>
   <div class="noData">
-    <svg-load name="noyet" class="noDatAimg"></svg-load>
+    <svg-load name="noyet" class="noDatAimg" />
   </div>
 </template>
 <script setup>

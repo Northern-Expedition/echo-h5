@@ -2,7 +2,7 @@
   <div :class="DIFF_HOME_BANNER.includes(_getConfig('_APP_ENV')) ? 'main mainEbc' : 'main'"></div>
   <div class="notice">
     <div class="itemNo">
-      <svg-load name="mengbanzu12" class="noticeImg"></svg-load>
+      <svg-load name="mengbanzu12" class="noticeImg" />
       <van-notice-bar class="currentNotice" :text="currentNotice" />
     </div>
   </div>
@@ -72,18 +72,19 @@
   </div>
 </template>
 <script setup>
-import { DIFF_RECHARGE_COSTORM, DIFF_HOME_BANNER } from '@/config/index'
-import { publiceNotice } from '@/api/common/index'
-import { onMounted, computed, onUnmounted } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useMainStore } from '@/store/index.js'
-import { useUserStore } from '@/store/user/index'
+
+import { noticeList, publiceNotice } from '@/api/common/index'
 import { getInfo } from '@/api/info.js'
-import { noticeList } from '@/api/common/index'
+import { DIFF_HOME_BANNER, DIFF_RECHARGE_COSTORM } from '@/config/index'
+import { useMainStore } from '@/store/index.js'
+import { useTradeStore } from '@/store/trade/index'
+import { useUserStore } from '@/store/user/index'
+import { dispatchCustomEvent } from '@/utils'
 import { _t18, _toView } from '@/utils/public'
 import InfoPopup from '@/views/home/components/InfoPopup.vue'
-import { dispatchCustomEvent } from '@/utils'
-import { useTradeStore } from '@/store/trade/index'
+
 const tradeStore = useTradeStore()
 const currentCoinList = ref(
   tradeStore.secondContractCoinList.filter((it, inx) => {
@@ -166,7 +167,9 @@ onMounted(async () => {
       if (res.data.length > 0 && res.data[0].status == '0')
         currentNotice.value = res.data[0].noticeContent
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
   document.addEventListener('event_userInfoChange', event_userInfoChange)
   // getInfoList()
 })

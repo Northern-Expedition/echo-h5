@@ -1,14 +1,16 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <div class="welfareEvents">
     <!-- 福利活动 -->
-    <HeaderBar :currentName="_t18(`activity`)"></HeaderBar>
+    <HeaderBar :currentName="_t18(`activity`)" />
     <div class="itemDetailObj" v-html="currentHtml"></div>
-    <Nodata v-if="!currentHtml"></Nodata>
+    <Nodata v-if="!currentHtml" />
   </div>
 </template>
 <script setup>
 import { noticeListApi } from '@/api/common/index'
 import { _t18 } from '@/utils/public'
+
 const currentHtml = ref(null)
 onMounted(async () => {
   try {
@@ -16,7 +18,9 @@ onMounted(async () => {
     if (res.code === 200) {
       currentHtml.value = res.data[0].noticeContent
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 })
 </script>
 <style lang="scss" scoped>

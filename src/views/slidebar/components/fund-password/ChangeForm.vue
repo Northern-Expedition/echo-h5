@@ -1,10 +1,12 @@
 <script setup>
-import ButtonBar from '@/components/common/ButtonBar/index.vue'
-import { updateFundPwd } from '@/api/user'
 import { showToast } from 'vant'
-import { ref, reactive } from 'vue'
-import { _t18 } from '@/utils/public'
+import { reactive, ref } from 'vue'
+
+import { updateFundPwd } from '@/api/user'
+import ButtonBar from '@/components/common/ButtonBar/index.vue'
 import { useToast } from '@/hook/useToast'
+import { _t18 } from '@/utils/public'
+
 const { _toast } = useToast()
 const newPwd = ref(false)
 const oldPwd = ref(false)
@@ -64,48 +66,44 @@ const changePwd = () => {
   <div class="content">
     <div class="tip">{{ _t18('Old_Password') }}</div>
     <div class="input">
-      <svg-load name="mima" class="icon"></svg-load>
+      <svg-load name="mima" class="icon" />
       <input
-        :type="oldPwd ? 'text' : 'password'"
         v-model="form.oldPwd"
+        :type="oldPwd ? 'text' : 'password'"
         :placeholder="_t18('login_please')"
       />
       <svg-load
         :name="oldPwd ? 'openeyes' : 'closeeyse'"
         class="icon"
         @click="setKeyVal('oldPwd')"
-      ></svg-load>
+      />
     </div>
     <div class="tip">{{ _t18('New_Password') }}</div>
     <div class="input">
-      <svg-load name="mima" class="icon"></svg-load>
+      <svg-load name="mima" class="icon" />
       <input
-        :type="newPwd ? 'text' : 'password'"
         v-model="form.newPwd"
+        :type="newPwd ? 'text' : 'password'"
         :placeholder="_t18('login_please')"
       />
       <svg-load
         :name="newPwd ? 'openeyes' : 'closeeyse'"
         class="icon"
         @click="setKeyVal('newPwd')"
-      ></svg-load>
+      />
     </div>
     <div class="tip">{{ _t18('Confirm_Password') }}</div>
     <div class="input">
-      <svg-load name="mima" class="icon"></svg-load>
+      <svg-load name="mima" class="icon" />
       <input
-        :type="NPwd ? 'text' : 'password'"
         v-model="form.NPwd"
-        @input="pwdDiff"
+        :type="NPwd ? 'text' : 'password'"
         :placeholder="_t18('login_please')"
+        @input="pwdDiff"
       />
-      <svg-load
-        :name="NPwd ? 'openeyes' : 'closeeyse'"
-        class="icon"
-        @click="setKeyVal('NPwd')"
-      ></svg-load>
+      <svg-load :name="NPwd ? 'openeyes' : 'closeeyse'" class="icon" @click="setKeyVal('NPwd')" />
     </div>
-    <p class="pwdDiff" v-if="showPwdDiff">*{{ _t18('register_pwd_diff') }}</p>
+    <p v-if="showPwdDiff" class="pwdDiff">*{{ _t18('register_pwd_diff') }}</p>
     <div class="btnBox" @click="changePwd">
       <ButtonBar :btnValue="_t18('btnConfirm', ['bitmake'])" />
     </div>

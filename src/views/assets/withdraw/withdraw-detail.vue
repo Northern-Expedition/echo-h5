@@ -1,15 +1,17 @@
 <!-- 提现详情 -->
 <template>
-  <HeaderBar :currentName="_t18('withdraw_detail')" :cuttentRight="cuttentRight"></HeaderBar>
-  <Amount :data="data"></Amount>
-  <Info :data="data"></Info>
+  <HeaderBar :currentName="_t18('withdraw_detail')" :cuttentRight="cuttentRight" />
+  <Amount :data="data" />
+  <Info :data="data" />
 </template>
 
 <script setup>
 import { getWithdrawDetail } from '@/api/account'
+import { _t18 } from '@/utils/public'
+
 import Amount from '../components/detailAmount.vue'
 import Info from '../components/orderInfo.vue'
-import { _t18 } from '@/utils/public'
+
 const route = useRoute()
 const cuttentRight = reactive({
   iconRight: [{ iconName: 'kefu', clickTo: 'event_serviceChange' }]

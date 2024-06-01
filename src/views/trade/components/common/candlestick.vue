@@ -1,17 +1,18 @@
 <script setup>
+import _, { debounce, throttle } from 'lodash'
+import PubSub from 'pubsub-js'
+import { computed } from 'vue'
+
 import { getKlineHistory } from '@/api/common/kline.js'
+import { socketDict } from '@/config/dict'
 import Datafees from '@/config/kline/datafees.js'
 import { getConfig, getIntervalList, getStudyList } from '@/config/kline/index.js'
 import { _coinWebSocket } from '@/plugin/socket/index'
-import { _t18, _klineTimeFormat } from '@/utils/public'
-import { socketDict } from '@/config/dict'
-import PubSub from 'pubsub-js'
-import { _add, _div, _mul, priceFormat } from '@/utils/decimal'
-import _ from 'lodash'
-import { computed } from 'vue'
 import { useMainStore } from '@/store'
 import { useTradeStore } from '@/store/trade'
-import { debounce, throttle } from 'lodash'
+import { _add, _div, _mul, priceFormat } from '@/utils/decimal'
+import { _klineTimeFormat, _t18 } from '@/utils/public'
+
 const props = defineProps({
   /**
    * 类型
@@ -550,12 +551,12 @@ const setStudy = (name) => {
         <div class="list">
           <div class="thirdLeft">
             <div
+              v-for="(item, index) in headIntervalList"
+              :key="index"
               :class="{
                 'hightItem item ff-num': item.interval === currentInterval.interval,
                 'item ff-num': true
               }"
-              v-for="(item, index) in headIntervalList"
-              :key="index"
               @click="checkedInterval(item)"
             >
               {{ item.value }}
@@ -575,8 +576,8 @@ const setStudy = (name) => {
         </div>
       </div>
       <div
-        class="selectTimes"
         v-if="showMenu"
+        class="selectTimes"
         @touchmove.prevent
         @mousewheel.prevent
         @click="showMenu = false"
@@ -597,9 +598,9 @@ const setStudy = (name) => {
   </div>
   <div class="studyList">
     <div
-      :class="item.name === currentStudy ? 'hightItem studyItem' : 'studyItem'"
       v-for="(item, index) in studyList"
       :key="index"
+      :class="item.name === currentStudy ? 'hightItem studyItem' : 'studyItem'"
       @click="setStudy(item.name)"
     >
       {{ item.label }}

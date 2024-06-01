@@ -4,7 +4,7 @@
     <div class="content">
       <!-- 盘口信息 -->
       <div class="content_left">
-        <Handicap :coinInfo="coinInfo" @setTradePrice="setTradePrice"></Handicap>
+        <Handicap :coinInfo="coinInfo" @set-trade-price="setTradePrice" />
       </div>
       <!-- 下单 -->
       <div class="content_right">
@@ -25,18 +25,18 @@
         </div>
         <!-- 市价/限价 rxce卖出隐藏限价 -->
         <div
-          class="rightScond"
           v-if="
             !['rxce'].includes(_getConfig('_APP_ENV')) ||
             (['rxce'].includes(_getConfig('_APP_ENV')) && form.type == 0)
           "
+          class="rightScond"
         >
           <van-popover v-model:show="showPopover" :show-arrow="false">
             <div class="rightScondList">
               <div
-                class="rightScondListItem"
                 v-for="item in delegateTypeList"
                 :key="item.label"
+                class="rightScondListItem"
                 :class="{
                   hightBlue: form.delegateType == item.value
                 }"
@@ -48,36 +48,32 @@
             <template #reference>
               <div class="entrustSelect">
                 <div>{{ currentDelegateType.label }}</div>
-                <svg-load
-                  :name="showPopover ? 'jiantou10x5-s' : 'jiantou10x5-x'"
-                  class="img"
-                ></svg-load>
+                <svg-load :name="showPopover ? 'jiantou10x5-s' : 'jiantou10x5-x'" class="img" />
               </div>
             </template>
           </van-popover>
         </div>
         <!-- 占位：'市价' -->
-        <div class="rightThird" v-if="form.delegateType == 1">
+        <div v-if="form.delegateType == 1" class="rightThird">
           {{ currentDelegateType.placeholder }}
         </div>
-        <div class="rightFifth" v-if="form.delegateType == 0">
+        <div v-if="form.delegateType == 0" class="rightFifth">
           <!-- 限价>买入，限价>卖出：价格 -->
           <input
             v-model="form.price"
-            @input="priceChange"
             type="number"
             class="amount"
             :placeholder="`${_t18(`price`)} (${props.coinInfo.baseCoinUpperCase})`"
+            @input="priceChange"
           />
         </div>
         <!-- 限价>买入，限价>卖出，市价>卖出：数量 -->
         <div
-          class="rightFifth"
           v-if="form.delegateType == 0 || (form.type == 1 && form.delegateType == 1)"
+          class="rightFifth"
         >
           <input
             v-model="form.count"
-            @input="countChange"
             type="number"
             class="amount"
             :placeholder="`${_t18(`metastaking_bb_count`)} (${
@@ -85,12 +81,13 @@
                 ? matchText(props.coinInfo.showSymbol, '/USDT')
                 : props.coinInfo.coin.toUpperCase()
             })`"
+            @input="countChange"
           />
         </div>
         <!-- 滑块部分 -->
         <div class="rightFourth">
           <div class="slider-t">
-            <div class="item" v-for="(item, index) in 4" :key="index">
+            <div v-for="(item, index) in 4" :key="index" class="item">
               <div
                 class="hightItem"
                 :class="{ hightColorRed: form.type == 1 }"
@@ -99,8 +96,8 @@
                     form.slider >= (index + 1) * 25
                       ? '100%'
                       : form.slider < (index + 1) * 25 && form.slider >= index * 25
-                      ? (form.slider / 25 - index) * 100 + '%'
-                      : '0%'
+                        ? (form.slider / 25 - index) * 100 + '%'
+                        : '0%'
                   }`
                 }"
               ></div>
@@ -108,10 +105,10 @@
           </div>
           <div class="slider-name ff-num">
             <div
-              class="item"
-              :class="form.slider >= (index + 1) * 25 ? 'itemHight' : ''"
               v-for="(item, index) in 4"
               :key="index"
+              class="item"
+              :class="form.slider >= (index + 1) * 25 ? 'itemHight' : ''"
               @click="onChange2(index)"
             >
               {{ 25 * (index + 1) }}
@@ -120,27 +117,27 @@
           <div class="rightLine"></div>
           <van-slider
             v-model="form.slider"
-            @change="sliderChange"
             active-color="var(--ex-div-bgColor1)"
             inactive-color="var(--ex-div-bgColor)"
             button-size="16"
-          ></van-slider>
+            @change="sliderChange"
+          />
           <div class="rightLine"></div>
         </div>
         <!-- 市价>买入，限价>买入，限价>卖出：成交金额 -->
-        <div class="rightFifth" v-if="!(form.type == 1 && form.delegateType == '1')">
+        <div v-if="!(form.type == 1 && form.delegateType == '1')" class="rightFifth">
           <input
             v-model="form.turnover"
-            @input="turnoverChange"
             type="number"
             class="amount"
             :placeholder="`${_t18(
               ['rxce'].includes(_getConfig('_APP_ENV')) ? `pledge_purchasing_price` : `bb_turnover`
             )} (${props.coinInfo.baseCoinUpperCase})`"
+            @input="turnoverChange"
           />
         </div>
         <!-- 数量 (rxce特殊需求：增加展示usdt价格折合成当前币种)-->
-        <div class="rightSix" v-if="['rxce'].includes(_getConfig('_APP_ENV')) && form.type == 0">
+        <div v-if="['rxce'].includes(_getConfig('_APP_ENV')) && form.type == 0" class="rightSix">
           <div>{{ _t18(`buy_bb_count`) }}</div>
           <div class="number fw-num">
             {{ priceFormat(_div(form.turnover, coinPriceInfo.close)) }}
@@ -154,8 +151,8 @@
         <!-- 可用 -->
         <div class="rightSix">
           <div>{{ _t18(`account_available`) }}</div>
-          <div class="number fw-num" v-if="form.type == 0">{{ availableBalance }} USDT</div>
-          <div class="number fw-num" v-else>
+          <div v-if="form.type == 0" class="number fw-num">{{ availableBalance }} USDT</div>
+          <div v-else class="number fw-num">
             {{ availableBalance }}
             {{
               props.coinInfo.customizeFlag === 2
@@ -166,11 +163,11 @@
         </div>
         <!-- 占位 -->
         <div
-          class="rightSeat"
           v-if="form.delegateType == 1 && !['rxce'].includes(_getConfig('_APP_ENV'))"
+          class="rightSeat"
         ></div>
         <!-- 买入/ 卖出按钮：自定义币种 (coinInfo.customizeFlag == 2),非自定义币种 -->
-        <div class="rightSeven" @click="submit" v-if="props.coinInfo.customizeFlag == 2">
+        <div v-if="props.coinInfo.customizeFlag == 2" class="rightSeven" @click="submit">
           <div class="maybutton" :class="{ hightColorRed: form.type == 1 }">
             <!-- 买入 -->
             <template v-if="form.type == 0">
@@ -182,7 +179,7 @@
             >
           </div>
         </div>
-        <div class="rightSeven" @click="submit" v-else>
+        <div v-else class="rightSeven" @click="submit">
           <div class="maybutton" :class="{ hightColorRed: form.type == 1 }">
             <!-- 买入 -->
             <template v-if="form.type == 0">
@@ -196,34 +193,36 @@
     </div>
     <div class="line"></div>
     <!-- 订单信息 -->
-    <OrderListBox ref="orderListBoxRef" :coinInfo="coinInfo"></OrderListBox>
+    <OrderListBox ref="orderListBoxRef" :coinInfo="coinInfo" />
   </div>
 </template>
 
 <script setup>
+import PubSub from 'pubsub-js'
+import { showToast } from 'vant'
+
 import { submitOrderCurrencyApi } from '@/api/trade'
+import { socketDict } from '@/config/dict'
+import { useToast } from '@/hook/useToast'
+import { useTradeStore } from '@/store/trade'
+/**
+ * 账户余额
+ */
+import { useUserStore } from '@/store/user/index'
+import { _div, _mul, _toFixed, priceFormat } from '@/utils/decimal'
+import { _t18 } from '@/utils/public'
+
 import Handicap from '../../common/handicap.vue'
 import OrderListBox from './OrderListBox.vue'
-import { _t18 } from '@/utils/public'
-import { _div, _mul, _toFixed, priceFormat } from '@/utils/decimal'
-import { showToast } from 'vant'
-import { useToast } from '@/hook/useToast'
-const { _toast, _showName } = useToast()
-import { useTradeStore } from '@/store/trade'
-const tradeStore = useTradeStore()
 
-import { socketDict } from '@/config/dict'
-import PubSub from 'pubsub-js'
+const { _toast, _showName } = useToast()
+const tradeStore = useTradeStore()
 
 const props = defineProps({
   coinInfo: {
     type: Object
   }
 })
-/**
- * 账户余额
- */
-import { useUserStore } from '@/store/user/index'
 const userStore = useUserStore()
 const { asset } = storeToRefs(userStore)
 const availableBalance = computed(() => {

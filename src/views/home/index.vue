@@ -1,11 +1,11 @@
 <template>
   <template v-if="!getIsMock">
-    <HeaderDiff v-if="DIFF_HOME_BANNER.includes(_getConfig('_APP_ENV'))"></HeaderDiff>
-    <Header v-else></Header>
-    <Menu></Menu>
+    <HeaderDiff v-if="DIFF_HOME_BANNER.includes(_getConfig('_APP_ENV'))" />
+    <Header v-else />
+    <Menu />
   </template>
 
-  <div class="summary" v-if="getIsMock">
+  <div v-if="getIsMock" class="summary">
     <div class="unit_name">
       <div class="name">{{ _t18('mock_price') }}</div>
       <div class="unit">USDT</div>
@@ -13,10 +13,10 @@
     <div class="numerical">{{ amountSum }}</div>
   </div>
 
-  <Footer></Footer>
+  <Footer />
   <van-dialog
-    closeOnClickOverlay
     v-model:show="showAd"
+    closeOnClickOverlay
     :showConfirmButton="false"
     class="dialog-ad"
   >
@@ -45,17 +45,18 @@
 
 <!-- 首页 -->
 <script setup>
+import { storeToRefs } from 'pinia'
+
+import { DIFF_FREEZE_ASSETS, DIFF_HOME_BANNER } from '@/config/index'
+import { useMainStore } from '@/store/index.js'
+import { useUserStore } from '@/store/user/index'
+import { priceFormat } from '@/utils/decimal.js'
+import { _t18, _toView } from '@/utils/public'
+
+import Footer from './components/FrontPage/footer.vue'
 import Header from './components/FrontPage/header.vue'
 import HeaderDiff from './components/FrontPage/headerDiff.vue'
 import Menu from './components/FrontPage/menu.vue'
-import Footer from './components/FrontPage/footer.vue'
-import { DIFF_HOME_BANNER } from '@/config/index'
-import { useMainStore } from '@/store/index.js'
-import { useUserStore } from '@/store/user/index'
-import { storeToRefs } from 'pinia'
-import { priceFormat } from '@/utils/decimal.js'
-import { DIFF_FREEZE_ASSETS } from '@/config/index'
-import { _t18, _toView } from '@/utils/public'
 
 const userStore = useUserStore()
 

@@ -1,6 +1,6 @@
 <!-- 兑换 -->
 <template>
-  <HeaderBar :currentName="`划转`"></HeaderBar>
+  <HeaderBar :currentName="`划转`" />
 
   <div class="content_box">
     <p class="title fw-bold">划转</p>
@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="right" @click="jiaohuanbtn">
-        <svg-load name="huazhuanbtn" class="huazhuanbtn"></svg-load>
+        <svg-load name="huazhuanbtn" class="huazhuanbtn" />
       </div>
     </div>
     <div class="cardOne">
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="right" @click="jiaohuanbtn2">
-        <svg-load name="huazhuanbtn" class="huazhuanbtn"></svg-load>
+        <svg-load name="huazhuanbtn" class="huazhuanbtn" />
       </div>
     </div>
     <div class="cardTwo">
@@ -53,9 +53,11 @@
 </template>
 
 <script setup>
-import ButtonBar from '@/components/common/ButtonBar/index.vue'
-import { dict } from '@/api/common/index'
 import { onMounted } from 'vue'
+
+import { dict } from '@/api/common/index'
+import ButtonBar from '@/components/common/ButtonBar/index.vue'
+
 const flag = ref(false)
 const flag2 = ref(false)
 const tempList = ref([])

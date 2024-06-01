@@ -1,13 +1,16 @@
 <template>
-  <div class="funList" v-if="listArray.length > 0 && !isShow">
-    <ItemFund v-for="item in listArray" :key="item.id" :itemObj="item"></ItemFund>
+  <div v-if="listArray.length > 0 && !isShow" class="funList">
+    <ItemFund v-for="item in listArray" :key="item.id" :itemObj="item" />
   </div>
-  <Nodata v-if="listArray.length === 0 && isShow"></Nodata>
+  <Nodata v-if="listArray.length === 0 && isShow" />
 </template>
 <script setup>
-import ItemFund from './itemFund.vue'
 import { onMounted, ref } from 'vue'
+
 import { getFinancial } from '@/api/financial/index'
+
+import ItemFund from './itemFund.vue'
+
 const listArray = ref([])
 const isShow = ref(false)
 const getInit = async () => {

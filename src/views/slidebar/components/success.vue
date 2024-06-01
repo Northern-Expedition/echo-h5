@@ -9,7 +9,7 @@ const props = defineProps({
 
 <template>
   <div class="content">
-    <image-load :filePath="props.imgUrl" name="defi" class="imgLoad"></image-load>
+    <image-load :filePath="props.imgUrl" name="defi" class="imgLoad" />
     <div class="text">{{ props.text }}</div>
     <div class="message">{{ props.message }}</div>
     <slot name="btn"></slot>

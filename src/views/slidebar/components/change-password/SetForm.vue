@@ -1,11 +1,12 @@
 <script setup>
-import {_t18} from "@/utils/public";
-import ButtonBar from "@/components/common/ButtonBar/index.vue";
-import {addLoginPwd} from "@/api/user";
-import {showToast} from "vant";
-import {useToast} from "@/hook/useToast";
+import { showToast } from 'vant'
 
-const {_toast, _showName} = useToast()
+import { addLoginPwd } from '@/api/user'
+import ButtonBar from '@/components/common/ButtonBar/index.vue'
+import { useToast } from '@/hook/useToast'
+import { _t18 } from '@/utils/public'
+
+const { _toast, _showName } = useToast()
 
 //数据
 const isPwd = ref(true)
@@ -20,7 +21,6 @@ const pwdDiff = () => {
 }
 
 const submit = () => {
-
   if (!formData.value.newPwd) {
     //请输入密码
     return showToast(_showName(`login_please`) + _showName(`login_pwd`))
@@ -32,18 +32,16 @@ const submit = () => {
     return _toast('register_pwd_diff')
   }
 
-  addLoginPwd(formData.value.NPwd).then(
-      (res) => {
-        if (res.code == '200') {
-          //设置成功
-          _toast('Fund_password_set_success')
-          formData.value.newPwd = ''
-          formData.value.NPwd = ''
-        } else {
-          showToast(res.msg)
-        }
-      }
-  )
+  addLoginPwd(formData.value.NPwd).then((res) => {
+    if (res.code == '200') {
+      //设置成功
+      _toast('Fund_password_set_success')
+      formData.value.newPwd = ''
+      formData.value.NPwd = ''
+    } else {
+      showToast(res.msg)
+    }
+  })
 }
 </script>
 
@@ -51,24 +49,31 @@ const submit = () => {
   <div class="content">
     <div class="tip">{{ _t18('login_pwd') }}</div>
     <div class="input">
-      <svg-load name="mima" class="icon"></svg-load>
-      <input :type="isPwd ? 'text' : 'password'" :placeholder="_t18('login_please')" v-model="formData.newPwd"/>
-      <svg-load :name="isPwd ? 'openeyes' : 'closeeyse'" class="icon" @click="isPwd=!isPwd"></svg-load>
+      <svg-load name="mima" class="icon" />
+      <input
+        v-model="formData.newPwd"
+        :type="isPwd ? 'text' : 'password'"
+        :placeholder="_t18('login_please')"
+      />
+      <svg-load :name="isPwd ? 'openeyes' : 'closeeyse'" class="icon" @click="isPwd = !isPwd" />
     </div>
     <div class="tip">{{ _t18('Confirm_Password') }}</div>
     <div class="input">
-      <svg-load name="mima" class="icon"></svg-load>
-      <input :type="isPwd? 'text' : 'password'" :placeholder="_t18('login_please')" v-model="formData.NPwd"
-             @input="pwdDiff"/>
-      <svg-load :name="isPwd? 'openeyes' : 'closeeyse'" class="icon" @click="isPwd=!isPwd"></svg-load>
+      <svg-load name="mima" class="icon" />
+      <input
+        v-model="formData.NPwd"
+        :type="isPwd ? 'text' : 'password'"
+        :placeholder="_t18('login_please')"
+        @input="pwdDiff"
+      />
+      <svg-load :name="isPwd ? 'openeyes' : 'closeeyse'" class="icon" @click="isPwd = !isPwd" />
     </div>
-    <p class="pwdDiff" v-if="showPwdDiff">*{{ _t18('register_pwd_diff') }}</p>
+    <p v-if="showPwdDiff" class="pwdDiff">*{{ _t18('register_pwd_diff') }}</p>
     <div class="btnBox" @click="submit">
-      <ButtonBar :btnValue="_t18('btnConfirm',['bitmake'])"/>
+      <ButtonBar :btnValue="_t18('btnConfirm', ['bitmake'])" />
     </div>
   </div>
 </template>
-
 
 <style lang="scss" scoped>
 .content {
@@ -115,7 +120,5 @@ const submit = () => {
   .pwdDiff {
     color: var(--ex-font-color14);
   }
-
-
 }
 </style>

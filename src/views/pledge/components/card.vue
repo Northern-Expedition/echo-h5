@@ -1,5 +1,6 @@
 <script setup>
 import { _t18 } from '@/utils/public'
+
 let props = defineProps({
   cardData: {
     type: Object
@@ -29,8 +30,8 @@ const dataValue = ref(props.cardData)
             <span class="fw-num rate">{{ dataValue.minOdds }}%~{{ dataValue.maxOdds }}%</span>
           </div>
           <div class="odds_right">
-            <svg-load name="usdt" class="icon usdt2"></svg-load>
-            <svg-load name="usdt" class="icon usdt1"></svg-load>
+            <svg-load name="usdt" class="icon usdt2" />
+            <svg-load name="usdt" class="icon usdt1" />
           </div>
         </div>
       </div>
@@ -55,11 +56,11 @@ const dataValue = ref(props.cardData)
         <div class="content3">
           <!-- 可购 -->
           <p>{{ _t18('pledge_available_purchase', ['aams']) }}</p>
-          <span class="fw-num" v-if="['dev'].includes(_getConfig('_APP_ENV'))">{{
+          <span v-if="['dev'].includes(_getConfig('_APP_ENV'))" class="fw-num">{{
             `${dataValue.buyPurchase}/${dataValue.timeLimit}`
           }}</span>
           <!-- buyPurchase -->
-          <span class="fw-num" v-else>{{ `${dataValue.timeLimit}` }}</span>
+          <span v-else class="fw-num">{{ `${dataValue.timeLimit}` }}</span>
         </div>
         <div class="content3"></div>
       </div>
@@ -96,7 +97,9 @@ const dataValue = ref(props.cardData)
             background: var(--ex-primary-color);
             border-radius: 0.24rem;
             font-size: 0.4rem;
-            font-family: PingFangSC, PingFang SC;
+            font-family:
+              PingFangSC,
+              PingFang SC;
             font-weight: 500;
             color: var(--ex-default-font-color);
             display: flex;

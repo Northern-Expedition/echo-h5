@@ -1,7 +1,7 @@
 <!-- 币币历史 -->
 <template>
   <!-- 当前持仓 -->
-  <div class="hisToryList" v-if="currentEntruset === 0">
+  <div v-if="currentEntruset === 0" class="hisToryList">
     <div class="header">
       <div class="headerLeft">
         <!-- !recordListItem.type ? '做多' : '开空'  -->
@@ -37,7 +37,7 @@
         <div class="fw-num numItem">{{ adjustAmountPrice }} USDT</div>
       </div>
       <!-- 持仓保证金 -->
-      <div class="item" v-if="['rxce'].includes(_getConfig('_APP_ENV'))">
+      <div v-if="['rxce'].includes(_getConfig('_APP_ENV'))" class="item">
         <div>{{ _t18(`Position_margin`) }}</div>
         <div class="fw-num numItem">{{ recordListItem.remainMargin }} USDT</div>
       </div>
@@ -57,7 +57,7 @@
         <div class="fw-num numItem">{{ coinPriceInfo.close }} USDT</div>
       </div>
       <!-- 预计强平价 -->
-      <div class="item" v-if="!['rxce'].includes(_getConfig('_APP_ENV'))">
+      <div v-if="!['rxce'].includes(_getConfig('_APP_ENV'))" class="item">
         <div>{{ _t18(`expected_strong_parity`) }}</div>
         <div class="fw-num numItem">
           {{ recordListItem.closePrice <= 0 ? '--' : recordListItem.closePrice }} USDT
@@ -76,10 +76,10 @@
 
       <!-- 倒计时subTime -->
       <div
-        class="item"
         v-if="
           ['rxce', 'dev'].includes(_getConfig('_APP_ENV')) && recordListItem.params.deliveryDays > 0
         "
+        class="item"
       >
         <div>{{ _t18(`option_countdown`) }}</div>
         <van-count-down
@@ -89,21 +89,21 @@
         />
       </div>
     </div>
-    <div class="bottomList" v-if="!['rxce'].includes(_getConfig('_APP_ENV'))">
+    <div v-if="!['rxce'].includes(_getConfig('_APP_ENV'))" class="bottomList">
       <div
-        class="itemBotton"
         v-for="(item, index) in bottomList"
         :key="index"
+        class="itemBotton"
         @click="showDetail(index, recordListItem.id)"
       >
         {{ item.name }}
       </div>
     </div>
-    <div class="bottomList" v-else>
+    <div v-else class="bottomList">
       <div
-        class="itemBotton"
         v-for="(item, index) in bottomList1"
         :key="index"
+        class="itemBotton"
         @click="showPopup(index, recordListItem.id)"
       >
         {{ item.name }}
@@ -112,7 +112,7 @@
   </div>
 
   <!-- 当前委托列表 -->
-  <div class="hisToryList" v-if="currentEntruset === 1">
+  <div v-if="currentEntruset === 1" class="hisToryList">
     <div class="header">
       <div class="headerLeft">
         <!-- !recordListItem.type ? '做多' : '开空'  -->
@@ -187,9 +187,9 @@
   </div>
   <!-- 止盈止损 -->
   <div
-    class="hisToryList"
     v-if="currentEntruset === 2"
     v-show="!['rxce'].includes(_getConfig('_APP_ENV'))"
+    class="hisToryList"
   >
     <div class="header">
       <div class="headerLeft">
@@ -271,7 +271,7 @@
     </div>
   </div>
   <!-- 历史委托   -->
-  <div class="hisToryList" v-if="currentEntruset === 3">
+  <div v-if="currentEntruset === 3" class="hisToryList">
     <div class="header">
       <div class="headerLeft">
         <!-- !recordListItem.type ? '做多' : '开空'  -->
@@ -321,7 +321,7 @@
         <div class="fw-num numItem">{{ recordListItem.dealPrice }} USDT</div>
       </div>
       <!-- 手续费   -->
-      <div class="item" v-if="['das'].includes(_getConfig('_APP_ENV'))">
+      <div v-if="['das'].includes(_getConfig('_APP_ENV'))" class="item">
         <div>{{ _t18(`withdraw_commission`) }}</div>
         <div class="fw-num numItem">{{ recordListItem.sellFee }} USDT</div>
       </div>
@@ -339,7 +339,7 @@
       </div>
 
       <!-- 分享按钮 -->
-      <div class="item" v-if="HISTORY_SNIPASTE.includes(_getConfig('_APP_ENV'))">
+      <div v-if="HISTORY_SNIPASTE.includes(_getConfig('_APP_ENV'))" class="item">
         <div></div>
         <div class="fw-num numItem">
           <div class="btn" @click="sharedImg(recordListItem, yieldHisValue)">
@@ -351,7 +351,7 @@
   </div>
   <!-- ************************************************************************************** -->
   <!-- 调整保证金 -->
-  <PublicPopup :show="showMargin" :direction="`bottom`" @handelClose="showMarginClose">
+  <PublicPopup :show="showMargin" :direction="`bottom`" @handel-close="showMarginClose">
     <template #titleCustomize>
       <div></div>
       <!-- 调整保证金 -->
@@ -371,9 +371,9 @@
       <div class="popupInput">
         <!-- 请输入 -->
         <input
+          v-model.trim="money"
           type="number"
           class="input"
-          v-model.trim="money"
           :placeholder="_t18(`exchange.input`)"
         />
         <div>USDT</div>
@@ -381,9 +381,9 @@
       <div class="rightFourth">
         <div class="lineBg">
           <div
-            :class="sliderValue === 0 ? 'node' : index * 25 > sliderValue ? 'node' : 'node active'"
             v-for="(item, index) in 5"
             :key="index"
+            :class="sliderValue === 0 ? 'node' : index * 25 > sliderValue ? 'node' : 'node active'"
           ></div>
         </div>
         <div class="numList">
@@ -417,7 +417,7 @@
   </PublicPopup>
 
   <!-- 止赢止损 -->
-  <PublicPopup :show="showTermination" :direction="`bottom`" @handelClose="showTerminationClose">
+  <PublicPopup :show="showTermination" :direction="`bottom`" @handel-close="showTerminationClose">
     <template #titleCustomize>
       <div></div>
       <!-- !stopName ? '止盈' : '止损' -->
@@ -440,9 +440,9 @@
         <!-- 止盈触发价格 -->
         <!-- 请输入 -->
         <input
+          v-model.trim="earnPriceValue"
           type="number"
           class="input"
-          v-model.trim="earnPriceValue"
           :placeholder="_t18(`exchange.input`)"
         />
         <div>USDT</div>
@@ -489,7 +489,7 @@
         <div class="fw-num popupLrNum">{{ coinPriceInfo.close }} USDT</div>
       </div>
       <!-- 止盈 -->
-      <div class="stopBottom" v-if="!margin">
+      <div v-if="!margin" class="stopBottom">
         <!-- 市场价格至 -->
         {{ _t18(`profit_tips_1`) }}
         <span class="stopBottomSpan fw-num">{{ coinPriceInfo.close }} USDT</span>
@@ -507,7 +507,7 @@
   </PublicPopup>
 
   <!-- 追加合约保证金 -->
-  <PublicPopup :show="showContractOne" :direction="`bottom`" @handelClose="showContractOneClose">
+  <PublicPopup :show="showContractOne" :direction="`bottom`" @handel-close="showContractOneClose">
     <template #titleCustomize>
       <div></div>
       <!-- 追加合约保证金 -->
@@ -517,9 +517,9 @@
       <div class="popupInput marginStop">
         <!-- 请输入 -->
         <input
+          v-model.trim="PositionMargn"
           type="number"
           class="input"
-          v-model.trim="PositionMargn"
           :placeholder="_t18(`exchange.input`)"
         />
         <div>USDT</div>
@@ -534,7 +534,7 @@
   </PublicPopup>
 
   <!-- 追加合约本金 -->
-  <PublicPopup :show="showContractTwo" :direction="`bottom`" @handelClose="showContractTwoClose">
+  <PublicPopup :show="showContractTwo" :direction="`bottom`" @handel-close="showContractTwoClose">
     <template #titleCustomize>
       <div></div>
       <!-- 追加合约保证金 -->
@@ -544,9 +544,9 @@
       <div class="popupInput marginStop">
         <!-- 请输入 -->
         <input
+          v-model.trim="PositionAmout"
           type="number"
           class="input"
-          v-model.trim="PositionAmout"
           :placeholder="_t18(`exchange.input`)"
         />
         <div>USDT</div>
@@ -570,32 +570,33 @@
   </div>
 </template>
 <script setup>
-import { formatTime, matchText, profitAndloss } from '@/utils/filters'
-import { ref, computed, watch } from 'vue'
-import PublicPopup from '@/components/Popup/public.vue'
-import { useTradeStore } from '@/store/trade'
-import { priceFormat } from '@/utils/decimal.js'
-import { _add, _sub, _mul, _div, _toFixed } from '@/utils/decimal'
+import { closeToast, showLoadingToast, showToast } from 'vant'
+import { computed, ref, watch } from 'vue'
+
 import {
-  stopOrder,
   adjustAmount,
-  settLoss,
+  adjustPositionAmout,
+  adjustPositionMargn,
   cancelLoss,
   canCelOrder,
-  stopPosition,
-  adjustPositionMargn,
-  adjustPositionAmout
+  settLoss,
+  stopOrder,
+  stopPosition
 } from '@/api/trade/index'
-import { showToast, closeToast, showLoadingToast } from 'vant'
+import PublicPopup from '@/components/Popup/public.vue'
+import { HISTORY_SNIPASTE } from '@/config'
 import { useToast } from '@/hook/useToast'
+import { useTradeStore } from '@/store/trade'
+import { useUserStore } from '@/store/user'
+import { _add, _div, _mul, _sub, _toFixed } from '@/utils/decimal'
+import { priceFormat } from '@/utils/decimal.js'
+import { formatTime, matchText, profitAndloss } from '@/utils/filters'
+import { _t18, _timeFormat } from '@/utils/public'
+
+// import ShareCommissionDetail from './ShareCommissionDetail.vue'
+import ShareCommissionDetail from '../../common/ShareCommissionDetail.vue'
 
 const { _toast } = useToast()
-import { _t18, _timeFormat } from '@/utils/public'
-import { useUserStore } from '@/store/user'
-// import ShareCommissionDetail from './ShareCommissionDetail.vue'
-
-import ShareCommissionDetail from '../../common/ShareCommissionDetail.vue'
-import { HISTORY_SNIPASTE } from '@/config'
 
 const emit = defineEmits(['updateList', 'updateUser'])
 const props = defineProps({
@@ -1140,7 +1141,9 @@ const stoplossBullshit = async (id) => {
     } else {
       showToast(res.msg)
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
 // 当前委托
 const currentDelegation = async (id) => {
@@ -1154,7 +1157,9 @@ const currentDelegation = async (id) => {
     } else {
       showToast(res.msg)
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 // 分享收益

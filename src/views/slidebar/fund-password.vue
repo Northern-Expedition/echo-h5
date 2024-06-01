@@ -1,14 +1,17 @@
 <script setup>
-import Success from './components/success.vue'
-import HeaderBar from '@/components/HeaderBar/index.vue'
-import ButtonBar from '@/components/common/ButtonBar/index.vue'
-import SetForm from './components/fund-password/SetForm.vue'
-import ChangeForm from './components/fund-password/ChangeForm.vue'
-import { useUserStore } from '@/store/user/index'
 import { storeToRefs } from 'pinia'
 import { showToast } from 'vant'
-import { _t18 } from '@/utils/public'
+
+import ButtonBar from '@/components/common/ButtonBar/index.vue'
+import HeaderBar from '@/components/HeaderBar/index.vue'
 import { useToast } from '@/hook/useToast'
+import { useUserStore } from '@/store/user/index'
+import { _t18 } from '@/utils/public'
+
+import ChangeForm from './components/fund-password/ChangeForm.vue'
+import SetForm from './components/fund-password/SetForm.vue'
+import Success from './components/success.vue'
+
 const { _toast } = useToast()
 const userStore = useUserStore()
 userStore.getUserInfo()
@@ -39,25 +42,27 @@ const toCustorm = () => {
   <div>
     <!-- 导航条 -->
     <HeaderBar
-      :currentName="notPwd ? _t18('Change_security_password') : _t18('sidebar_tardPwd',['bitmake'])"
+      :currentName="
+        notPwd ? _t18('Change_security_password') : _t18('sidebar_tardPwd', ['bitmake'])
+      "
       :cuttentRight="cuttentRight"
       :border_bottom="true"
-    ></HeaderBar>
+    />
 
     <!-- 没有设置资金密码 -->
-    <SetForm v-if="!notPwd && success" @setPwd="setPwd"></SetForm>
-    <ChangeForm v-if="notPwd && !success" @setPwd="setPwd"></ChangeForm>
+    <SetForm v-if="!notPwd && success" @set-pwd="setPwd" />
+    <ChangeForm v-if="notPwd && !success" @set-pwd="setPwd" />
     <Success
+      v-if="notPwd && success"
       :text="_t18('Fund_password_has_set')"
       :imgUrl="'defi/fund.png'"
-      v-if="notPwd && success"
       class="success"
     >
       <template #btn>
         <div class="btnBox" @click="changePwd">
           <ButtonBar :btnValue="_t18('Change_security_password')" />
         </div>
-        <div class="forgot" @click="toCustorm">{{_t18('forgot_security_code')}}?</div>
+        <div class="forgot" @click="toCustorm">{{ _t18('forgot_security_code') }}?</div>
       </template>
     </Success>
   </div>

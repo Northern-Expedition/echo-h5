@@ -1,27 +1,30 @@
 <!-- 注册 -->
 <template>
-  <Header :type="1"></Header>
+  <Header :type="1" />
   <div class="loginMethod">
     <van-tabs v-model:active="active" animated>
       <van-tab v-for="(item, index) in tabList" :key="index">
         <template #title>
           <div :class="['tab-item', active == index ? 'atv' : '']">{{ item.title }}</div>
         </template>
-        <component :is="currentComponent"></component>
+        <component :is="currentComponent" />
       </van-tab>
     </van-tabs>
   </div>
 </template>
 
 <script setup>
+// import { useRoute } from 'vue-router'
+
+import { useMainStore } from '@/store/index.js'
 import { _t18 } from '@/utils/public'
-import Header from './components/signHeader.vue'
+
 import AccountRegister from './components/sign-up/AccountRegister.vue'
 import EmailRegister from './components/sign-up/EmailRegister.vue'
 import MobileRegister from './components/sign-up/MobileRegister.vue'
-import { useMainStore } from '@/store/index.js'
-import { useRoute } from 'vue-router'
-const route = useRoute()
+import Header from './components/signHeader.vue'
+
+// const route = useRoute()
 /**
  * 登录注册方式
  * [{ id: 1, title: '账号登录', type: 1 },{ id: 2, title: '邮箱登录', type: 2 },{ id: 3, title: '手机登录', type: 3 }]

@@ -36,8 +36,8 @@
 </template>
 
 <script setup>
-import { _timeFormat } from '@/utils/public'
-import { _t18 } from '@/utils/public'
+import { _t18, _timeFormat } from '@/utils/public'
+
 const props = defineProps({
   data: {
     type: Object

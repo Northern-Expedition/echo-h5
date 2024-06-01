@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-tabs v-model:active="tabActive" animated @click-tab="clickTab">
-      <van-tab v-for="(item, index) in tabList" :title="item.keyStr" :key="index" :name="item.name">
+      <van-tab v-for="(item, index) in tabList" :key="index" :title="item.keyStr" :name="item.name">
         <template #title>
           <div class="tab-item" :class="curIndex2 === index ? 'atv' : ''">
             {{ item.name }}
@@ -14,49 +14,51 @@
       v-show="tabActive == '平台资产'"
       :amountSum="amountSum"
       :assetDetails="assetDetails"
-      @handleYanjin="handleYanjin"
-      @handleShuaxin="handleShuaxin"
       :showNum="showNum"
       :type="tabActive"
-    ></Plat>
+      @handle-yanjin="handleYanjin"
+      @handle-shuaxin="handleShuaxin"
+    />
     <!-- 理财资产 financAccount-->
     <financ
       v-show="tabActive == '理财资产'"
       :amountSum="amountSum"
       :assetDetails="assetDetails"
-      @handleYanjin="handleYanjin"
-      @handleShuaxin="handleShuaxin"
       :showNum="showNum"
       :type="tabActive"
-    ></financ>
+      @handle-yanjin="handleYanjin"
+      @handle-shuaxin="handleShuaxin"
+    />
     <!-- 合约资产 contarctAccount-->
     <Contarct
       v-show="tabActive == '合约资产'"
       :amountSum="amountSum"
       :assetDetails="assetDetails"
-      @handleYanjin="handleYanjin"
-      @handleShuaxin="handleShuaxin"
       :showNum="showNum"
       :type="tabActive"
-    ></Contarct>
+      @handle-yanjin="handleYanjin"
+      @handle-shuaxin="handleShuaxin"
+    />
   </div>
 </template>
 
 <script setup>
-import { _t18 } from '@/utils/public'
-import { _add } from '@/utils/decimal'
-import Plat from './components/account/platAccount.vue'
-import financ from './components/account/financAccount.vue'
-import Contarct from './components/account/contarctAccount.vue'
-import { priceFormat, countFormat, currencyFormat } from '@/utils/decimal.js'
-import { useUserStore } from '@/store/user/index'
-import { useMainStore } from '@/store'
 import { storeToRefs } from 'pinia'
-import { storageDict } from '@/config/dict'
 import { showLoadingToast } from 'vant'
-import { getFreezeList } from '@/api/user'
 import { onMounted } from 'vue'
+
+import { getFreezeList } from '@/api/user'
+import { storageDict } from '@/config/dict'
 import { DIFF_FREEZE_ASSETS } from '@/config/index'
+import { useMainStore } from '@/store'
+import { useUserStore } from '@/store/user/index'
+import { _add } from '@/utils/decimal'
+import { priceFormat } from '@/utils/decimal.js'
+import { _t18 } from '@/utils/public'
+
+import Contarct from './components/account/contarctAccount.vue'
+import financ from './components/account/financAccount.vue'
+import Plat from './components/account/platAccount.vue'
 
 const userStore = useUserStore()
 // 平台资产,理财资产,合约资产

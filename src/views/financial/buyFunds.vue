@@ -54,16 +54,18 @@
   </div>
 </template>
 <script setup>
-import { _t18 } from '@/utils/public'
-import { DIFF_ISFREEZE } from '@/config/index'
-import { useFreeze } from '@/hook/useFreeze'
-const { _isFreeze } = useFreeze()
+import { showToast } from 'vant'
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { showToast } from 'vant'
-import { useToast } from '@/hook/useToast'
-const { _toast } = useToast()
+
 import { financialDetail, financialSubmit } from '@/api/financial/index'
+import { DIFF_ISFREEZE } from '@/config/index'
+import { useFreeze } from '@/hook/useFreeze'
+import { useToast } from '@/hook/useToast'
+import { _t18 } from '@/utils/public'
+
+const { _isFreeze } = useFreeze()
+const { _toast } = useToast()
 const emit = defineEmits(['handleShowCenter'])
 const Route = useRoute()
 const { push } = useRouter()
@@ -153,7 +155,9 @@ const getDetail = async () => {
         coin: coin.toUpperCase()
       }
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
 onMounted(() => {
   getDetail()

@@ -2,7 +2,7 @@
   <div class="left">
     <!-- {{ data }} -->
     <!-- <svg-load v-if="showLeftImg" :name="data.icon" class="leftImg"></svg-load> -->
-    <image-load :filePath="data.logo" v-if="showLeftImg" class="leftImg" />
+    <image-load v-if="showLeftImg" :filePath="data.logo" class="leftImg" />
     <div class="itemTitle">
       <div class="itemTitleTop">
         <div class="fw-bold">{{ data.showSymbol }}</div>

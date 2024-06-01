@@ -1,6 +1,6 @@
 <template>
   <!-- 登录 -->
-  <div class="box" v-if="props.type == 0">
+  <div v-if="props.type == 0" class="box">
     <div class="btnBox" @click="toLogin">
       <ButtonBar :btnValue="_t18('login')" />
     </div>
@@ -11,7 +11,7 @@
     </div>
   </div>
   <!-- 注册 -->
-  <div class="box" v-if="props.type == 1">
+  <div v-if="props.type == 1" class="box">
     <div class="btnBox" @click="toResgister">
       <ButtonBar :btnValue="_t18('register')" />
     </div>
@@ -22,7 +22,7 @@
     </div>
   </div>
   <!-- 找回密码 -->
-  <div class="box" v-if="props.type == 2">
+  <div v-if="props.type == 2" class="box">
     <div class="btnBox" @click="toForget">
       <ButtonBar :btnValue="_t18('btnConfirm', ['bitmake'])" />
     </div>
@@ -34,15 +34,17 @@
 </template>
 
 <script setup>
-import { REGISTER_REQUIRED_ACTIVECODE, REGISTER_REQUIRED_ACTIVECODE_MOBILE } from '@/config'
-import { _getConfig, _t18 } from '@/utils/public'
-import ButtonBar from '@/components/common/ButtonBar/index.vue'
-import { signUp, signIn, backPwdToEmail } from '@/api/user'
-import { useRouter } from 'vue-router'
-import { useUserStore } from '@/store/user/index'
-import { useMainStore } from '@/store/index'
-import { useToast } from '@/hook/useToast'
 import { showToast } from 'vant'
+import { useRouter } from 'vue-router'
+
+import { backPwdToEmail, signIn, signUp } from '@/api/user'
+import ButtonBar from '@/components/common/ButtonBar/index.vue'
+import { REGISTER_REQUIRED_ACTIVECODE, REGISTER_REQUIRED_ACTIVECODE_MOBILE } from '@/config'
+import { useToast } from '@/hook/useToast'
+import { useMainStore } from '@/store/index'
+import { useUserStore } from '@/store/user/index'
+import { _getConfig, _t18 } from '@/utils/public'
+
 const { _toast } = useToast()
 const userStore = useUserStore()
 const router = useRouter()

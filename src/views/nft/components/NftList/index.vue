@@ -13,8 +13,8 @@ export default {
   data() {
     return {}
   },
-  methods: {},
-  mounted() {}
+  mounted() {},
+  methods: {}
 }
 </script>
 <style lang="scss" scoped>

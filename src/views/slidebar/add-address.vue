@@ -1,6 +1,6 @@
 <template>
   <div class="bg">
-    <HeaderBar :currentName="_t18('bind_address')" :border_bottom="true"></HeaderBar>
+    <HeaderBar :currentName="_t18('bind_address')" :border_bottom="true" />
     <div class="form">
       <div class="form-item">
         <div class="label">
@@ -22,9 +22,9 @@
         </div>
         <div class="input">
           <van-field
+            v-model="form.address"
             class="input-field"
             type="input"
-            v-model="form.address"
             :placeholder="_t18('exchange.input')"
           />
           <div class="tip" @click="getPaste">
@@ -41,22 +41,23 @@
       v-if="coinList.length"
       v-model:show="coinSheet"
       :actions="coinList"
-      @select="onSelect"
       :cancel-text="_t18('cancel')"
+      @select="onSelect"
     />
   </div>
 </template>
 
 <script setup>
-import HeaderBar from '@/components/HeaderBar/index.vue'
-import { updateUserAddress } from '@/api/account'
-import { useRouter } from 'vue-router'
-import { useUserStore } from '@/store/user/index'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
-import { useToast } from '@/hook/useToast'
+import { useRouter } from 'vue-router'
+
 import ERCIMG from '/resource/images/defi/ERC.png'
 import TRCIMG from '/resource/images/defi/TRC.png'
+import { updateUserAddress } from '@/api/account'
+import HeaderBar from '@/components/HeaderBar/index.vue'
+import { useToast } from '@/hook/useToast'
+import { useUserStore } from '@/store/user/index'
 import { _t18 } from '@/utils/public'
 
 const { _toast } = useToast()
@@ -214,7 +215,9 @@ const submit = () => {
         min-width: 40px;
         text-align: right;
         font-size: 14px;
-        font-family: PingFangSC-Regular, PingFang SC;
+        font-family:
+          PingFangSC-Regular,
+          PingFang SC;
         font-weight: 400;
         color: var(--primary-color);
         line-height: 40px;

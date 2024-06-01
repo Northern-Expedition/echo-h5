@@ -2,7 +2,6 @@
   <van-popup
     v-model:show="show"
     position="left"
-    @close="closeSideBar"
     style="
       width: var(--ex-max-width);
       height: 100%;
@@ -10,26 +9,24 @@
       left: auto;
       margin-top: -1px;
     "
+    @close="closeSideBar"
   >
-    <SideBar @closeSideBar="closeSideBar"></SideBar>
+    <SideBar @close-side-bar="closeSideBar" />
   </van-popup>
   <div class="header">
     <Logo />
     <div class="right">
-      <svg-load
-        name="kefu"
-        class="rightImg"
-        @click="dispatchCustomEvent('event_serviceChange')"
-      ></svg-load>
-      <svg-load name="sousuo" class="rightImg" @click="$router.push('/quote')"></svg-load>
-      <svg-load name="cebian" class="rightImg" @click="openCebian"></svg-load>
+      <svg-load name="kefu" class="rightImg" @click="dispatchCustomEvent('event_serviceChange')" />
+      <svg-load name="sousuo" class="rightImg" @click="$router.push('/quote')" />
+      <svg-load name="cebian" class="rightImg" @click="openCebian" />
     </div>
   </div>
 </template>
 <script setup>
-import { dispatchCustomEvent } from '@/utils/index'
 import Logo from '@/components/common/Logo/index.vue'
+import { dispatchCustomEvent } from '@/utils/index'
 import SideBar from '@/views/home/sidebar/index.vue'
+
 const show = ref(false)
 const openCebian = () => {
   show.value = true

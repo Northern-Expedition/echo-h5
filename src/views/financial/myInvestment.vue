@@ -45,19 +45,22 @@
         :loading-text="_t18(`loading`)"
         @load="onLoad"
       >
-        <RecordItem v-for="item in list" :key="item" :itemObj="item"></RecordItem>
+        <RecordItem v-for="item in list" :key="item" :itemObj="item" />
       </van-list>
-      <Nodata v-if="list.length === 0 && isShow"></Nodata>
+      <Nodata v-if="list.length === 0 && isShow" />
     </div>
   </div>
 </template>
 <script setup>
-import HeaderBar from '@/components/HeaderBar/index.vue'
-import RecordItem from './components/recordItem.vue'
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+
 import { investmentList, personalIncome } from '@/api/financial/index'
-import { _t18 } from '@/utils/public'
+import HeaderBar from '@/components/HeaderBar/index.vue'
 import { _toFixed } from '@/utils/decimal'
+import { _t18 } from '@/utils/public'
+
+import RecordItem from './components/recordItem.vue'
+
 const headerObj = ref({})
 const list = ref([])
 const pageNum = ref(1)
@@ -75,7 +78,6 @@ const onLoad = async () => {
       finished.value = true
     }
     pageNum.value++
-  } catch (error) {
   } finally {
     loading.value = false
   }
@@ -86,7 +88,9 @@ const allList = async () => {
     if (res.code === 200) {
       headerObj.value = res.data
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
 const getInvestment = async () => {
   try {
@@ -97,7 +101,9 @@ const getInvestment = async () => {
     } else {
       finished.value = true
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
 onMounted(() => {
   allList()

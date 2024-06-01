@@ -10,9 +10,9 @@
       <div class="left">{{ _t18('recharge_status') }}</div>
       <div class="right">
         <!-- 审核中 成功 失败 -->
-        <p class="status0" v-if="props.data.status == 0">{{ _t18('recharge_waiting') }}</p>
-        <p class="status1" v-if="props.data.status == 1">{{ _t18('recharge_tab_success') }}</p>
-        <p class="status2" v-if="props.data.status == 2">{{ _t18('recharge_tab_error') }}</p>
+        <p v-if="props.data.status == 0" class="status0">{{ _t18('recharge_waiting') }}</p>
+        <p v-if="props.data.status == 1" class="status1">{{ _t18('recharge_tab_success') }}</p>
+        <p v-if="props.data.status == 2" class="status2">{{ _t18('recharge_tab_error') }}</p>
       </div>
     </div>
     <div class="content3">
@@ -22,10 +22,10 @@
     </div>
     <div class="content4">
       <!-- 充值地址  提现地址 -->
-      <div class="top" v-if="$route.path.includes('recharge')">
+      <div v-if="$route.path.includes('recharge')" class="top">
         {{ _t18('recharge_address', ['bitmake']) }}
       </div>
-      <div class="top" v-if="$route.path.includes('withdraw')">{{ _t18('withdraw_address') }}</div>
+      <div v-if="$route.path.includes('withdraw')" class="top">{{ _t18('withdraw_address') }}</div>
       <div class="bottom">
         <Copy :data="`${props.data.address}`">
           <template #copyMsg>
@@ -49,8 +49,9 @@
 </template>
 
 <script setup>
-import { _toView, _hideAddress, _t18 } from '@/utils/public'
 import Copy from '@/components/common/Copy/index.vue'
+import { _hideAddress, _t18, _toView } from '@/utils/public'
+
 const props = defineProps({
   data: {
     type: Object
@@ -86,7 +87,7 @@ const props = defineProps({
         color: var(--ex-font-color9);
       }
       .status2 {
-        color:var(--ex-font-color3);
+        color: var(--ex-font-color3);
       }
     }
   }

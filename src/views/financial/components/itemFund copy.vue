@@ -3,7 +3,7 @@
     <div class="top">
       <div class="fw-bold">{{ itemObj.title }}</div>
       <!-- 普通和增值没有 -->
-      <div class="grade fw-num" v-if="itemObj.classify !== '0' && itemObj.classify !== '2'">
+      <div v-if="itemObj.classify !== '0' && itemObj.classify !== '2'" class="grade fw-num">
         VIP{{ itemObj.level }}
       </div>
     </div>
@@ -11,12 +11,12 @@
       <div class="left">
         <div class="leftTop">
           <div v-if="!itemObj.icon" class="leftTopImg"></div>
-          <image-load :filePath="itemObj.icon" v-if="itemObj.icon" class="itemImg" />
+          <image-load v-if="itemObj.icon" :filePath="itemObj.icon" class="itemImg" />
           <div class="fw-num">{{ itemObj.avgRate }} %</div>
         </div>
         <!-- 起投金额 -->
         <div class="centerNum">
-          <svg-load name="lingxing" class="starImg"></svg-load>
+          <svg-load name="lingxing" class="starImg" />
           <div>{{ _t18(`starting-amount`) }}：</div>
           <div class="money fw-num">
             {{ itemObj.limitMin }} {{ itemObj.coin ? itemObj.coin.toUpperCase() : '' }}
@@ -24,7 +24,7 @@
         </div>
         <!-- 限投金额： -->
         <div class="centerNum">
-          <svg-load name="lingxing" class="starImg"></svg-load>
+          <svg-load name="lingxing" class="starImg" />
           <div>{{ _t18(`Investment_Limit`) }}：</div>
           <div class="money fw-num">
             {{ itemObj.limitMax }} {{ itemObj.coin ? itemObj.coin.toUpperCase() : '' }}
@@ -32,7 +32,7 @@
         </div>
         <!-- 锁仓天数： -->
         <div class="centerNum">
-          <svg-load name="lingxing" class="starImg"></svg-load>
+          <svg-load name="lingxing" class="starImg" />
           <div>{{ _t18(`Lock-up_days`) }}：</div>
           <div class="money fw-num">{{ itemObj.days }}</div>
         </div>
@@ -59,6 +59,7 @@
 </template>
 <script setup>
 import { _t18 } from '@/utils/public'
+
 const props = defineProps({
   itemObj: {
     type: Object,

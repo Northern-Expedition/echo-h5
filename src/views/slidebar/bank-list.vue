@@ -1,20 +1,18 @@
 <template>
   <div class="bind-card">
     <!-- 导航条 -->
-    <HeaderBar
-      :currentName="`绑定银行卡`"
-      :cuttentRight="cuttentRight"
-      :border_bottom="true"
-    ></HeaderBar>
+    <HeaderBar :currentName="`绑定银行卡`" :cuttentRight="cuttentRight" :border_bottom="true" />
     <!--内容-->
     <div class="content">
-      <BankItem :bankList="bankList"></BankItem>
+      <BankItem :bankList="bankList" />
     </div>
   </div>
 </template>
 <script setup>
 import HeaderBar from '@/components/HeaderBar/index.vue'
+
 import BankItem from './components/bank-item.vue'
+
 const bankList = reactive([
   // {
   //   bankAddress: '美国花旗银行',

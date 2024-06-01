@@ -2,10 +2,10 @@
   <div style="padding: 0.426667rem">
     <!-- 详情 -->
     <HeaderBar :currentName="_t18(`host.detail`)" />
-    <DetailHeader :headerObj="headerObj"></DetailHeader>
+    <DetailHeader :headerObj="headerObj" />
 
-    <ProductDetail :proDetail="proDetail"></ProductDetail>
-    <ProductRules :proRules="proRules" :fundIntroduction="fundIntroduction"></ProductRules>
+    <ProductDetail :proDetail="proDetail" />
+    <ProductRules :proRules="proRules" :fundIntroduction="fundIntroduction" />
     <div class="buyNow">
       <!-- 立即购买 -->
       <div class="buyBtn" @click="handleShowCenter">{{ _t18(`buy_it_now`) }}</div>
@@ -13,22 +13,26 @@
   </div>
 
   <van-popup v-model:show="showCenter" round>
-    <buyFunds @handleShowCenter="handleShowCenter" />
+    <buyFunds @handle-show-center="handleShowCenter" />
   </van-popup>
 </template>
 <script setup>
+import { computed, onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
+import { financialDetail } from '@/api/financial/index'
+import HeaderBar from '@/components/HeaderBar/index.vue'
 import { DIFF_ISFREEZE_OTHER } from '@/config/index'
 import { useFreeze } from '@/hook/useFreeze'
-const { _isFreeze } = useFreeze()
-import { useRouter, useRoute } from 'vue-router'
-import { computed, onMounted, ref } from 'vue'
-import HeaderBar from '@/components/HeaderBar/index.vue'
+import { _t18 } from '@/utils/public'
+
+import buyFunds from './buyFunds.vue'
 import DetailHeader from './components/detailHeader.vue' //头
 import ProductDetail from './components/productDetail.vue' // 详情
-import ProductRules from './components/productRules.vue' // 规则
-import { financialDetail } from '@/api/financial/index'
-import { _t18 } from '@/utils/public'
-import buyFunds from './buyFunds.vue'
+import ProductRules from './components/productRules.vue'
+// 规则
+const { _isFreeze } = useFreeze()
+
 const $router = useRouter()
 const Route = useRoute()
 // 平均收益 项目周期（天） 起投金额
@@ -84,7 +88,9 @@ const getDetail = async () => {
       /**产品规则 */
       proRules.value = problem
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
 onMounted(() => {
   getDetail()

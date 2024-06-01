@@ -1,7 +1,9 @@
 <script setup>
-import { _t18 } from '@/utils/public'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+
+import { _t18 } from '@/utils/public'
+
 const router = useRouter()
 const emits = defineEmits(['update:value'])
 const props = defineProps({
@@ -35,7 +37,7 @@ const close = () => {
 </script>
 <template>
   <div>
-    <van-popup v-model:show="show" @close="close" position="bottom">
+    <van-popup v-model:show="show" position="bottom" @close="close">
       <div class="popup-content">
         <div class="title">
           <!-- 在线客服 -->
@@ -43,7 +45,7 @@ const close = () => {
         </div>
         <div class="scroll-container">
           <div class="item-list">
-            <div class="item" v-for="(item, index) in data" :key="index" @click="toWin(item.url)">
+            <div v-for="(item, index) in data" :key="index" class="item" @click="toWin(item.url)">
               <image-load :filePath="item.imgUrl" class="img" alt="Customer Service" />
             </div>
           </div>

@@ -1,9 +1,9 @@
 <template>
-  <div @click="toDetail(dataValue)" class="item">
+  <div class="item" @click="toDetail(dataValue)">
     <div class="title">
       <div class="left">
         <div>
-          <image-load filePath="deposit.png" name="deposit" class="img"></image-load>
+          <image-load filePath="deposit.png" name="deposit" class="img" />
           <span style="margin-left: 10px">{{
             $route.fullPath.includes('withdraw') ? _t18('asset_withdraw') : _t18('asset_recharge')
           }}</span>
@@ -11,11 +11,11 @@
 
         <div>
           <!-- 状态 审核中 成功 失败 -->
-          <p class="right status0" v-if="dataValue.status == 0">{{ _t18('recharge_waiting') }}</p>
-          <p class="right status1" v-if="dataValue.status == 1">
+          <p v-if="dataValue.status == 0" class="right status0">{{ _t18('recharge_waiting') }}</p>
+          <p v-if="dataValue.status == 1" class="right status1">
             {{ _t18('recharge_tab_success') }}
           </p>
-          <p class="right status2" v-if="dataValue.status == 2">{{ _t18('recharge_tab_error') }}</p>
+          <p v-if="dataValue.status == 2" class="right status2">{{ _t18('recharge_tab_error') }}</p>
         </div>
       </div>
     </div>
@@ -67,9 +67,9 @@
 </template>
 
 <script setup>
-import { _t18 } from '@/utils/public'
-import { _toView, filterCoin2 } from '@/utils/public'
 import { priceFormat } from '@/utils/decimal'
+import { _t18, _toView, filterCoin2 } from '@/utils/public'
+
 const router = useRouter()
 const props = defineProps({
   data: {

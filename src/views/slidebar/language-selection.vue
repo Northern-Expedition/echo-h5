@@ -5,26 +5,26 @@
       :currentName="_t18('sidebar_language')"
       :cuttentRight="cuttentRight"
       :border_bottom="true"
-    ></HeaderBar>
+    />
     <!--内容-->
     <div class="content">
       <!-- 选择语言 -->
       <!-- <div>{{$t('sidebar_language_title')}}</div> -->
       <van-radio-group v-model="checked">
         <van-radio
-          :name="index"
-          shape="square"
           v-for="(item, index) in languageList"
           :key="index"
+          :name="index"
+          shape="square"
           label-position="left"
           :checked-color="'#613af1'"
           @click="setLanguage(item)"
         >
-          <image-load :filePath="item.imgUrl" alt="" width="20" class="nation" v-if="item.imgUrl" />
-          <svg-load v-else :name="item.dictValue" class="nation"></svg-load>
+          <image-load v-if="item.imgUrl" :filePath="item.imgUrl" alt="" width="20" class="nation" />
+          <svg-load v-else :name="item.dictValue" class="nation" />
           {{ item.remark }}
           <template #icon="props">
-            <svg-load :name="props.checked ? `gou-yuyan` : `gou-yuyanno`"></svg-load>
+            <svg-load :name="props.checked ? `gou-yuyan` : `gou-yuyanno`" />
           </template>
         </van-radio>
       </van-radio-group>
@@ -32,10 +32,12 @@
   </div>
 </template>
 <script setup>
+import { computed } from 'vue'
+
 import { storageDict } from '@/config/dict'
 import router from '@/router'
 import { useMainStore } from '@/store/index.js'
-import { computed } from 'vue'
+
 const mainStore = useMainStore()
 const current = ref(localStorage.getItem(storageDict.LANGUAGE))
 /**

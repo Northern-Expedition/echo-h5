@@ -16,20 +16,20 @@
         <div class="listBox">
           <div>
             <van-list
+              v-model:loading="loading"
               :finished="finished"
               :finished-text="_t18(`no_more_data`)"
               :loading-text="_t18(`loading`)"
               @load="onLoad"
-              v-model:loading="loading"
             >
               <van-cell v-for="(items, indexs) in dataNewList" :key="indexs" :border="false">
                 <OrderItem
                   :recordListItem="items"
                   :currentEntruset="curActive"
                   :availableBalance="availableBalance"
-                  @updateList="updateList"
-                  @updateUser="updateUser"
-                ></OrderItem>
+                  @update-list="updateList"
+                  @update-user="updateUser"
+                />
               </van-cell>
             </van-list>
           </div>
@@ -39,27 +39,27 @@
     </van-tabs>
     <!-- 隐藏其他币种，刷新 -->
     <div class="tab_right">
-      <svg-load
-        :name="showEye ? 'yanjin-k' : 'yanjin-g'"
-        class="entrustRImg"
-        @click="handelEye"
-      ></svg-load>
-      <svg-load name="shuaxin" class="entrustRImg" @click="handelRefresh"></svg-load>
+      <svg-load :name="showEye ? 'yanjin-k' : 'yanjin-g'" class="entrustRImg" @click="handelEye" />
+      <svg-load name="shuaxin" class="entrustRImg" @click="handelRefresh" />
     </div>
   </div>
 </template>
 
 <script setup>
-import OrderItem from './EntrustOrderItem.vue'
-import { formatCurrentcurrency } from '@/utils/filters'
-import { _t18 } from '@/utils/public'
 import { onMounted } from 'vue'
+
 import {
-  submitUcontract,
   contractHistoryList,
   contractLossList,
-  orderList
+  orderList,
+  submitUcontract
 } from '@/api/trade/index'
+import { useUserStore } from '@/store/user/index'
+import { formatCurrentcurrency } from '@/utils/filters'
+import { _t18 } from '@/utils/public'
+
+import OrderItem from './EntrustOrderItem.vue'
+
 const props = defineProps({
   coinInfo: {
     type: Object,
@@ -110,7 +110,6 @@ const updateList = (val) => {
     getTab2()
   }
 }
-import { useUserStore } from '@/store/user/index'
 const userStore = useUserStore()
 /** 更新user */
 const updateUser = () => {

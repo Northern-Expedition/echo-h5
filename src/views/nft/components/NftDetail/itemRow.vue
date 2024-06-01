@@ -3,12 +3,12 @@
     <div class="header">
       <div class="left">
         <image-load :filePath="currentImg" class="headerImg" />
-        <div class="leftBottom" v-if="bottomList.length > 0">
-          <div class="item" v-for="(item, index) in bottomList" :key="index">{{ item.name }}</div>
+        <div v-if="bottomList.length > 0" class="leftBottom">
+          <div v-for="(item, index) in bottomList" :key="index" class="item">{{ item.name }}</div>
         </div>
       </div>
       <div class="right">
-        <div class="item" v-for="(item, index) in rightList" :key="index">
+        <div v-for="(item, index) in rightList" :key="index" class="item">
           <div>{{ item.leftName }}</div>
           <div class="itemR">{{ item.rightName }}</div>
         </div>

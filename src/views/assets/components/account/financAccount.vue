@@ -2,19 +2,21 @@
   <div>
     <Amount
       :amount="showNum ? amountSum : _hide(amountSum)"
-      @handleYanjin="handleYanjin"
-      @handleShuaxin="handleShuaxin"
       :showicon="showNum ? 'yanjin-k' : 'yanjin-g'"
-    ></Amount>
+      @handle-yanjin="handleYanjin"
+      @handle-shuaxin="handleShuaxin"
+    />
     <!-- 理财 -->
-    <Detail :assetDetails="assetDetails" :showNum="showNum"></Detail>
+    <Detail :assetDetails="assetDetails" :showNum="showNum" />
   </div>
 </template>
 
 <script setup>
 import { _hide } from '@/utils/public.js'
+
 import Amount from './amount.vue'
 import Detail from './amountDetail.vue'
+
 const props = defineProps({
   assetDetails: {
     type: Object
@@ -27,7 +29,7 @@ const props = defineProps({
   }
 })
 // 点击小眼睛
-const emit = defineEmits(['handleYanjin','handleShuaxin'])
+const emit = defineEmits(['handleYanjin', 'handleShuaxin'])
 const handleYanjin = () => {
   emit('handleYanjin')
 }

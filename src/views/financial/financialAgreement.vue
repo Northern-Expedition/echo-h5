@@ -1,12 +1,13 @@
 <template>
   <!-- 理财协议 -->
-  <HeaderBar :currentName="_t18(`financial agreement`)"></HeaderBar>
+  <HeaderBar :currentName="_t18(`financial agreement`)" />
   <div class="itemDetailObj" v-html="currentHtml"></div>
-  <Nodata v-if="!currentHtml"></Nodata>
+  <Nodata v-if="!currentHtml" />
 </template>
 <script setup>
 import { rulesList } from '@/api/common/index'
 import { _t18 } from '@/utils/public'
+
 const currentHtml = ref(null)
 onMounted(async () => {
   try {
@@ -14,7 +15,9 @@ onMounted(async () => {
     if (res.code === 200) {
       currentHtml.value = res.data[0].content
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 })
 </script>
 <style>

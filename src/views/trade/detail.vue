@@ -3,10 +3,10 @@
   <div>
     <van-sticky>
       <header>
-        <svg-load name="jiantou-z" class="leftImg" @click="_back()"></svg-load>
+        <svg-load name="jiantou-z" class="leftImg" @click="_back()" />
         <div class="right">
           <div class="central">
-            <svg-load name="cebian17x14" class="firLeftImg" @click="showLeft"></svg-load>
+            <svg-load name="cebian17x14" class="firLeftImg" @click="showLeft" />
             <div class="fw-bold">{{ coinInfo.showSymbol }}</div>
           </div>
         </div>
@@ -47,7 +47,7 @@
       </div>
     </div>
     <!-- K线 -->
-    <Candlestick v-if="coinInfo.coin" :coinInfo="coinInfo" type="detail"></Candlestick>
+    <Candlestick v-if="coinInfo.coin" :coinInfo="coinInfo" type="detail" />
     <div class="line"></div>
     <!-- 成交/深度图 -->
     <div class="entrust">
@@ -63,36 +63,39 @@
       </div>
     </div>
     <!-- 成交列表 -->
-    <DealList v-if="coinInfo.coin" :coinInfo="coinInfo" :rows="20"></DealList>
+    <DealList v-if="coinInfo.coin" :coinInfo="coinInfo" :rows="20" />
     <!-- 左侧 -->
     <PublicPopup
       :show="showOverlay"
       :direction="`left`"
-      @handelClose="handelClose"
       :height="`100%`"
       :width="`80%`"
       :showHeader="false"
       :empty="false"
+      @handel-close="handelClose"
     >
       <template #emptyContentCustomize>
-        <LeftSide @linkTo="linkTo" @close="handelClose"></LeftSide>
+        <LeftSide @link-to="linkTo" @close="handelClose" />
       </template>
     </PublicPopup>
   </div>
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
+import PublicPopup from '@/components/Popup/public.vue'
+import { useMainStore } from '@/store/index'
+import { useTradeStore } from '@/store/trade'
+import { countFormat, priceFormat } from '@/utils/decimal'
+
 import Candlestick from './components/common/candlestick.vue'
 import DealList from './components/common/dealList.vue'
-import PublicPopup from '@/components/Popup/public.vue'
 import LeftSide from './components/common/leftSide.vue'
-import { countFormat, priceFormat } from '@/utils/decimal'
-import { useMainStore } from '@/store/index'
+
 const mainStore = useMainStore()
-import { useTradeStore } from '@/store/trade'
 const tradeStore = useTradeStore()
-import { useRoute } from 'vue-router'
-import { computed } from 'vue'
 const $route = useRoute()
 // 左侧导航
 const showOverlay = ref(false)
@@ -140,7 +143,7 @@ const coinPriceInfo = computed(() => {
 /** 更换当前路由信息 */
 const linkTo = (item, type) => {
   $route.query.symbol = item
-  $route.query.type = type||$route.query.type
+  $route.query.type = type || $route.query.type
   showOverlay.value = false
   getHeader()
 }

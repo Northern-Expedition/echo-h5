@@ -6,6 +6,7 @@
 
 <script setup>
 import { useRoute } from 'vue-router'
+
 const route = useRoute()
 const link = ref(route.query.url || '')
 link.value = decodeURIComponent(link.value)

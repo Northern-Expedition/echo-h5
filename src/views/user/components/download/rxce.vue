@@ -1,9 +1,9 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+
 import QRCode from '@/components/common/QRCode/index.vue'
 import { useMainStore } from '@/store'
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
 import { getPlatform } from '@/utils/index'
 import { _t18 } from '@/utils/public'
 
@@ -51,31 +51,31 @@ onMounted(() => {
 </script>
 <template>
   <div class="container">
-    <image-load filePath="xiazaiimg.png" :platform="['rxce']" class="img-bg"></image-load>
+    <image-load filePath="xiazaiimg.png" :platform="['rxce']" class="img-bg" />
     <div class="content">
-      <div class="toBack" v-if="showFlag" @click="$router.push('/')">
-        <svg-load name="back-white" class="back"></svg-load>
+      <div v-if="showFlag" class="toBack" @click="$router.push('/')">
+        <svg-load name="back-white" class="back" />
       </div>
       <div class="title mt30">{{ _t18('multi_platform_terminal') }}</div>
       <div class="title">{{ _t18('trade_anytime_anywhere') }}</div>
       <div class="sub-title">{{ _t18('covering_ios_android') }}</div>
       <div class="sub-title_bottom">{{ _t18('supports_full_business') }}</div>
-      <div class="btn-list" v-if="downLoadList.length">
+      <div v-if="downLoadList.length" class="btn-list">
         <div
-          class="item"
           v-for="item in downLoadList"
           :key="item.path"
+          class="item"
           @click="handleClick(item.path)"
         >
           <div class="btn-img-box">
-            <image-load :filePath="item.icon" :platform="['rxce']" class="btn-img"></image-load>
+            <image-load :filePath="item.icon" :platform="['rxce']" class="btn-img" />
           </div>
           <div class="label">{{ item.label }}</div>
         </div>
       </div>
       <!-- 二维码 -->
       <div class="erweima">
-        <QRCode :address="address"></QRCode>
+        <QRCode :address="address" />
       </div>
       <div class="info">{{ _t18('scan_qrcode_download') }}</div>
     </div>

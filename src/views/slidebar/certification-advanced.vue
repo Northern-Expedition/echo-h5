@@ -1,18 +1,20 @@
 <!-- 高级认证 -->
 <script setup>
-import { reactive, ref } from 'vue'
-import { computed } from 'vue'
-import { REALNAME } from '@/config'
-import { nation } from './components/nation.js'
-import HeaderBar from '@/components/HeaderBar/index.vue'
-import { uploadKYC } from '@/api/user'
-import Success from './components/success.vue'
-import { uploadImg } from '@/api/common/index.js'
-import { useUserStore } from '@/store/user/index'
 import { storeToRefs } from 'pinia'
 import { showToast } from 'vant'
-import { _t18 } from '@/utils/public'
+import { computed, reactive, ref } from 'vue'
+
+import { uploadImg } from '@/api/common/index.js'
+import { uploadKYC } from '@/api/user'
+import HeaderBar from '@/components/HeaderBar/index.vue'
+import { REALNAME } from '@/config'
 import { useToast } from '@/hook/useToast'
+import { useUserStore } from '@/store/user/index'
+import { _t18 } from '@/utils/public'
+
+import { nation } from './components/nation.js'
+import Success from './components/success.vue'
+
 const { _toast } = useToast()
 const userStore = useUserStore()
 userStore.getUserInfo()
@@ -211,8 +213,8 @@ onMounted(() => {
     :currentName="_t18('sidebar_advanced', ['aams'])"
     :cuttentRight="cuttentRight"
     :border_bottom="true"
-  ></HeaderBar>
-  <div class="content" v-if="advancedAuth == '0' || advancedAuth == null">
+  />
+  <div v-if="advancedAuth == '0' || advancedAuth == null" class="content">
     <div class="tip advanced_txt">
       <image-load filePath="tips.png" class="tips" />{{ _t18('advanced_txt', ['aams']) }}
     </div>
@@ -225,10 +227,10 @@ onMounted(() => {
     </div>
     <!-- 姓名 -->
     <!-- 隐藏实名认证姓名输入 -->
-    <div class="form" v-if="!REALNAME.includes(_getConfig('_APP_ENV'))">
+    <div v-if="!REALNAME.includes(_getConfig('_APP_ENV'))" class="form">
       <div class="label text-ellipsis2">{{ _t18('advanced_name') }}：</div>
       <div class="formInput">
-        <input :placeholder="_t18('login_please')" v-model="formData.userName" class="form-input" />
+        <input v-model="formData.userName" :placeholder="_t18('login_please')" class="form-input" />
       </div>
     </div>
     <!-- 身份证 -->
@@ -242,16 +244,15 @@ onMounted(() => {
     <van-action-sheet
       v-model:show="show"
       :actions="actions"
-      @select="onSelect"
       style="max-width: var(--ex-max-width); left: 50%; translate: -50%"
-    >
-    </van-action-sheet>
-    <div class="form" v-if="!REALNAME.includes(_getConfig('_APP_ENV'))">
+      @select="onSelect"
+    />
+    <div v-if="!REALNAME.includes(_getConfig('_APP_ENV'))" class="form">
       <div class="label text-ellipsis2">{{ _t18('advanced_license_number') }}：</div>
       <div class="formInput">
         <input
-          :placeholder="_t18('advanced_please_cardName')"
           v-model="formData.number"
+          :placeholder="_t18('advanced_please_cardName')"
           class="form-input"
         />
       </div>
@@ -267,8 +268,8 @@ onMounted(() => {
     <van-action-sheet
       v-model:show="showNation"
       :actions="nationList"
-      @select="onSelectNation"
       style="max-width: var(--ex-max-width); left: 50%; translate: -50%"
+      @select="onSelectNation"
     >
       <template #action="{ action, index }">
         <div :key="index">{{ _t18(action.title) }}</div>
@@ -282,24 +283,24 @@ onMounted(() => {
     </div>
     <div class="upload-box">
       <div class="item">
-        <van-uploader :after-read="afterRead1" v-model="fileList1">
-          <image-load filePath="defi/delete.png" name="delete" class="img"></image-load>
+        <van-uploader v-model="fileList1" :after-read="afterRead1">
+          <image-load filePath="defi/delete.png" name="delete" class="img" />
           <div class="tit">{{ _t18('upload_positive') }}</div>
         </van-uploader>
       </div>
       <div class="item">
-        <van-uploader :after-read="afterRead2" v-model="fileList2">
-          <image-load filePath="defi/delete.png" name="delete" class="img"></image-load>
+        <van-uploader v-model="fileList2" :after-read="afterRead2">
+          <image-load filePath="defi/delete.png" name="delete" class="img" />
           <div class="tit">{{ _t18('upload_reverse side') }}</div>
         </van-uploader>
       </div>
-      <div class="item" v-if="!REALNAME.includes(_getConfig('_APP_ENV'))">
-        <van-uploader :after-read="afterRead3" v-model="fileList3">
-          <image-load filePath="defi/delete.png" name="delete" class="img"></image-load>
-          <div class="tit" v-if="['coinsexpto'].includes(_getConfig('_APP_ENV'))">
+      <div v-if="!REALNAME.includes(_getConfig('_APP_ENV'))" class="item">
+        <van-uploader v-model="fileList3" :after-read="afterRead3">
+          <image-load filePath="defi/delete.png" name="delete" class="img" />
+          <div v-if="['coinsexpto'].includes(_getConfig('_APP_ENV'))" class="tit">
             {{ _t18('Upload_passport_photo2') }}
           </div>
-          <div class="tit" v-else>{{ _t18('Upload_passport_photo') }}</div>
+          <div v-else class="tit">{{ _t18('Upload_passport_photo') }}</div>
         </van-uploader>
       </div>
     </div>
@@ -308,10 +309,10 @@ onMounted(() => {
     </div>
   </div>
 
-  <div class="success" v-if="advancedAuth == '3'">
-    <Success :text="_t18('under_review')" :imgUrl="'defi/zhong.png'" :color="'#333'"></Success>
+  <div v-if="advancedAuth == '3'" class="success">
+    <Success :text="_t18('under_review')" :imgUrl="'defi/zhong.png'" :color="'#333'" />
   </div>
-  <div class="success" v-if="advancedAuth == '2'">
+  <div v-if="advancedAuth == '2'" class="success">
     <Success :text="_t18('Audit_failure')" :imgUrl="'defi/failed.png'" :color="'#333'">
       <template #btn>
         <div class="btnBox" @click="reSubmit">
@@ -320,12 +321,8 @@ onMounted(() => {
       </template>
     </Success>
   </div>
-  <div class="success" v-if="advancedAuth == '1'">
-    <Success
-      :text="_t18('advanced_success')"
-      :imgUrl="'defi/success.png'"
-      :color="'#333'"
-    ></Success>
+  <div v-if="advancedAuth == '1'" class="success">
+    <Success :text="_t18('advanced_success')" :imgUrl="'defi/success.png'" :color="'#333'" />
   </div>
 </template>
 <style lang="scss" scoped>

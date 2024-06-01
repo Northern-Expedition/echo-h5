@@ -2,7 +2,7 @@
   <div>
     <div class="title">
       <div class="left">
-        <svg-load name="usdt" class="usdt"></svg-load>
+        <svg-load name="usdt" class="usdt" />
         <div class="txt">
           {{ dataValue.planTitle }}
         </div>
@@ -17,9 +17,9 @@
       <!-- 状态 -->
       <div>
         <p class="left">{{ _t18('recharge_status') }}</p>
-        <p class="right status0" v-if="status == 0">{{ _t18('pledge_in_progress') }}</p>
-        <p class="right status1" v-if="status == 1">{{ _t18('pledge_completed') }}</p>
-        <p class="right status2" v-if="status == 2">{{ _t18('pledge_redeem_ok') }}</p>
+        <p v-if="status == 0" class="right status0">{{ _t18('pledge_in_progress') }}</p>
+        <p v-if="status == 1" class="right status1">{{ _t18('pledge_completed') }}</p>
+        <p v-if="status == 2" class="right status2">{{ _t18('pledge_redeem_ok') }}</p>
       </div>
       <!-- 日收益率 -->
       <div>
@@ -50,12 +50,14 @@
 </template>
 
 <script setup>
-import { DIFF_HIDE_REDEEM } from '@/config/index'
-import { priceFormat } from '@/utils/decimal.js'
-import { redemption, redempNewtion } from '@/api/pledge/index'
-import { _t18 } from '@/utils/public'
-import { useToast } from '@/hook/useToast'
 import { showToast } from 'vant'
+
+import { redempNewtion, redemption } from '@/api/pledge/index'
+import { DIFF_HIDE_REDEEM } from '@/config/index'
+import { useToast } from '@/hook/useToast'
+import { priceFormat } from '@/utils/decimal.js'
+import { _t18 } from '@/utils/public'
+
 const { _toast } = useToast()
 const props = defineProps({
   data: {

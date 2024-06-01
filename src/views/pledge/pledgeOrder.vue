@@ -3,15 +3,15 @@
     :currentName="_t18('pledge_order_record')"
     :cuttentRight="cuttentRight"
     :border_bottom="true"
-  ></HeaderBar>
+  />
   <Tab :tabList="tabList" :active="curIndex" @change="changeIndex">
     <template #tabContent>
       <!-- 下拉刷新 -->
       <van-pull-refresh
         v-model="refreshing"
-        @refresh="onRefresh"
         :loading-text="_t18(`loading`)"
         :loosing-text="_t18(`release_refresh`)"
+        @refresh="onRefresh"
       >
         <!-- 加载中动画 -->
         <van-loading v-if="showLoading" />
@@ -26,7 +26,7 @@
             @load="onLoad"
           >
             <van-cell v-for="(item, index) in tabContentList" :key="index">
-              <OrderCard :data="item" @getList="getList"></OrderCard>
+              <OrderCard :data="item" @get-list="getList" />
             </van-cell>
           </van-list>
           <!-- 数据为空 -->
@@ -36,14 +36,17 @@
   ></Tab>
 </template>
 <script setup>
-import HeaderBar from '@/components/HeaderBar/index.vue'
-import { getPledgeOrderList } from '@/api/pledge/index'
+import { showToast } from 'vant'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { _t18 } from '@/utils/public'
+
+import { getPledgeOrderList } from '@/api/pledge/index'
+import HeaderBar from '@/components/HeaderBar/index.vue'
 import Tab from '@/components/Tab/index.vue'
+import { _t18 } from '@/utils/public'
+
 import OrderCard from './components/orderCard.vue'
-import { showToast } from 'vant'
+
 const refreshing = ref(false) //下拉刷新的加载展示
 const showLoading = ref(true) //加载动画
 const loading = ref(false) //分页加载

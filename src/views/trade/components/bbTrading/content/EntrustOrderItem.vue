@@ -1,13 +1,16 @@
 <!-- 当前委托订单 -->
 <script setup>
-import { cancelOrderCurrencyApi } from '@/api/trade/index'
 import { showToast } from 'vant'
-import { useToast } from '@/hook/useToast'
-const { _toast } = useToast()
-import { _t18 } from '@/utils/public'
-import { useTradeStore } from '@/store/trade'
-import { _add, _sub, _mul, _div, _toFixed, priceFormat } from '@/utils/decimal'
 import { computed } from 'vue'
+
+import { cancelOrderCurrencyApi } from '@/api/trade/index'
+import { useToast } from '@/hook/useToast'
+import { useTradeStore } from '@/store/trade'
+import { _add, _div, _mul, _sub, _toFixed, priceFormat } from '@/utils/decimal'
+import { _t18 } from '@/utils/public'
+
+const { _toast } = useToast()
+
 const tradeStore = useTradeStore()
 const newPrice = computed(() => {
   return tradeStore.allCoinPriceInfo[props.data.symbol]?.close
@@ -42,14 +45,14 @@ const cancelOrder = async () => {
 }
 </script>
 <template>
-  <div class="hisToryList" v-if="!hide">
+  <div v-if="!hide" class="hisToryList">
     <p>{{ data.index }}</p>
     <div class="header">
       <div class="headerLeft">
         <!-- 买 -->
-        <div class="name" v-if="data.type == 0">{{ _t18(`buy`) }}</div>
+        <div v-if="data.type == 0" class="name">{{ _t18(`buy`) }}</div>
         <!-- 卖 -->
-        <div class="name name2" v-if="data.type == 1">{{ _t18(`sell`) }}</div>
+        <div v-if="data.type == 1" class="name name2">{{ _t18(`sell`) }}</div>
         <div class="fw-bold">
           {{
             data.showCoin
@@ -67,7 +70,7 @@ const cancelOrder = async () => {
       <!-- 时间 -->
       <div class="item">
         <div>{{ _t18(`k_time`) }}</div>
-        <div class="fw-num numItem" v-if="data.delegateTime">
+        <div v-if="data.delegateTime" class="fw-num numItem">
           {{ _timeFormat(data.params?.delegateTime, 'HH:mm MM/DD', true) }}
         </div>
       </div>
@@ -77,7 +80,7 @@ const cancelOrder = async () => {
         <div class="fw-num numItem">{{ data.delegatePrice || 0 }}</div>
       </div>
       <!-- 委托量 -->
-      <div class="item" v-if="!['rxce'].includes(_getConfig('_APP_ENV'))">
+      <div v-if="!['rxce'].includes(_getConfig('_APP_ENV'))" class="item">
         <div>{{ _t18(`bb_commission_amount`) }}</div>
         <div class="fw-num numItem">{{ data.delegateTotal || 0 }}</div>
       </div>
@@ -87,11 +90,11 @@ const cancelOrder = async () => {
         <div class="fw-num numItem">{{ data.dealNum || 0 }}</div>
       </div>
       <!-- 成交价 ,rxce:最新价 -->
-      <div class="item" v-if="['rxce'].includes(_getConfig('_APP_ENV')) && data.type === 0">
+      <div v-if="['rxce'].includes(_getConfig('_APP_ENV')) && data.type === 0" class="item">
         <div>{{ _t18(`home_newPrice`) }}</div>
         <div class="fw-num numItem">{{ newPrice || 0 }}</div>
       </div>
-      <div class="item" v-else>
+      <div v-else class="item">
         <div>{{ _t18(`home_turnover`) }}</div>
         <div class="fw-num numItem">{{ data.dealPrice || 0 }}</div>
       </div>

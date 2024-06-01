@@ -3,16 +3,13 @@
   <div class="quote">
     <!-- 搜索 -->
     <van-field
-      type="text"
       v-model.trim="searchName"
+      type="text"
       :placeholder="_t18(`search_currency`)"
       class="searchInput"
     >
       <template #button>
-        <van-icon
-          name="search"
-          style="color: var(--ex-default-font-color); font-size: 20px"
-        ></van-icon>
+        <van-icon name="search" style="color: var(--ex-default-font-color); font-size: 20px" />
       </template>
     </van-field>
     <!-- tabs -->
@@ -30,16 +27,16 @@
     </div>
     <div class="headerChoose">
       <van-tabs
+        v-model:active="currentIndex"
         swipeable
         shrink
         :swipe-threshold="2"
-        v-model:active="currentIndex"
         line-width="20"
         line-height="2"
         color="#fff"
       >
         <van-tab v-for="(item, index) in headerList" :key="index" :title="item.title">
-          <component :is="currentComponent" :searchName="searchName"></component>
+          <component :is="currentComponent" :searchName="searchName" />
         </van-tab>
       </van-tabs>
     </div>
@@ -48,17 +45,20 @@
 </template>
 
 <script setup>
-import { _t18 } from '@/utils/public'
-import { useMainStore } from '@/store/index'
-import { switchTypeApi } from '@/api/quote'
-const mainStore = useMainStore()
 import { showConfirmDialog, showLoadingToast, showToast } from 'vant'
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { switchTypeApi } from '@/api/quote'
+import { useMainStore } from '@/store/index'
+import { _t18 } from '@/utils/public'
+
+import BBTrading from './components/quoteBBTrading.vue'
 import Optional from './components/quoteOptional.vue'
 import SecondContract from './components/quoteSecondContract.vue'
-import BBTrading from './components/quoteBBTrading.vue'
 import Ustandard from './components/quoteUstandard.vue'
-import { useRouter } from 'vue-router'
+
+const mainStore = useMainStore()
 const { push } = useRouter()
 
 // 搜索

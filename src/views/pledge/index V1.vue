@@ -1,9 +1,12 @@
 <!-- 质押挖矿 -->
 <script setup>
-import { priceFormat } from '@/utils/decimal.js'
 import { useRouter } from 'vue-router'
+
 import Popup from '@/components/Popup/index.vue'
+import { priceFormat } from '@/utils/decimal.js'
+
 import Card from './components/card.vue'
+
 const router = useRouter()
 const showRule = ref(false)
 const txt = '说明'
@@ -127,16 +130,11 @@ const manual = computed(() => {
   <Popup
     :show="showRule"
     :direction="direction"
-    @handelClose="closePopup"
     :title="txt"
     :content="manual"
-  >
-  </Popup>
-  <HeaderBar
-    :currentName="`质押挖矿`"
-    :cuttentRight="cuttentRight"
-    @showPopup="showPopup"
-  ></HeaderBar>
+    @handel-close="closePopup"
+  />
+  <HeaderBar :currentName="`质押挖矿`" :cuttentRight="cuttentRight" @show-popup="showPopup" />
   <!-- 收益信息（资金、收益） -->
   <div class="userAccount">
     <div class="fund">
@@ -160,15 +158,15 @@ const manual = computed(() => {
   </div>
   <!-- 项目信息 -->
   <div class="project">
-    <div class="projectList" v-if="projectList?.length > 0">
+    <div v-if="projectList?.length > 0" class="projectList">
       <Card
         v-for="(item, index) in projectList"
-        @click="toView(item)"
         :key="index"
         :cardData="item"
-      ></Card>
+        @click="toView(item)"
+      />
     </div>
-    <Nodata v-else></Nodata>
+    <Nodata v-else />
   </div>
 </template>
 <style lang="scss" scoped>

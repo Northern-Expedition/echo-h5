@@ -11,6 +11,7 @@
 
 <script setup>
 import { _t18 } from '@/utils/public'
+
 const props = defineProps({
   purchaseLimit: {
     type: Number

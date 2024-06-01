@@ -3,16 +3,16 @@
   help_center
   <HeaderBar :currentName="_t18(`help_center`)" />
   <div v-if="list.length > 0">
-    <div class="itemList" v-for="(item, index) in list" :key="index">
+    <div v-for="(item, index) in list" :key="index" class="itemList">
       <div class="title">
         <div class="title_top"></div>
         <div>{{ item.title }}</div>
       </div>
       <div v-if="item.infoList.length > 0">
         <div
-          class="item"
           v-for="(items, indexs) in item.infoList"
           :key="indexs"
+          class="item"
           @click="$router.push(`/helpDetail/${items.id}`)"
         >
           {{ items.question }}
@@ -20,12 +20,14 @@
       </div>
     </div>
   </div>
-  <Nodata v-if="list.length === 0 && isShow"></Nodata>
+  <Nodata v-if="list.length === 0 && isShow" />
 </template>
 <script setup>
-import { _t18 } from '@/utils/public'
-import { getHelpcenter } from '@/api/help/index'
 import { onMounted, ref } from 'vue'
+
+import { getHelpcenter } from '@/api/help/index'
+import { _t18 } from '@/utils/public'
+
 const list = ref([])
 const isShow = ref(false)
 onMounted(async () => {
@@ -35,7 +37,9 @@ onMounted(async () => {
       list.value = res.data
       list.value.length === 0 ? (isShow.value = true) : (isShow.value = false)
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 })
 </script>
 <style lang="scss" scoped>

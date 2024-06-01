@@ -1,12 +1,13 @@
 <script setup>
+import { debounce } from 'lodash'
+import PubSub from 'pubsub-js'
+import { reactive } from 'vue'
+
 import { socketDict } from '@/config/dict'
 import { _coinWebSocket } from '@/plugin/socket/index'
 import { _div, countFormat, priceFormat } from '@/utils/decimal'
-import PubSub from 'pubsub-js'
-import { reactive } from 'vue'
-import { _t18 } from '@/utils/public'
 import { matchText } from '@/utils/filters'
-import { debounce } from 'lodash'
+import { _t18 } from '@/utils/public'
 
 const props = defineProps({
   /**
@@ -63,7 +64,7 @@ const subscribeTrades = async (params) => {
  */
 const eventTradeSymbolChange = debounce((e) => {
   // 监听币种切换
-  console.log('监听币种切换',e.detail.coinInfo)
+  console.log('监听币种切换', e.detail.coinInfo)
   let tempCoinInfo = e.detail.coinInfo
   Object.assign(currentCoinInfo, tempCoinInfo)
   subscribeTrades(currentCoinInfo)
@@ -100,20 +101,20 @@ onUnmounted(() => {
       }})
     </div>
   </div>
-  <div class="dealItem" v-for="(item, index) in dataList" :key="index">
+  <div v-for="(item, index) in dataList" :key="index" class="dealItem">
     <div class="time fw-num">{{ _timeFormat(item.ts, 'HH:mm:ss', true) }}</div>
     <!-- 卖出 -->
-    <div class="fall direction fw-bold" v-show="item.direction == 'sell'">
+    <div v-show="item.direction == 'sell'" class="fall direction fw-bold">
       {{ _t18(`bb_sell1`) }}
     </div>
     <!-- 买入 -->
-    <div class="rise direction fw-bold" v-show="item.direction == 'buy'">
+    <div v-show="item.direction == 'buy'" class="rise direction fw-bold">
       {{ _t18(`purchase`) }}
     </div>
     <div class="price fw-num">{{ priceFormat(item.price) }}</div>
     <div class="count fw-num">{{ countFormat(_div(item.amount, item.price)) }}</div>
   </div>
-  <Nodata v-if="dataList.length === 0"></Nodata>
+  <Nodata v-if="dataList.length === 0" />
 </template>
 
 <style lang="scss" scoped>

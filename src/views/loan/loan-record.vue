@@ -5,7 +5,7 @@
       :currentName="_t18('loan_order', ['aams'])"
       :cuttentRight="cuttentRight"
       :border_bottom="true"
-    ></HeaderBar>
+    />
     <!--内容-->
     <!-- <div class="content">
       <van-tabs :active="active" @click-tab="handleClick">
@@ -20,9 +20,9 @@
         <!-- 下拉刷新 -->
         <van-pull-refresh
           v-model="refreshing"
-          @refresh="onRefresh"
           :loading-text="_t18(`loading`)"
           :loosing-text="_t18(`release_refresh`)"
+          @refresh="onRefresh"
         >
           <!-- 加载中动画 -->
           <van-loading v-if="showLoading" />
@@ -38,7 +38,7 @@
               @load="onLoad"
             >
               <van-cell v-for="(item, index) in tabContentList" :key="index">
-                <LoanItem :dataList="item"></LoanItem>
+                <LoanItem :dataList="item" />
               </van-cell>
             </van-list>
             <!-- 数据为空 -->
@@ -51,12 +51,14 @@
 </template>
 
 <script setup>
-import HeaderBar from '@/components/HeaderBar/index.vue'
-import LoanItem from './components/LoanItem.vue'
-import { getLoanOrderList } from '@/api/loan.js'
-import Tab from '@/components/Tab/index.vue'
 import { dict } from '@/api/common/index'
+import { getLoanOrderList } from '@/api/loan.js'
+import HeaderBar from '@/components/HeaderBar/index.vue'
+import Tab from '@/components/Tab/index.vue'
 import { _t18 } from '@/utils/public'
+
+import LoanItem from './components/LoanItem.vue'
+
 const refreshing = ref(false) //下拉刷新的加载展示
 const showLoading = ref(true) //加载动画
 const loading = ref(false) //分页加载

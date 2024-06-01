@@ -8,8 +8,7 @@
       :cuttentRight="cuttentRight"
       :border_bottom="true"
       :backTo="'/'"
-    >
-    </HeaderBar>
+    />
     <!--内容-->
     <van-overlay
       :show="showLoading"
@@ -23,7 +22,7 @@
     <div class="content">
       <div v-if="!bindcard">
         <div v-if="bankList.length > 0">
-          <BankItem :bankList="bankList"></BankItem>
+          <BankItem :bankList="bankList" />
         </div>
         <div v-else class="bindcard">
           <img src="@/assets/defi/notbind.png" alt="" />
@@ -36,22 +35,22 @@
       </div>
       <div v-if="bindcard">
         <div
-          class="form"
           v-if="
             ['trustwallet', 'coinmarketcap', 'kabit', 'etfinex', 'ebc'].includes(
               _getConfig('_APP_ENV')
             )
           "
+          class="form"
         >
           <!-- 收款人姓名 -->
           <div class="formInput">
             <p class="label">
               {{ _t18('payee_name')
-              }}<span class="info" v-if="showInfo1">（*{{ _t18('required') }}）</span>
+              }}<span v-if="showInfo1" class="info">（*{{ _t18('required') }}）</span>
             </p>
             <input
-              :placeholder="_t18('login_please')"
               v-model="formData.userName"
+              :placeholder="_t18('login_please')"
               class="form-input"
             />
           </div>
@@ -59,11 +58,11 @@
           <div class="formInput">
             <p class="label">
               {{ _t18('bank_name')
-              }}<span class="info" v-if="showInfo2">（*{{ _t18('required') }}）</span>
+              }}<span v-if="showInfo2" class="info">（*{{ _t18('required') }}）</span>
             </p>
             <input
-              :placeholder="_t18('login_please')"
               v-model="formData.bankName"
+              :placeholder="_t18('login_please')"
               class="form-input"
             />
           </div>
@@ -71,11 +70,11 @@
           <div class="formInput">
             <p class="label">
               {{ _t18('bank_account')
-              }}<span class="info" v-if="showInfo1">（*{{ _t18('required') }}）</span>
+              }}<span v-if="showInfo1" class="info">（*{{ _t18('required') }}）</span>
             </p>
             <input
-              :placeholder="_t18('login_please')"
               v-model="formData.cardNumber"
+              :placeholder="_t18('login_please')"
               class="form-input"
             />
           </div>
@@ -83,8 +82,8 @@
           <div class="formInput">
             <p class="label">{{ _t18('branch_namee') }}</p>
             <input
-              :placeholder="_t18('login_please')"
               v-model="formData.bankBranch"
+              :placeholder="_t18('login_please')"
               class="form-input"
             />
           </div>
@@ -93,61 +92,61 @@
               {{ _t18('branch_number') }}
             </p>
             <input
-              :placeholder="_t18('login_please')"
               v-model="formData.bankAddress"
+              :placeholder="_t18('login_please')"
               class="form-input"
             />
           </div>
         </div>
 
-        <div class="form" v-else>
+        <div v-else class="form">
           <!-- <div class="formInput">
             <p class="label">开户人</p>
             <input placeholder="请输入" v-model="formData.userName" class="form-input" />
           </div> -->
-          <div class="formInput" v-if="['gemini2'].includes(_getConfig('_APP_ENV'))">
+          <div v-if="['gemini2'].includes(_getConfig('_APP_ENV'))" class="formInput">
             <p class="label">
               {{ _t18('advanced_name') }}
             </p>
             <input
-              :placeholder="_t18('login_please')"
               v-model="formData.userName"
+              :placeholder="_t18('login_please')"
               class="form-input"
             />
           </div>
           <div class="formInput">
             <p class="label">
               {{ _t18('Bank_card_number', ['gemini2'])
-              }}<span class="info" v-if="showInfo1">（*{{ _t18('required') }}）</span>
+              }}<span v-if="showInfo1" class="info">（*{{ _t18('required') }}）</span>
             </p>
             <input
-              :placeholder="_t18('login_please')"
               v-model="formData.cardNumber"
+              :placeholder="_t18('login_please')"
               class="form-input"
             />
           </div>
           <div class="formInput">
             <p class="label">
               {{ _t18('Bank_own')
-              }}<span class="info" v-if="showInfo2">（*{{ _t18('required') }}）</span>
+              }}<span v-if="showInfo2" class="info">（*{{ _t18('required') }}）</span>
             </p>
             <input
-              :placeholder="_t18('login_please')"
               v-model="formData.bankName"
+              :placeholder="_t18('login_please')"
               class="form-input"
             />
           </div>
 
           <!-- HFM2 币种选择-->
-          <div class="formInput" v-if="['HFM2', 'dev'].includes(_getConfig('_APP_ENV'))">
+          <div v-if="['HFM2', 'dev'].includes(_getConfig('_APP_ENV'))" class="formInput">
             <p class="label">
               {{ _t18('recharge_coin') }}<span class="scl">（{{ _t18('optional') }}）</span>
             </p>
             <van-field
+              v-model="formData.coin"
               class="form-input"
               is-link
               readonly
-              v-model="formData.coin"
               :placeholder="_t18('recharge_coin')"
               @click="showCoinPicker = true"
             />
@@ -165,8 +164,8 @@
                 {{ _t18('branch_name') }}<span class="scl">（{{ _t18('optional') }}）</span>
               </p>
               <input
-                :placeholder="_t18('login_please')"
                 v-model="formData.bankBranch"
+                :placeholder="_t18('login_please')"
                 class="form-input"
               />
             </div>
@@ -178,8 +177,8 @@
                 >
               </p>
               <input
-                :placeholder="_t18('login_please')"
                 v-model="formData.bankAddress"
+                :placeholder="_t18('login_please')"
                 class="form-input"
               />
             </div>
@@ -189,8 +188,8 @@
                 }}<span class="scl">（{{ _t18('optional') }}）</span>
               </p>
               <input
-                :placeholder="_t18('login_please')"
                 v-model="formData.bankCode"
+                :placeholder="_t18('login_please')"
                 class="form-input"
               />
             </div>
@@ -199,8 +198,8 @@
                 {{ _t18('Home_address') }} <span class="scl">（{{ _t18('optional') }}）</span>
               </p>
               <input
-                :placeholder="_t18('login_please')"
                 v-model="formData.userAddress"
+                :placeholder="_t18('login_please')"
                 class="form-input"
               />
             </div>
@@ -215,15 +214,17 @@
   </div>
 </template>
 <script setup>
-import { getBindCardList, bindCardSubmit } from '@/api/account.js'
-import ButtonBar from '@/components/common/ButtonBar/index.vue'
-import BankItem from './components/bank-item.vue'
-import { ref, reactive, onMounted } from 'vue'
-import HeaderBar from '@/components/HeaderBar/index.vue'
 import { showToast } from 'vant'
-import { _t18, _toView } from '@/utils/public'
+import { onMounted, reactive, ref } from 'vue'
+
+import { bindCardSubmit, getBindCardList } from '@/api/account.js'
 import { dict } from '@/api/common/index.js'
+import ButtonBar from '@/components/common/ButtonBar/index.vue'
+import HeaderBar from '@/components/HeaderBar/index.vue'
 import { useToast } from '@/hook/useToast'
+import { _t18, _toView } from '@/utils/public'
+
+import BankItem from './components/bank-item.vue'
 
 const { _toast } = useToast()
 

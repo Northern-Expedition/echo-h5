@@ -1,7 +1,7 @@
 <template>
   <div class="editLeft">
     <!-- <svg-load name="btc" class="leftImg"></svg-load> -->
-    <image-load :filePath="data.logo" v-if="showLeftImg" class="leftImg" />
+    <image-load v-if="showLeftImg" :filePath="data.logo" class="leftImg" />
     <div class="leftNames">
       <div class="fw-bold">{{ data.showSymbol }}</div>
 

@@ -1,21 +1,22 @@
 <template>
   <div class="numList fw-num">
-      <div class="numTop">
-        {{ priceFormat(coinPriceInfo?.close) }}
-      </div>
-      <div
-        :class="[
-          _isRFD(coinPriceInfo?.openPrice, coinPriceInfo?.close, 'buy', 'rise'),
-          ' rfd-sign numBot fw-num'
-        ]"
-      >
-        {{ coinPriceInfo?.priceChangePercent }}%
-      </div>
+    <div class="numTop">
+      {{ priceFormat(coinPriceInfo?.close) }}
+    </div>
+    <div
+      :class="[
+        _isRFD(coinPriceInfo?.openPrice, coinPriceInfo?.close, 'buy', 'rise'),
+        ' rfd-sign numBot fw-num'
+      ]"
+    >
+      {{ coinPriceInfo?.priceChangePercent }}%
+    </div>
   </div>
 </template>
 <script setup>
-import { priceFormat } from '@/utils/decimal.js'
 import { useTradeStore } from '@/store/trade'
+import { priceFormat } from '@/utils/decimal.js'
+
 const tradeStore = useTradeStore()
 const props = defineProps({
   data: {

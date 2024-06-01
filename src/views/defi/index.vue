@@ -1,22 +1,24 @@
 <!-- Defi挖矿 -->
 <script setup>
-import { publiceNotice } from '@/api/common/index'
-import HeaderBar from '@/components/HeaderBar/index.vue'
-import Popup from '@/components/Popup/index.vue'
-import Mining from '@/views/defi/components/mining.vue'
-import LuckyActivity from './components/LuckyActivity.vue'
-import { _t18 } from '@/utils/public'
-import { rulesList } from '@/api/common/index'
+import { showToast } from 'vant'
+
+import { publiceNotice, rulesList } from '@/api/common/index'
 import {
-  getUserInvestmentApi,
   getDefiRateApi,
   getIncomeApi,
   getOutcomeApi,
+  getUserInvestmentApi,
   showDefiActivityApi
 } from '@/api/defi/index'
-import { useUserStore } from '@/store/user'
-import { showToast } from 'vant'
+import HeaderBar from '@/components/HeaderBar/index.vue'
+import Popup from '@/components/Popup/index.vue'
 import { useMainStore } from '@/store/index.js'
+import { useUserStore } from '@/store/user'
+import { _t18 } from '@/utils/public'
+import Mining from '@/views/defi/components/mining.vue'
+
+import LuckyActivity from './components/LuckyActivity.vue'
+
 const mainStore = useMainStore()
 const cuttentRight = { iconRight: [{ iconName: 'kefu', clickTo: 'event_serviceChange' }] }
 const showRule = ref(false)
@@ -101,7 +103,7 @@ const getUserInvestment = async () => {
 /**弹窗内容 */
 const getPopupContent = async () => {
   const res = await rulesList('DEFI_EXPLAIN')
-  if ((res.code = '200')) {
+  if ((res.code == '200')) {
     popupContent.value = res.data
   }
 }
@@ -110,7 +112,7 @@ const showNoticeContent = ref({})
 /**进入弹窗内容 */
 const getOpenPopupContent = async () => {
   const res = await publiceNotice('POP_UPS_NOTICE', 'DEFI_POP_UPS_NOTICE')
-  if ((res.code = '200')) {
+  if ((res.code == '200')) {
     if (res.data.length) {
       showNotice.value = true
       showNoticeContent.value = res.data[0]
@@ -209,7 +211,7 @@ onMounted(() => {
     <div class="showNoticeContent">
       <p class="showNoticeContent_title fw-bold">{{ showNoticeContent.noticeTitle }}</p>
       <div class="showNoticeContent_content">
-        <image-load :filePath="showNoticeContent.imgUrl" v-if="showNoticeContent.imgUrl" />
+        <image-load v-if="showNoticeContent.imgUrl" :filePath="showNoticeContent.imgUrl" />
       </div>
     </div>
   </van-popup>
@@ -217,16 +219,15 @@ onMounted(() => {
   <Popup
     :show="showRule"
     :direction="direction"
-    @handelClose="closePopup"
     :title="_t18('defi_speak')"
     :content="popupContent"
-  >
-  </Popup>
+    @handel-close="closePopup"
+  />
   <HeaderBar
     :currentName="_t18('host_non-collateralized_mining')"
     :cuttentRight="cuttentRight"
     :border_bottom="false"
-  ></HeaderBar>
+  />
   <div class="container">
     <div class="title">
       <div class="left">MOONEX</div>
@@ -238,18 +239,18 @@ onMounted(() => {
       Smart contract technology
     </div>
     <div class="banner">
-      <image-load filePath="defibg.png" name="defi"></image-load>
+      <image-load filePath="defibg.png" name="defi" />
     </div>
   </div>
   <div class="content">
     <!-- 挖矿 -->
-    <Mining :incomeInfo="incomeInfo" :outcomeInfo="outcomeInfo"></Mining>
+    <Mining :incomeInfo="incomeInfo" :outcomeInfo="outcomeInfo" />
     <!-- 幸运活动 -->
     <LuckyActivity
       v-if="activityInfo.id"
       :data="activityInfo"
-      @getShowDefiActivity="getShowDefiActivity"
-    ></LuckyActivity>
+      @get-show-defi-activity="getShowDefiActivity"
+    />
     <!-- 档位收益 profit -->
     <div class="profit">
       <div class="tit">
@@ -311,10 +312,10 @@ onMounted(() => {
       <div class="tit fw-bold">{{ _t18('defi_ho_tit1') }}</div>
       <div class="imgs">
         <p>
-          <image-load filePath="defi/openzeppelin.png" name="defi"></image-load>
+          <image-load filePath="defi/openzeppelin.png" name="defi" />
         </p>
         <p>
-          <image-load filePath="defi/consensys.png" name="defi"></image-load>
+          <image-load filePath="defi/consensys.png" name="defi" />
         </p>
       </div>
     </div>
@@ -323,7 +324,7 @@ onMounted(() => {
       <div class="tit fw-bold">{{ _t18('defi_ho_tit7') }}</div>
       <div class="imgs">
         <p v-for="(item, index) in imgList" :key="index">
-          <image-load :filePath="`defi/${item.name}.png`" name="defi"></image-load>
+          <image-load :filePath="`defi/${item.name}.png`" name="defi" />
         </p>
       </div>
     </div>
@@ -365,7 +366,9 @@ onMounted(() => {
   }
   .introduce {
     font-size: 0.346667rem;
-    font-family: PingFangSC, PingFang SC;
+    font-family:
+      PingFangSC,
+      PingFang SC;
     font-weight: 500;
     color: #b9c1d9;
     line-height: 0.48rem;

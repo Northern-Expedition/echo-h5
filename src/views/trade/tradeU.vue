@@ -1,51 +1,51 @@
 <!-- 交易——>U本位 -->
 <template>
   <div>
-    <HeaderBar
-      :currentName="_t18('trade_tab5', ['paxpay', 'latcoin'])"
-      :border_bottom="true"
-    ></HeaderBar>
+    <HeaderBar :currentName="_t18('trade_tab5', ['paxpay', 'latcoin'])" :border_bottom="true" />
     <!-- 头部 -->
-    <UTradingHeader
-      :coinInfo="coinInfo"
-      @showSidePopup="showSidePopup"
-    ></UTradingHeader>
+    <UTradingHeader :coinInfo="coinInfo" @show-side-popup="showSidePopup" />
     <!-- 主体内容 -->
-    <UTradingContent :coinInfo="coinInfo"></UTradingContent>
+    <UTradingContent :coinInfo="coinInfo" />
 
     <!-- 左侧切换币种 -->
     <PublicPopup
       :show="sidePopup"
-      @handelClose="sidePopup = false"
       :direction="`left`"
       :height="`100%`"
       :width="`80%`"
       :showHeader="false"
       :empty="false"
+      @handel-close="sidePopup = false"
     >
       <template #emptyContentCustomize>
-        <LeftSide @close="sidePopup = false" :headerList="headerList"></LeftSide>
+        <LeftSide :headerList="headerList" @close="sidePopup = false" />
       </template>
     </PublicPopup>
   </div>
 </template>
 
 <script setup>
-import UTradingHeader from './components/ustandard/header/index.vue' // U本位header部分
-import UTradingContent from './components/ustandard/content/index.vue' // U本位content部分
-import PublicPopup from '@/components/Popup/public.vue'
-import LeftSide from './components/common/leftSide.vue'
-import { showToast } from 'vant'
-import { _t18 } from '@/utils/public'
-import { setCollect, removeCollect } from '@/api/trade'
-import { useTradeStore } from '@/store/trade'
-const tradeStore = useTradeStore()
-import { useRoute } from 'vue-router'
+// import { showToast } from 'vant'
 import { onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+
+// import { removeCollect, setCollect } from '@/api/trade'
+import PublicPopup from '@/components/Popup/public.vue'
+import { useTradeStore } from '@/store/trade'
+import { _t18 } from '@/utils/public'
+
+import LeftSide from './components/common/leftSide.vue'
+import UTradingContent from './components/ustandard/content/index.vue' // U本位content部分
+import UTradingHeader from './components/ustandard/header/index.vue'
+// U本位header部分
+const tradeStore = useTradeStore()
 const $route = useRoute()
-const props = defineProps({
+defineProps({
   headerList: {
-    type: Array
+    type: Array,
+    default() {
+      return []
+    }
   }
 })
 /**
@@ -57,7 +57,7 @@ const coinInfo = ref({})
 watch(
   () => $route.query.symbol,
   (val) => {
-    coinInfo.value = tradeStore.contractCoinList.filter((item, index) => {
+    coinInfo.value = tradeStore.contractCoinList.filter((item) => {
       return item.coin === val
     })[0]
   },
@@ -68,7 +68,7 @@ watch(
 // 初始化展示币种信息
 const init = () => {
   if ($route.query.symbol) {
-    coinInfo.value = tradeStore.contractCoinList.filter((item, index) => {
+    coinInfo.value = tradeStore.contractCoinList.filter((item) => {
       return item.coin === $route.query.symbol
     })[0]
     if (!coinInfo.value) {
@@ -88,7 +88,6 @@ const sidePopup = ref(false)
 const showSidePopup = () => {
   sidePopup.value = true
 }
-
 </script>
 
 <style lang="scss" scoped></style>

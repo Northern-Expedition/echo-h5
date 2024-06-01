@@ -8,9 +8,11 @@
 </template>
 
 <script setup>
-import { switchTypeApi } from '@/api/quote'
 import { showConfirmDialog, showLoadingToast, showToast } from 'vant'
 import { useI18n } from 'vue-i18n'
+
+import { switchTypeApi } from '@/api/quote'
+
 const { t } = useI18n()
 function handleQuit() {
   showConfirmDialog({

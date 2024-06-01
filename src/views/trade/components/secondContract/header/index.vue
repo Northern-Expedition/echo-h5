@@ -4,20 +4,12 @@
       <div class="first">
         <!-- 打开弹窗 -->
         <div class="firLeft">
-          <svg-load
-            name="cebian17x14"
-            class="firLeftImg"
-            @click="emits('showSidePopup')"
-          ></svg-load>
+          <svg-load name="cebian17x14" class="firLeftImg" @click="emits('showSidePopup')" />
           <div class="fw-bold">{{ coinInfo.showSymbol }}</div>
         </div>
         <!-- 秒合约规则，收藏 -->
         <div class="">
-          <svg-load
-            name="guize"
-            class="senLeftImg"
-            @click="_toView('/tradingRules?type=0')"
-          ></svg-load>
+          <svg-load name="guize" class="senLeftImg" @click="_toView('/tradingRules?type=0')" />
           <!-- <svg-load
             v-if="mainStore.hasOption"
             @click="setCollectByCoin"
@@ -45,30 +37,30 @@
           <!-- 高 -->
           <div class="secondItem">
             <div class="itemL">{{ _t18(`k_hight`, ['ebc']) }}</div>
-            <div class="itemR fw-num" v-if="coinPriceInfo?.high24">
+            <div v-if="coinPriceInfo?.high24" class="itemR fw-num">
               {{ priceFormat(coinPriceInfo.high24) }}
             </div>
-            <div class="itemR fw-num" v-else>
+            <div v-else class="itemR fw-num">
               {{ priceFormat(tradeStore.klineTicker.highPrice || 0) }}
             </div>
           </div>
           <!-- 低 -->
           <div class="secondItem">
             <div class="itemL">{{ _t18(`k_low`, ['ebc']) }}</div>
-            <div class="itemR fw-num" v-if="coinPriceInfo?.low24">
+            <div v-if="coinPriceInfo?.low24" class="itemR fw-num">
               {{ priceFormat(coinPriceInfo.low24) }}
             </div>
-            <div class="itemR fw-num" v-else>
+            <div v-else class="itemR fw-num">
               {{ priceFormat(tradeStore.klineTicker.lowPrice || 0) }}
             </div>
           </div>
           <!-- 量 -->
           <div class="secondItem">
             <div class="itemL">{{ _t18(`k_quantity`) }}</div>
-            <div class="itemR fw-num" v-if="coinPriceInfo?.volume24">
+            <div v-if="coinPriceInfo?.volume24" class="itemR fw-num">
               {{ countFormat(coinPriceInfo.volume24) }}
             </div>
-            <div class="itemR fw-num" v-else>
+            <div v-else class="itemR fw-num">
               {{ countFormat(tradeStore.klineTicker.volume || 0) }}
             </div>
           </div>
@@ -78,11 +70,13 @@
   </div>
 </template>
 <script setup>
+import { onMounted } from 'vue'
+
+import { useMainStore } from '@/store/index.js'
 import { useTradeStore } from '@/store/trade'
 import { countFormat, priceFormat } from '@/utils/decimal'
 import { _t18 } from '@/utils/public'
-import { useMainStore } from '@/store/index.js'
-import { onMounted } from 'vue'
+
 const mainStore = useMainStore()
 
 const props = defineProps({
@@ -155,7 +149,7 @@ const setCollectByCoin = () => {}
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: .373333rem .373333rem 0;
+    padding: 0.373333rem 0.373333rem 0;
     background: #161a33;
 
     .secondLeft {

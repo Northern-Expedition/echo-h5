@@ -4,11 +4,7 @@
       <div class="first">
         <!-- 打开弹窗 -->
         <div class="firLeft">
-          <svg-load
-            name="cebian17x14"
-            class="firLeftImg"
-            @click="emits('showSidePopup')"
-          ></svg-load>
+          <svg-load name="cebian17x14" class="firLeftImg" @click="emits('showSidePopup')" />
           <div class="fw-bold">{{ coinInfo.showSymbol }}</div>
           <div
             :class="[
@@ -25,12 +21,8 @@
             name="k-xian"
             class="senLeftImg"
             @click="$router.push(`/detail?symbol=${coinInfo.coin}&type=1`)"
-          ></svg-load>
-          <svg-load
-            name="guize"
-            class="senLeftImg"
-            @click="_toView('/tradingRules?type=1')"
-          ></svg-load>
+          />
+          <svg-load name="guize" class="senLeftImg" @click="_toView('/tradingRules?type=1')" />
           <!-- <svg-load
             v-if="mainStore.hasOption"
             @click="setCollectByCoin"
@@ -43,10 +35,11 @@
   </div>
 </template>
 <script setup>
+import { useMainStore } from '@/store/index.js'
 import { useTradeStore } from '@/store/trade'
 import { countFormat, priceFormat } from '@/utils/decimal'
 import { _t18 } from '@/utils/public'
-import { useMainStore } from '@/store/index.js'
+
 const mainStore = useMainStore()
 
 const props = defineProps({

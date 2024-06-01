@@ -1,9 +1,9 @@
 <template>
   <div class="list">
     <div
-      class="item"
       v-for="item in listArray.filter((item) => item.isOpen)"
       :key="item.icon"
+      class="item"
       @click="toView(item)"
     >
       <image-load :filePath="item.logoUrl" alt="" class="itemImg" />
@@ -12,20 +12,23 @@
         <div v-if="item.key == 'language'">{{ _t18(`language_key`) }}</div>
         <div v-else>{{ _t18(`sidebar_${item.key}`, ['bitmake', 'paxpay', 'aams']) }}</div>
         <div class="right_tip">
-          <svg-load name="jiantou-y" class="rightImg"></svg-load>
+          <svg-load name="jiantou-y" class="rightImg" />
         </div>
       </div>
     </div>
   </div>
 </template>
 <script setup>
-import { noticeList, getWhitePaperUrl } from '@/api/common/index'
+import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
+
+import { getWhitePaperUrl, noticeList } from '@/api/common/index'
+import { useToast } from '@/hook/useToast'
 import { useMainStore } from '@/store/index.js'
+import { useUserStore } from '@/store/user/index'
 // import { getCurrentInstance } from "vue";
 import { _t18, _toView } from '@/utils/public'
-import { useUserStore } from '@/store/user/index'
-import { storeToRefs } from 'pinia'
-import { useToast } from '@/hook/useToast'
+
 const { _toast } = useToast()
 
 const userStore = useUserStore()
@@ -35,7 +38,6 @@ if (userStore.isSign) {
 
 // 用户信息
 const { userInfo } = storeToRefs(userStore)
-import { useRouter } from 'vue-router'
 const router = useRouter()
 // const _this = getCurrentInstance().appContext.config.globalProperties
 const mainStore = useMainStore()

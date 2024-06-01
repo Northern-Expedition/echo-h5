@@ -25,9 +25,9 @@
             :key="index"
             :currencyItem="item"
             @click="linkTo(item)"
-          ></CurrencyItem>
+          />
         </div>
-        <Nodata v-else></Nodata>
+        <Nodata v-else />
       </div>
       <div v-if="showTab === 1 && headerList[1].show">
         <div v-if="currentCoinList1.length">
@@ -36,9 +36,9 @@
             :key="index"
             :currencyItem="item"
             @click="linkTo(item)"
-          ></CurrencyItem>
+          />
         </div>
-        <Nodata v-else></Nodata>
+        <Nodata v-else />
       </div>
       <div v-if="showTab === 2 && headerList[2].show">
         <div v-if="currentCoinList2">
@@ -47,19 +47,21 @@
             :key="index"
             :currencyItem="item"
             @click="linkTo(item)"
-          ></CurrencyItem>
+          />
         </div>
-        <Nodata v-else></Nodata>
+        <Nodata v-else />
       </div>
     </div>
   </div>
 </template>
 <script setup>
-import CurrencyItem from '@/components/CurrencyList/currencyItem.vue'
-import { useTradeStore } from '@/store/trade/index'
-import { useMainStore } from '@/store/index.js'
 import { useRouter } from 'vue-router'
+
+import CurrencyItem from '@/components/CurrencyList/currencyItem.vue'
+import { useMainStore } from '@/store/index.js'
+import { useTradeStore } from '@/store/trade/index'
 import { _t18 } from '@/utils/public'
+
 const tradeStore = useTradeStore()
 const mainStroe = useMainStore()
 const $router = useRouter()

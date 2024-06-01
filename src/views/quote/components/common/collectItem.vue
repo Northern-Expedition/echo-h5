@@ -39,8 +39,9 @@
 </template>
 
 <script setup>
-import { priceFormat } from '@/utils/decimal.js'
 import { useTradeStore } from '@/store/trade'
+import { priceFormat } from '@/utils/decimal.js'
+
 const tradeStore = useTradeStore()
 const props = defineProps({
   collectItem: {

@@ -1,25 +1,26 @@
 <!-- 登录 -->
 <template>
-  <Header :type="0"></Header>
+  <Header :type="0" />
   <div class="loginMethod">
     <van-tabs v-model:active="active" animated>
       <van-tab v-for="(item, index) in tabList" :key="index">
         <template #title>
           <div :class="['tab-item', active == index ? 'atv' : '']">{{ item.title }}</div>
         </template>
-        <component :is="currentComponent"></component>
+        <component :is="currentComponent" />
       </van-tab>
     </van-tabs>
   </div>
 </template>
 
 <script setup>
+import { useMainStore } from '@/store/index.js'
 import { _t18 } from '@/utils/public'
-import Header from './components/signHeader.vue'
+
 import AccountLogin from './components/sign-in/AccountLogin.vue'
 import EmailLogin from './components/sign-in/EmailLogin.vue'
 import MobileLogin from './components/sign-in/MobileLogin.vue'
-import { useMainStore } from '@/store/index.js'
+import Header from './components/signHeader.vue'
 /**
  * 登录注册方式
  * [{ id: 1, title: '账号登录', type: 1 },{ id: 2, title: '邮箱登录', type: 2 },{ id: 3, title: '手机登录', type: 3 }]

@@ -6,7 +6,7 @@
       class="listItem"
       :class="showLeftImg ? 'itemP' : 'itemNormal'"
     >
-      <LeftItem :showLeftImg="showLeftImg" :data="item"></LeftItem>
+      <LeftItem :showLeftImg="showLeftImg" :data="item" />
       <div class="center fw-num">
         <div>{{ tradeStore.allCoinPriceInfo[item.coin].close }}</div>
         <!-- <div class="centetBottom">-1.45%</div> -->
@@ -30,6 +30,7 @@
 <script setup>
 import LeftItem from '@/components/CurrencyList/left.vue'
 import { useTradeStore } from '@/store/trade'
+
 const props = defineProps({
   showLeftImg: {
     type: Boolean,

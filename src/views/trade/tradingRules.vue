@@ -8,16 +8,18 @@
 <template>
   <HeaderBar :currentName="currentName" />
   <div class="itemDetailObj" v-html="currentHtml"></div>
-  <Nodata v-if="!currentHtml"></Nodata>
+  <Nodata v-if="!currentHtml" />
 </template>
 <script setup>
-import { useMainStore } from '@/store/index'
-const mainStore = useMainStore()
 import { computed, onMounted, ref } from 'vue'
-import { rulesList } from '@/api/common/index'
 import { useRoute } from 'vue-router'
+
+import { rulesList } from '@/api/common/index'
+import { useMainStore } from '@/store/index'
 import { _t18 } from '@/utils/public'
-onMounted(()=>{
+
+const mainStore = useMainStore()
+onMounted(() => {
   mainStore.setTradeFlag(mainStore.tradeFlag + mainStore.isOption)
 })
 const $route = useRoute()
@@ -45,9 +47,11 @@ const getList = async (type) => {
     const res = await rulesList(type)
     if (res.code === 200) {
       currentHtml.value = res.data[0].content
-      currentName.value=res.data[0].title||currentName2.value
+      currentName.value = res.data[0].title || currentName2.value
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
 onMounted(() => {
   // 0 秒合约 1 币币 2 U本位

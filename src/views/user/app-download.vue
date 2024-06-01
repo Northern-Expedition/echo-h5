@@ -12,7 +12,7 @@ const currentComponent = computed(() => {
 })
 </script>
 <template>
-  <component :is="currentComponent"></component>
+  <component :is="currentComponent" />
 </template>
 
 <style lang="scss" scoped></style>

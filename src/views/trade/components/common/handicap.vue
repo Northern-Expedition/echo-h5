@@ -19,13 +19,13 @@
     </div>
 
     <div class="leftList">
-      <div class="itemList asks" v-show="showType.value != 2">
+      <div v-show="showType.value != 2" class="itemList asks">
         <!-- 卖出盘 -->
         <div
-          class="item"
           v-for="(item, index) in rows"
-          @click="emits('setTradePrice', asksList[index]?.price)"
           :key="`asks${index}`"
+          class="item"
+          @click="emits('setTradePrice', asksList[index]?.price)"
         >
           <div class="fall fw-num">{{ priceFormat(asksList[index]?.price) }}</div>
           <div class="itemName fw-num">{{ countFormat(asksList[index]?.count) }}</div>
@@ -50,12 +50,12 @@
         </div>
         <div class="">≈${{ tradeDetailInfo?.close }}</div>
       </div>
-      <div class="itemList" v-show="showType.value != 1">
+      <div v-show="showType.value != 1" class="itemList">
         <!-- 买入盘 -->
         <div
-          class="item itemHight"
           v-for="(item, index) in rows"
           :key="`bids${index}`"
+          class="item itemHight"
           @click="emits('setTradePrice', bidsList[index]?.price)"
         >
           <div class="rise fw-num">{{ priceFormat(bidsList[index]?.price) }}</div>
@@ -74,28 +74,28 @@
       <!-- 盘口深度 -->
       <div class="bottomLeft" @click="showDepthPopup = true">
         <div class="fw-num">{{ showDepth?.label }}</div>
-        <svg-load name="jiantou10x5-x" class="img"></svg-load>
+        <svg-load name="jiantou10x5-x" class="img" />
       </div>
       <!-- 展示盘口 -->
       <div class="bottomRight" @click="showTypePopup = true">
         <!-- 默认 -->
-        <svg-load :name="showType.icon" class="img"></svg-load>
+        <svg-load :name="showType.icon" class="img" />
       </div>
     </div>
     <!-- 选择聚合深度 -->
     <PublicPopup
       :show="showDepthPopup"
-      @handelClose="showDepthPopup = false"
       :direction="`bottom`"
       :showHeader="false"
       :empty="false"
+      @handel-close="showDepthPopup = false"
     >
       <template #emptyContentCustomize>
         <div class="bbList">
           <div
-            class="item"
             v-for="item in showDepthList"
             :key="item.value"
+            class="item"
             :style="showDepth.label === item.label ? 'color:var(--ex-font-color2)' : ''"
             @click="_checkedShowDepth(item)"
           >
@@ -107,17 +107,17 @@
     <!-- 展示盘 -->
     <PublicPopup
       :show="showTypePopup"
-      @handelClose="showTypePopup = false"
       :direction="`bottom`"
       :showHeader="false"
       :empty="false"
+      @handel-close="showTypePopup = false"
     >
       <template #emptyContentCustomize>
         <div class="bbList">
           <div
-            class="item"
             v-for="item in showTypeList"
             :key="item.value"
+            class="item"
             :style="showType.value === item.value ? 'color:var(--ex-font-color2)' : ''"
             @click="_checkedShowType(item)"
           >
@@ -130,15 +130,16 @@
 </template>
 
 <script setup>
+import _ from 'lodash'
+import PubSub from 'pubsub-js'
+import { computed, reactive, watch } from 'vue'
+
 import PublicPopup from '@/components/Popup/public.vue'
 import { socketDict } from '@/config/dict'
-import PubSub from 'pubsub-js'
-import { _add, _sub, _div, _toFixed, _mul, countFormat, priceFormat } from '@/utils/decimal'
-import _ from 'lodash'
-import { _t18 } from '@/utils/public'
 import { useTradeStore } from '@/store/trade'
-import { watch, computed, reactive } from 'vue'
+import { _add, _div, _mul, _sub, _toFixed, countFormat, priceFormat } from '@/utils/decimal'
 import { matchText } from '@/utils/filters'
+import { _t18 } from '@/utils/public'
 
 const emits = defineEmits(['setTradePrice'])
 const props = defineProps({

@@ -26,24 +26,24 @@
     </van-tabs>
   </div>
   <!-- 三条数据已收集 -->
-  <div class="tabsThree" v-show="currentIndex === 0">
+  <div v-show="currentIndex === 0" class="tabsThree">
     <div
-      class="item"
-      :class="threeIndex === index ? 'itemHight' : ''"
       v-for="(item, index) in threeList"
       :key="index"
+      class="item"
+      :class="threeIndex === index ? 'itemHight' : ''"
       @click="chooseThree(index)"
     >
       {{ item.name }}
     </div>
   </div>
   <!-- 2条数据报价 -->
-  <div class="tabsTwo" v-show="currentIndex === 2">
+  <div v-show="currentIndex === 2" class="tabsTwo">
     <div
-      class="item"
-      :class="twoIndex === index ? 'itemHight' : ''"
       v-for="(item, index) in twoList"
       :key="index"
+      class="item"
+      :class="twoIndex === index ? 'itemHight' : ''"
       @click="chooseTwo(index)"
     >
       {{ item.name }}
@@ -92,15 +92,15 @@
     </FooterList>
   </footer>
   <!-- 交易历史 -->
-  <div class="transactionHistory" v-show="currentIndex === 3">
-    <HistoryItem @click="$router.push('/nftDetail')"></HistoryItem>
+  <div v-show="currentIndex === 3" class="transactionHistory">
+    <HistoryItem @click="$router.push('/nftDetail')" />
   </div>
   <!-- 上架 -->
   <OverlayPulic :show="groundingShow" :z-index="999">
     <template #contentCustomize>
       <div class="beCurrent">
         <div>上架</div>
-        <svg-load class="closeSvg" name="guanbi" @click="groundingShow = false"></svg-load>
+        <svg-load class="closeSvg" name="guanbi" @click="groundingShow = false" />
       </div>
       <div class="quotationOver">
         <div class="signing">
@@ -116,8 +116,8 @@
                 <template #reference>
                   <div class="entrustSelect left">
                     <div>USDT</div>
-                    <svg-load v-show="!showPopover" name="jiantou10x5-x" class="img"></svg-load>
-                    <svg-load v-show="showPopover" name="jiantou10x5-s" class="img"></svg-load>
+                    <svg-load v-show="!showPopover" name="jiantou10x5-x" class="img" />
+                    <svg-load v-show="showPopover" name="jiantou10x5-s" class="img" />
                     <div class="line"></div>
                   </div>
                 </template>
@@ -130,7 +130,7 @@
           <div class="title ff-num marginTop">上架有效期至</div>
           <div class="periodValidity" @click="showDateOverlay = true">
             <div>2023-08-15 16:19</div>
-            <svg-load class="dateSvg" name="rili"></svg-load>
+            <svg-load class="dateSvg" name="rili" />
           </div>
           <div class="buttonlist">
             <div class="item" @click="groundingShow = false">取消</div>
@@ -143,18 +143,18 @@
   <!-- 日期时间组件 -->
   <PublicPopup :show="showDateOverlay" :direction="`bottom`" :showHeader="false">
     <template #contentCustomize>
-      <div class="dateSelect" v-show="showSwtich">
+      <div v-show="showSwtich" class="dateSelect">
         <van-date-picker
           v-model="currentDate"
           title="选择日期"
           :cancel-button-text="`取消`"
           :confirm-button-text="`确认`"
+          :columns-type="['day', 'month', 'year']"
           @confirm="confirmDate"
           @cancel="cancelDate"
-          :columns-type="['day', 'month', 'year']"
         />
       </div>
-      <div class="dateSelect" v-show="!showSwtich">
+      <div v-show="!showSwtich" class="dateSelect">
         <van-time-picker
           v-model="currentTime"
           title="选择时间"
@@ -172,15 +172,15 @@
     <template #contentCustomize>
       <div class="beCurrent">
         <div>{{ '上架' }}</div>
-        <svg-load class="closeSvg" name="guanbi" @click="successfulGrounding = false"></svg-load>
+        <svg-load class="closeSvg" name="guanbi" @click="successfulGrounding = false" />
       </div>
-      <svg-load class="successImg" name="chenggong"></svg-load>
+      <svg-load class="successImg" name="chenggong" />
       <div class="successText">{{ '上架成功' }}</div>
       <ItemRow
         :currentImg="successList.rowUrl"
         :rightList="successList.rowRight"
         :bottomList="successList.rowBottom"
-      ></ItemRow>
+      />
     </template>
   </OverlayPulic>
   <Dialog
@@ -188,12 +188,12 @@
     :title="``"
     :content="``"
     confirm-button-color="#613af1"
-    @cancelBtn="cancelBtn"
-    @confirmBtn="confirmBtn"
     :confirmButtonText="_t18('btnConfirm', ['bitmake'])"
     :cancelButtonText="_t18('cancel')"
     z-index="200"
     :overlayStyle="{ height: '130%' }"
+    @cancel-btn="cancelBtn"
+    @confirm-btn="confirmBtn"
   >
     <template #content>
       <div class="dialogText">
@@ -204,12 +204,14 @@
   </Dialog>
 </template>
 <script setup>
+import { computed, onMounted, reactive, ref } from 'vue'
+
 import PublicPopup from '@/components/Popup/public.vue'
 import { _t18 } from '@/utils/public'
-import FooterList from '@/views/nft/components/NftList/index.vue' // 作品列表
-import HistoryItem from '@/views/nft/components/NftList/historyItem.vue' // 交易历史
 import ItemRow from '@/views/nft/components/NftDetail/itemRow.vue' // 弹窗的每一行展示内容
-import { ref, onMounted, reactive, computed } from 'vue'
+import HistoryItem from '@/views/nft/components/NftList/historyItem.vue' // 交易历史
+import FooterList from '@/views/nft/components/NftList/index.vue'
+// 作品列表
 let currentIndex = ref(0)
 const showPopover = ref(false) // 签约币种报价flag
 const headerList = computed(() => {
@@ -464,7 +466,7 @@ footer {
     background: var(--ex-div-bgColor10);
   }
   .bottomButtonHight {
-    background-color: var(--ex-div-bgColor1)!important;
+    background-color: var(--ex-div-bgColor1) !important;
     color: var(--ex-font-color) !important;
   }
 }
