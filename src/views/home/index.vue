@@ -65,8 +65,6 @@ const showAd = ref(true)
 const getIsMock = computed(() => userStore.userInfo.user?.type === '2')
 onMounted(() => {
   mainStore.getSettingConfig()
-  console.log(localStorage.getItem(storageDict.LANGUAGE))
-  mainStore.setLanguage(localStorage.getItem(storageDict.LANGUAGE))
 })
 const { asset } = storeToRefs(userStore)
 const assetDetails = computed(() => {
