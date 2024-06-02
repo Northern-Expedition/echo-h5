@@ -57,7 +57,7 @@ import Footer from './components/FrontPage/footer.vue'
 import Header from './components/FrontPage/header.vue'
 import HeaderDiff from './components/FrontPage/headerDiff.vue'
 import Menu from './components/FrontPage/menu.vue'
-
+import { storageDict } from '@/config/dict'
 const userStore = useUserStore()
 
 const mainStore = useMainStore()
@@ -65,7 +65,8 @@ const showAd = ref(true)
 const getIsMock = computed(() => userStore.userInfo.user?.type === '2')
 onMounted(() => {
   mainStore.getSettingConfig()
-  mainStore.setLanguage('en')
+  console.log(localStorage.getItem(storageDict.LANGUAGE))
+  mainStore.setLanguage(localStorage.getItem(storageDict.LANGUAGE))
 })
 const { asset } = storeToRefs(userStore)
 const assetDetails = computed(() => {
