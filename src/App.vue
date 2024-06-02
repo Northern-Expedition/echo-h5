@@ -16,8 +16,6 @@ import { storageDict } from '@/config/dict'
 import { getShowDefiActivityNoticeApi } from './api/defi'
 import { useToast } from './hook/useToast'
 
-
-
 const router = useRouter()
 
 /**
@@ -188,12 +186,6 @@ onMounted(() => {
   document.addEventListener('event_serviceChange', event_serviceChange)
   document.addEventListener('event_userInfoChange', event_userInfoChange)
   document.addEventListener('event_freezePopup', event_freezePopup)
-
-  let lang = localStorage.getItem(storageDict.LANGUAGE)
-  lang = lang||'en'
-  localStorage.setItem(storageDict.LANGUAGE,lang)
-  mainStroe.setLanguage(lang)
-
 })
 onUnmounted(() => {
   document.removeEventListener('event_toastChange', event_toastChange)
