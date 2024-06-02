@@ -243,8 +243,8 @@ const toRecharge = () => {
       justify-content: flex-start;
     }
     &-img {
-      width: 1.44rem;
-      height: 1.44rem;
+      width: 0.8rem;
+      height: 0.8rem;
       margin-bottom: 0.266667rem;
     }
     .grid-text {

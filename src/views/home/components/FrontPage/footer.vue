@@ -7,7 +7,12 @@
       <h1 :class="showTab===1?'active title':'title'" @click="handelShowTab(1)">外汇币种<i></i></h1>
     </div> -->
     <div class="headerChoose">
-      <van-tabs v-model:active="showTab" swipeable @click-tab="handelShowTab(showTab)">
+      <van-tabs
+        v-model:active="showTab"
+        swipeable
+        @click-tab="handelShowTab(showTab)"
+        :ellipsis="false"
+      >
         <van-tab v-for="(item, index) in headerList" :key="index">
           <template #title>
             <div v-if="item.show" class="tab-item" :class="showTab === index ? 'atv' : ''">

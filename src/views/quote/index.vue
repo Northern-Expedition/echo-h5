@@ -14,7 +14,7 @@
     </van-field>
     <!-- tabs -->
 
-    <div class="simulate" @click="clickMock">
+    <!-- <div class="simulate" @click="clickMock">
       <div class="left_tips">
         <div class="tips_assets text-ellipsis2">交易账户暂无资产</div>
         <div class="tips_sel">您可以尝试模拟交易</div>
@@ -24,7 +24,7 @@
         <img src="@/assets/quote/quan.png" class="img right_btn-bg" />
       </div>
       <img src="@/assets/quote/simulate.png" class="img simulate-bg" />
-    </div>
+    </div> -->
     <div class="headerChoose">
       <van-tabs
         v-model:active="currentIndex"

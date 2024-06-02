@@ -219,10 +219,11 @@
     <!-- 订单信息 -->
     <OrderListBox ref="orderListBoxRef" :coinInfo="coinInfo" :availableBalance="availableBalance" />
   </div>
+  <!-- 
   <div v-if="isShow.availableAmount <= 0" class="start_sim" @click="handlejiaoyi">
     <div class="start_btn">开启模拟交易</div>
-         
   </div>
+-->
 </template>
 
 <script setup>

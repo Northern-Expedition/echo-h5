@@ -1,10 +1,10 @@
 <template>
   <div>
-    <van-tabs v-model:active="tabActive" animated @click-tab="clickTab">
+    <van-tabs v-model:active="tabActive" :ellipsis="false" animated @click-tab="clickTab">
       <van-tab v-for="(item, index) in tabList" :key="index" :title="item.keyStr" :name="item.name">
         <template #title>
           <div class="tab-item" :class="curIndex2 === index ? 'atv' : ''">
-            {{ item.name }}
+            {{ handleName(item) }}
           </div>
         </template>
       </van-tab>
@@ -81,7 +81,15 @@ const tabList = computed(() => {
 })
 
 const tabActive = ref(tabList.value[0]?.name || '')
-
+const handleName = (item) => {
+  if (item.name === '平台资产') {
+    return _t18(item.keyStr, ['latcoin'])
+  } else if (item.name === '理财资产') {
+    return _t18(item.keyStr, ['paxpay', 'latcoin'])
+  } else if (item.name === '合约资产') {
+    return _t18(item.keyStr, ['paxpay', 'latcoin'])
+  }
+}
 /**
  * 账户信息
  */

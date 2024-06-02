@@ -12,7 +12,7 @@
           <svg-load name="jiantou-z" class="leftImg" @click="_back()" />
         </div>
         <div class="headerChoose">
-          <van-tabs v-model:active="currentIndex" swipeable>
+          <van-tabs v-model:active="currentIndex" swipeable :ellipsis="false">
             <van-tab v-for="(item, index) in headerList" :key="index">
               <template #title>
                 <div class="tab-item" :class="currentIndex === index ? 'atv' : ''">
