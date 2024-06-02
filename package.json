@@ -30,6 +30,7 @@
     "pubsub-js": "^1.9.4",
     "qrcode": "^1.5.3",
     "quicklink": "^2.3.0",
+    "rollup-plugin-terser": "^7.0.2",
     "uuid": "^9.0.0",
     "vant": "^4.5.0",
     "vue": "^3.3.4",

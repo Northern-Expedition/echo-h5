@@ -1,18 +1,19 @@
 import { fileURLToPath, URL } from 'node:url'
-import { defineConfig, splitVendorChunkPlugin } from 'vite'
+
+import legacy from '@vitejs/plugin-legacy'
 import vue from '@vitejs/plugin-vue'
-import Components from 'unplugin-vue-components/vite'
+import autoprefixer from 'autoprefixer'
+import postCssPxToRem from 'postcss-pxtorem'
+import nodePolyfills from 'rollup-plugin-polyfill-node'
 import AutoImport from 'unplugin-auto-import/vite'
+import { VantResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
+import ViteCompressionPlugin from 'vite-plugin-compression'
 import OptimizationPersist from 'vite-plugin-optimize-persist'
 import PkgConfig from 'vite-plugin-package-config'
 
-import postCssPxToRem from 'postcss-pxtorem'
-import autoprefixer from 'autoprefixer'
-import { VantResolver } from 'unplugin-vue-components/resolvers'
-import nodePolyfills from 'rollup-plugin-polyfill-node'
 import { customHtmlPlugin } from './vite.html.plugin.js'
-import ViteCompressionPlugin from 'vite-plugin-compression'
-import legacy from '@vitejs/plugin-legacy'
 
 export default ({ mode }) =>
   defineConfig({
@@ -52,8 +53,8 @@ export default ({ mode }) =>
         algorithm: 'gzip',
         // ext: '.gz',
         disable: true,
-        verbose:false,
-        deleteOriginFile:false
+        verbose: false,
+        deleteOriginFile: false
       })
     ],
     server: {
@@ -119,7 +120,7 @@ export default ({ mode }) =>
       // 启用/禁用 CSS 代码拆分
       cssCodeSplit: true,
       // 构建后是否生成 source map 文件
-      sourcemap: false,
+      sourcemap: true,
       // 构建后是否混淆代码
       minify: 'terser',
       // 传递给 Terser 的更多 minify 选项
@@ -128,8 +129,8 @@ export default ({ mode }) =>
         toplevel: true,
         module: true,
         compress: {
-          drop_console: true,
-          drop_debugger: true
+          drop_console: false,
+          drop_debugger: false
         },
         format: {
           comments: false
@@ -171,6 +172,6 @@ export default ({ mode }) =>
           }
           // 返回 null 或 undefined 表示不进行预加载
         }
-      }
+      },
     }
   })
