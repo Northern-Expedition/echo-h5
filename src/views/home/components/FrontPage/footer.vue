@@ -10,8 +10,8 @@
       <van-tabs
         v-model:active="showTab"
         swipeable
-        @click-tab="handelShowTab(showTab)"
         :ellipsis="false"
+        @click-tab="handelShowTab(showTab)"
       >
         <van-tab v-for="(item, index) in headerList" :key="index">
           <template #title>

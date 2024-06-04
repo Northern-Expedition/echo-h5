@@ -102,7 +102,7 @@ const dataList = computed(() => {
 
 function openWindow() {
   const url = mainStroe.settingConfig?.SUPPORT_STAFF_SETTING?.[0]?.url
-  window.location.href = window.location.origin + '/' + url
+  window.location.href = url
 }
 
 const linkTo = (item) => {

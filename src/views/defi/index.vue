@@ -103,7 +103,7 @@ const getUserInvestment = async () => {
 /**弹窗内容 */
 const getPopupContent = async () => {
   const res = await rulesList('DEFI_EXPLAIN')
-  if ((res.code == '200')) {
+  if (res.code == '200') {
     popupContent.value = res.data
   }
 }
@@ -112,7 +112,7 @@ const showNoticeContent = ref({})
 /**进入弹窗内容 */
 const getOpenPopupContent = async () => {
   const res = await publiceNotice('POP_UPS_NOTICE', 'DEFI_POP_UPS_NOTICE')
-  if ((res.code == '200')) {
+  if (res.code == '200') {
     if (res.data.length) {
       showNotice.value = true
       showNoticeContent.value = res.data[0]

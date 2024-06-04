@@ -402,6 +402,10 @@ const toRecharge = () => {
     .van-tabs__line {
       width: 0px;
     }
+
+    .van-tabs__wrap {
+      overflow: scroll;
+    }
   }
 }
 .showNoticeContent {

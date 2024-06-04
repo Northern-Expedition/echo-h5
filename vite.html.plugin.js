@@ -20,7 +20,7 @@ const generateHtml = (html, envObj) => {
   let description = envObj['VITE_APP_META_DESCRIPTION']
   // 获取 当前平台
   // let platform = envObj['VITE_APP_ENV']
-  let platform = "dev"
+  let platform = 'dev'
   // 获取 当前版本
   let version = `2.0.${+new Date()}`
 

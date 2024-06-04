@@ -47,6 +47,7 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 
+import { storageDict } from '@/config/dict'
 import { DIFF_FREEZE_ASSETS, DIFF_HOME_BANNER } from '@/config/index'
 import { useMainStore } from '@/store/index.js'
 import { useUserStore } from '@/store/user/index'
@@ -57,7 +58,7 @@ import Footer from './components/FrontPage/footer.vue'
 import Header from './components/FrontPage/header.vue'
 import HeaderDiff from './components/FrontPage/headerDiff.vue'
 import Menu from './components/FrontPage/menu.vue'
-import { storageDict } from '@/config/dict'
+
 const userStore = useUserStore()
 
 const mainStore = useMainStore()

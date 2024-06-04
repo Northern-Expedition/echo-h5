@@ -223,8 +223,7 @@
   <div v-if="isShow.availableAmount <= 0" class="start_sim" @click="handlejiaoyi">
     <div class="start_btn">开启模拟交易</div>
   </div>
--->
-</template>
+--></template>
 
 <script setup>
 import PubSub from 'pubsub-js'
