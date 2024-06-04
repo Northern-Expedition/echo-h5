@@ -1,5 +1,6 @@
 <template>
   <van-action-sheet
+    teleport="body"
     v-model:show="props.show"
     title=""
     style="max-width: var(--ex-max-width); left: 50%; translate: -50%; max-height: 60%"
